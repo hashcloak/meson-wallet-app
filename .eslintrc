@@ -110,7 +110,13 @@
     "react/no-string-refs": "error",
     "react/prefer-stateless-function": "error",
     "react/prop-types": "off",
-    "react/self-closing-comp": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
     "react/destructuring-assignment": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "react-hooks/rules-of-hooks": "error",
