@@ -1,8 +1,16 @@
 import { theme } from '../../utils/theme'
 
 type Props = {
-  btnVariant: 'primary' | 'warning' | 'text' | 'disable'
-  btnSize: 'sm' | 'md' | 'lg'
+  btnVariant:
+    | 'primary'
+    | 'warning'
+    | 'text'
+    | 'disable'
+    | 'borderDark'
+    | 'borderLight'
+    | 'specialDark'
+
+  btnSize: 'sm' | 'md' | 'lg' | 'sp'
   btnType: 'button' | 'submit'
   disabled?: boolean
   handleClick?: () => void

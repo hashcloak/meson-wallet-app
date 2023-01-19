@@ -18,9 +18,9 @@ module.exports = {
       bgGray: '#E5E5E5',
       bgGrayMid: '#F2F2F2',
       bgGrayLight: '#F9F9F9',
-      bgDark: '#202020',
-      bgDarkMid: '#0F0F0F',
-      bgDarkLight: '#181818',
+      bgDark: '#1D1D1D',
+      bgDarkMid: '#2C2C2C',
+      bgDarkLight: '#373737',
 
       borderGray: '#E5E5E5',
     },

@@ -17,11 +17,11 @@ export const ButtonSamples = (): React.ReactElement => {
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'sm'}>
-        <div className='flex flex-row'>
+        <div className='flex flex-row flex-wrap w-full'>
           {variants.map((variant: any) => (
             <div key={variant} className='m-4'>
               <Button
-                btnType='submit'
+                btnType='button'
                 btnVariant={variant}
                 btnSize='sm'
                 disabled={variant === 'disable' ? true : false}
@@ -34,11 +34,11 @@ export const ButtonSamples = (): React.ReactElement => {
         </div>
       </DisplayBox>
       <DisplayBox title={'md'}>
-        <div className='flex flex-row'>
+        <div className='flex flex-row flex-wrap w-full'>
           {variants.map((variant: any) => (
             <div key={variant} className='m-4'>
               <Button
-                btnType='submit'
+                btnType='button'
                 btnVariant={variant}
                 btnSize='md'
                 disabled={variant === 'disable' ? true : false}
@@ -50,11 +50,11 @@ export const ButtonSamples = (): React.ReactElement => {
         </div>
       </DisplayBox>
       <DisplayBox title={'lg'}>
-        <div className='flex flex-row'>
+        <div className='flex flex-row flex-wrap w-full'>
           {variants.map((variant: any) => (
             <div key={variant} className='m-4'>
               <Button
-                btnType='submit'
+                btnType='button'
                 btnVariant={variant}
                 btnSize='lg'
                 disabled={variant === 'disable' ? true : false}
@@ -63,6 +63,20 @@ export const ButtonSamples = (): React.ReactElement => {
               </Button>
             </div>
           ))}
+        </div>
+      </DisplayBox>
+      <DisplayBox title={'special button'}>
+        <div className='flex flex-row flex-wrap w-full'>
+          <div className='m-4'>
+            <Button
+              btnType='button'
+              btnVariant='specialDark'
+              btnSize='sp'
+              disabled={true}
+            >
+              Submit
+            </Button>
+          </div>
         </div>
       </DisplayBox>
     </div>

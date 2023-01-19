@@ -6,12 +6,18 @@ export const theme = {
       warning:
         'transition bg-warning text-textWhite hover:opacity-70 hover:border-none ',
       text: 'transition text-textLink hover:text-dark hover:border-none ',
+      borderDark:
+        'transition border border-bgDark text-textBlack hover:border-none hover:bg-bgDark hover:text-textWhite',
+      borderLight:
+        'transition border border-bgGray text-textWhite hover:border-none hover:bg-bgGray hover:text-textBlack',
+      specialDark: 'transition bg-bgDarkMid hover:bg-dark text-textWhite',
       disable: 'bg-bgGray text-textGray',
     },
     sizes: {
-      sm: 'w-[80px] h-[24px] text-xs',
-      md: 'w-[160px] h-[32px] text-sm',
-      lg: 'w-[200px] h-[40px] text-base',
+      sm: 'w-[5rem] h-[1.5rem] text-xs',
+      md: 'w-[10rem] h-[2rem] text-sm',
+      lg: 'w-[12.5rem] h-[2.5rem] text-base',
+      sp: 'w-[25rem] h-[4.5rem] text-2xl font-bold',
     },
   },
   colors: {
@@ -30,9 +36,9 @@ export const theme = {
     bgGray: '#E5E5E5',
     bgGrayMid: '#F2F2F2',
     bgGrayLight: '#F9F9F9',
-    bgDark: '#202020',
-    bgDarkMid: '#0F0F0F',
-    bgDarkLight: '#181818',
+    bgDark: '#1D1D1D',
+    bgDarkMid: '#2C2C2C',
+    bgDarkLight: '#373737',
 
     borderGray: '#E5E5E5',
   },
