@@ -1,8 +1,17 @@
 export const theme = {
   buttons: {
-    size: {
-      md: { height: '36px', minWidth: '130px', padding: '0 24px' },
-      lg: { height: '52px', minWidth: '240px', padding: '0 48px' },
+    variants: {
+      primary:
+        'transition bg-main text-textWhite hover:bg-dark hover:border-none ',
+      warning:
+        'transition bg-warning text-textWhite hover:opacity-70 hover:border-none ',
+      text: 'transition text-textLink hover:text-dark hover:border-none ',
+      disable: 'bg-bgGray text-textGray',
+    },
+    sizes: {
+      sm: 'w-[80px] h-[24px] text-xs',
+      md: 'w-[160px] h-[32px] text-sm',
+      lg: 'w-[200px] h-[40px] text-base',
     },
   },
   colors: {

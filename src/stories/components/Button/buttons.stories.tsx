@@ -1,0 +1,70 @@
+import { action } from '@storybook/addon-actions'
+
+import { theme } from '../../utils/theme'
+
+import Button from './Button'
+
+import { DisplayBox } from '~/utils/DisplayBox'
+
+export default {
+  title: 'Components/Buttons',
+  component: Button,
+}
+
+export const ButtonSamples = (): React.ReactElement => {
+  const variants = Object.keys(theme.buttons.variants)
+
+  return (
+    <div className='flex flex-row w-screen flex-wrap'>
+      <DisplayBox title={'sm'}>
+        <div className='flex flex-row'>
+          {variants.map((variant: any) => (
+            <div key={variant} className='m-4'>
+              <Button
+                btnType='submit'
+                btnVariant={variant}
+                btnSize='sm'
+                disabled={variant === 'disable' ? true : false}
+                handleClick={action('clicked')}
+              >
+                Submit
+              </Button>
+            </div>
+          ))}
+        </div>
+      </DisplayBox>
+      <DisplayBox title={'md'}>
+        <div className='flex flex-row'>
+          {variants.map((variant: any) => (
+            <div key={variant} className='m-4'>
+              <Button
+                btnType='submit'
+                btnVariant={variant}
+                btnSize='md'
+                disabled={variant === 'disable' ? true : false}
+              >
+                Submit
+              </Button>
+            </div>
+          ))}
+        </div>
+      </DisplayBox>
+      <DisplayBox title={'lg'}>
+        <div className='flex flex-row'>
+          {variants.map((variant: any) => (
+            <div key={variant} className='m-4'>
+              <Button
+                btnType='submit'
+                btnVariant={variant}
+                btnSize='lg'
+                disabled={variant === 'disable' ? true : false}
+              >
+                Submit
+              </Button>
+            </div>
+          ))}
+        </div>
+      </DisplayBox>
+    </div>
+  )
+}

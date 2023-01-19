@@ -87,6 +87,7 @@
         "newlines-between": "always"
       }
     ],
+
     // ES2015
     "constructor-super": "error",
     "generator-star-spacing": ["error", "after"],
