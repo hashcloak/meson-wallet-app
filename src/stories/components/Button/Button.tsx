@@ -1,14 +1,7 @@
 import { theme } from '../../utils/theme'
 
 type Props = {
-  btnVariant:
-    | 'primary'
-    | 'warning'
-    | 'text'
-    | 'disable'
-    | 'borderDark'
-    | 'borderLight'
-    | 'specialDark'
+  btnVariant: 'primary' | 'warning' | 'text' | 'disable' | 'border' | 'special'
 
   btnSize: 'sm' | 'md' | 'lg' | 'sp'
   btnType: 'button' | 'submit'

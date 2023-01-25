@@ -70,7 +70,7 @@ export const ButtonSamples = (): React.ReactElement => {
           <div className='m-4'>
             <Button
               btnType='button'
-              btnVariant='specialDark'
+              btnVariant='special'
               btnSize='sp'
               disabled={true}
             >

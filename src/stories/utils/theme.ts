@@ -2,16 +2,16 @@ export const theme = {
   buttons: {
     variants: {
       primary:
-        'transition bg-main text-textWhite hover:bg-dark hover:border-none ',
+        'transition bg-main text-textWhite hover:bg-dark hover:border-none focus:outline-none hover:outline-none active:outline-none',
       warning:
-        'transition bg-warning text-textWhite hover:opacity-70 hover:border-none ',
-      text: 'transition text-textLink hover:text-dark hover:border-none ',
-      borderDark:
-        'transition border border-bgDark text-textBlack hover:border-none hover:bg-bgDark hover:text-textWhite',
-      borderLight:
-        'transition border border-bgGray text-textWhite hover:border-none hover:bg-bgGray hover:text-textBlack',
-      specialDark: 'transition bg-bgDarkMid hover:bg-dark text-textWhite',
-      disable: 'bg-bgGray text-textGray',
+        'transition bg-warning text-textWhite hover:opacity-70 hover:border-none  focus:outline-none hover:outline-none active:outline-none',
+      text: 'transition text-textLink hover:text-dark hover:border-none focus:outline-none hover:outline-none active:outline-none',
+      border:
+        'transition border border-bgDark text-textBlack hover:border-none hover:bg-bgDark hover:text-textWhite  focus:outline-none hover:outline-none active:outline-none',
+      special:
+        'transition bg-bgDarkMid hover:bg-dark text-textWhite  focus:outline-none hover:outline-none active:outline-none',
+      disable:
+        'bg-bgGray text-textGray focus:outline-none hover:outline-none active:outline-none',
     },
     sizes: {
       sm: 'w-[5rem] h-[1.5rem] text-xs',
