@@ -9,6 +9,7 @@ import { DisplayBox } from '~/utils/DisplayBox'
 export default {
   title: 'Components/Buttons',
   component: Button,
+  argTypes: { onClick: { action: 'clicked' } },
 }
 
 export const ButtonSamples = (): React.ReactElement => {
