@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    'node_modules/daisyui/dist/**/*.js',
+    'node_modules/react-daisyui/dist/**/*.js',
+  ],
   theme: {
     colors: {
       main: '#38C6F4',
@@ -31,5 +36,5 @@ module.exports = {
       pattern: /^(.*?)/,
     },
   ],
-  plugins: [],
+  plugins: [require('daisyui')],
 }

@@ -1,9 +1,5 @@
 import { Dialog as HuiDialog } from '@headlessui/react'
-import React, { useState } from 'react'
-
-import Button from '../Button/Button'
-
-import Spacer from '~/utils/Spacer'
+import React from 'react'
 
 type Props = {
   isOpen: boolean
