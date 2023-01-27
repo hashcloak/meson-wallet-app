@@ -3,8 +3,8 @@ export const theme = {
     variants: {
       primary:
         'transition bg-main text-textWhite hover:bg-dark hover:border-none focus:outline-none hover:outline-none active:outline-none',
-      warning:
-        'transition bg-warning text-textWhite hover:opacity-70 hover:border-none  focus:outline-none hover:outline-none active:outline-none',
+      alert:
+        'transition bg-alert text-textWhite hover:opacity-70 hover:border-none  focus:outline-none hover:outline-none active:outline-none',
       text: 'transition text-textLink hover:text-dark hover:border-none focus:outline-none hover:outline-none active:outline-none',
       border:
         'transition border border-bgDark text-textBlack hover:border-none hover:bg-bgDark hover:text-textWhite  focus:outline-none hover:outline-none active:outline-none',
@@ -24,7 +24,7 @@ export const theme = {
     main: '#38C6F4',
     dark: '#1F5B92',
     light: '#FF9169',
-    warning: '#DC2626',
+    alert: '#DC2626',
 
     textBlack: '#212121',
     textGray: '#606060',
@@ -38,7 +38,7 @@ export const theme = {
     bgGrayLight: '#F9F9F9',
     bgDark: '#1D1D1D',
     bgDarkMid: '#2C2C2C',
-    bgDarkLight: '#373737',
+    bgDarkLight: '#383838',
 
     borderGray: '#E5E5E5',
   },

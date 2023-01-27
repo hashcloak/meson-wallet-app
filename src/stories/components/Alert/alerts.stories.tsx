@@ -1,7 +1,4 @@
-import { action } from '@storybook/addon-actions'
 import { useState } from 'react'
-
-import { theme } from '../../utils/theme'
 
 import Alert from './Alert'
 

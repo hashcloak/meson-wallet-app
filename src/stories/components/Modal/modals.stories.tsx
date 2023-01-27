@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Button from '../Button/Button'
 
 import Modal from './Modal'
+import TxModal from './TxModal'
 
 import { DisplayBox } from '~/utils/DisplayBox'
 
@@ -57,8 +58,8 @@ export const ModalSamples = () => {
           Modal
         </Button>
         <div className='flex flex-row flex-wrap w-full'>
-          <Modal
-            isOpen={isOpen}
+          <TxModal
+            isOpen={true}
             body={body}
             buttons={buttons}
             onClose={onClose}

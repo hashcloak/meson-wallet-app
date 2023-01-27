@@ -1,28 +1,31 @@
-import { Dialog as HuiDialog } from '@headlessui/react'
+import { Dialog } from '@headlessui/react'
 import React from 'react'
 
 type Props = {
   isOpen: boolean
   body: React.ReactElement
-  buttons: React.ReactElement
+  buttons?: React.ReactElement
   onClose: () => void
 }
 
 const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
   return (
     <>
-      <HuiDialog
+      <Dialog
         open={isOpen}
         onClose={onClose}
         className='fixed z-10 inset-0 overflow-y-auto'
       >
         <div className='flex items-center justify-center min-h-screen'>
-          <HuiDialog.Overlay className='fixed inset-0 bg-black opacity-30' />
-          <div className='relative bg-bgDarkMid rounded-2xl max-w-4xl mx-auto py-6 px-8 '>
+          <Dialog.Overlay
+            className='fixed inset-0 bg-neutral-900 opacity-30'
+            aria-hidden='true'
+          />
+          <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl max-w-4xl mx-auto py-6 px-8 '>
             <div className='flex flex-row justify-between w-full'>
-              <HuiDialog.Title className='Description-lg font-medium leading-6 text-textWhite text-2xl'>
+              <Dialog.Title className='Description-lg font-medium leading-6 text-textWhite text-2xl'>
                 Remove wallet
-              </HuiDialog.Title>
+              </Dialog.Title>
               <button onClick={onClose}>
                 <img
                   src='/close_white_24dp.svg'
@@ -31,21 +34,21 @@ const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
                 />
               </button>
             </div>
-            <HuiDialog.Description className='mt-6'>
+            <Dialog.Description className='mt-6'>
               <div className='rounded-2xl p-4 bg-bgDarkLight'>
                 {/* Description */}
                 {body}
                 {/* Description */}
               </div>
-            </HuiDialog.Description>
+            </Dialog.Description>
             <div className='flex flex-row justify-around items-center mt-6'>
               {/* Button */}
               {buttons}
               {/* Button */}
             </div>
-          </div>
+          </Dialog.Panel>
         </div>
-      </HuiDialog>
+      </Dialog>
     </>
   )
 }

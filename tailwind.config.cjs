@@ -11,7 +11,7 @@ module.exports = {
       main: '#38C6F4',
       dark: '#1F5B92',
       light: '#FF9169',
-      warning: '#DC2626',
+      alert: '#DC2626',
 
       textBlack: '#212121',
       textGray: '#606060',
@@ -25,7 +25,7 @@ module.exports = {
       bgGrayLight: '#F9F9F9',
       bgDark: '#1D1D1D',
       bgDarkMid: '#2C2C2C',
-      bgDarkLight: '#373737',
+      bgDarkLight: '#383838',
 
       borderGray: '#E5E5E5',
     },
