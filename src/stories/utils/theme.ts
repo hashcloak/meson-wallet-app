@@ -47,9 +47,19 @@ export const theme = {
     fontFamilyCode: `source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace`,
   },
   icons: {
-    size: {
+    sizes: {
       sm: '16',
-      md: '24',
+      md: '20',
+      lg: '24',
+      xl: '32',
+    },
+    colors: {
+      main: '#38C6F4',
+      dark: '#1F5B92',
+      light: '#FF9169',
+      alert: '#DC2626',
+      black: '#212121',
+      white: '#FFFFFF',
     },
   },
   identicon: {

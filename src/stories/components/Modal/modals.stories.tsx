@@ -59,7 +59,7 @@ export const ModalSamples = () => {
         </Button>
         <div className='flex flex-row flex-wrap w-full'>
           <TxModal
-            isOpen={true}
+            isOpen={isOpen}
             body={body}
             buttons={buttons}
             onClose={onClose}

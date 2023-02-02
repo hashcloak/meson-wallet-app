@@ -3,6 +3,7 @@ import React from 'react'
 
 import Button from '../Button/Button'
 import EthAddress from '../Ethereum/EthAddress'
+import { Icon } from '../Icon/Icons'
 import { RowBodyLong } from '../Table/Table'
 
 import Spacer from '~/utils/Spacer'
@@ -25,15 +26,11 @@ const TxDetails = () => {
               Send <span className='font-bold'>0.00062 ETH</span> to:
             </span>
             <div className='flex flex-row items-center pl-6 mt-2'>
-              <img
-                src='./identicon03.png'
-                alt='identicon_03'
-                className='w-8 object-contain'
+              <EthAddress
+                ethAddress='0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'
+                size={4.5}
+                length='full'
               />
-              <EthAddress ethAddress='0xf86B25473cC08F04DA275B2847F2448cf041Fbd5' />
-              {/* <span className='text-textWhite text-sm font-normal ml-2'>
-                eth: 0xf86B25473cC08F04DA275B2847F2448cf041Fbd5
-              </span> */}
             </div>
           </div>
 
@@ -98,31 +95,14 @@ const TxDetails = () => {
 
         <div className='flex flex-col justify-start'>
           <div className='flex flex-row mb-2'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              height='24px'
-              viewBox='0 0 24 24'
-              width='24px'
-              fill='#38C6F4'
-            >
-              <path d='M0 0h24v24H0z' fill='none' />
-              <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' />
-            </svg>
+            <Icon type={'CheckCircle'} size={'lg'} color={'main'} />
             <span className='text-main font-bold ml-2'>Created</span>
           </div>
 
           <div className='flex flex-col mb-2'>
             <div className='flex flex-row'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                height='24px'
-                viewBox='0 0 24 24'
-                width='24px'
-                fill='#38C6F4'
-              >
-                <path d='M0 0h24v24H0z' fill='none' />
-                <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' />
-              </svg>
+              <Icon type={'CheckCircle'} size={'lg'} color={'main'} />
+
               <span className='text-main font-bold ml-2'>
                 Confirmed
                 <span className='text-textWhite text-sm font-normal ml-2'>
@@ -131,29 +111,17 @@ const TxDetails = () => {
               </span>
             </div>
             <div className='flex flex-row items-center pl-6 mt-2'>
-              <img
-                src='./identicon01.png'
-                alt='identicon_01'
-                className='w-8 object-contain'
+              <EthAddress
+                ethAddress='0xD9Be7c81641BdfC2D82cAC5052455aD5313Ea5DF'
+                size={4.5}
+                length='full'
               />
-              <span className='text-textWhite text-sm font-normal ml-2'>
-                eth: 0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7
-              </span>
             </div>
           </div>
 
           <div className='flex flex-col mb-2'>
             <div className='flex flex-row'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                height='24px'
-                viewBox='0 0 24 24'
-                width='24px'
-                fill='#FF9169'
-              >
-                <path d='M0 0h24v24H0z' fill='none' />
-                <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z' />
-              </svg>
+              <Icon type={'Circle'} size={'lg'} color={'light'} />
               <span className='text-light font-bold ml-2'>
                 Awaiting confirmations
                 <span className='text-textWhite text-sm font-normal ml-2'>
@@ -163,29 +131,17 @@ const TxDetails = () => {
             </div>
 
             <div className='flex flex-row items-center pl-6 mt-2'>
-              <img
-                src='./identicon02.png'
-                alt='identicon_02'
-                className='w-8 object-contain'
+              <EthAddress
+                ethAddress='0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
+                size={4.5}
+                length='full'
               />
-              <span className='text-textWhite text-sm font-normal ml-2'>
-                eth: 0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7
-              </span>
             </div>
           </div>
 
           <div className='flex flex-col mb-2'>
             <div className='flex flex-row'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                height='24px'
-                viewBox='0 0 24 24'
-                width='24px'
-                fill='#D9D9D9'
-              >
-                <path d='M0 0h24v24H0z' fill='none' />
-                <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z' />
-              </svg>
+              <Icon type={'Circle'} size={'lg'} color={'white'} />
               <span className='text-textWhite font-bold ml-2'>Execution</span>
             </div>
 

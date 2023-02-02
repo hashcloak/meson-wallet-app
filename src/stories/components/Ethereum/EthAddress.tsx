@@ -1,34 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Blockies from 'react-blockies'
 
+import CopyToClipboardBtn from '~/stories/utils/CopyToClipboardBtn/CopyToClipboardBtn'
+import ViewOn from '~/stories/utils/ViewOn/ViewOn'
 import Spacer from '~/utils/Spacer'
 
 type Props = {
   ethAddress: string
+  size: number
+  length: 'short' | 'full'
 }
 
-const EthAddress: React.FC<Props> = ({ ethAddress }) => {
+const EthAddress: React.FC<Props> = ({ ethAddress, size, length }) => {
+  const [address, setAddress] = useState(ethAddress)
+  const trimAddress = (address: string): string =>
+    `${address.slice(0, 6)}...${address.slice(address.length - 4)}`
+
+  useEffect(() => {
+    if (length === 'short') setAddress(trimAddress(ethAddress))
+  }, [])
+
   return (
     <div className='flex flex-row items-center'>
-      <span className='text-textWhite text-sm font-normal ml-2'>eth: </span>
-      <span className='text-textWhite text-base font-normal'>{ethAddress}</span>
-      <div className='flex flex-row ml-4'>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 24 24'
-          className='fill-textWhite object-contain w-5'
-        >
-          <path d='M0 0h24v24H0z' fill='none' />
-          <path d='M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z' />
-        </svg>
+      <Blockies
+        seed={address}
+        scale={size}
+        className='identicon rounded-full'
+      />
+      <span className='text-textWhite text-sm font-bold ml-2'>eth:&nbsp;</span>
+      <span className='text-textWhite text-base font-normal'>{address}</span>
+      <div className='flex flex-row ml-4 items-center'>
+        <CopyToClipboardBtn textToCopy={ethAddress} />
         <Spacer size={8} axis={'horizontal'} />
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 24 24'
-          className='fill-textWhite object-contain w-5'
-        >
-          <path d='M0 0h24v24H0z' fill='none' />
-          <path d='M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z' />
-        </svg>
+        <ViewOn address={ethAddress} />
       </div>
     </div>
   )
