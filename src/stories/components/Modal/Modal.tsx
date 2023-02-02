@@ -1,6 +1,8 @@
 import { Dialog } from '@headlessui/react'
 import React from 'react'
 
+import { Icon } from '../Icon/Icons'
+
 type Props = {
   isOpen: boolean
   body: React.ReactElement
@@ -27,11 +29,7 @@ const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
                 Remove wallet
               </Dialog.Title>
               <button onClick={onClose}>
-                <img
-                  src='/close_white_24dp.svg'
-                  alt='close-wh'
-                  className='w-6 object-contain'
-                />
+                <Icon type={'Close'} size={'lg'} color={'white'} />
               </button>
             </div>
             <Dialog.Description className='mt-6'>

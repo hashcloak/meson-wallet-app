@@ -1,11 +1,11 @@
 import React from 'react'
 
+import CheckCircle from './images/CheckCircle'
 import Circle from './images/Circle'
 import Close from './images/Close'
 import ContentCopy from './images/ContentCopy'
 import Info from './images/Info'
 import OpenInNew from './images/OpenInNew'
-import CheckCircle from './images/checkCircle'
 
 const icons = {
   ContentCopy,
