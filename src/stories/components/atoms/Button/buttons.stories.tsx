@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions'
 
-import { theme } from '../../utils/theme'
+import { theme } from '../../../utils/theme'
 
 import Button from './Button'
 

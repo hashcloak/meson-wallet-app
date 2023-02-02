@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import Button from '../Button/Button'
+import Button from '../atoms/Button/Button'
 
 import Modal from './Modal'
 import TxModal from './TxModal'

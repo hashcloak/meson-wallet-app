@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Icon } from '~/stories/components/Icon/Icons'
+import { Icon } from '~/stories/components/atoms/Icon/Icon'
 
 type Props = {
   address: string

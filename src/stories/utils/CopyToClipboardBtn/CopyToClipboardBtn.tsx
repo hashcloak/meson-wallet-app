@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import copyTextToClipboard from './copyTextToClipboard'
 
-import { Icon } from '~/stories/components/Icon/Icons'
+import { Icon } from '~/stories/components/atoms/Icon/Icon'
 
 type Props = {
   textToCopy: string

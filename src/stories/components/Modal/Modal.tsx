@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import React from 'react'
 
-import { Icon } from '../Icon/Icons'
+import { Icon } from '../atoms/Icon/Icon'
 
 type Props = {
   isOpen: boolean
