@@ -12,7 +12,7 @@ export default {
   argTypes: { onClick: { action: 'clicked' } },
 }
 
-export const ButtonSamples = (): React.ReactElement => {
+export const Buttons = (): React.ReactElement => {
   const variants = Object.keys(theme.buttons.variants)
 
   return (

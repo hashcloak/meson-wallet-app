@@ -9,7 +9,7 @@ export default {
   component: 'Alert',
 }
 
-export const AlertSamples = (): React.ReactElement => {
+export const Alerts = (): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => {
     setIsOpen(!isOpen)

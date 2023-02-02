@@ -97,6 +97,7 @@ export const RowBodyShort = () => {
   )
 }
 
+// TODO: TableShortRow and TableLongRow needs to receive props to display info.
 const TableShortRow = () => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => {
@@ -199,7 +200,11 @@ const TableLongRow = () => {
   )
 }
 
-const Table: React.FC = () => {
+type Props = {
+  size: 'short' | 'long'
+}
+
+const Table: React.FC<Props> = ({ size }) => {
   return (
     <>
       <div className='overflow-x-auto w-full bg-bgDarkMid rounded-2xl py-4 px-8'>
@@ -208,11 +213,22 @@ const Table: React.FC = () => {
           <span className='text-textWhite text-lg'>Queue</span>
           <a className='text-textLink text-sm'>more</a>
         </div>
-        <div className='grid grid-rows-3 gap-2'>
-          <TableLongRow />
-          <TableLongRow />
-          <TableLongRow />
-        </div>
+        {size === 'short' ? (
+          <div className='grid grid-rows-3 gap-2'>
+            <TableShortRow />
+            <TableShortRow />
+            <TableShortRow />
+          </div>
+        ) : (
+          <div className='grid grid-flow-row gap-2'>
+            <TableLongRow />
+            <TableLongRow />
+            <TableLongRow />
+            <TableLongRow />
+            <TableLongRow />
+            <TableLongRow />
+          </div>
+        )}
       </div>
     </>
   )

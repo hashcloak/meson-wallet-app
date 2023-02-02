@@ -10,7 +10,7 @@ export default {
   argTypes: { onClick: { action: 'clicked' } },
 }
 
-export const SwitchSamples = (): React.ReactElement => {
+export const Switches = (): React.ReactElement => {
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Switch'}>

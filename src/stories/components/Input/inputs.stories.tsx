@@ -9,13 +9,11 @@ import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
   title: 'Components/Inputs',
-  component: BasicInput,
+  component: { BasicInput, UnitInput },
 }
 
-export const InputSamples = () => {
+export const Inputs = () => {
   const regjisteredName01 = 'walletName'
-  const regjisteredName02 = 'depositAmount'
-
   const schema = z.object({
     walletName: z.string().min(1, { message: 'Wallet name is required' }),
     depositAmount: z.nan().or(z.number().int()),
@@ -30,8 +28,6 @@ export const InputSamples = () => {
       and privacy policy.
     </p>
   )
-
-  const description02 = <p />
 
   const methods = useForm({ resolver: zodResolver(schema) })
   const onSubmit = (data: any) => console.log(data)
@@ -54,6 +50,25 @@ export const InputSamples = () => {
           </FormProvider>
         </div>
       </DisplayBox>
+    </div>
+  )
+}
+
+export const UnitInputs = () => {
+  const regjisteredName02 = 'depositAmount'
+
+  const schema = z.object({
+    walletName: z.string().min(1, { message: 'Wallet name is required' }),
+    depositAmount: z.nan().or(z.number().int()),
+  })
+
+  const description02 = <p />
+
+  const methods = useForm({ resolver: zodResolver(schema) })
+  const onSubmit = (data: any) => console.log(data)
+
+  return (
+    <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Unit input'}>
         <div className='flex flex-row flex-wrap w-full'>
           <FormProvider {...methods}>

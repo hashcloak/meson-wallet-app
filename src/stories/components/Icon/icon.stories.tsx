@@ -1,3 +1,4 @@
+import { Meta } from '@storybook/react'
 import React from 'react'
 
 import { Icon, IconTypes } from './Icons'
@@ -7,6 +8,12 @@ import { DisplayBox } from '~/utils/DisplayBox'
 export default {
   title: 'Components/Icons',
   component: Icon,
+  argTypes: {
+    size: {
+      options: ['sm', 'md'],
+      control: { type: 'radio' },
+    },
+  },
 }
 
 export const Icons = (): React.ReactElement => {
@@ -18,7 +25,6 @@ export const Icons = (): React.ReactElement => {
     'Circle',
     'ContentCopy',
   ]
-
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Small'}>
@@ -34,6 +40,7 @@ export const Icons = (): React.ReactElement => {
           ))}
         </div>
       </DisplayBox>
+
       <DisplayBox title={'Medium'}>
         <div className='flex flex-row justify-evenly'>
           {icons.map((type) => (
@@ -47,6 +54,7 @@ export const Icons = (): React.ReactElement => {
           ))}
         </div>
       </DisplayBox>
+
       <DisplayBox title={'Large'}>
         <div className='flex flex-row justify-evenly'>
           {icons.map((type) => (

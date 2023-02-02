@@ -30,7 +30,7 @@ const mock = [
   },
 ]
 
-export const OptionSamples = (): React.ReactElement => {
+export const Options = (): React.ReactElement => {
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Option'}>
