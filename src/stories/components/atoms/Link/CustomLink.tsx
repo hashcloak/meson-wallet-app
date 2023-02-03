@@ -2,7 +2,7 @@ import React from 'react'
 
 type Props = {
   url: string
-  size: 'xs' | 'sm' | 'md' | 'lg'
+  size: 'xs' | 'sm' | 'base' | 'md' | 'lg'
   text: string
 }
 const CustomLink: React.FC<Props> = ({ url, size, text }) => {

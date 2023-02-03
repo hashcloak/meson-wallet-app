@@ -1,5 +1,6 @@
 import React from 'react'
 
+import ArrowForward from './images/ArrowForward'
 import CheckCircle from './images/CheckCircle'
 import Circle from './images/Circle'
 import Close from './images/Close'
@@ -14,6 +15,7 @@ const icons = {
   Circle,
   OpenInNew,
   Info,
+  ArrowForward,
 }
 
 export type IconType = typeof icons
@@ -33,6 +35,7 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     OpenInNew: <OpenInNew iconSize={size} color={color} />,
     Circle: <Circle iconSize={size} color={color} />,
     ContentCopy: <ContentCopy iconSize={size} color={color} />,
+    ArrowForward: <ArrowForward iconSize={size} color={color} />,
   }
   return icons[type]
 }

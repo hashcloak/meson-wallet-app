@@ -24,6 +24,7 @@ export const Icons = (): React.ReactElement => {
     'OpenInNew',
     'Circle',
     'ContentCopy',
+    'ArrowForward',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>
