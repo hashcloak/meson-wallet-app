@@ -4,8 +4,6 @@ import { SidebarIconTypes } from '../../atoms/Icon/SidebarIcon'
 
 import { SidebarIconText } from './SidebarIconText'
 
-import { DisplayBox } from '~/utils/DisplayBox'
-
 export default {
   title: 'Components/Molecules/SidebarIconTexts',
   component: SidebarIconText,

@@ -8,7 +8,7 @@ type Props = {
 }
 //TODO: Make it routes to each page
 export const SidebarIconText: React.FC<Props> = ({ type, text }) => {
-  const newTxStyle = type === 'NewTx' ? 'bg-main' : ''
+  const newTxStyle = type === 'NewTx' ? 'bg-main font-bold' : ''
   return (
     <button
       className={`flex flex-col items-center justify-center w-20 h-16 max-w-[5rem] max-h-16 rounded-2xl hover:bg-dark ${newTxStyle}`}
