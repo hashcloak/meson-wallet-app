@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import TxModal from '../Modal/TxModal'
-import Button from '../atoms/Button/Button'
+import TxModal from '../../Modal/TxModal'
+import Button from '../../atoms/Button/Button'
 
 import Spacer from '~/utils/Spacer'
 

@@ -3,7 +3,7 @@ import Table from './Table'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Tables',
+  title: 'Components/molecules/Tables',
   component: 'Table',
 }
 
