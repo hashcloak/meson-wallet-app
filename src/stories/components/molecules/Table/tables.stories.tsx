@@ -1,10 +1,10 @@
-import Table from './Table'
+import CustomTable from './Table'
 
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
   title: 'Components/molecules/Tables',
-  component: 'Table',
+  component: 'CustomTable',
 }
 
 export const Tables = (): React.ReactElement => {
@@ -12,13 +12,13 @@ export const Tables = (): React.ReactElement => {
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Short Tables'}>
         <div className='flex flex-row flex-wrap w-[782px]'>
-          <Table size={'short'} />
+          <CustomTable size={'short'} />
         </div>
       </DisplayBox>
 
       <DisplayBox title={'Long Tables'}>
         <div className='flex flex-row flex-wrap w-full'>
-          <Table size={'long'} />
+          <CustomTable size={'long'} />
         </div>
       </DisplayBox>
     </div>

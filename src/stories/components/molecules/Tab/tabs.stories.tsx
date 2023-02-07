@@ -1,4 +1,4 @@
-import Tabs from './Tabs'
+import Tabs, { Queue, History } from './Tabs'
 
 export default {
   title: 'Components/Molecules/Tabs',
@@ -6,11 +6,15 @@ export default {
 }
 
 export const SampleTabs = (): React.ReactElement => {
+  const tabList: { [key: string]: JSX.Element }[] = [
+    { Latest: <Queue /> },
+    { Queue: <Queue /> },
+    { History: <History /> },
+  ]
+
   return (
-    <div className='flex flex-row w-screen flex-wrap'>
-      <div className='max-w-[5.5rem] py-4 px-2'>
-        <Tabs />
-      </div>
+    <div className='w-screen h-[64rem] max-w-[99.5rem] max-h-[62rem] pt-8 pb-10 px-[4.5rem] bg-bgDark'>
+      <Tabs tabList={tabList} />
     </div>
   )
 }

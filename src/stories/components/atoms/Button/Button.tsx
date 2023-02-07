@@ -1,4 +1,4 @@
-import { theme } from '../../utils/theme'
+import { theme } from '../../../utils/theme'
 
 type Props = {
   btnVariant: 'primary' | 'alert' | 'text' | 'disable' | 'border' | 'special'

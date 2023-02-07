@@ -5,62 +5,46 @@ import Button from '../../atoms/Button/Button'
 
 import Spacer from '~/utils/Spacer'
 
-const TableHeader = () => {
-  return (
-    <div className='flex flex-row justify-between h-8 w-full'>
-      <p className='w-full px-8'>Amount</p>
-      <p className='w-full px-8'>Amount</p>
-      <p className='w-full px-8'>Date</p>
-      <p className='w-full px-8'>Confirmation</p>
-      <p className='w-full px-8'>Status</p>
-    </div>
-  )
-}
-
 export const RowBodyLong = () => {
   return (
-    <>
-      <div className='flex flex-row items-center'>
-        <img className='object-contain w-8 mr-2' src='../public/send.png' />
-        <span className='text-textWhite font-bold text-base'>Send</span>
-      </div>
-
-      <Spacer size={16} axis={'horizontal'} />
-
-      <div className='flex flex-col justify-items-start'>
+    <div className='grid grid-cols-2 gap-32'>
+      <div className='grid grid-cols-2 items-center'>
         <div className='flex flex-row items-center'>
-          <img
-            className='object-contain w-6 mr-2'
-            src='../public/eth_icon.png'
-          />
-          <span className='text-textWhite font-bold text-lg'>
-            - 0.00062 ETH
+          <img className='object-contain w-8 mr-2' src='../public/send.png' />
+          <span className='text-textWhite font-bold text-base'>Send</span>
+        </div>
+
+        <div className='flex flex-col justify-items-start'>
+          <div className='flex flex-row items-center'>
+            <img
+              className='object-contain w-6 mr-2'
+              src='../public/eth_icon.png'
+            />
+            <span className='text-textWhite font-bold text-lg'>
+              - 0.00062 ETH
+            </span>
+          </div>
+          <span className='text-textGrayLight text-xs'>
+            To: 0xf86B25473cC08F04DA275B2847F2448cf041Fbd5
           </span>
         </div>
-        <span className='text-textGrayLight text-xs'>
-          To: 0xf86B25473cC08F04DA275B2847F2448cf041Fbd5
-        </span>
       </div>
 
-      <Spacer size={16} axis={'horizontal'} />
+      <div className='grid grid-cols-3 items-center'>
+        <div className='flex flex-col items-start'>
+          <span className='text-textWhite text-sm'>28 Sep 2022</span>
+          <span className='text-textGrayLight text-xs'>10:23 AM</span>
+        </div>
 
-      <div className='flex flex-col items-start'>
-        <span className='text-textWhite text-sm'>28 Sep 2022</span>
-        <span className='text-textGrayLight text-xs'>10:23 AM</span>
+        <div className='flex flex-col items-start'>
+          <span className='text-textGrayLight text-xs'>1 out of 2</span>
+        </div>
+
+        <div className='flex flex-col items-start '>
+          <span className='text-textWhite text-sm'>Needs confirmation</span>
+        </div>
       </div>
-
-      <Spacer size={16} axis={'horizontal'} />
-
-      <div className='flex flex-col items-start'>
-        <span className='text-textGrayLight text-xs'>1 out of 2</span>
-      </div>
-
-      <Spacer size={16} axis={'horizontal'} />
-
-      <div className='flex flex-col items-start '>
-        <span className='text-textWhite text-sm'>Needs confirmation</span>
-      </div>
-    </>
+    </div>
   )
 }
 
@@ -98,7 +82,7 @@ export const RowBodyShort = () => {
 }
 
 // TODO: TableShortRow and TableLongRow needs to receive props to display info.
-const TableShortRow = () => {
+export const TableShortRow = () => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => {
     setIsOpen(!isOpen)
@@ -149,7 +133,7 @@ const TableShortRow = () => {
   )
 }
 
-const TableLongRow = () => {
+export const TableLongRow = () => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => {
     setIsOpen(!isOpen)
@@ -185,7 +169,7 @@ const TableLongRow = () => {
   return (
     <>
       <button
-        className='flex items-center justify-between rounded-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap'
+        className='flex items-center justify-between rounded-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap w-full'
         onClick={() => setIsOpen(!isOpen)}
       >
         <RowBodyLong />
@@ -204,7 +188,7 @@ type Props = {
   size: 'short' | 'long'
 }
 
-const Table: React.FC<Props> = ({ size }) => {
+const CustomTable: React.FC<Props> = ({ size }) => {
   return (
     <>
       <div className='overflow-x-auto w-full bg-bgDarkMid rounded-2xl py-4 px-8'>
@@ -234,4 +218,4 @@ const Table: React.FC<Props> = ({ size }) => {
   )
 }
 
-export default Table
+export default CustomTable
