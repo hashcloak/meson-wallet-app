@@ -23,7 +23,7 @@ export type SidebarIconTypes = keyof SidebarIconType
 
 export type Props = {
   type: SidebarIconTypes
-  size: 'sm' | 'md' | 'lg' | 'xl'
+  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
   color: any
 }
 

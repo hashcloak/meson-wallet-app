@@ -1,7 +1,7 @@
 import { Tab } from '@headlessui/react'
 import { useState } from 'react'
 
-import { TableLongRow } from '../Table/Table'
+import { TableLongRow } from '../../Organisms/Table/Table'
 
 export const Queue = () => {
   return (

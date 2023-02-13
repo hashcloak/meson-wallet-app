@@ -7,7 +7,7 @@ export const theme = {
         'transition bg-alert text-textWhite hover:opacity-70 hover:border-none  focus:outline-none hover:outline-none active:outline-none',
       text: 'transition text-textLink hover:text-dark hover:border-none focus:outline-none hover:outline-none active:outline-none',
       border:
-        'transition border border-bgDark text-textBlack hover:border-none hover:bg-bgDark hover:text-textWhite  focus:outline-none hover:outline-none active:outline-none',
+        'transition border border-bgWhite text-textWhite bg-bgDark hover:border-none hover:bg-bgWhite hover:text-textBlack focus:outline-none hover:outline-none active:outline-none',
       special:
         'transition bg-bgDarkMid hover:bg-dark text-textWhite  focus:outline-none hover:outline-none active:outline-none',
       disable:
@@ -15,7 +15,7 @@ export const theme = {
     },
     sizes: {
       sm: 'w-[5rem] h-[1.5rem] text-xs',
-      md: 'w-[10rem] h-[2rem] text-sm',
+      md: 'min-w-[8rem] max-w-[10rem] h-[2rem] text-sm',
       lg: 'w-[12.5rem] h-[2.5rem] text-base',
       sp: 'w-[25rem] h-[4.5rem] text-2xl font-bold',
     },
@@ -52,6 +52,7 @@ export const theme = {
       md: '20',
       lg: '24',
       xl: '32',
+      xxl: '40',
     },
     colors: {
       main: '#38C6F4',
@@ -60,6 +61,7 @@ export const theme = {
       alert: '#DC2626',
       black: '#212121',
       white: '#FFFFFF',
+      none: 'none',
     },
   },
   identicon: {

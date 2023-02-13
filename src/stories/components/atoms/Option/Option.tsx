@@ -22,8 +22,8 @@ const Option: React.FC<Props> = ({ options }) => {
   }, [currentVal])
 
   return (
-    <div className='flex justify-center'>
-      <div className='mb-3 xl:w-96 '>
+    <div className='flex justify-center w-full'>
+      <div className='max-w-96 w-full'>
         <select
           className={`form-select
           appearance-none

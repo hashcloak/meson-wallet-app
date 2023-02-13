@@ -26,6 +26,9 @@ export const Icons = (): React.ReactElement => {
     'Circle',
     'ContentCopy',
     'ArrowForward',
+    'Bell',
+    'MesonCircle',
+    'AccountCircle',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>
@@ -104,7 +107,16 @@ export const SidebarIcons = (): React.ReactElement => {
 }
 
 export const Logos = (): React.ReactElement => {
-  const logos: LogoTypes[] = ['EthLogo', 'DaiLogo', 'UsdcLogo', 'BnbLogo']
+  const logos: LogoTypes[] = [
+    'EthLogo',
+    'DaiLogo',
+    'UsdcLogo',
+    'BnbLogo',
+    'TrezorLogo',
+    'WalletConnectLogo',
+    'LedgerLogo',
+    'MetamaskLogo',
+  ]
 
   return (
     <div className='flex flex-row w-screen flex-wrap'>

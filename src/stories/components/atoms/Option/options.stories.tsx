@@ -7,7 +7,7 @@ export default {
   component: Option,
 }
 
-const mock = [
+export const mock = [
   {
     value: 'ethreaum',
     label: 'Ethereum',

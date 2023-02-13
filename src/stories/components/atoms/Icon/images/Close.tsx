@@ -13,7 +13,6 @@ type Props = {
 const Close: React.FC<Props> = ({ iconSize, color }) => {
   const px = sizes[iconSize]
   const fill = colors[color]
-  console.log(px, fill)
 
   return (
     <svg
