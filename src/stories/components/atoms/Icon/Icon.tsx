@@ -6,14 +6,21 @@ import Bell from './images/Bell'
 import CheckCircle from './images/CheckCircle'
 import Circle from './images/Circle'
 import Close from './images/Close'
+import Conflict from './images/Conflict'
 import ContentCopy from './images/ContentCopy'
+import FailCircle from './images/FailCircle'
 import Info from './images/Info'
 import MesonCircle from './images/MesonCircle'
+import OnChainRejection from './images/OnChainRejection'
 import OpenInNew from './images/OpenInNew'
+import OwnerChange from './images/OwnerChange'
+import Receive from './images/Receive'
+import Send from './images/Send'
 
 const icons = {
   ContentCopy,
   CheckCircle,
+  FailCircle,
   Close,
   Circle,
   OpenInNew,
@@ -22,6 +29,11 @@ const icons = {
   Bell,
   MesonCircle,
   AccountCircle,
+  Send,
+  Receive,
+  Conflict,
+  OwnerChange,
+  OnChainRejection,
 }
 
 export type IconType = typeof icons
@@ -45,6 +57,12 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     Bell: <Bell iconSize={size} color={color} />,
     MesonCircle: <MesonCircle iconSize={size} color={color} />,
     AccountCircle: <AccountCircle iconSize={size} color={color} />,
+    Send: <Send iconSize={size} color={color} />,
+    Receive: <Receive iconSize={size} color={color} />,
+    Conflict: <Conflict iconSize={size} color={color} />,
+    FailCircle: <FailCircle iconSize={size} color={color} />,
+    OwnerChange: <OwnerChange iconSize={size} color={color} />,
+    OnChainRejection: <OnChainRejection iconSize={size} color={color} />,
   }
   return icons[type]
 }

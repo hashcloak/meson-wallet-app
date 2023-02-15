@@ -20,6 +20,7 @@ export default {
 export const Icons = (): React.ReactElement => {
   const icons: IconTypes[] = [
     'CheckCircle',
+    'FailCircle',
     'Close',
     'Info',
     'OpenInNew',
@@ -29,11 +30,16 @@ export const Icons = (): React.ReactElement => {
     'Bell',
     'MesonCircle',
     'AccountCircle',
+    'Send',
+    'Receive',
+    'Conflict',
+    'OwnerChange',
+    'OnChainRejection',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Small'}>
-        <div className='flex flex-row justify-evenly'>
+        <div className='flex flex-row justify-evenly flex-wrap'>
           {icons.map((type) => (
             <div
               className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32'
@@ -47,7 +53,7 @@ export const Icons = (): React.ReactElement => {
       </DisplayBox>
 
       <DisplayBox title={'Medium'}>
-        <div className='flex flex-row justify-evenly'>
+        <div className='flex flex-row justify-evenly flex-wrap'>
           {icons.map((type) => (
             <div
               className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32'
@@ -61,7 +67,7 @@ export const Icons = (): React.ReactElement => {
       </DisplayBox>
 
       <DisplayBox title={'Large'}>
-        <div className='flex flex-row justify-evenly'>
+        <div className='flex flex-row justify-evenly flex-wrap'>
           {icons.map((type) => (
             <div
               className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32'
@@ -90,7 +96,7 @@ export const SidebarIcons = (): React.ReactElement => {
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Sidebar'}>
-        <div className='flex flex-row justify-evenly'>
+        <div className='flex flex-row justify-evenly flex-wrap'>
           {icons.map((type) => (
             <div
               className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32'
@@ -121,7 +127,7 @@ export const Logos = (): React.ReactElement => {
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Small'}>
-        <div className='flex flex-row justify-evenly'>
+        <div className='flex flex-row justify-evenly flex-wrap'>
           {logos.map((type) => (
             <div
               className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32'
@@ -135,7 +141,7 @@ export const Logos = (): React.ReactElement => {
       </DisplayBox>
 
       <DisplayBox title={'Medium'}>
-        <div className='flex flex-row justify-evenly'>
+        <div className='flex flex-row justify-evenly flex-wrap'>
           {logos.map((type) => (
             <div
               className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32'
@@ -149,7 +155,7 @@ export const Logos = (): React.ReactElement => {
       </DisplayBox>
 
       <DisplayBox title={'Large'}>
-        <div className='flex flex-row justify-evenly'>
+        <div className='flex flex-row justify-evenly flex-wrap'>
           {logos.map((type) => (
             <div
               className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32'

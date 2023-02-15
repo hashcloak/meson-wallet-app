@@ -3,18 +3,23 @@ import Blockies from 'react-blockies'
 
 import CopyToClipboardBtn from '~/stories/utils/CopyToClipboardBtn/CopyToClipboardBtn'
 import ViewOn from '~/stories/utils/ViewOn/ViewOn'
+import { trimAddress } from '~/stories/utils/trimAddress'
 import Spacer from '~/utils/Spacer'
 
 type Props = {
   ethAddress: string
   size: number
   length: 'short' | 'full'
+  icons?: boolean
 }
 
-const EthAddress: React.FC<Props> = ({ ethAddress, size, length }) => {
+const EthAddress: React.FC<Props> = ({
+  ethAddress,
+  size,
+  length,
+  icons = true,
+}) => {
   const [address, setAddress] = useState(ethAddress)
-  const trimAddress = (address: string): string =>
-    `${address.slice(0, 6)}...${address.slice(address.length - 4)}`
 
   useEffect(() => {
     if (length === 'short') setAddress(trimAddress(ethAddress))
@@ -29,11 +34,13 @@ const EthAddress: React.FC<Props> = ({ ethAddress, size, length }) => {
       />
       <span className='text-textWhite text-sm font-bold ml-2'>eth:&nbsp;</span>
       <span className='text-textWhite text-base font-normal'>{address}</span>
-      <div className='flex flex-row ml-4 items-center'>
-        <CopyToClipboardBtn textToCopy={ethAddress} />
-        <Spacer size={8} axis={'horizontal'} />
-        <ViewOn address={ethAddress} />
-      </div>
+      {icons ? (
+        <div className='flex flex-row ml-4 items-center'>
+          <CopyToClipboardBtn textToCopy={ethAddress} />
+          <Spacer size={8} axis={'horizontal'} />
+          <ViewOn address={ethAddress} />
+        </div>
+      ) : null}
     </div>
   )
 }

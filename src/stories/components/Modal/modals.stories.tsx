@@ -116,12 +116,7 @@ export const TxModals = () => {
           Modal
         </Button>
         <div className='flex flex-row flex-wrap w-full'>
-          <TxModal
-            isOpen={isOpen}
-            body={body}
-            buttons={buttons}
-            onClose={onClose}
-          />
+          <TxModal isOpen={isOpen} onClose={onClose} />
         </div>
       </DisplayBox>
     </div>

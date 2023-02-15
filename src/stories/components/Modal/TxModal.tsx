@@ -10,8 +10,6 @@ import Spacer from '~/utils/Spacer'
 
 type Props = {
   isOpen: boolean
-  body: React.ReactElement
-  buttons?: React.ReactElement
   onClose: () => void
 }
 
@@ -164,7 +162,7 @@ const TxDetails = () => {
   )
 }
 
-const TxModal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
+const TxModal: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <>
       <Dialog

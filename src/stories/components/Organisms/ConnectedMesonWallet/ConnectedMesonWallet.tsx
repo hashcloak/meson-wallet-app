@@ -1,5 +1,6 @@
 import Blockies from 'react-blockies'
 
+import EthAddress from '../../Ethereum/EthAddress'
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import Option from '../../atoms/Option/Option'
@@ -7,6 +8,7 @@ import { mock } from '../../atoms/Option/options.stories'
 
 import CopyToClipboardBtn from '~/stories/utils/CopyToClipboardBtn/CopyToClipboardBtn'
 import ViewOn from '~/stories/utils/ViewOn/ViewOn'
+import { trimAddress } from '~/stories/utils/trimAddress'
 import Spacer from '~/utils/Spacer'
 
 type Props = {
@@ -19,9 +21,6 @@ const ConnectedMesonWalletBtn: React.FC<Props> = ({
   ethAddress = '',
   isConnected,
 }) => {
-  const trimAddress = (address: string): string =>
-    `${address.slice(0, 6)}...${address.slice(address.length - 4)}`
-
   return (
     <>
       {isConnected && ethAddress.length ? (
@@ -57,9 +56,6 @@ const ConnectedMesonWallet: React.FC<Props> = ({
   ethAddress = '',
   isConnected,
 }) => {
-  const trimAddress = (address: string): string =>
-    `${address.slice(0, 6)}...${address.slice(address.length - 4)}`
-
   return (
     <>
       {isConnected && ethAddress.length ? (

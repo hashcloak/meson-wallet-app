@@ -1,5 +1,6 @@
 import Blockies from 'react-blockies'
 
+import EthAddress from '../../Ethereum/EthAddress'
 import Button from '../../atoms/Button/Button'
 import SignerWalletButton from '../../atoms/Button/SignerWalletButton'
 import { Icon } from '../../atoms/Icon/Icon'
@@ -8,6 +9,7 @@ import CustomLink from '../../atoms/Link/CustomLink'
 
 import CopyToClipboardBtn from '~/stories/utils/CopyToClipboardBtn/CopyToClipboardBtn'
 import ViewOn from '~/stories/utils/ViewOn/ViewOn'
+import { trimAddress } from '~/stories/utils/trimAddress'
 import Spacer from '~/utils/Spacer'
 
 type Props = {
@@ -101,9 +103,6 @@ const ConnectedSignerWalletBtn: React.FC<Props> = ({
   signerWallet,
   network,
 }) => {
-  const trimAddress = (address: string): string =>
-    `${address.slice(0, 6)}...${address.slice(address.length - 4)}`
-
   const selectedSignerWallet = Object.values(signerWallets).filter(
     (wallet) => Object.values(wallet)[0].toString() == signerWallet
   ) as unknown as string
@@ -122,18 +121,12 @@ const ConnectedSignerWalletBtn: React.FC<Props> = ({
               {Object.values(selectedSignerWallet[0])} @ {network}
             </span>
             <div className='flex flex-row items-center'>
-              <Blockies
-                seed={ethAddress}
-                scale={2}
-                className='identicon rounded-full'
+              <EthAddress
+                ethAddress={ethAddress}
+                size={2}
+                length={'short'}
+                icons={false}
               />
-              <Spacer size={8} axis={'horizontal'} />
-              <span className='text-textWhite text-sm font-bold'>
-                eth:&nbsp;
-              </span>
-              <span className='text-textWhite text-sm font-normal'>
-                {trimAddress(ethAddress)}
-              </span>
             </div>
           </div>
         </div>
@@ -151,9 +144,6 @@ const ConnectedSignerWallet: React.FC<Props> = ({
   signerWallet,
   network,
 }) => {
-  const trimAddress = (address: string): string =>
-    `${address.slice(0, 6)}...${address.slice(address.length - 4)}`
-
   const selectedSignerWallet = Object.values(signerWallets).filter(
     (wallet) => Object.values(wallet)[0].toString() == signerWallet
   )[0] as unknown as string
