@@ -11,7 +11,7 @@ export type TransactionType = {
   timestamp: number
 }
 
-const transactions: TransactionType[] = [
+export const transactions: TransactionType[] = [
   {
     id: 1,
     token: 'ethereum',
