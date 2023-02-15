@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import Button from '../atoms/Button/Button'
+import Button from '../../atoms/Button/Button'
 
 import Modal from './Modal'
 import TxModal from './TxModal'
@@ -8,7 +8,7 @@ import TxModal from './TxModal'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Modals',
+  title: 'Components/Molecules/Modals',
   component: { Modal, TxModal },
 }
 

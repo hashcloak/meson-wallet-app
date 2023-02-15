@@ -7,7 +7,7 @@ import Button from './Button'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Buttons',
+  title: 'Components/Atmos/Buttons',
   component: Button,
   argTypes: { onClick: { action: 'clicked' } },
 }

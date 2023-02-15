@@ -8,7 +8,7 @@ import { UnitInput } from './UnitInput'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Inputs',
+  title: 'Components/Atmos/Inputs',
   component: { BasicInput, UnitInput },
 }
 

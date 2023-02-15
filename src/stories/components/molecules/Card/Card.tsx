@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
-import EthAddress from '../../Ethereum/EthAddress'
-import TxModal from '../../Modal/TxModal'
+import EthAddress from '../../../utils/Ethereum/EthAddress'
 import { Icon } from '../../atoms/Icon/Icon'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
 import { TransactionType } from '../../organisms/Timeline/Timeline'
 import { TxStatus } from '../IconText/TxStatus'
+import TxModal from '../Modal/TxModal'
 
 import { unixTimeConverter } from '~/stories/utils/unixTimeConverter'
 import Spacer from '~/utils/Spacer'

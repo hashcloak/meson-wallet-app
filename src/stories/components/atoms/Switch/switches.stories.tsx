@@ -5,7 +5,7 @@ import Switch from './Switch'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Switches',
+  title: 'Components/Atmos/Switches',
   component: Switch,
   argTypes: { onClick: { action: 'clicked' } },
 }

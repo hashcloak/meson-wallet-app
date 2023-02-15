@@ -3,7 +3,7 @@ import Option from './Option'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Options',
+  title: 'Components/Atmos/Options',
   component: Option,
 }
 

@@ -3,7 +3,7 @@ import Stat from './Stat'
 import Spacer from '~/utils/Spacer'
 
 export default {
-  title: 'Components/Stat',
+  title: 'Components/Atmos/Stat',
   component: 'Stat',
 }
 

@@ -7,7 +7,7 @@ import { SidebarIcon, SidebarIconTypes } from './SidebarIcon'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Icons',
+  title: 'Components/Atmos/Icons',
   component: { Icon, SidebarIcon },
   argTypes: {
     size: {

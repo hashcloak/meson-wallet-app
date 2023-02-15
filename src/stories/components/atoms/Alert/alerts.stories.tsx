@@ -5,7 +5,7 @@ import Alert from './Alert'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Alerts',
+  title: 'Components/Atmos/Alerts',
   component: 'Alert',
 }
 

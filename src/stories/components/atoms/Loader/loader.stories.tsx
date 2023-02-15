@@ -8,7 +8,7 @@ import LoaderSuccess from './LoaderSuccess'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Loaders',
+  title: 'Components/Atmos/Loaders',
   component: Loader,
 }
 

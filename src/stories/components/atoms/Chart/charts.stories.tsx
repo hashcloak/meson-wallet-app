@@ -3,7 +3,7 @@ import Chart from './Chart'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/Charts',
+  title: 'Components/Atmos/Charts',
   component: 'AssetChart',
 }
 

@@ -1,9 +1,7 @@
 import EthAddress from './EthAddress'
 
-import { DisplayBox } from '~/utils/DisplayBox'
-
 export default {
-  title: 'Components/Ethereum',
+  title: 'Utils/Ethereum',
   component: EthAddress,
 }
 

@@ -1,20 +1,20 @@
 import {
   ConnectedMesonWallet,
   ConnectedMesonWalletBtn,
-} from '../../Organisms/ConnectedMesonWallet/ConnectedMesonWallet'
+} from '../../organisms/ConnectedMesonWallet/ConnectedMesonWallet'
 import {
   ConnectedSignerWallet,
   ConnectedSignerWalletBtn,
-} from '../../Organisms/ConnectedSignerWallet/ConnectedSignerWallet'
+} from '../../organisms/ConnectedSignerWallet/ConnectedSignerWallet'
 import {
   Notification,
   NotificationBtn,
-} from '../../Organisms/Notification/Notification'
+} from '../../organisms/Notification/Notification'
 
 import Dialog from './Dialog'
 
 export default {
-  title: 'Components/Dialogs',
+  title: 'Components/Atmos/Dialogs',
   component: Dialog,
   argTypes: { onClick: { action: 'clicked' } },
 }

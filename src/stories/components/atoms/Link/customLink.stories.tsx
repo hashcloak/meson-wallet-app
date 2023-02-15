@@ -3,7 +3,7 @@ import CustomLink from './CustomLink'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
-  title: 'Components/CustomLink',
+  title: 'Components/Atmos/CustomLink',
   component: CustomLink,
 }
 

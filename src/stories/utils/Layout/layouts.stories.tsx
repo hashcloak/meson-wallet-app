@@ -2,7 +2,7 @@ import BaseLayout from './BaseLayout'
 import StartLayout from './StartLayout'
 
 export default {
-  title: 'Components/Layouts',
+  title: 'Utils/Layouts',
   component: ['BaseLayout', 'StartLayout'],
 }
 
