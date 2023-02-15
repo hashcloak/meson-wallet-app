@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import Chart from './Chart'
 
 import { DisplayBox } from '~/utils/DisplayBox'
@@ -10,7 +8,7 @@ export default {
 }
 
 export const Charts = (): React.ReactElement => {
-  const data = [
+  const lineData = [
     { name: '22 Mar', Amount: 100 },
     { name: '22 Apr', Amount: 2400 },
     { name: '22 May', Amount: 500 },
@@ -25,10 +23,28 @@ export const Charts = (): React.ReactElement => {
     { name: '22 Feb', Amount: 100 },
   ]
 
+  const barData = [
+    { name: '22 Mar', 'Queued Txs': 100, 'Historied Txs': 1600 },
+    { name: '22 Apr', 'Queued Txs': 2400, 'Historied Txs': 1600 },
+    { name: '22 May', 'Queued Txs': 500, 'Historied Txs': 1600 },
+    { name: '22 Jun', 'Queued Txs': 100, 'Historied Txs': 1600 },
+    { name: '22 Jul', 'Queued Txs': 500, 'Historied Txs': 1600 },
+    { name: '22 Aug', 'Queued Txs': 2400, 'Historied Txs': 1600 },
+    { name: '22 Mar', 'Queued Txs': 100, 'Historied Txs': 1600 },
+    { name: '22 Apr', 'Queued Txs': 100, 'Historied Txs': 500 },
+    { name: '22 May', 'Queued Txs': 100, 'Historied Txs': 2400 },
+    { name: '22 Jun', 'Queued Txs': 100, 'Historied Txs': 1600 },
+    { name: '22 Jul', 'Queued Txs': 100, 'Historied Txs': 100 },
+    { name: '22 Aug', 'Queued Txs': 100, 'Historied Txs': 100 },
+  ]
+
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <DisplayBox title={'Charts'}>
-        <Chart data={data} />
+        <Chart data={lineData} />
+      </DisplayBox>
+      <DisplayBox title={'Charts'}>
+        <Chart data={barData} isBar={true} />
       </DisplayBox>
     </div>
   )
