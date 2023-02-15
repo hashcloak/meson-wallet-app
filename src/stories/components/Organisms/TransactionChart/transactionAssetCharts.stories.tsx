@@ -1,7 +1,5 @@
 import TransactionChart from './TransactionChart'
 
-import { DisplayBox } from '~/utils/DisplayBox'
-
 export default {
   title: 'Components/Organisms/TransactionChart',
   component: 'TransactionChart',

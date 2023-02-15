@@ -1,4 +1,4 @@
-import CustomTable from './Table'
+import CustomTable from './CustomTable'
 
 import { DisplayBox } from '~/utils/DisplayBox'
 

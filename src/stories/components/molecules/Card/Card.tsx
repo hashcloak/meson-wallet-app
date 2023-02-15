@@ -2,9 +2,9 @@ import { useState } from 'react'
 
 import EthAddress from '../../Ethereum/EthAddress'
 import TxModal from '../../Modal/TxModal'
-import { TransactionType } from '../../Organisms/Timeline/Timeline'
 import { Icon } from '../../atoms/Icon/Icon'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
+import { TransactionType } from '../../organisms/Timeline/Timeline'
 import { TxStatus } from '../IconText/TxStatus'
 
 import { unixTimeConverter } from '~/stories/utils/unixTimeConverter'

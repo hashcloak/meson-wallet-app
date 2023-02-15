@@ -2,9 +2,9 @@ import { Dialog } from '@headlessui/react'
 import React from 'react'
 
 import EthAddress from '../Ethereum/EthAddress'
-import { RowBodyLong } from '../Organisms/Table/Table'
 import Button from '../atoms/Button/Button'
 import { Icon } from '../atoms/Icon/Icon'
+import { RowBodyLong } from '../organisms/Table/CustomTable'
 
 import Spacer from '~/utils/Spacer'
 

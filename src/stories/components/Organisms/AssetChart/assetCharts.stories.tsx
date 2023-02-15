@@ -1,7 +1,5 @@
 import AssetChart from './AssetChart'
 
-import { DisplayBox } from '~/utils/DisplayBox'
-
 export default {
   title: 'Components/Organisms/AssetChart',
   component: 'AssetChart',

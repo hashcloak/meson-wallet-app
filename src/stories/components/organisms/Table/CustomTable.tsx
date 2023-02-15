@@ -123,12 +123,7 @@ export const TableShortRow = () => {
       >
         <RowBodyShort />
       </button>
-      <TxModal
-        isOpen={isOpen}
-        body={body}
-        buttons={buttons}
-        onClose={onClose}
-      />
+      <TxModal isOpen={isOpen} onClose={onClose} />
     </>
   )
 }
@@ -174,12 +169,7 @@ export const TableLongRow = () => {
       >
         <RowBodyLong />
       </button>
-      <TxModal
-        isOpen={isOpen}
-        body={body}
-        buttons={buttons}
-        onClose={onClose}
-      />
+      <TxModal isOpen={isOpen} onClose={onClose} />
     </>
   )
 }

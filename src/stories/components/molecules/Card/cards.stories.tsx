@@ -1,4 +1,4 @@
-import { TransactionType } from '../../Organisms/Timeline/Timeline'
+import { TransactionType } from '../../organisms/Timeline/Timeline'
 
 import Card from './Card'
 

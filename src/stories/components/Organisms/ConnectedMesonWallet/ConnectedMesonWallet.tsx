@@ -1,6 +1,5 @@
 import Blockies from 'react-blockies'
 
-import EthAddress from '../../Ethereum/EthAddress'
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import Option from '../../atoms/Option/Option'
