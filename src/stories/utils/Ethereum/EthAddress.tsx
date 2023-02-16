@@ -34,7 +34,7 @@ const EthAddress: React.FC<Props> = ({
         scale={size}
         className='identicon rounded-full'
       />
-      <div className='flex flex-col ml-2'>
+      <div className='flex flex-col ml-2 items-start'>
         {walletName && walletName ? (
           <span className='text-textWhite text-base font-normal'>
             My wallet
