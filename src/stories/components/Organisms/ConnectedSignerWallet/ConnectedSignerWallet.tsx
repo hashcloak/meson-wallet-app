@@ -16,7 +16,7 @@ type Props = {
   ethAddress?: string
   isConnected: boolean
   signerWallet?: string
-  network: string
+  network?: string
 }
 
 const signerWallets: { [k in LogoTypes]?: string }[] = [

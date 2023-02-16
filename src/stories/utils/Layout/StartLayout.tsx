@@ -1,10 +1,25 @@
-const StartLayout = () => {
+type Props = {
+  topbar?: React.ReactNode
+  body?: React.ReactNode
+}
+
+const StartLayout: React.FC<Props> = ({ topbar, body }) => {
   return (
     <div className='w-screen h-screen flex flex-col'>
-      <div className='w-full h-[3.5rem] bg-bgDarkLight'>Topbar</div>
-      <div className='flex justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgDark'>
-        Body
-      </div>
+      {topbar && topbar ? (
+        <div className='w-full h-[3.5rem]'>{topbar}</div>
+      ) : (
+        <div className='w-full h-[3.5rem] bg-bgDarkLight'>topbar</div>
+      )}
+      {body && body ? (
+        <div className='flex justify-center items-center w-full h-full box-border py-8 px-[4.5rem]'>
+          {body}
+        </div>
+      ) : (
+        <div className='flex justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgDark'>
+          body
+        </div>
+      )}
     </div>
   )
 }

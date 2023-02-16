@@ -9,7 +9,7 @@ export const theme = {
       border:
         'transition border border-bgWhite text-textWhite bg-bgDark hover:border-none hover:bg-bgWhite hover:text-textBlack focus:outline-none hover:outline-none active:outline-none',
       special:
-        'transition bg-bgDarkMid hover:bg-dark text-textWhite  focus:outline-none hover:outline-none active:outline-none',
+        'max-w-[25rem] w-full py-4 text-center bg-bgDarkMid hover:bg-dark',
       disable:
         'bg-bgGray text-textGray focus:outline-none hover:outline-none active:outline-none',
     },

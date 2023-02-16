@@ -37,6 +37,7 @@ export const Icons = (): React.ReactElement => {
     'OnChainRejection',
     'CreateNew',
     'AddExist',
+    'Lines',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>

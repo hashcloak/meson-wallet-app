@@ -34,7 +34,7 @@ const LastOpenedWallet: React.FC<Props> = ({ wallets }) => {
   }
 
   return (
-    <div className='w-[51rem] max-h-[27rem] min-h-[6.5ren] bg-bgDarkMid py-4 px-8 rounded-xl'>
+    <div className='w-[51rem] max-h-[27rem] min-h-[6.5ren] bg-bgDarkMid py-4 px-8 rounded-2xl box-border '>
       <span className='text-textWhite text-xl font-bold'>
         Last Opened Wallets
       </span>
@@ -49,6 +49,7 @@ const LastOpenedWallet: React.FC<Props> = ({ wallets }) => {
                 ethAddress={ethAddress}
                 size={4.5}
                 length={'full'}
+                icons={false}
               />
               <div className='flex flex-col text-sm text-textGrayLight h-full items-center justify-center'>
                 <span>Last opened</span>
@@ -58,7 +59,7 @@ const LastOpenedWallet: React.FC<Props> = ({ wallets }) => {
           </button>
         ))
       ) : (
-        <div className='flex items-center justify-center w-full h-full mb-4'>
+        <div className='flex items-center justify-center w-full mb-4'>
           <span className='text-textGrayLight text-base text-center'>
             No wallet recently used
           </span>

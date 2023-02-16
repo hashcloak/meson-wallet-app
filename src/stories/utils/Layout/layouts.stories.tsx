@@ -13,10 +13,11 @@ export const BaseLayouts = (): React.ReactElement => {
     </div>
   )
 }
+
 export const StartLayouts = (): React.ReactElement => {
   return (
     <div className='flex flex-row w-screen flex-wrap'>
-      <StartLayout />
+      <StartLayout topbar={undefined} body={undefined} />
     </div>
   )
 }

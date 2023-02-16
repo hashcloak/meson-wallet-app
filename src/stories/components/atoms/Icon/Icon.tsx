@@ -12,6 +12,7 @@ import ContentCopy from './images/ContentCopy'
 import CreateNew from './images/CreateNew'
 import FailCircle from './images/FailCircle'
 import Info from './images/Info'
+import Lines from './images/Lines'
 import MesonCircle from './images/MesonCircle'
 import OnChainRejection from './images/OnChainRejection'
 import OpenInNew from './images/OpenInNew'
@@ -40,6 +41,7 @@ const icons = {
   OnChainRejection,
   CreateNew,
   AddExist,
+  Lines,
 }
 
 export type IconType = typeof icons
@@ -74,6 +76,7 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     OnChainRejection: <OnChainRejection iconSize={size} color={color} />,
     CreateNew: <CreateNew iconSize={size} color={color} />,
     AddExist: <AddExist iconSize={size} color={color} />,
+    Lines: <Lines iconSize={size} color={color} />,
   }
   return icons[type]
 }
