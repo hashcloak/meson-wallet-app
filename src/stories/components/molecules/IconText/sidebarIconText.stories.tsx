@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { LogoTypes } from '../../atoms/Icon/Logo'
 import { SidebarIconTypes } from '../../atoms/Icon/SidebarIcon'
 
 import { SidebarIconText } from './SidebarIconText'
-import { Token } from './Token'
+import { Token, tokens } from './Token'
 
 export default {
   title: 'Components/Molecules/SidebarIconTexts',
@@ -44,19 +43,20 @@ export const SidebarIconTexts = (): React.ReactElement => {
   )
 }
 export const Tokens = (): React.ReactElement => {
-  const tokens: LogoTypes[] = ['EthLogo', 'DaiLogo', 'UsdcLogo', 'BnbLogo']
   const abbrev = {
     EthLogo: 'ETH',
     DaiLogo: 'DAI',
     UsdcLogo: 'USDC',
     BnbLogo: 'BNB',
   }
-  const name = {
+
+  const tokenName = {
     EthLogo: 'Ethereum',
     DaiLogo: 'Dai Stablecoin',
     UsdcLogo: 'USD Coin',
     BnbLogo: 'BNB Smart Chain',
   }
+
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       {/* <DisplayBox title={'Sidebar'}> */}
@@ -65,7 +65,7 @@ export const Tokens = (): React.ReactElement => {
           <Token
             type={token}
             abbrev={abbrev[token]}
-            token={name[token]}
+            token={tokenName[token]}
             key={token}
           />
         ))}

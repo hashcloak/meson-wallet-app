@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import React from 'react'
 
-import EthAddress from '../../Ethereum/EthAddress'
+import EthAddress from '../../../utils/Ethereum/EthAddress'
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import { RowBodyLong } from '../../organisms/Table/CustomTable'

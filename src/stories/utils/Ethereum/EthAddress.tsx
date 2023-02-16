@@ -11,6 +11,7 @@ type Props = {
   size: number
   length: 'short' | 'full'
   icons?: boolean
+  walletName?: string
 }
 
 const EthAddress: React.FC<Props> = ({
@@ -18,6 +19,7 @@ const EthAddress: React.FC<Props> = ({
   size,
   length,
   icons = true,
+  walletName,
 }) => {
   const [address, setAddress] = useState(ethAddress)
 
@@ -32,8 +34,19 @@ const EthAddress: React.FC<Props> = ({
         scale={size}
         className='identicon rounded-full'
       />
-      <span className='text-textWhite text-sm font-bold ml-2'>eth:&nbsp;</span>
-      <span className='text-textWhite text-base font-normal'>{address}</span>
+      <div className='flex flex-col ml-2'>
+        {walletName && walletName ? (
+          <span className='text-textWhite text-base font-normal'>
+            My wallet
+          </span>
+        ) : null}
+        <div className='flex flex-row items-center'>
+          <span className='text-textWhite text-sm font-bold'>eth:&nbsp;</span>
+          <span className='text-textWhite text-base font-normal'>
+            {address}
+          </span>
+        </div>
+      </div>
       {icons ? (
         <div className='flex flex-row ml-4 items-center'>
           <CopyToClipboardBtn textToCopy={ethAddress} />

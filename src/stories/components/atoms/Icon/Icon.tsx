@@ -1,6 +1,7 @@
 import React from 'react'
 
 import AccountCircle from './images/AccountCircle'
+import AddExist from './images/AddExist'
 import ArrowForward from './images/ArrowForward'
 import Bell from './images/Bell'
 import CheckCircle from './images/CheckCircle'
@@ -8,6 +9,7 @@ import Circle from './images/Circle'
 import Close from './images/Close'
 import Conflict from './images/Conflict'
 import ContentCopy from './images/ContentCopy'
+import CreateNew from './images/CreateNew'
 import FailCircle from './images/FailCircle'
 import Info from './images/Info'
 import MesonCircle from './images/MesonCircle'
@@ -16,6 +18,8 @@ import OpenInNew from './images/OpenInNew'
 import OwnerChange from './images/OwnerChange'
 import Receive from './images/Receive'
 import Send from './images/Send'
+
+import { theme } from '~/stories/utils/theme'
 
 const icons = {
   ContentCopy,
@@ -34,15 +38,20 @@ const icons = {
   Conflict,
   OwnerChange,
   OnChainRejection,
+  CreateNew,
+  AddExist,
 }
 
 export type IconType = typeof icons
 export type IconTypes = keyof IconType
 
+export type IconColor = typeof theme.icons.colors
+export type IconColors = keyof IconColor
+
 export type Props = {
   type: IconTypes
   size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-  color: any
+  color: IconColors
 }
 
 export const Icon: React.FC<Props> = ({ type, size, color }) => {
@@ -63,6 +72,8 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     FailCircle: <FailCircle iconSize={size} color={color} />,
     OwnerChange: <OwnerChange iconSize={size} color={color} />,
     OnChainRejection: <OnChainRejection iconSize={size} color={color} />,
+    CreateNew: <CreateNew iconSize={size} color={color} />,
+    AddExist: <AddExist iconSize={size} color={color} />,
   }
   return icons[type]
 }

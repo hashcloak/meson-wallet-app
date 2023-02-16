@@ -35,10 +35,10 @@ const Card: React.FC<Props> = ({ tx }) => {
       className="flex
     justify-center
     items-center
-    before:w-[4rem]
-    before:border-t-2
-    before:border-borderGray
-    before:content-['']
+    after:w-[4rem]
+    after:border-t-2
+    after:border-borderGray
+    after:content-['']
     "
     >
       <div className='w-full h-full flex justify-center items-start'>

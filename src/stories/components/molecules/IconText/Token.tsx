@@ -1,11 +1,14 @@
 import React from 'react'
 
-import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
+import { Logo } from '../../atoms/Icon/Logo'
+
+export const tokens = ['EthLogo', 'DaiLogo', 'UsdcLogo', 'BnbLogo'] as const
+export type TokenTypes = (typeof tokens)[number]
 
 type Props = {
-  type: LogoTypes
-  abbrev: string
-  token: string
+  type: TokenTypes
+  abbrev: React.ReactNode
+  token: React.ReactNode
 }
 
 export const Token: React.FC<Props> = ({ type, abbrev, token }) => {
