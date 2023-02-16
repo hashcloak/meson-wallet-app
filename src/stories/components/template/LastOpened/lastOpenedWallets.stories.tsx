@@ -49,6 +49,8 @@ export const LastOpenedWallets = () => {
   return (
     <div className='flex flex-col justify-between w-screen'>
       <LastOpenedWallet wallets={wallets} />
+      <Spacer size={32} axis={'vertical'} />
+      <LastOpenedWallet />
     </div>
   )
 }
