@@ -3,9 +3,9 @@ import React from 'react'
 type Props = {
   url: string
   size: 'xs' | 'sm' | 'base' | 'md' | 'lg'
-  text: string
+  children: React.ReactNode
 }
-const CustomLink: React.FC<Props> = ({ url, size, text }) => {
+const CustomLink: React.FC<Props> = ({ url, size, children }) => {
   return (
     <a
       href={url}
@@ -13,7 +13,7 @@ const CustomLink: React.FC<Props> = ({ url, size, text }) => {
       target='_blank'
       rel='noreferrer'
     >
-      {text}
+      {children}
     </a>
   )
 }

@@ -1,0 +1,124 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import React, { ChangeEvent, useState } from 'react'
+import { useForm, FormProvider } from 'react-hook-form'
+import * as z from 'zod'
+
+import Button from '../../atoms/Button/Button'
+import { BasicInput } from '../../atoms/Input/BasicInput'
+import CustomLink from '../../atoms/Link/CustomLink'
+import Option from '../../atoms/Option/Option'
+import { mock } from '../../atoms/Option/options.stories'
+import SignerWallets from '../../molecules/SignerWallets/SignerWallets'
+
+import StepContentLayout from '~/stories/utils/Layout/StepContentLayout'
+import StepWrapper from '~/stories/utils/Layout/StepWrapper'
+import Spacer from '~/utils/Spacer'
+
+const ConnectSignerWallet = () => {
+  const [userInput, setUserInput] = useState('')
+
+  const register = 'walletName'
+  const schema = z.object({
+    walletName: z.string().min(1, { message: 'Wallet name is required' }),
+  })
+
+  const methods = useForm({ resolver: zodResolver(schema) })
+  const onSubmit = (data: any) => alert(JSON.stringify(data))
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+    setUserInput(e.target.value)
+  }
+
+  return (
+    <div>
+      <span className='text-textWhite text-2xl font-bold'>
+        ① Connect your signer wallet
+      </span>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <StepWrapper>
+            {/* 1st row */}
+            <StepContentLayout>
+              <div className='flex flex-col text-textWhite text-lg max-w-[35rem]'>
+                <span>
+                  In order to select the network to create your Meson Wallet,
+                  your wallet need to be connected.
+                  <CustomLink url={''} size={'lg'}>
+                    Why do you need to connect a signer wallet?
+                  </CustomLink>
+                </span>
+                <Spacer size={24} axis={'vertical'} />
+                <span>
+                  Select network on which the Meson wallet was created
+                </span>
+              </div>
+              <div className='flex flex-col'>
+                <div className='flex flex-wrap gap-2 '>
+                  <SignerWallets />
+                </div>
+                <Spacer size={24} axis={'vertical'} />
+                <div className='w-1/3'>
+                  <Option options={mock} />
+                </div>
+              </div>
+            </StepContentLayout>
+
+            {/* 2nd row */}
+            <StepContentLayout>
+              <div className='flex flex-col text-textWhite text-lg max-w-[35rem]'>
+                <span className='text-xl underline'>Name of your wallet</span>
+                <Spacer size={24} axis={'vertical'} />
+                <span>
+                  This name is only stored locally and will never be shared with
+                  Meson or any third parties.{' '}
+                </span>
+              </div>
+              <div className='flex flex-col'>
+                <BasicInput
+                  label='Name of the new Meson Wallet'
+                  placeholder='Your-wallet-name*'
+                  type='text'
+                  registeredName={register}
+                  handleChange={onChange}
+                >
+                  <span className='text-textWhite text-sm'>
+                    By continuing you consent to{' '}
+                    <CustomLink url={''} size={'sm'}>
+                      the terms of use
+                    </CustomLink>
+                    and
+                    <CustomLink url={''} size={'sm'}>
+                      privacy policy
+                    </CustomLink>
+                    .
+                  </span>
+                </BasicInput>
+              </div>
+            </StepContentLayout>
+
+            {/* Button */}
+            <StepContentLayout isBtn={true}>
+              <Button
+                btnVariant={'text'}
+                btnSize={'lg'}
+                btnType={'button'}
+                handleClick={() => console.log('Cancel')}
+              >
+                Cancel
+              </Button>
+              <Button
+                btnVariant={userInput.length ? 'primary' : 'disable'}
+                btnSize={'lg'}
+                btnType={'submit'}
+              >
+                Next
+              </Button>
+            </StepContentLayout>
+          </StepWrapper>
+        </form>
+      </FormProvider>
+    </div>
+  )
+}
+
+export default ConnectSignerWallet

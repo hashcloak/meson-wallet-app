@@ -6,6 +6,7 @@ import SignerWalletButton from '../../atoms/Button/SignerWalletButton'
 import { Icon } from '../../atoms/Icon/Icon'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
 import CustomLink from '../../atoms/Link/CustomLink'
+import SignerWallets from '../../molecules/SignerWallets/SignerWallets'
 
 import CopyToClipboardBtn from '~/stories/utils/CopyToClipboardBtn/CopyToClipboardBtn'
 import ViewOn from '~/stories/utils/ViewOn/ViewOn'
@@ -64,11 +65,9 @@ const NoSignerWallet = () => {
               wallet needs to be connected.
             </span>
             <br />
-            <CustomLink
-              url={''}
-              size={'base'}
-              text={'Why do you need to connect a signer wallet?'}
-            />
+            <CustomLink url={''} size={'base'}>
+              Why do you need to connect a signer wallet?
+            </CustomLink>
           </div>
 
           <Spacer size={16} axis={'vertical'} />
@@ -79,15 +78,7 @@ const NoSignerWallet = () => {
             </span>
             <Spacer size={8} axis={'vertical'} />
             <div className='grid grid-cols-2 gap-2'>
-              {signerWallets.map((wallet) => (
-                <SignerWalletButton
-                  btnType={'button'}
-                  logoType={Object.keys(wallet)[0] as LogoTypes}
-                  logoName={Object.values(wallet)[0]}
-                  interact={true}
-                  key={Object.keys(wallet)[0]}
-                />
-              ))}
+              <SignerWallets />
             </div>
           </div>
         </div>

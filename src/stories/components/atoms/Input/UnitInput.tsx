@@ -10,7 +10,7 @@ const UnitInput: React.FC<InputProps> = ({
   placeholder,
   type,
   unit,
-  description,
+  children,
 }) => {
   const [input, setInput] = useState<number>(0)
 
@@ -31,12 +31,12 @@ const UnitInput: React.FC<InputProps> = ({
           name={name}
           placeholder={placeholder}
           type={type}
-          className='border border-borderGray rounded-btn text-base bg-bgWhite rounded-sm px-4 py-2 text-textBlack w-full'
+          className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
         />
         <span className='ml-[-4rem] text-textBlack'>{unit}</span>
       </div>
 
-      <div className='text-sm text-textBlack'>{description}</div>
+      <div className='text-sm text-textBlack'>{children}</div>
       <ErrorMessage
         errors={errors}
         name={registeredName}
