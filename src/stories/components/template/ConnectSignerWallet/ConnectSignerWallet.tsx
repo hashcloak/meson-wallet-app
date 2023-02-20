@@ -30,7 +30,7 @@ const ConnectSignerWallet = () => {
   }
 
   return (
-    <div>
+    <>
       <span className='text-textWhite text-2xl font-bold'>
         ① Connect your signer wallet
       </span>
@@ -39,11 +39,11 @@ const ConnectSignerWallet = () => {
           <StepWrapper>
             {/* 1st row */}
             <StepContentLayout>
-              <div className='flex flex-col text-textWhite text-lg max-w-[35rem]'>
+              <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
                 <span>
                   In order to select the network to create your Meson Wallet,
-                  your wallet need to be connected.
-                  <CustomLink url={''} size={'lg'}>
+                  your wallet need to be connected.{' '}
+                  <CustomLink url={''} size={'base'}>
                     Why do you need to connect a signer wallet?
                   </CustomLink>
                 </span>
@@ -65,9 +65,9 @@ const ConnectSignerWallet = () => {
 
             {/* 2nd row */}
             <StepContentLayout>
-              <div className='flex flex-col text-textWhite text-lg max-w-[35rem]'>
+              <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
                 <span className='text-xl underline'>Name of your wallet</span>
-                <Spacer size={24} axis={'vertical'} />
+                <Spacer size={8} axis={'vertical'} />
                 <span>
                   This name is only stored locally and will never be shared with
                   Meson or any third parties.{' '}
@@ -106,6 +106,7 @@ const ConnectSignerWallet = () => {
               >
                 Cancel
               </Button>
+              {/* TODO:Button validation needs to be updated based on signer wallet connection */}
               <Button
                 btnVariant={userInput.length ? 'primary' : 'disable'}
                 btnSize={'lg'}
@@ -117,7 +118,7 @@ const ConnectSignerWallet = () => {
           </StepWrapper>
         </form>
       </FormProvider>
-    </div>
+    </>
   )
 }
 

@@ -10,7 +10,7 @@ type Props = {
   options: Options[]
 }
 
-const Option: React.FC<Props> = ({ options }) => {
+const CustomOption: React.FC<Props> = ({ options }) => {
   const [currentVal, setCurrentVal] = useState<string>('')
   const [currentBg, setCurrentBg] = useState<string>('')
 
@@ -63,4 +63,4 @@ const Option: React.FC<Props> = ({ options }) => {
   )
 }
 
-export default Option
+export default CustomOption

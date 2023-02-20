@@ -8,6 +8,7 @@ export type InputProps = {
   placeholder?: string
   type: string
   unit?: string
+  value?: string
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void
   children?: React.ReactElement
 }
@@ -17,6 +18,7 @@ const BasicInput: React.FC<InputProps> = ({
   label,
   placeholder,
   type,
+  value,
   handleChange,
   children,
 }) => {
@@ -40,6 +42,7 @@ const BasicInput: React.FC<InputProps> = ({
             ? (e: ChangeEvent<HTMLInputElement>) => handleChange(e)
             : undefined
         }
+        value={value && value ? value : undefined}
       />
       <div className='text-sm text-textBlack'>{children}</div>
       <ErrorMessage
