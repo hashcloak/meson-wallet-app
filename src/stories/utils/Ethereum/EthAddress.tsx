@@ -16,7 +16,7 @@ type Props = {
 
 const EthAddress: React.FC<Props> = ({
   ethAddress,
-  size,
+  size = 4.5,
   length,
   icons = true,
   walletName,
