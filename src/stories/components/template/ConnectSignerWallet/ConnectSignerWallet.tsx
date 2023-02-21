@@ -30,96 +30,98 @@ const ConnectSignerWallet = () => {
   }
 
   return (
-    <>
-      <span className='text-textWhite text-2xl font-bold'>
-        ① Connect your signer wallet
-      </span>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <StepWrapper>
-            {/* 1st row */}
-            <StepContentLayout>
-              <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
-                <span>
-                  In order to select the network to create your Meson Wallet,
-                  your wallet need to be connected.{' '}
-                  <CustomLink url={''} size={'base'}>
-                    Why do you need to connect a signer wallet?
-                  </CustomLink>
-                </span>
-                <Spacer size={24} axis={'vertical'} />
-                <span>
-                  Select network on which the Meson wallet was created
-                </span>
-              </div>
-              <div className='flex flex-col'>
-                <div className='flex flex-wrap gap-2 '>
-                  <SignerWallets />
-                </div>
-                <Spacer size={24} axis={'vertical'} />
-                <div className='w-1/3'>
-                  <Option options={mock} />
-                </div>
-              </div>
-            </StepContentLayout>
-
-            {/* 2nd row */}
-            <StepContentLayout>
-              <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
-                <span className='text-xl underline'>Name of your wallet</span>
-                <Spacer size={8} axis={'vertical'} />
-                <span>
-                  This name is only stored locally and will never be shared with
-                  Meson or any third parties.{' '}
-                </span>
-              </div>
-              <div className='flex flex-col'>
-                <BasicInput
-                  label='Name of the new Meson Wallet'
-                  placeholder='Your-wallet-name*'
-                  type='text'
-                  registeredName={register}
-                  handleChange={onChange}
-                >
-                  <span className='text-textWhite text-sm'>
-                    By continuing you consent to{' '}
-                    <CustomLink url={''} size={'sm'}>
-                      the terms of use
+    <div className='flex flex-col justify-center items-center w-full h-full box-border'>
+      <div>
+        <span className='text-textWhite text-2xl font-bold'>
+          ① Connect your signer wallet
+        </span>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <StepWrapper>
+              {/* 1st row */}
+              <StepContentLayout>
+                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                  <span>
+                    In order to select the network to create your Meson Wallet,
+                    your wallet need to be connected.{' '}
+                    <CustomLink url={''} size={'base'}>
+                      Why do you need to connect a signer wallet?
                     </CustomLink>
-                    and
-                    <CustomLink url={''} size={'sm'}>
-                      privacy policy
-                    </CustomLink>
-                    .
                   </span>
-                </BasicInput>
-              </div>
-            </StepContentLayout>
+                  <Spacer size={24} axis={'vertical'} />
+                  <span>
+                    Select network on which the Meson wallet was created
+                  </span>
+                </div>
+                <div className='flex flex-col'>
+                  <div className='flex flex-wrap gap-2 '>
+                    <SignerWallets />
+                  </div>
+                  <Spacer size={24} axis={'vertical'} />
+                  <div className='w-1/3'>
+                    <Option options={mock} />
+                  </div>
+                </div>
+              </StepContentLayout>
 
-            {/* Button */}
-            <StepContentLayout isBtn={true}>
-              <Button
-                btnVariant={'text'}
-                btnSize={'lg'}
-                btnType={'button'}
-                handleClick={() => console.log('Cancel')}
-              >
-                Cancel
-              </Button>
-              {/* TODO:Button validation needs to be updated based on signer wallet connection */}
-              <Button
-                btnVariant={userInput.length ? 'primary' : 'disable'}
-                btnSize={'lg'}
-                btnType={'submit'}
-                disabled={userInput.length! ? false : true}
-              >
-                Next
-              </Button>
-            </StepContentLayout>
-          </StepWrapper>
-        </form>
-      </FormProvider>
-    </>
+              {/* 2nd row */}
+              <StepContentLayout>
+                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                  <span className='text-xl underline'>Name of your wallet</span>
+                  <Spacer size={8} axis={'vertical'} />
+                  <span>
+                    This name is only stored locally and will never be shared
+                    with Meson or any third parties.{' '}
+                  </span>
+                </div>
+                <div className='flex flex-col'>
+                  <BasicInput
+                    label='Name of the new Meson Wallet'
+                    placeholder='Your-wallet-name*'
+                    type='text'
+                    registeredName={register}
+                    handleChange={onChange}
+                  >
+                    <span className='text-textWhite text-sm'>
+                      By continuing you consent to{' '}
+                      <CustomLink url={''} size={'sm'}>
+                        the terms of use
+                      </CustomLink>
+                      and
+                      <CustomLink url={''} size={'sm'}>
+                        privacy policy
+                      </CustomLink>
+                      .
+                    </span>
+                  </BasicInput>
+                </div>
+              </StepContentLayout>
+
+              {/* Button */}
+              <StepContentLayout isBtn={true}>
+                <Button
+                  btnVariant={'text'}
+                  btnSize={'lg'}
+                  btnType={'button'}
+                  handleClick={() => console.log('Cancel')}
+                >
+                  Cancel
+                </Button>
+                {/* TODO:Button validation needs to be updated based on signer wallet connection */}
+                <Button
+                  btnVariant={userInput.length ? 'primary' : 'disable'}
+                  btnSize={'lg'}
+                  btnType={'submit'}
+                  disabled={userInput.length! ? false : true}
+                >
+                  Next
+                </Button>
+              </StepContentLayout>
+            </StepWrapper>
+          </form>
+        </FormProvider>
+      </div>
+    </div>
   )
 }
 

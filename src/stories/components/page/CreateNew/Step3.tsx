@@ -1,19 +1,19 @@
 import React from 'react'
 
-import ConnectSignerWallet from '../../template/ConnectSignerWallet/ConnectSignerWallet'
 import Sidebar from '../../template/Sidebar/Sidebar'
 import Topbar from '../../template/Topbar/Topbar'
+import WalletReview from '../../template/WalletReview/WalletReview'
 
 import BaseLayout from '~/stories/utils/Layout/BaseLayout'
 
-const Step1 = () => {
+const Step3 = () => {
   return (
     <BaseLayout
       topbar={<Topbar />}
-      sidebar={<Sidebar isStepper={true} isCreateNew={true} currentStep={0} />}
-      body={<ConnectSignerWallet />}
+      sidebar={<Sidebar isStepper={true} isCreateNew={true} currentStep={2} />}
+      body={<WalletReview />}
     />
   )
 }
 
-export default Step1
+export default Step3

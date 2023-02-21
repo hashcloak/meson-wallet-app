@@ -8,11 +8,21 @@ export const Footer: React.FC = () => {
   return (
     <div className='text-sm'>
       <div className='flex flex-col items-center'>
-        <CustomLink url={'http://'} size={'xs'} text={'Terms'} />
-        <CustomLink url={'http://'} size={'xs'} text={'Privacy'} />
-        <CustomLink url={'http://'} size={'xs'} text={'Licenses'} />
-        <CustomLink url={'http://'} size={'xs'} text={'Imprint'} />
-        <CustomLink url={'http://'} size={'xs'} text={'Cookie Policy'} />
+        <CustomLink url={'http://'} size={'xs'}>
+          Terms
+        </CustomLink>
+        <CustomLink url={'http://'} size={'xs'}>
+          Privacy
+        </CustomLink>
+        <CustomLink url={'http://'} size={'xs'}>
+          Licenses
+        </CustomLink>
+        <CustomLink url={'http://'} size={'xs'}>
+          Imprint
+        </CustomLink>
+        <CustomLink url={'http://'} size={'xs'}>
+          Cookie Policy
+        </CustomLink>
       </div>
       <Spacer size={8} axis={'vertical'} />
       <span className='text-textWhite text-xs'>© HashCloak</span>

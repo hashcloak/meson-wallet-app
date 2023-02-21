@@ -11,7 +11,7 @@ type Props = {
 
 const Dot: React.FC<Props> = ({ text, isActive, step }) => {
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center w-full'>
       <div
         className={`rounded-full flex item-center justify-center w-8 h-8 ${
           isActive ? 'bg-main' : 'bg-bgGray'
@@ -46,50 +46,57 @@ const Step: React.FC<Props> = ({ text, isActive, step, isLast }) => {
   )
 }
 
-type StepType = {
-  step: number
-  text: string
-  isLast: boolean
+type StepperPropsType = {
+  isCreateNew: boolean
+  currentStep: number
 }
 
 // TODO: isActive prop needs to be dynamic, retrieve maybe from the current path or change by page
-const Stepper: React.FC = () => {
-  const steps: StepType[] = [
+const Stepper: React.FC<StepperPropsType> = ({
+  isCreateNew = true,
+  currentStep = 0,
+}) => {
+  const createNewSteps = [
     { step: 1, text: 'Connect signer wallet', isLast: false },
     { step: 2, text: 'Register account info', isLast: false },
     { step: 3, text: 'Review', isLast: false },
     { step: 4, text: 'Create wallet', isLast: true },
+  ]
+
+  const addExistingSteps = [
     { step: 1, text: 'Select wallet', isLast: false },
     { step: 2, text: 'Owner', isLast: false },
     { step: 3, text: 'Review', isLast: false },
     { step: 4, text: 'Add wallet', isLast: true },
   ]
+
+  const stepper = isCreateNew
+    ? createNewSteps.map((step, index) => (
+        <>
+          <Step
+            text={step.text}
+            isActive={index === currentStep ? true : false}
+            step={step.step}
+            isLast={step.isLast}
+            key={index}
+          />
+        </>
+      ))
+    : addExistingSteps.map((step, index) => (
+        <>
+          <Step
+            text={step.text}
+            isActive={index === currentStep ? true : false}
+            step={step.step}
+            isLast={step.isLast}
+            key={index}
+          />
+        </>
+      ))
+
   return (
-    <div className='flex flex-col items-center'>
-      <Step
-        text={steps[0].text}
-        isActive={true}
-        step={steps[0].step}
-        isLast={steps[0].isLast}
-      />
-      <Step
-        text={steps[1].text}
-        isActive={true}
-        step={steps[1].step}
-        isLast={steps[1].isLast}
-      />
-      <Step
-        text={steps[2].text}
-        isActive={false}
-        step={steps[2].step}
-        isLast={steps[2].isLast}
-      />
-      <Step
-        text={steps[3].text}
-        isActive={false}
-        step={steps[3].step}
-        isLast={steps[3].isLast}
-      />
+    <div className='flex flex-col items-center h-16 max-w-[5rem] max-h-16 '>
+      {stepper}
     </div>
   )
 }
