@@ -111,6 +111,7 @@ const ConnectSignerWallet = () => {
                 btnVariant={userInput.length ? 'primary' : 'disable'}
                 btnSize={'lg'}
                 btnType={'submit'}
+                disabled={userInput.length! ? false : true}
               >
                 Next
               </Button>

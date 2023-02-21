@@ -1,12 +1,12 @@
 import { ErrorMessage } from '@hookform/error-message'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { object, z } from 'zod'
 
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
-import Option, { Options } from '../../atoms/Option/Option'
+import { Options } from '../../atoms/Option/Option'
 
 import StepContentLayout from '~/stories/utils/Layout/StepContentLayout'
 import StepWrapper from '~/stories/utils/Layout/StepWrapper'
@@ -15,6 +15,7 @@ import Spacer from '~/utils/Spacer'
 const RegisterAccountInfo = () => {
   const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([])
   const [currentVal, setCurrentVal] = useState<string>('')
+  const [userInput, setUserInput] = useState<string>('')
 
   const defaultAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
 
@@ -28,8 +29,6 @@ const RegisterAccountInfo = () => {
       })
       .array(),
   })
-
-  const methods = useForm({ resolver: zodResolver(schema) })
 
   const {
     register,
@@ -56,6 +55,11 @@ const RegisterAccountInfo = () => {
   }
   const onError = (errors: any, e: any) => console.log(errors, e)
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value)
+    console.log(e.target.value)
+  }
+
   useEffect(() => {
     setNumOfConfirmation([])
     const numOfOwners: Options[] = fields.map((confirmation, index) => {
@@ -73,9 +77,7 @@ const RegisterAccountInfo = () => {
       <span className='text-textWhite text-2xl font-bold'>
         ② Register account info
       </span>
-      {/* <FormProvider {...methods}> */}
       <form onSubmit={handleSubmit(onSubmit, onError)}>
-        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
         <StepWrapper>
           {/* 1st row */}
           <StepContentLayout>
@@ -100,6 +102,7 @@ const RegisterAccountInfo = () => {
                         type='text'
                         className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
                         name={`owner.${index}.ownerName`}
+                        onChange={(e) => handleChange(e)}
                       />
                       <ErrorMessage
                         errors={errors}
@@ -117,6 +120,7 @@ const RegisterAccountInfo = () => {
                         type='text'
                         className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
                         name={`owner.${index}.ownerAddress`}
+                        onChange={(e) => handleChange(e)}
                       />
                       <ErrorMessage
                         errors={errors}
@@ -205,30 +209,18 @@ const RegisterAccountInfo = () => {
             </Button>
             {/* TODO:Button validation needs to be updated based on signer wallet connection */}
             <Button
-              // btnVariant={userInput.length ? 'primary' : 'disable'}
-              btnVariant={'primary'}
+              btnVariant={userInput.length ? 'primary' : 'disable'}
               btnSize={'lg'}
               btnType={'submit'}
+              disabled={userInput.length! ? false : true}
             >
               Next
             </Button>
           </StepContentLayout>
         </StepWrapper>
       </form>
-      {/* </FormProvider> */}
     </>
   )
 }
 
 export default RegisterAccountInfo
-
-{
-  /* <input
-                          {...register(`owner.${index}.ownerName`)}
-                          placeholder='ここにタスク名を入力してください'
-                        />
-                        <input
-                          {...register(`owner.${index}.ownerAddress`)}
-                          placeholder='ここにタスク名を入力してください'
-                        /> */
-}
