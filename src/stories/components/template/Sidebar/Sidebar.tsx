@@ -5,9 +5,9 @@ import Stepper from '../../molecules/Steps/Stepper'
 import Spacer from '~/utils/Spacer'
 
 type Props = {
-  isStepper: boolean
-  isCreateNew: boolean
-  currentStep: number
+  isStepper?: boolean
+  isCreateNew?: boolean
+  currentStep?: number
 }
 
 const Sidebar: React.FC<Props> = ({
@@ -17,7 +17,7 @@ const Sidebar: React.FC<Props> = ({
 }) => {
   return (
     <div className='flex flex-col items-center justify-between w-[5.5rem] h-full box-border py-4 bg-bgDarkMid'>
-      {isStepper ? (
+      {isStepper && isCreateNew && currentStep ? (
         <Stepper isCreateNew={isCreateNew} currentStep={currentStep} />
       ) : (
         <>

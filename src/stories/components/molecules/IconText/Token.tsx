@@ -7,8 +7,8 @@ export type TokenTypes = (typeof tokens)[number]
 
 type Props = {
   type: TokenTypes
-  abbrev: React.ReactNode
-  token: React.ReactNode
+  abbrev: string
+  token: string
 }
 
 export const Token: React.FC<Props> = ({ type, abbrev, token }) => {
