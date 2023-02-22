@@ -22,7 +22,7 @@ const RegisterAccountInfo = () => {
   const schema = object({
     owner: z
       .object({
-        ownerName: z.string().min(1, { message: 'Owner name is required' }),
+        ownerName: z.string().optional(),
         ownerAddress: z
           .string()
           .min(1, { message: 'Owner address is required' }),
@@ -103,7 +103,6 @@ const RegisterAccountInfo = () => {
                           type='text'
                           className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
                           name={`owner.${index}.ownerName`}
-                          onChange={(e) => handleChange(e)}
                         />
                         <ErrorMessage
                           errors={errors}
@@ -209,12 +208,7 @@ const RegisterAccountInfo = () => {
                 Cancel
               </Button>
               {/* TODO:Button validation needs to be updated based on signer wallet connection */}
-              <Button
-                btnVariant={userInput.length ? 'primary' : 'disable'}
-                btnSize={'lg'}
-                btnType={'submit'}
-                disabled={userInput.length! ? false : true}
-              >
+              <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
                 Next
               </Button>
             </StepContentLayout>

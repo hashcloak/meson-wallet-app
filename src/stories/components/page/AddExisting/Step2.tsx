@@ -1,6 +1,6 @@
 import React from 'react'
 
-import RegisterAccountInfo from '../../template/RegisterAccountInfo/RegisterAccountInfo'
+import OwnerSetting from '../../template/OwnerSetting/OwnerSetting'
 import Sidebar from '../../template/Sidebar/Sidebar'
 import Topbar from '../../template/Topbar/Topbar'
 
@@ -11,7 +11,7 @@ const Step2 = () => {
     <BaseLayout
       topbar={<Topbar />}
       sidebar={<Sidebar isStepper={true} isCreateNew={true} currentStep={1} />}
-      body={<RegisterAccountInfo />}
+      body={<OwnerSetting />}
     />
   )
 }
