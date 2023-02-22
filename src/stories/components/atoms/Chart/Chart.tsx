@@ -27,17 +27,16 @@ const Chart: React.FC<Props> = ({ data, isBar = false }) => {
           height={224}
           data={data}
           margin={{
-            top: 8,
+            top: 40,
             right: 30,
             left: 20,
             bottom: 8,
           }}
         >
           <CartesianGrid strokeDasharray='3' />
-          <XAxis dataKey='name' />
-          <YAxis />
+          <XAxis dataKey='name' tick={{ fill: 'white' }} />
+          <YAxis tick={{ fill: 'white' }} />
           <Tooltip />
-          <Legend />
           <Line
             type='monotone'
             dataKey='Amount'
@@ -48,8 +47,8 @@ const Chart: React.FC<Props> = ({ data, isBar = false }) => {
       ) : (
         <BarChart width={448} height={208} data={data}>
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='name' />
-          <YAxis />
+          <XAxis dataKey='name' tick={{ fill: 'white' }} />
+          <YAxis tick={{ fill: 'white' }} />
           <Tooltip />
           <Legend />
           <Bar dataKey='Queued Txs' fill='#38C6F4' />

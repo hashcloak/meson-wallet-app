@@ -84,7 +84,14 @@ const AssetChart = () => {
     { '1 yr': <Chart data={year} /> },
   ]
 
-  return <Tabs tabList={tabList} />
+  return (
+    <div className='flex flex-col'>
+      <span className='text-textWhite text-2xl font-bold'>Asset Chart</span>
+      <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
+        <Tabs tabList={tabList} />
+      </div>
+    </div>
+  )
 }
 
 export default AssetChart
