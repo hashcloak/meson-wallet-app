@@ -1,4 +1,4 @@
-import ConnectSignerWallet from '../../template/ConnectSignerWallet/ConnectSignerWallet'
+import DashboardContents from '../../template/DashboardContents/DashboardContents'
 import Sidebar from '../../template/Sidebar/Sidebar'
 import Topbar from '../../template/Topbar/Topbar'
 
@@ -9,7 +9,7 @@ const Dashboard = () => {
     <BaseLayout
       topbar={<Topbar />}
       sidebar={<Sidebar />}
-      body={<ConnectSignerWallet />}
+      body={<DashboardContents />}
     />
   )
 }

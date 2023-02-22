@@ -15,7 +15,7 @@ const Accounts = () => {
   ]
 
   return (
-    <div className='flex flex-col w-full h-full'>
+    <div className='flex flex-col h-full'>
       <span className='text-textWhite text-2xl font-bold'>Accounts</span>
 
       <div className='max-w-[44rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>

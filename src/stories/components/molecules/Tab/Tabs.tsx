@@ -121,7 +121,7 @@ const Tabs: React.FC<Props> = ({ tabList }) => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  'rounded-none	px-2.5 text-center text-base font-medium text-textWhite',
+                  'rounded-xl	px-2.5 text-center text-base font-medium text-textWhite',
                   'focus:outline-none focus:ring-2',
                   selected ? 'bg-dark' : 'hover:bg-dark'
                 )

@@ -5,7 +5,7 @@ import RecentTxs from '../../organisms/RecentTxs/RecentTxs'
 
 import Spacer from '~/utils/Spacer'
 
-const ConnectSignerWallet = () => {
+const DashboardContents = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div className='flex flex-row w-full h-full box-border'>
@@ -23,4 +23,4 @@ const ConnectSignerWallet = () => {
   )
 }
 
-export default ConnectSignerWallet
+export default DashboardContents

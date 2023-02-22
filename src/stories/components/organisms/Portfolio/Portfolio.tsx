@@ -22,7 +22,7 @@ const Portfolio = () => {
   ]
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col w-full'>
       <span className='text-textWhite text-2xl font-bold'>Portfolio</span>
 
       <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>

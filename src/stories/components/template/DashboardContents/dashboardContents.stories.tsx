@@ -7,7 +7,7 @@ export default {
   component: DashboardContents,
 }
 
-export const DashboardContentss = () => {
+export const Default = () => {
   return (
     <div className='flex flex-col justify-between w-screen'>
       <DashboardContents />

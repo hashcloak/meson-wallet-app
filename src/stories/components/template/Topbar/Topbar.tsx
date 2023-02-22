@@ -19,12 +19,11 @@ const Topbar = () => {
   return (
     <div className='flex flex-row justify-between items-center w-full h-[3.5rem] bg-bgDarkLight'>
       <div className='flex flex-row justify-center items-center'>
-        <button
-          className='flex justify-center items-center h-10 w-[4.5rem]'
-          type='button'
-        >
-          <Icon type={'Lines'} size={'md'} color={'white'} />
-        </button>
+        <div className='flex justify-center items-center h-10 w-[5.5rem]'>
+          <button type='button'>
+            <Icon type={'Lines'} size={'md'} color={'white'} />
+          </button>
+        </div>
         <img
           src='./Meson_topbar_logo.png'
           alt='mesonTopbarLogo'
