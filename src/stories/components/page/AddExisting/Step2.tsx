@@ -10,7 +10,7 @@ const Step2 = () => {
   return (
     <BaseLayout
       topbar={<Topbar />}
-      sidebar={<Sidebar isStepper={true} isCreateNew={true} currentStep={1} />}
+      sidebar={<Sidebar isStepper={true} isCreateNew={false} currentStep={1} />}
       body={<OwnerSetting />}
     />
   )

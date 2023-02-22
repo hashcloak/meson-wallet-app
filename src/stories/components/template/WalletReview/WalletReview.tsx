@@ -5,7 +5,11 @@ import StepContentLayout from '~/stories/utils/Layout/StepContentLayout'
 import StepWrapper from '~/stories/utils/Layout/StepWrapper'
 import Spacer from '~/utils/Spacer'
 
-const WalletReview = () => {
+type Props = {
+  isCreateNew?: boolean
+}
+
+const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
   const defaultAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
 
   const handleSubmit = () => console.log('submit')
@@ -73,27 +77,28 @@ const WalletReview = () => {
                   </div>
                 </div>
               </div>
-
-              <div className='bg-bgDarkLight w-[56rem] py-4 mt-6 rounded-2xl flex flex-col items-center text-textWhite'>
-                <div className='flex flex-col'>
-                  <span>
-                    ※ You&apos;re almost creating a new Meson Wallet on{' '}
-                    <span className='font-bold text-warning'>Ethereum</span>.{' '}
-                  </span>
-                  <span>
-                    ・You will have to confirm a transaction with your currently
-                    connected wallet.{' '}
-                  </span>
-                  <span>
-                    ・The creation will cost approximately{' '}
-                    <span className='font-bold'>0.02145</span> ETH, thus make
-                    sure your connected wallet has enough token.{' '}
-                  </span>
-                  <span>
-                    (The exact amount will be determined by your wallet.){' '}
-                  </span>
+              {isCreateNew ? (
+                <div className='bg-bgDarkLight w-[56rem] py-4 mt-6 rounded-2xl flex flex-col items-center text-textWhite'>
+                  <div className='flex flex-col'>
+                    <span>
+                      ※ You&apos;re almost creating a new Meson Wallet on{' '}
+                      <span className='font-bold text-warning'>Ethereum</span>.{' '}
+                    </span>
+                    <span>
+                      ・You will have to confirm a transaction with your
+                      currently connected wallet.{' '}
+                    </span>
+                    <span>
+                      ・The creation will cost approximately{' '}
+                      <span className='font-bold'>0.02145</span> ETH, thus make
+                      sure your connected wallet has enough token.{' '}
+                    </span>
+                    <span>
+                      (The exact amount will be determined by your wallet.){' '}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              ) : null}
             </StepContentLayout>
 
             {/* Button */}

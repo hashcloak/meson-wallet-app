@@ -10,8 +10,8 @@ const Step3 = () => {
   return (
     <BaseLayout
       topbar={<Topbar />}
-      sidebar={<Sidebar isStepper={true} isCreateNew={true} currentStep={2} />}
-      body={<WalletReview />}
+      sidebar={<Sidebar isStepper={true} isCreateNew={false} currentStep={2} />}
+      body={<WalletReview isCreateNew={false} />}
     />
   )
 }

@@ -10,7 +10,7 @@ const Step1 = () => {
   return (
     <BaseLayout
       topbar={<Topbar />}
-      sidebar={<Sidebar isStepper={true} isCreateNew={true} currentStep={0} />}
+      sidebar={<Sidebar isStepper={true} isCreateNew={false} currentStep={0} />}
       body={<SelectMesonWallet />}
     />
   )

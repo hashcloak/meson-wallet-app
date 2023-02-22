@@ -66,8 +66,7 @@ const Stepper: React.FC<StepperPropsType> = ({
   const addExistingSteps = [
     { step: 1, text: 'Select wallet', isLast: false },
     { step: 2, text: 'Owner', isLast: false },
-    { step: 3, text: 'Review', isLast: false },
-    { step: 4, text: 'Add wallet', isLast: true },
+    { step: 3, text: 'Review', isLast: true },
   ]
 
   const stepper = isCreateNew
