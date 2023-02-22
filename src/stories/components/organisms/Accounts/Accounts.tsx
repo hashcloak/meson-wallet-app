@@ -1,5 +1,3 @@
-import { Token, TokenTypes } from '../../molecules/IconText/Token'
-
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
 

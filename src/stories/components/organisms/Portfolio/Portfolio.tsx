@@ -22,7 +22,7 @@ const Portfolio = () => {
   ]
 
   return (
-    <div className='w-[34rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6'>
+    <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6'>
       <div className='flex flex-col items-center w-full'>
         <span className='text-3xl font-bold'>$ 100.00</span>
         <Spacer size={16} axis={'vertical'} />

@@ -1,7 +1,35 @@
 import { Tab } from '@headlessui/react'
 import { useState } from 'react'
 
-import { TableLongRow } from '../../organisms/Table/CustomTable'
+import { TableShortRow, TableLongRow } from '../../organisms/Table/CustomTable'
+
+export const RecentQueue = () => {
+  return (
+    <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
+      <div className='box-border grid grid-cols-1 gap-2'>
+        <TableShortRow />
+        <TableShortRow />
+        <TableShortRow />
+        <TableShortRow />
+        <TableShortRow />
+      </div>
+    </div>
+  )
+}
+
+export const RecentHistory = () => {
+  return (
+    <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
+      <div className='box-border grid grid-cols-1 gap-2'>
+        <TableShortRow />
+        <TableShortRow />
+        <TableShortRow />
+        <TableShortRow />
+        <TableShortRow />
+      </div>
+    </div>
+  )
+}
 
 export const Queue = () => {
   return (
