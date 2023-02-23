@@ -9,50 +9,7 @@ import TxModal from '../../molecules/Modal/TxModal'
 import { unixTimeConverter } from '~/stories/utils/unixTimeConverter'
 import Spacer from '~/utils/Spacer'
 
-export const RowBodyLong = () => {
-  return (
-    <div className='grid grid-cols-2 gap-32'>
-      <div className='grid grid-cols-2 items-center'>
-        <div className='flex flex-row items-center'>
-          <img className='object-contain w-8 mr-2' src='../public/send.png' />
-          <span className='text-textWhite font-bold text-base'>Send</span>
-        </div>
-
-        <div className='flex flex-col justify-items-start'>
-          <div className='flex flex-row items-center'>
-            <img
-              className='object-contain w-6 mr-2'
-              src='../public/eth_icon.png'
-            />
-            <span className='text-textWhite font-bold text-lg'>
-              - 0.00062 ETH
-            </span>
-          </div>
-          <span className='text-textGrayLight text-xs'>
-            To: 0xf86B25473cC08F04DA275B2847F2448cf041Fbd5
-          </span>
-        </div>
-      </div>
-
-      <div className='grid grid-cols-3 items-center'>
-        <div className='flex flex-col items-start'>
-          <span className='text-textWhite text-sm'>28 Sep 2022</span>
-          <span className='text-textGrayLight text-xs'>10:23 AM</span>
-        </div>
-
-        <div className='flex flex-col items-start'>
-          <span className='text-textGrayLight text-xs'>1 out of 2</span>
-        </div>
-
-        <div className='flex flex-col items-start '>
-          <span className='text-textWhite text-sm'>Needs confirmation</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-type RowBodyShortType = {
+export type RowBodyType = {
   amount?: number | string
   token?: string
   to?: string
@@ -63,7 +20,68 @@ type RowBodyShortType = {
   isSuccess?: boolean
 }
 
-export const RowBodyShort: React.FC<RowBodyShortType> = ({
+export const RowBodyLong: React.FC<RowBodyType> = ({
+  amount,
+  token,
+  to,
+  from,
+  timestamp,
+  status,
+  numOfConfirmation,
+  isSuccess,
+}) => {
+  const { date, time } = unixTimeConverter(timestamp)
+
+  return (
+    <div className='grid grid-cols-2 gap-32'>
+      <div className='grid grid-cols-2 items-center'>
+        <div className='flex flex-row items-center'>
+          <TxStatus type={status} size={'xl'} color={'white'} />
+          <span className='text-textWhite font-bold text-base'>{status}</span>
+        </div>
+
+        <div className='flex flex-col justify-items-start'>
+          <div className='flex flex-row items-center'>
+            <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
+            <Spacer size={8} axis={'horizontal'} />
+            <span className='text-textWhite font-bold text-lg'>
+              {amount} {token?.toUpperCase()}
+            </span>
+          </div>
+          {to ? (
+            <span className='text-textGrayLight text-xs'>To: {to}</span>
+          ) : (
+            <span className='text-textGrayLight text-xs'>From: {from}</span>
+          )}
+        </div>
+      </div>
+
+      <div className='grid grid-cols-3 items-center'>
+        <div className='flex flex-col items-start'>
+          <span className='text-textWhite text-sm'>{date}</span>
+          <span className='text-textGrayLight text-xs'>{time}</span>
+        </div>
+        {numOfConfirmation && !isSuccess ? (
+          <>
+            <div className='flex flex-col items-start'>
+              <span className='text-textGrayLight text-xs'>
+                {' '}
+                {numOfConfirmation} out of 2
+              </span>
+            </div>
+            <div className='flex flex-col items-start '>
+              <span className='text-textWhite text-sm'>Needs confirmation</span>
+            </div>{' '}
+          </>
+        ) : (
+          <span className='text-textWhite text-sm'>{isSuccess}</span>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export const RowBodyShort: React.FC<RowBodyType> = ({
   amount,
   token,
   to,
@@ -114,12 +132,12 @@ export const RowBodyShort: React.FC<RowBodyShortType> = ({
   )
 }
 
-type TableShortRowType = {
-  tx: RowBodyShortType
+type TableRowType = {
+  tx: RowBodyType
 }
 
 // TODO: TableShortRow and TableLongRow needs to receive props to display info.
-export const TableShortRow: React.FC<TableShortRowType> = ({ tx }) => {
+export const TableShortRow: React.FC<TableRowType> = ({ tx }) => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => {
     setIsOpen(!isOpen)
@@ -142,53 +160,35 @@ export const TableShortRow: React.FC<TableShortRowType> = ({ tx }) => {
           numOfConfirmation={tx.numOfConfirmation}
         />
       </button>
-      <TxModal isOpen={isOpen} onClose={onClose} />
+      <TxModal isOpen={isOpen} onClose={onClose} tx={tx} />
     </>
   )
 }
 
-export const TableLongRow = () => {
+export const TableLongRow: React.FC<TableRowType> = ({ tx }) => {
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => {
     setIsOpen(!isOpen)
   }
 
-  const body = (
-    <p>
-      You are removing a Meson Wallet ONLY from your interface. It does not
-      delete the Meson wallet. You can always add it back using the above Meson
-      wallet’s address
-    </p>
-  )
-  const buttons = (
-    <>
-      <Button
-        btnVariant={'text'}
-        btnSize={'md'}
-        btnType={'button'}
-        handleClick={onClose}
-      >
-        Close
-      </Button>
-      <Button
-        btnVariant={'primary'}
-        btnSize={'md'}
-        btnType={'button'}
-        handleClick={onClose}
-      >
-        Submit
-      </Button>
-    </>
-  )
   return (
     <>
       <button
-        className='flex items-center justify-between rounded-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap w-full'
+        className='flex items-center justify-between rounded-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap mb-2 w-full'
         onClick={() => setIsOpen(!isOpen)}
       >
-        <RowBodyLong />
+        <RowBodyLong
+          timestamp={tx.timestamp}
+          status={tx.status}
+          to={tx.to}
+          from={tx.from}
+          token={tx.token}
+          amount={tx.amount}
+          isSuccess={tx.isSuccess}
+          numOfConfirmation={tx.numOfConfirmation}
+        />
       </button>
-      <TxModal isOpen={isOpen} onClose={onClose} />
+      <TxModal isOpen={isOpen} onClose={onClose} tx={tx} />
     </>
   )
 }
@@ -197,7 +197,7 @@ type Props = {
   size: 'short' | 'long'
 }
 
-export const mockTransactions: RowBodyShortType[] = [
+export const mockTransactions: RowBodyType[] = [
   {
     amount: '- 0.00062',
     token: 'Eth',
@@ -237,12 +237,9 @@ const CustomTable: React.FC<Props> = ({ size }) => {
           </div>
         ) : (
           <div className='grid grid-flow-row gap-2'>
-            <TableLongRow />
-            <TableLongRow />
-            <TableLongRow />
-            <TableLongRow />
-            <TableLongRow />
-            <TableLongRow />
+            {mockTransactions.map((tx) => (
+              <TableLongRow tx={tx} key={tx.timestamp} />
+            ))}
           </div>
         )}
       </div>

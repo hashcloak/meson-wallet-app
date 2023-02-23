@@ -18,9 +18,5 @@ const tx: TransactionType = {
 }
 
 export const Cards = (): React.ReactElement => {
-  return (
-    <div className='w-[14rem] h-[64rem] max-w-[99.5rem] max-h-[62rem] pt-8 pb-10 px-[4.5rem] bg-bgDarkMid'>
-      <Card tx={tx} />
-    </div>
-  )
+  return <Card tx={tx} />
 }

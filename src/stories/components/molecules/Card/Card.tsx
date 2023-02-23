@@ -31,16 +31,7 @@ const Card: React.FC<Props> = ({ tx }) => {
   const { date, time } = unixTimeConverter(timestamp)
 
   return (
-    <div
-      className="flex
-    justify-center
-    items-center
-    after:w-[4rem]
-    after:border-t-2
-    after:border-borderGray
-    after:content-['']
-    "
-    >
+    <div className="flex justify-center items-center h-[18rem] after:w-[4rem] after:border-t-2 after:border-borderGray after:content-['']">
       <div className='w-full h-full flex justify-center items-start'>
         <span className='relative w-[12.5rem] text-center'>
           <span className='text-sm font-bold text-textWhite'>{date}</span>

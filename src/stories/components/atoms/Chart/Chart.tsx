@@ -45,7 +45,7 @@ const Chart: React.FC<Props> = ({ data, isBar = false }) => {
           />
         </LineChart>
       ) : (
-        <BarChart width={448} height={208} data={data}>
+        <BarChart width={640} height={208} data={data}>
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='name' tick={{ fill: 'white' }} />
           <YAxis tick={{ fill: 'white' }} />

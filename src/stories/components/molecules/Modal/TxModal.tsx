@@ -4,13 +4,14 @@ import React from 'react'
 import EthAddress from '../../../utils/Ethereum/EthAddress'
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
-import { RowBodyLong } from '../../organisms/Table/CustomTable'
+import { RowBodyLong, RowBodyType } from '../../organisms/Table/CustomTable'
 
 import Spacer from '~/utils/Spacer'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
+  tx: RowBodyType
 }
 
 const TxDetails = () => {
@@ -162,44 +163,46 @@ const TxDetails = () => {
   )
 }
 
-const TxModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const TxModal: React.FC<Props> = ({ isOpen, onClose, tx }) => {
+  console.log('modal', tx)
   return (
     <>
-      <Dialog
-        open={isOpen}
-        onClose={onClose}
-        className='fixed z-10 inset-0 overflow-y-auto'
-      >
-        <div className='flex items-center justify-center min-h-screen'>
-          <Dialog.Overlay
-            className='fixed inset-0 bg-neutral-900 opacity-30'
-            aria-hidden='true'
-          />
-          <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl mx-auto'>
-            <div className='flex items-center justify-between rounded-t-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap'>
-              <RowBodyLong />
-            </div>
+      {tx && (
+        <Dialog
+          open={isOpen}
+          onClose={onClose}
+          className='fixed z-10 inset-0 overflow-y-auto'
+        >
+          <div className='flex items-center justify-center min-h-screen'>
+            <Dialog.Overlay
+              className='fixed inset-0 bg-neutral-900 opacity-30'
+              aria-hidden='true'
+            />
+            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl mx-auto'>
+              <div className='flex items-center justify-between rounded-t-2xl px-4 h-16 bg-bgDarkLight whitespace-nowrap'>
+                <RowBodyLong
+                  timestamp={tx.timestamp!}
+                  status={tx.status}
+                  to={tx.to}
+                  from={tx.from}
+                  token={tx.token}
+                  amount={tx.amount}
+                  isSuccess={tx.isSuccess}
+                  numOfConfirmation={tx.numOfConfirmation}
+                />
+              </div>
 
-            <Dialog.Description className='p-6'>
-              {/* Description */}
-              <TxDetails />
-              {/* Description */}
-            </Dialog.Description>
-          </Dialog.Panel>
-        </div>
-      </Dialog>
+              <Dialog.Description className='p-6'>
+                {/* Description */}
+                <TxDetails />
+                {/* Description */}
+              </Dialog.Description>
+            </Dialog.Panel>
+          </div>
+        </Dialog>
+      )}
     </>
   )
 }
 
 export default TxModal
-
-{
-  /* <button onClick={onClose}>
-<img
-  src='/close_white_24dp.svg'
-  alt='close-wh'
-  className='w-6 object-contain'
-/>
-</button> */
-}

@@ -9,9 +9,15 @@ const RecentQueues = () => {
       </span>
 
       <div className='max-w-[50rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
-        {mockTransactions.map((tx) => (
-          <TableShortRow tx={tx} key={tx.timestamp} />
-        ))}
+        {mockTransactions ? (
+          mockTransactions.map((tx) => (
+            <TableShortRow tx={tx} key={tx.timestamp} />
+          ))
+        ) : (
+          <div className='w-full h-full flex justify-center items-center'>
+            <span className='text-textGrayLight'>No queued transaction</span>
+          </div>
+        )}
       </div>
     </div>
   )

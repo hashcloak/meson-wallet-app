@@ -92,10 +92,20 @@ const Timeline = () => {
   })
 
   return (
-    <div className='flex flex-row overflow-x-scroll w-full h-full snap-x'>
-      {sortedTx.map((tx) => (
-        <Card tx={tx} key={tx.id} />
-      ))}
+    <div className='flex flex-col w-full h-full'>
+      <span className='text-textWhite text-2xl font-bold'>
+        History - Latest {sortedTx.length} out of{' '}
+        {sortedTx.length > 5 ? sortedTx.length : '10'} Txs
+      </span>
+      <div className='flex flex-row rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-[22.5rem] box-border snap-x overflow-x-scroll '>
+        {sortedTx ? (
+          sortedTx.map((tx) => <Card tx={tx} key={tx.id} />)
+        ) : (
+          <div className='w-full h-full flex justify-center items-center'>
+            <span className='text-textGrayLight'>No queued transaction</span>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

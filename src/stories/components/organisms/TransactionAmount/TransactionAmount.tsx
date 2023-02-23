@@ -79,9 +79,9 @@ const TransactionAmount = () => {
       <span className='text-textWhite text-2xl font-bold'>
         Transaction amount
       </span>
-      <div className='flex flex-col justify-center rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
+      <div className='flex flex-col justify-center rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6  h-full box-border'>
         <Tabs tabList={tabList} />
-        <div className='flex flex-row w-[28rem] justify-between'>
+        <div className='flex flex-row w-full justify-around'>
           <Stat title={'queue'} data={queueCount} />
           <Stat title={'historied'} data={historiedCount} />
         </div>
