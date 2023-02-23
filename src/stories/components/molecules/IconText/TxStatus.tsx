@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { IconColors } from '../../atoms/Icon/Icon'
 import Conflict from '../../atoms/Icon/images/Conflict'
 import OnChainRejection from '../../atoms/Icon/images/OnChainRejection'
 import OwnerChange from '../../atoms/Icon/images/OwnerChange'
@@ -35,8 +36,8 @@ export type StatusTypes = keyof StatusType
 export type Props = {
   type: IconTypes | StatusTypes
   size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-  color: any
-  status: StatusTypes
+  color: IconColors
+  status?: StatusTypes
 }
 
 export const TxStatus: React.FC<Props> = ({ type, size, color, status }) => {
@@ -58,7 +59,7 @@ export const TxStatus: React.FC<Props> = ({ type, size, color, status }) => {
           status == 'OnChainRejection' ? 'text-sm' : 'text-base'
         }`}
       >
-        {statuses[status]}
+        {status && statuses[status]}
       </span>
     </div>
   )

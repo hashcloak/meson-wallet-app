@@ -7,11 +7,11 @@ export const RecentQueue = () => {
   return (
     <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
       <div className='box-border grid grid-cols-1 gap-2'>
+        {/* <TableShortRow />
         <TableShortRow />
         <TableShortRow />
         <TableShortRow />
-        <TableShortRow />
-        <TableShortRow />
+        <TableShortRow /> */}
       </div>
     </div>
   )
@@ -21,11 +21,11 @@ export const RecentHistory = () => {
   return (
     <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
       <div className='box-border grid grid-cols-1 gap-2'>
+        {/* <TableShortRow />
         <TableShortRow />
         <TableShortRow />
         <TableShortRow />
-        <TableShortRow />
-        <TableShortRow />
+        <TableShortRow /> */}
       </div>
     </div>
   )
