@@ -22,7 +22,7 @@ const Receive: React.FC<Props> = ({ iconSize, color }) => {
       height={px}
       className='object-contain'
     >
-      <circle cx='16.5' cy='16.875' r='16' className={`fill-${color}`} />
+      <circle cx='16.5' cy='16.875' r='16' fill={color} />
       <g clipPath='url(#clip0_10856_22210)'>
         <path
           d='M23.7505 14.625H19.7505V8.625H13.7505V14.625H9.75049L16.7505 21.625L23.7505 14.625ZM9.75049 23.625V25.625H23.7505V23.625H9.75049Z'

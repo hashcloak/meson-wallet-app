@@ -1,26 +1,24 @@
 import { Token, TokenTypes } from '../../molecules/IconText/Token'
 
 import Spacer from '~/utils/Spacer'
-
+export const tokens = [
+  { type: 'EthLogo', abbrev: 'ETH', token: 'Ethereum', amount: '0.080' },
+  {
+    type: 'DaiLogo',
+    abbrev: 'DAI',
+    token: 'Dai Stablecoin',
+    amount: '0.00000',
+  },
+  { type: 'UsdcLogo', abbrev: 'USDC', token: 'USD Coin', amount: '0.00000' },
+  {
+    type: 'BnbLogo',
+    abbrev: 'BNB',
+    token: 'BNB Smart Chain',
+    amount: '0.00000',
+  },
+]
 // TODO: This needs to be dynamically change based on the props
 const Portfolio = () => {
-  const tokens = [
-    { type: 'EthLogo', abbrev: 'ETH', token: 'Ethereum', amount: '0.080' },
-    {
-      type: 'DaiLogo',
-      abbrev: 'DAI',
-      token: 'Dai Stablecoin',
-      amount: '0.00000',
-    },
-    { type: 'UsdcLogo', abbrev: 'USDC', token: 'USD Coin', amount: '0.00000' },
-    {
-      type: 'BnbLogo',
-      abbrev: 'BNB',
-      token: 'BNB Smart Chain',
-      amount: '0.00000',
-    },
-  ]
-
   return (
     <div className='flex flex-col w-full'>
       <span className='text-textWhite text-2xl font-bold'>Portfolio</span>

@@ -19,7 +19,7 @@ const Button: React.FC<Props> = ({
 }) => {
   const { variants, sizes } = theme.buttons
 
-  const btnStyle = `rounded-xl text-center font-bold	text-sm	 ${variants[btnVariant]} ${sizes[btnSize]}`
+  const btnStyle = `flex justify-center items-center rounded-xl text-center font-bold	text-sm	 ${variants[btnVariant]} ${sizes[btnSize]}`
 
   return (
     <button
