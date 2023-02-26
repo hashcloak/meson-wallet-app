@@ -7,22 +7,22 @@ import { Icon } from '../../atoms/Icon/Icon'
 import { Token, TokenTypes } from '../../molecules/IconText/Token'
 import { tokens } from '../Portfolio/Portfolio'
 
-import ReceiveTxModal from './ReceiveTxModal'
+import ReceiveFundsModal from './ReceiveFundsModal'
 
 import Spacer from '~/utils/Spacer'
 
 export type ModalProps = {
   isOpen?: boolean
   onCloseNewTxModal: () => void
-  isOpenReceiveTxModal: boolean
-  handleReceiveTxModal: () => void
+  isOpenReceiveFundsModal: boolean
+  handleReceiveFundsModal: () => void
 }
 
 const NewTxDetails: React.FC<ModalProps> = ({
   isOpen,
   onCloseNewTxModal,
-  isOpenReceiveTxModal,
-  handleReceiveTxModal,
+  isOpenReceiveFundsModal,
+  handleReceiveFundsModal,
 }) => {
   return (
     <div className='flex flex-col text-textWhite'>
@@ -49,7 +49,7 @@ const NewTxDetails: React.FC<ModalProps> = ({
             btnType={'button'}
             handleClick={() => {
               onCloseNewTxModal()
-              handleReceiveTxModal()
+              handleReceiveFundsModal()
             }}
           >
             <Icon type={'Send'} color={'white'} size={'xl'} />
@@ -57,7 +57,15 @@ const NewTxDetails: React.FC<ModalProps> = ({
             <span className='text-lg'>Send</span>
           </Button>
 
-          <Button btnVariant={'border'} btnSize={'lg'} btnType={'button'}>
+          <Button
+            btnVariant={'border'}
+            btnSize={'lg'}
+            btnType={'button'}
+            handleClick={() => {
+              onCloseNewTxModal()
+              handleReceiveFundsModal()
+            }}
+          >
             <Icon type={'Receive'} color={'white'} size={'xl'} />
             <Spacer size={8} axis={'horizontal'} />
             <span className='text-lg'>Receive</span>
@@ -96,8 +104,8 @@ const NewTxDetails: React.FC<ModalProps> = ({
 const NewTxModal: React.FC<ModalProps> = ({
   isOpen,
   onCloseNewTxModal,
-  isOpenReceiveTxModal,
-  handleReceiveTxModal,
+  isOpenReceiveFundsModal,
+  handleReceiveFundsModal,
 }) => {
   return (
     <>
@@ -123,12 +131,12 @@ const NewTxModal: React.FC<ModalProps> = ({
                 <NewTxDetails
                   isOpen={isOpen}
                   onCloseNewTxModal={onCloseNewTxModal}
-                  isOpenReceiveTxModal={isOpenReceiveTxModal}
-                  handleReceiveTxModal={handleReceiveTxModal}
+                  isOpenReceiveFundsModal={isOpenReceiveFundsModal}
+                  handleReceiveFundsModal={handleReceiveFundsModal}
                 />
-                <ReceiveTxModal
-                  isOpen={isOpenReceiveTxModal}
-                  onClose={handleReceiveTxModal}
+                <ReceiveFundsModal
+                  isOpen={isOpenReceiveFundsModal}
+                  onClose={handleReceiveFundsModal}
                 />
                 {/* Description */}
               </Dialog.Description>

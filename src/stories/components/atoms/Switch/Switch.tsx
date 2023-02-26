@@ -6,10 +6,15 @@ type Props = {
     off: string
   }
   handleClick: () => void
+  defaultStatus?: boolean
 }
 
-const Switch: React.FC<Props> = ({ label, handleClick }) => {
-  const [enabled, setEnabled] = useState(true)
+const Switch: React.FC<Props> = ({
+  label,
+  handleClick,
+  defaultStatus = true,
+}) => {
+  const [enabled, setEnabled] = useState(defaultStatus)
 
   return (
     <div className='flex flex-row items-center'>
@@ -33,7 +38,7 @@ const Switch: React.FC<Props> = ({ label, handleClick }) => {
           }
         />
       </div>
-      <span className='text-textBlack text-base ml-2'>
+      <span className='text-base ml-2 text-textWhite'>
         {enabled ? label.on : label.off}
       </span>
     </div>

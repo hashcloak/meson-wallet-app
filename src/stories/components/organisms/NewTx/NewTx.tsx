@@ -3,19 +3,17 @@ import React, { useState } from 'react'
 import { SidebarIconText } from '../../molecules/IconText/SidebarIconText'
 
 import NewTxModal from './NewTxModal'
-import ReceiveTxModal from './ReceiveTxModal'
+import ReceiveFundsModal from './ReceiveFundsModal'
 
 const NewTx = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [isOpenReceiveTxModal, setIsOpenReceiveTxModal] = useState(false)
+  const [isOpenReceiveFundsModal, setIsOpenReceiveFundsModal] = useState(false)
 
   const onCloseNewTxModal = () => {
-    setIsOpen(!isOpen)
     console.log('change', isOpen)
   }
-  const handleReceiveTxModal = () => {
-    setIsOpenReceiveTxModal(!isOpenReceiveTxModal)
-    console.log('setIsOpenReceiveTxModal', isOpenReceiveTxModal)
+  const handleReceiveFundsModal = () => {
+    setIsOpenReceiveFundsModal(!isOpenReceiveFundsModal)
   }
   return (
     <>
@@ -28,12 +26,12 @@ const NewTx = () => {
       <NewTxModal
         isOpen={isOpen}
         onCloseNewTxModal={onCloseNewTxModal}
-        isOpenReceiveTxModal={isOpenReceiveTxModal}
-        handleReceiveTxModal={handleReceiveTxModal}
+        isOpenReceiveFundsModal={isOpenReceiveFundsModal}
+        handleReceiveFundsModal={handleReceiveFundsModal}
       />
-      <ReceiveTxModal
-        isOpen={isOpenReceiveTxModal}
-        onClose={handleReceiveTxModal}
+      <ReceiveFundsModal
+        isOpen={isOpenReceiveFundsModal}
+        onClose={handleReceiveFundsModal}
       />
     </>
   )
