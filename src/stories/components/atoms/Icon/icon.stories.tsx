@@ -38,6 +38,7 @@ export const Icons = (): React.ReactElement => {
     'CreateNew',
     'AddExist',
     'Lines',
+    'ArrowNarrowDown',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>

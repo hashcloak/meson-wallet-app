@@ -115,7 +115,7 @@ const SelectMesonWallet = () => {
                   </label>
                   <BasicInput
                     label='Name of the new Meson Wallet'
-                    placeholder='0xfF0000000000000000000000000000000000**'
+                    placeholder='0xfF0000000000000000000000000000000000*'
                     type='text'
                     registeredName={'walletAddress'}
                     handleChange={(e) => handleWalletAddress(e)}

@@ -25,7 +25,7 @@ export type LogoTypes = keyof LogoType
 
 export type Props = {
   type: LogoTypes
-  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | '5xl'
   interact?: boolean
 }
 

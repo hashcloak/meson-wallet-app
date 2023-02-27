@@ -3,6 +3,7 @@ import React from 'react'
 import AccountCircle from './images/AccountCircle'
 import AddExist from './images/AddExist'
 import ArrowForward from './images/ArrowForward'
+import ArrowNarrowDown from './images/ArrowNarrowDown'
 import Bell from './images/Bell'
 import CheckCircle from './images/CheckCircle'
 import Circle from './images/Circle'
@@ -42,6 +43,7 @@ const icons = {
   CreateNew,
   AddExist,
   Lines,
+  ArrowNarrowDown,
 }
 
 export type IconType = typeof icons
@@ -52,7 +54,7 @@ export type IconColors = keyof IconColor
 
 export type Props = {
   type: IconTypes
-  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | '5xl'
   color: IconColors
 }
 
@@ -77,6 +79,7 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     CreateNew: <CreateNew iconSize={size} color={color} />,
     AddExist: <AddExist iconSize={size} color={color} />,
     Lines: <Lines iconSize={size} color={color} />,
+    ArrowNarrowDown: <ArrowNarrowDown iconSize={size} color={color} />,
   }
   return icons[type]
 }

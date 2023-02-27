@@ -14,7 +14,13 @@ const DepositFund = () => {
   const register = 'depositAmount'
 
   const schema = z.object({
-    depositAmount: z.number(),
+    depositAmount: z
+      .number({
+        required_error: 'Amount is required',
+        invalid_type_error: 'Amount must be a number',
+      })
+      .nonnegative()
+      .gt(0),
   })
 
   const methods = useForm({ resolver: zodResolver(schema) })
@@ -53,7 +59,7 @@ const DepositFund = () => {
                     <UnitInput
                       registeredName={register}
                       label={'Deposit amount (optional)'}
-                      type={'number'}
+                      type='text'
                       unit='ETH'
                       placeholder={'Optional'}
                     >

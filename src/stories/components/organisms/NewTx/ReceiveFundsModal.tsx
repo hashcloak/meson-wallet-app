@@ -97,7 +97,7 @@ const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 Receive Funds
               </span>
 
-              <Dialog.Description className='p-6'>
+              <Dialog.Description className='py-6'>
                 {/* Description */}
                 <ReceiveTxDetails isOpen={isOpen} onClose={onClose} />
                 {/* Description */}

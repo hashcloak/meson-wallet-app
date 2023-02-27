@@ -10,13 +10,32 @@ export type Options = {
 type Props = {
   options: Options[]
   registeredName: string
+  size?: null | 'lg'
+  handleChange?: (e: any) => void
 }
 
-const CustomOption: React.FC<Props> = ({ options, registeredName }) => {
+const CustomOption: React.FC<Props> = ({
+  options,
+  registeredName,
+  size = null,
+  handleChange,
+}) => {
   const [currentVal, setCurrentVal] = useState<string>(
     options[0].label as string
   )
   const [currentBg, setCurrentBg] = useState<string>('bg-bgGray')
+
+  const optionHeight = () => {
+    let height = 'h-6'
+    switch (size) {
+      case 'lg':
+        height = 'h-10'
+        break
+      default:
+        break
+    }
+    return height
+  }
 
   useEffect(() => {
     const defaultBg =
@@ -33,9 +52,14 @@ const CustomOption: React.FC<Props> = ({ options, registeredName }) => {
     <div className='flex justify-center w-full'>
       <div className='max-w-96 w-full'>
         <select
-          className={`text-textBlack form-select appearance-none block w-full h-6 px-6 text-sm text-center border-borderGray rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${currentBg}`}
+          className={`text-textBlack form-select appearance-none block w-full ${optionHeight()} px-6 ${
+            size ? 'text-base text-left' : 'text-sm text-center '
+          } border-borderGray rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${currentBg}`}
           {...register(registeredName)}
-          onChange={(e) => setCurrentVal(e.target.value)}
+          onChange={(e) => {
+            handleChange && handleChange(e)
+            setCurrentVal(e.target.value)
+          }}
           value={currentVal}
         >
           {options &&

@@ -53,6 +53,7 @@ export const theme = {
       lg: '24',
       xl: '32',
       xxl: '40',
+      '5xl': '80',
     },
     colors: {
       main: '#38C6F4',

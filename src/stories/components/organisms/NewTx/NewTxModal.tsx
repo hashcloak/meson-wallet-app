@@ -16,6 +16,8 @@ export type ModalProps = {
   onCloseNewTxModal: () => void
   isOpenReceiveFundsModal: boolean
   handleReceiveFundsModal: () => void
+  isOpenSendFundsModal: boolean
+  handleSendFundsModal: () => void
 }
 
 const NewTxDetails: React.FC<ModalProps> = ({
@@ -23,6 +25,8 @@ const NewTxDetails: React.FC<ModalProps> = ({
   onCloseNewTxModal,
   isOpenReceiveFundsModal,
   handleReceiveFundsModal,
+  isOpenSendFundsModal,
+  handleSendFundsModal,
 }) => {
   return (
     <div className='flex flex-col text-textWhite'>
@@ -49,7 +53,7 @@ const NewTxDetails: React.FC<ModalProps> = ({
             btnType={'button'}
             handleClick={() => {
               onCloseNewTxModal()
-              handleReceiveFundsModal()
+              handleSendFundsModal()
             }}
           >
             <Icon type={'Send'} color={'white'} size={'xl'} />
@@ -106,6 +110,8 @@ const NewTxModal: React.FC<ModalProps> = ({
   onCloseNewTxModal,
   isOpenReceiveFundsModal,
   handleReceiveFundsModal,
+  isOpenSendFundsModal,
+  handleSendFundsModal,
 }) => {
   return (
     <>
@@ -133,11 +139,10 @@ const NewTxModal: React.FC<ModalProps> = ({
                   onCloseNewTxModal={onCloseNewTxModal}
                   isOpenReceiveFundsModal={isOpenReceiveFundsModal}
                   handleReceiveFundsModal={handleReceiveFundsModal}
+                  isOpenSendFundsModal={isOpenSendFundsModal}
+                  handleSendFundsModal={handleSendFundsModal}
                 />
-                <ReceiveFundsModal
-                  isOpen={isOpenReceiveFundsModal}
-                  onClose={handleReceiveFundsModal}
-                />
+
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>

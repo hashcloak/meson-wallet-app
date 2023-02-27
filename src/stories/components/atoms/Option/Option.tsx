@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react'
 
 export type Options = {
   value: string | number
-  label: string | number
+  label: string | number | JSX.Element
   bg?: string
 }
 
 type Props = {
   options: Options[]
+  size?: null | 'lg'
 }
 
-const Option: React.FC<Props> = ({ options }) => {
+const Option: React.FC<Props> = ({ options, size = null }) => {
   const [currentVal, setCurrentVal] = useState<string>('')
   const [currentBg, setCurrentBg] = useState<string>('')
 
@@ -23,6 +24,19 @@ const Option: React.FC<Props> = ({ options }) => {
     )
   }, [currentVal])
 
+  const optionHeight = () => {
+    let height = 'h-6'
+    switch (size) {
+      case 'lg':
+        height = 'h-10'
+        break
+      default:
+        break
+    }
+    console.log(height)
+    return height
+  }
+
   return (
     <div className='flex justify-center w-full'>
       <div className='max-w-96 w-full'>
@@ -31,7 +45,7 @@ const Option: React.FC<Props> = ({ options }) => {
           appearance-none
           block
           w-full
-          h-6
+          ${optionHeight()}
           px-6
           text-sm
           text-center
@@ -47,7 +61,6 @@ const Option: React.FC<Props> = ({ options }) => {
           ${currentBg}
           `}
           aria-label='Default select example'
-          name='gender'
           onChange={(e) => setCurrentVal(e.target.value)}
           defaultValue={currentVal}
         >
