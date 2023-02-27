@@ -1,12 +1,13 @@
 import { Dialog } from '@headlessui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
+import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
 import { BasicInput } from '../../atoms/Input/BasicInput'
 import { UnitInput } from '../../atoms/Input/UnitInput'
 import CustomOption from '../../atoms/Option/CustomOption'
@@ -14,32 +15,63 @@ import CustomOption from '../../atoms/Option/CustomOption'
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
 
-const SendFundsTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
+type SubmitDataType = {
+  recipientAddress: string
+  selectedToken: string
+  sendingAmount: string | number
+}
+
+type Props = {
+  isOpen: boolean | undefined
+  onClose: () => void
+  onPageChange?: () => void
+}
+
+type SendFundsTxInputProps = {
+  isOpen: boolean | undefined
+  onClose: () => void
+  onPageChange: () => void
+  onSendingData: (data: SubmitDataType) => void
+}
+
+type SendFundsTxDetailsProps = {
+  isOpen: boolean | undefined
+  onClose: () => void
+  onPageChange: () => void
+  sendingData: SubmitDataType | null
+}
+
+const tokens = [
+  {
+    value: 'ethereum',
+    label: 'Ethereum',
+    id: 'eth',
+  },
+  {
+    value: 'dai',
+    label: 'Dai',
+    id: 'dai',
+  },
+  {
+    value: 'usdc',
+    label: 'USDC',
+    id: 'usdc',
+  },
+  {
+    value: 'bnb',
+    label: 'BNB Binance',
+    id: 'bnb',
+  },
+]
+
+const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
+  isOpen,
+  onClose,
+  onPageChange,
+  onSendingData,
+}) => {
   const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
   const [selectToken, setSelectToken] = useState('Eth')
-
-  const tokens = [
-    {
-      value: 'ethereum',
-      label: 'Ethereum',
-      id: 'eth',
-    },
-    {
-      value: 'dai',
-      label: 'Dai',
-      id: 'dai',
-    },
-    {
-      value: 'usdc',
-      label: 'USDC',
-      id: 'usdc',
-    },
-    {
-      value: 'bnb',
-      label: 'BNB Binance',
-      id: 'bnb',
-    },
-  ]
 
   const schema = z.object({
     recipientAddress: z
@@ -64,7 +96,12 @@ const SendFundsTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
     resolver: zodResolver(schema),
   })
 
-  const onSubmit = (data: any) => console.log(data)
+  const onSubmit = (data: any) => {
+    console.log(data)
+    onSendingData(data)
+    onPageChange && onPageChange()
+  }
+
   const onError = (errors: any, e: any) => console.log('Error:', errors, e)
 
   const handleSelectToken = (e: any) => {
@@ -82,20 +119,22 @@ const SendFundsTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
 
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
-      <div className='rounded-2xl bg-bgDarkLight p-4'>
-        <span>Sending from</span>
-        <Spacer size={16} axis={'vertical'} />
-        <EthAddress
-          ethAddress={ethAddress}
-          size={4.5}
-          length={'full'}
-          walletName={'My wallet'}
-        />
-        <Spacer size={8} axis={'vertical'} />
-        <div className='flex flex-row items-center'>
-          <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
-          <span>0.080</span>
-          <span className='ml-2'>ETH</span>
+      <div>
+        <span className='text-left'>Sending from</span>
+        <div className='rounded-2xl bg-bgDarkLight p-4'>
+          <Spacer size={16} axis={'vertical'} />
+          <EthAddress
+            ethAddress={ethAddress}
+            size={4.5}
+            length={'full'}
+            walletName={'My wallet'}
+          />
+          <Spacer size={8} axis={'vertical'} />
+          <div className='flex flex-row items-center'>
+            <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
+            <span>0.080</span>
+            <span className='ml-2'>ETH</span>
+          </div>
         </div>
       </div>
 
@@ -105,10 +144,8 @@ const SendFundsTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
       <div className='w-full'>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
+            <span>Recipient</span>
             <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
-              <span>Recipient</span>
-              <Spacer size={16} axis={'vertical'} />
-
               <BasicInput
                 label='Recipient address'
                 placeholder='0xfF0000000000000000000000000000000000*'
@@ -146,7 +183,7 @@ const SendFundsTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
             </div>
 
             <Spacer size={32} axis={'vertical'} />
-            <div className='flex flex-row justify-between'>
+            <div className='flex flex-row justify-around'>
               <Button
                 btnVariant={'text'}
                 btnSize={'lg'}
@@ -158,7 +195,7 @@ const SendFundsTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
                 <span className='text-lg'>Cancel</span>
               </Button>
               <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
-                Review
+                Send
               </Button>
             </div>
           </form>
@@ -168,12 +205,143 @@ const SendFundsTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
   )
 }
 
-type Props = {
-  isOpen: boolean | undefined
-  onClose: () => void
+const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
+  isOpen,
+  onClose,
+  onPageChange,
+  sendingData,
+}) => {
+  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
+  const [selectToken, setSelectToken] = useState('Eth')
+
+  useEffect(() => {
+    const handleSelectToken = () => {
+      const currentToken = tokens.filter(
+        (token) => token.value === sendingData?.selectedToken
+      )
+      const selectedTokenId = currentToken[0].id
+
+      setSelectToken(selectedTokenId)
+    }
+    handleSelectToken()
+  }, [])
+
+  return (
+    <div className='flex flex-col justify-center items-center text-textWhite'>
+      <div>
+        <span className='text-left'>Sending from</span>
+        <div className='rounded-2xl bg-bgDarkLight p-4'>
+          <Spacer size={16} axis={'vertical'} />
+          <EthAddress
+            ethAddress={ethAddress}
+            size={4.5}
+            length={'full'}
+            walletName={'My wallet'}
+          />
+
+          <Spacer size={8} axis={'vertical'} />
+          <div className='flex flex-row items-center'>
+            <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
+            <span>0.080</span>
+            <span className='ml-2'>ETH</span>
+          </div>
+        </div>
+      </div>
+
+      <Spacer size={16} axis={'vertical'} />
+      <div className='flex flex-row'>
+        <Icon type={'ArrowNarrowDown'} size={'5xl'} color={'white'} />
+        <div className='flex flex-row'>
+          <Logo
+            type={
+              `${
+                selectToken.charAt(0).toUpperCase() + selectToken.slice(1)
+              }Logo` as LogoTypes
+            }
+            size={'xl'}
+          />
+          <Spacer size={8} axis={'horizontal'} />
+          <div className='flex flex-col'>
+            <div className='flex flex-row'>
+              <span className='text-2xl font-bold '>
+                {sendingData!.sendingAmount}
+              </span>
+              <span className='text-2xl font-bold ml-2'>
+                {selectToken.toUpperCase()}
+              </span>
+            </div>
+            <span className='text-sm text-textGrayLight'>≈ 10.00 USD</span>
+          </div>
+        </div>
+      </div>
+      <Spacer size={16} axis={'vertical'} />
+      <div className='w-full'>
+        <span>Recipient</span>
+        <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
+          <EthAddress
+            ethAddress={sendingData!.recipientAddress}
+            size={4.5}
+            length={'full'}
+          />
+        </div>
+        <Spacer size={16} axis={'vertical'} />
+
+        <div className='flex flex-row justify-between'>
+          <span>Transaction parameters</span>
+          <button type='button'>
+            <SidebarIcon type={'Settings'} size={'sm'} color={'main'} />
+          </button>
+        </div>
+
+        <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
+          <div className='flex flex-col w-full'>
+            <div className='flex flex-row justify-between w-full'>
+              <span>Nonce</span>
+              <span>33</span>
+            </div>
+            <div className='flex flex-row justify-between w-full'>
+              <span>TxGas</span>
+              <span>43634</span>
+            </div>
+          </div>
+        </div>
+
+        <Spacer size={32} axis={'vertical'} />
+        <div className='flex flex-row justify-around'>
+          <Button
+            btnVariant={'text'}
+            btnSize={'lg'}
+            btnType={'button'}
+            handleClick={() => onPageChange && onPageChange()}
+          >
+            <span className='text-lg'>Back</span>
+          </Button>
+          <Button
+            btnVariant={'primary'}
+            btnSize={'lg'}
+            btnType={'submit'}
+            handleClick={onClose}
+          >
+            Review
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const [pageChange, setPageChange] = useState(false)
+  const [sendingData, setSendingData] = useState<SubmitDataType | null>(null)
+
+  const handlePageChange = () => {
+    setPageChange(!pageChange)
+  }
+
+  const handleSendingData = (data: SubmitDataType) => {
+    setSendingData(data)
+  }
+
   return (
     <>
       {isOpen && (
@@ -190,12 +358,31 @@ const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
               <span className='text-textWhite text-2xl font-bold'>
-                Send Funds (1/2)
+                Send Funds{' '}
+                {!pageChange ? (
+                  <span className='text-sm text-textGrayLight'>(1/2)</span>
+                ) : (
+                  <span className='text-sm text-textGrayLight'>(2/2)</span>
+                )}
               </span>
 
               <Dialog.Description className='py-6'>
                 {/* Description */}
-                <SendFundsTxDetails isOpen={isOpen} onClose={onClose} />
+                {!pageChange ? (
+                  <SendFundsTxInput
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    onPageChange={handlePageChange}
+                    onSendingData={handleSendingData}
+                  />
+                ) : (
+                  <SendFundsTxDetails
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    onPageChange={handlePageChange}
+                    sendingData={sendingData}
+                  />
+                )}
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>
@@ -206,4 +393,4 @@ const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   )
 }
 
-export default ReceiveFundsModal
+export default SendFundsModal

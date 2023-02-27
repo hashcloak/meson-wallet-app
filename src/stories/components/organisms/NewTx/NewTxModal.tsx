@@ -7,8 +7,6 @@ import { Icon } from '../../atoms/Icon/Icon'
 import { Token, TokenTypes } from '../../molecules/IconText/Token'
 import { tokens } from '../Portfolio/Portfolio'
 
-import ReceiveFundsModal from './ReceiveFundsModal'
-
 import Spacer from '~/utils/Spacer'
 
 export type ModalProps = {
