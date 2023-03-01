@@ -1,3 +1,4 @@
+import { AdvancedParametersModal } from './AdvancedParametersModal'
 import NewTx from './NewTx'
 
 export default {
@@ -13,4 +14,8 @@ export const Default = (): React.ReactElement => {
       </div>
     </div>
   )
+}
+
+export const AdvancedParameters = (): React.ReactElement => {
+  return <AdvancedParametersModal isOpen={true} onClose={() => {}} />
 }

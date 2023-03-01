@@ -1,6 +1,7 @@
 import { Footer } from '../../molecules/Footer/Footer'
 import { SidebarIconText } from '../../molecules/IconText/SidebarIconText'
 import Stepper from '../../molecules/Steps/Stepper'
+import NewTx from '../../organisms/NewTx/NewTx'
 
 import Spacer from '~/utils/Spacer'
 
@@ -30,7 +31,7 @@ const Sidebar: React.FC<Props> = ({
               <SidebarIconText type={'Help'} text={'Help'} />
             </div>
             <Spacer size={24} axis={'vertical'} />
-            <SidebarIconText type={'NewTx'} text={'NewTx'} />
+            <NewTx />
           </div>
           <div>
             <SidebarIconText type={'AddCircle'} text={'Add new'} />

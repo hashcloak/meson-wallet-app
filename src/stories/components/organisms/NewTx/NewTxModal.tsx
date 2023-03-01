@@ -116,9 +116,9 @@ const NewTxModal: React.FC<ModalProps> = ({
       {isOpen && (
         <Dialog
           open={isOpen}
-          onClose={() => null}
+          onClose={onCloseNewTxModal}
           className='fixed z-10 inset-0 overflow-y-auto'
-          static
+          // static
         >
           <div className='flex items-center justify-center min-h-screen'>
             <Dialog.Overlay

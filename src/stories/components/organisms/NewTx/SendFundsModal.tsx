@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -11,6 +11,9 @@ import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
 import { BasicInput } from '../../atoms/Input/BasicInput'
 import { UnitInput } from '../../atoms/Input/UnitInput'
 import CustomOption from '../../atoms/Option/CustomOption'
+
+import { AdvancedParametersModal } from './AdvancedParametersModal'
+import { AdvancedParameters } from './newTx.stories'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
@@ -213,6 +216,12 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
 }) => {
   const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
   const [selectToken, setSelectToken] = useState('Eth')
+  const [isOpenAdvancedParamsModal, setIsOpenAdvancedParamsModal] =
+    useState(false)
+
+  const onCloseAdvancedParamsModal = () => {
+    setIsOpenAdvancedParamsModal(!isOpenAdvancedParamsModal)
+  }
 
   useEffect(() => {
     const handleSelectToken = () => {
@@ -288,9 +297,18 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
 
         <div className='flex flex-row justify-between'>
           <span>Transaction parameters</span>
-          <button type='button'>
+          <button
+            type='button'
+            onClick={() =>
+              setIsOpenAdvancedParamsModal(!isOpenAdvancedParamsModal)
+            }
+          >
             <SidebarIcon type={'Settings'} size={'sm'} color={'main'} />
           </button>
+          <AdvancedParametersModal
+            isOpen={isOpenAdvancedParamsModal}
+            onClose={onCloseAdvancedParamsModal}
+          />
         </div>
 
         <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
