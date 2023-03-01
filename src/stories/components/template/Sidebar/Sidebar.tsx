@@ -18,8 +18,8 @@ const Sidebar: React.FC<Props> = ({
 }) => {
   return (
     <div className='flex flex-col items-center justify-between w-[5.5rem] h-full box-border py-4 bg-bgDarkMid'>
-      {isStepper && isCreateNew && currentStep ? (
-        <Stepper isCreateNew={isCreateNew} currentStep={currentStep} />
+      {isStepper ? (
+        <Stepper isCreateNew={isCreateNew!} currentStep={currentStep!} />
       ) : (
         <>
           <div>
