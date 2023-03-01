@@ -32,8 +32,18 @@ export const RowBodyLong: React.FC<RowBodyType> = ({
 }) => {
   const { date, time } = unixTimeConverter(timestamp)
 
+  const address = () => {
+    if (to) {
+      return `To: ${to}`
+    } else if (from) {
+      return `From: ${from}`
+    } else {
+      return null
+    }
+  }
+
   return (
-    <div className='grid grid-cols-2 gap-32'>
+    <div className='grid grid-cols-2 gap-32 w-full'>
       <div className='grid grid-cols-2 items-center'>
         <div className='flex flex-row items-center'>
           <TxStatus type={status} size={'xl'} color={'white'} />
@@ -48,11 +58,7 @@ export const RowBodyLong: React.FC<RowBodyType> = ({
               {amount} {token?.toUpperCase()}
             </span>
           </div>
-          {to ? (
-            <span className='text-textGrayLight text-xs'>To: {to}</span>
-          ) : (
-            <span className='text-textGrayLight text-xs'>From: {from}</span>
-          )}
+          <span className='text-textGrayLight text-xs'>{address()}</span>
         </div>
       </div>
 

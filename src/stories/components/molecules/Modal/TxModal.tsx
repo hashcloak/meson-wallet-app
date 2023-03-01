@@ -14,10 +14,10 @@ type Props = {
   tx: RowBodyType
 }
 
-const TxDetails = () => {
+export const TxContents = () => {
   return (
     <>
-      <div className='flex flex-row bg-'>
+      <div className='flex flex-row justify-between w-full'>
         {/* Left content */}
         <div className='flex flex-col'>
           <div>
@@ -194,7 +194,7 @@ const TxModal: React.FC<Props> = ({ isOpen, onClose, tx }) => {
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
-                <TxDetails />
+                <TxContents />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>

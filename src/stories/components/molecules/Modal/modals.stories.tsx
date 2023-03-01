@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Button from '../../atoms/Button/Button'
+import { mockTransactions } from '../../organisms/Table/CustomTable'
 
 import Modal from './Modal'
 import TxModal from './TxModal'
@@ -116,7 +117,20 @@ export const TxModals = () => {
           Modal
         </Button>
         <div className='flex flex-row flex-wrap w-full'>
-          <TxModal isOpen={isOpen} onClose={onClose} />
+          <TxModal
+            isOpen={isOpen}
+            onClose={onClose}
+            tx={{
+              amount: mockTransactions[0].amount,
+              token: mockTransactions[0].token,
+              to: mockTransactions[0].to,
+              from: mockTransactions[0].from,
+              timestamp: 0,
+              status: 'Send',
+              numOfConfirmation: mockTransactions[0].numOfConfirmation,
+              isSuccess: mockTransactions[0].isSuccess,
+            }}
+          />
         </div>
       </DisplayBox>
     </div>
