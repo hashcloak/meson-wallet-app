@@ -4,6 +4,8 @@ import { Icon } from '../../atoms/Icon/Icon'
 import Input from '../../atoms/Input/Input'
 import ContactRow, { ContactType } from '../../molecules/ContactRow/ContactRow'
 
+import AddNewContactModal from './AddNewContact'
+
 import Spacer from '~/utils/Spacer'
 
 export const mockContacts: ContactType[] = [
@@ -14,10 +16,14 @@ export const mockContacts: ContactType[] = [
 const ContactsContents = () => {
   const [input, setInput] = useState('')
   const [contacts, setContacts] = useState(mockContacts)
+  const [openAddNewContactModal, setOpenAddNewContactModal] = useState(false)
 
   const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value)
   }
+
+  const handleAddNewContactModal = () =>
+    setOpenAddNewContactModal(!openAddNewContactModal)
 
   useEffect(() => {
     if (input === '') {
@@ -53,13 +59,21 @@ const ContactsContents = () => {
           <Input
             type={'text'}
             handleChange={handleUserInput}
-            placeholder={'Search'}
+            placeholder={'Search...'}
           />
         </div>
-        <div className='flex flex-row items-center'>
+        <button
+          className='flex flex-row items-center'
+          type='button'
+          onClick={handleAddNewContactModal}
+        >
           <Icon type={'AddExist'} size={'lg'} color={'white'} />
           <span className='ml-2'>Add new</span>
-        </div>
+        </button>
+        <AddNewContactModal
+          isOpen={openAddNewContactModal}
+          onClose={handleAddNewContactModal}
+        />
       </div>
       <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
         <div className='grid grid-cols-[15%_70%_15%] box-border text-textGrayLight max-w-full justify-between'>

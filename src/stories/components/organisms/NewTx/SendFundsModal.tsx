@@ -13,7 +13,6 @@ import { UnitInput } from '../../atoms/Input/UnitInput'
 import CustomOption from '../../atoms/Option/CustomOption'
 
 import { AdvancedParametersModal } from './AdvancedParametersModal'
-import { AdvancedParameters } from './newTx.stories'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
