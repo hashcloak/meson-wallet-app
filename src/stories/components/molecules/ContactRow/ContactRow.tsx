@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
+import SendFundsModal from '../../organisms/NewTx/SendFundsModal'
 import { mockContacts } from '../../template/ContactsContents/ContactsContents'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
@@ -16,8 +17,12 @@ type Props = {
 }
 
 const ContactRow: React.FC<Props> = ({ contact }) => {
-  // const ContactRow = () => {
-  // const contact = mockContacts[0]
+  const [isOpenSendFundsModal, setIsOpenSendFundsModal] = useState(false)
+
+  const handleSendFundsModal = (): void => {
+    setIsOpenSendFundsModal(!isOpenSendFundsModal)
+  }
+
   return (
     <div className='grid grid-cols-[15%_70%_15%] items-center w-full text-textWhite'>
       <span className=''>{contact.name}</span>
@@ -26,7 +31,12 @@ const ContactRow: React.FC<Props> = ({ contact }) => {
       </div>
 
       <div className='flex flex-row items-center'>
-        <Button btnVariant={'primary'} btnSize={'sm'} btnType={'button'}>
+        <Button
+          btnVariant={'primary'}
+          btnSize={'sm'}
+          btnType={'button'}
+          handleClick={handleSendFundsModal}
+        >
           Send
         </Button>
         <Spacer size={8} axis={'horizontal'} />
@@ -38,6 +48,11 @@ const ContactRow: React.FC<Props> = ({ contact }) => {
           <Icon type={'Delete'} size={'lg'} color={'alert'} />
         </button>
       </div>
+      <SendFundsModal
+        isOpen={isOpenSendFundsModal}
+        onClose={handleSendFundsModal}
+        address={contact.address}
+      />
     </div>
   )
 }

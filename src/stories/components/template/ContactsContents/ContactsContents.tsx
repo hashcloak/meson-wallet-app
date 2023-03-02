@@ -1,22 +1,18 @@
 import { BasicInput } from '../../atoms/Input/BasicInput'
 import ContactRow, { ContactType } from '../../molecules/ContactRow/ContactRow'
-import Accounts from '../../organisms/Accounts/Accounts'
-import AssetChart from '../../organisms/AssetChart/AssetChart'
-import Portfolio from '../../organisms/Portfolio/Portfolio'
-import RecentTxs from '../../organisms/RecentTxs/RecentTxs'
 
 import Spacer from '~/utils/Spacer'
 
 export const mockContacts: ContactType[] = [
   { address: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5', name: 'Test1' },
-  { address: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5', name: 'Test2' },
+  { address: '0xc740145D4b8b95F44Cd9e00acEA006B02d505E2E', name: 'Test2' },
 ]
 
 const ContactsContents = () => {
   return (
     <div className='flex flex-col w-full'>
       <span className='text-textWhite text-2xl font-bold'>Contacts</span>
-      {/* <BasicInput registeredName={'contact'} label={''} type={'text'} /> */}
+
       <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
         <div className='grid grid-cols-[15%_70%_15%] box-border text-textGrayLight max-w-full justify-between'>
           <span className='col-span-1'>Name</span>

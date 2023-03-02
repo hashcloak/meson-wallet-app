@@ -28,6 +28,7 @@ type Props = {
   isOpen: boolean | undefined
   onClose: () => void
   onPageChange?: () => void
+  address?: string
 }
 
 type SendFundsTxInputProps = {
@@ -35,6 +36,7 @@ type SendFundsTxInputProps = {
   onClose: () => void
   onPageChange: () => void
   onSendingData: (data: SubmitDataType) => void
+  address?: string
 }
 
 type SendFundsTxDetailsProps = {
@@ -72,7 +74,10 @@ const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   onClose,
   onPageChange,
   onSendingData,
+  address = '',
 }) => {
+  console.log(address)
+
   const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
   const [selectToken, setSelectToken] = useState('Eth')
 
@@ -92,7 +97,7 @@ const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
 
   const methods = useForm({
     defaultValues: {
-      recipientAddress: '',
+      recipientAddress: address,
       selectedToken: tokens[0].value,
       sendingAmount: 0,
     },
@@ -348,7 +353,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   )
 }
 
-const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const SendFundsModal: React.FC<Props> = ({ isOpen, onClose, address }) => {
   const [pageChange, setPageChange] = useState(false)
   const [sendingData, setSendingData] = useState<SubmitDataType | null>(null)
 
@@ -392,6 +397,7 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     onClose={onClose}
                     onPageChange={handlePageChange}
                     onSendingData={handleSendingData}
+                    address={address}
                   />
                 ) : (
                   <SendFundsTxDetails
