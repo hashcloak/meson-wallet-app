@@ -11,6 +11,8 @@ import Close from './images/Close'
 import Conflict from './images/Conflict'
 import ContentCopy from './images/ContentCopy'
 import CreateNew from './images/CreateNew'
+import Delete from './images/Delete'
+import Edit from './images/Edit'
 import FailCircle from './images/FailCircle'
 import Info from './images/Info'
 import Lines from './images/Lines'
@@ -44,6 +46,8 @@ const icons = {
   AddExist,
   Lines,
   ArrowNarrowDown,
+  Delete,
+  Edit,
 }
 
 export type IconType = typeof icons
@@ -80,6 +84,8 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     AddExist: <AddExist iconSize={size} color={color} />,
     Lines: <Lines iconSize={size} color={color} />,
     ArrowNarrowDown: <ArrowNarrowDown iconSize={size} color={color} />,
+    Delete: <Delete iconSize={size} color={color} />,
+    Edit: <Edit iconSize={size} color={color} />,
   }
   return icons[type]
 }
