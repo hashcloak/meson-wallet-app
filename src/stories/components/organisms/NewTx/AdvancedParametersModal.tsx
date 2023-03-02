@@ -6,12 +6,8 @@ import { z } from 'zod'
 
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
-import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
 import { InputControl } from '../../atoms/Input/InputControl'
-import { UnitInput } from '../../atoms/Input/UnitInput'
-import CustomOption from '../../atoms/Option/CustomOption'
 
-import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
 
 type AdvancedParamsInputPropsType = {

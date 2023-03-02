@@ -12,14 +12,20 @@ import Spacer from '~/utils/Spacer'
 type Props = {
   isOpen: boolean
   onClose: () => void
+  name: string
+  address: string
 }
 
-type AddNewContactDetailsType = {
+type EditContactDetailsType = {
   onClose: () => void
+  name: string
+  address: string
 }
 
-const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
+const EditContactDetails: React.FC<EditContactDetailsType> = ({
   onClose,
+  name,
+  address,
 }) => {
   const schema = z.object({
     newName: z.string().min(1, { message: 'Name is required' }),
@@ -28,8 +34,8 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
 
   const methods = useForm({
     defaultValues: {
-      newName: '',
-      newAddress: '',
+      newName: name,
+      newAddress: address,
     },
     resolver: zodResolver(schema),
   })
@@ -79,7 +85,12 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
   )
 }
 
-const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const EditContactModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  name,
+  address,
+}) => {
   return (
     <>
       {isOpen && (
@@ -96,12 +107,16 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
               <span className='text-textWhite text-2xl font-bold'>
-                Add new contact
+                Edit contact
               </span>
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
-                <AddNewContactDetails onClose={onClose} />
+                <EditContactDetails
+                  onClose={onClose}
+                  name={name}
+                  address={address}
+                />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>
@@ -112,4 +127,4 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
   )
 }
 
-export default AddNewContactModal
+export default EditContactModal

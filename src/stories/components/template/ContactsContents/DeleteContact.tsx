@@ -1,37 +1,35 @@
 import { Dialog } from '@headlessui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import Button from '../../atoms/Button/Button'
-import { InputControl } from '../../atoms/Input/InputControl'
 
 import Spacer from '~/utils/Spacer'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
+  name: string
+  address: string
 }
 
-type AddNewContactDetailsType = {
+type DeleteContactDetailsType = {
   onClose: () => void
+  name: string
+  address: string
 }
 
-const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
+const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({
   onClose,
+  name,
+  address,
 }) => {
-  const schema = z.object({
-    newName: z.string().min(1, { message: 'Name is required' }),
-    newAddress: z.string().min(1, { message: 'Address is required' }),
-  })
-
   const methods = useForm({
     defaultValues: {
-      newName: '',
-      newAddress: '',
+      newName: name,
+      newAddress: address,
     },
-    resolver: zodResolver(schema),
   })
 
   const onSubmit = (data: any) => {
@@ -45,19 +43,17 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
     <div className='flex flex-col text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-          <InputControl
-            label='Name'
-            placeholder='Name*'
-            type='text'
-            registeredName={'newName'}
-          />
-          <Spacer size={8} axis={'vertical'} />
-          <InputControl
-            label='Address'
-            placeholder='0xfF0000000000000000000000000000000000*'
-            type='text'
-            registeredName={'newAddress'}
-          />
+          <span className='text-lg'>
+            Are you sure you want to permanently delete the following contact?
+          </span>
+          <div className='w-full flex justify-center'>
+            <div className='grid grid-cols-[20%_80%]'>
+              <span>Name:</span>
+              <span>{name}</span>
+              <span>Address:</span>
+              <span>{address}</span>
+            </div>
+          </div>
 
           <Spacer size={32} axis={'vertical'} />
           <div className='flex flex-row justify-around'>
@@ -67,10 +63,10 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
               btnType={'button'}
               handleClick={onClose}
             >
-              <span className='text-lg'>Cancel</span>
+              <span className='text-lg'>Close</span>
             </Button>
-            <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
-              Save
+            <Button btnVariant={'alert'} btnSize={'lg'} btnType={'submit'}>
+              Delete
             </Button>
           </div>
         </form>
@@ -79,7 +75,12 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
   )
 }
 
-const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const DeleteContactModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  name,
+  address,
+}) => {
   return (
     <>
       {isOpen && (
@@ -96,12 +97,16 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
               <span className='text-textWhite text-2xl font-bold'>
-                Add new contact
+                Delete contact
               </span>
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
-                <AddNewContactDetails onClose={onClose} />
+                <DeleteContactDetails
+                  onClose={onClose}
+                  name={name}
+                  address={address}
+                />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>
@@ -112,4 +117,4 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
   )
 }
 
-export default AddNewContactModal
+export default DeleteContactModal
