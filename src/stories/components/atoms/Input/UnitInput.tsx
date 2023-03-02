@@ -2,7 +2,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import { ChangeEvent, useState } from 'react'
 import { ChangeHandler, useFormContext } from 'react-hook-form'
 
-import { InputProps } from './BasicInput'
+import { InputProps } from './InputControl'
 
 const UnitInput: React.FC<InputProps> = ({
   registeredName,

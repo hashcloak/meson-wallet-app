@@ -13,7 +13,7 @@ export type InputProps = {
   children?: React.ReactElement
 }
 
-const BasicInput: React.FC<InputProps> = ({
+const InputControl: React.FC<InputProps> = ({
   registeredName,
   label,
   placeholder,
@@ -56,4 +56,4 @@ const BasicInput: React.FC<InputProps> = ({
   )
 }
 
-export { BasicInput }
+export { InputControl }

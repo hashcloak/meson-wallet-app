@@ -7,7 +7,7 @@ import { z } from 'zod'
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
-import { BasicInput } from '../../atoms/Input/BasicInput'
+import { InputControl } from '../../atoms/Input/InputControl'
 import { UnitInput } from '../../atoms/Input/UnitInput'
 import CustomOption from '../../atoms/Option/CustomOption'
 
@@ -82,7 +82,7 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
             <div>
               <span className='text-left'>New Nonce</span>
               <div className='flex flex-col justify-center items-center rounded-2xl bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
-                <BasicInput
+                <InputControl
                   label=''
                   placeholder='Nonce'
                   type='number'
@@ -109,7 +109,7 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
             <div>
               <span className='text-left'>New TxGas</span>
               <div className='flex flex-col justify-center items-center rounded-2xl bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
-                <BasicInput
+                <InputControl
                   label=''
                   placeholder='TxGas'
                   type='number'

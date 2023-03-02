@@ -8,7 +8,7 @@ import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
 import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
-import { BasicInput } from '../../atoms/Input/BasicInput'
+import { InputControl } from '../../atoms/Input/InputControl'
 import { UnitInput } from '../../atoms/Input/UnitInput'
 import CustomOption from '../../atoms/Option/CustomOption'
 
@@ -154,7 +154,7 @@ const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
           <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
             <span>Recipient</span>
             <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
-              <BasicInput
+              <InputControl
                 label='Recipient address'
                 placeholder='0xfF0000000000000000000000000000000000*'
                 type='text'

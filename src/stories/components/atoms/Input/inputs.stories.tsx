@@ -2,14 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 import * as z from 'zod'
 
-import { BasicInput } from './BasicInput'
+import { InputControl } from './InputControl'
 import { UnitInput } from './UnitInput'
 
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
   title: 'Components/Atmos/Inputs',
-  component: { BasicInput, UnitInput },
+  component: { InputControl, UnitInput },
 }
 
 export const Inputs = () => {
@@ -29,7 +29,7 @@ export const Inputs = () => {
         <div className='flex flex-row flex-wrap w-full'>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-              <BasicInput
+              <InputControl
                 label='Name of the new Meson Wallet'
                 placeholder='Your-wallet-name*'
                 type='text'
@@ -42,7 +42,7 @@ export const Inputs = () => {
                   </a>
                   and privacy policy.
                 </p>
-              </BasicInput>
+              </InputControl>
               <button type='submit'>Submit</button>
             </form>
           </FormProvider>

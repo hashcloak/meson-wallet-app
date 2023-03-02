@@ -8,9 +8,5 @@ export default {
 }
 
 export const Default = () => {
-  return (
-    <div className='flex flex-col justify-between w-screen'>
-      <ContactsContents />
-    </div>
-  )
+  return <ContactsContents />
 }

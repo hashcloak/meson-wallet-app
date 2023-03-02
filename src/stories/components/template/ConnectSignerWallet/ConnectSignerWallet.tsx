@@ -4,7 +4,7 @@ import { useForm, FormProvider } from 'react-hook-form'
 import * as z from 'zod'
 
 import Button from '../../atoms/Button/Button'
-import { BasicInput } from '../../atoms/Input/BasicInput'
+import { InputControl } from '../../atoms/Input/InputControl'
 import CustomLink from '../../atoms/Link/CustomLink'
 import Option from '../../atoms/Option/Option'
 import { mock } from '../../atoms/Option/options.stories'
@@ -75,7 +75,7 @@ const ConnectSignerWallet = () => {
                   </span>
                 </div>
                 <div className='flex flex-col'>
-                  <BasicInput
+                  <InputControl
                     label='Name of the new Meson Wallet'
                     placeholder='Your-wallet-name*'
                     type='text'
@@ -93,7 +93,7 @@ const ConnectSignerWallet = () => {
                       </CustomLink>
                       .
                     </span>
-                  </BasicInput>
+                  </InputControl>
                 </div>
               </StepContentLayout>
 
