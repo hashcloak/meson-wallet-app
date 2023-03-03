@@ -1,10 +1,20 @@
+import { useState } from 'react'
+
 import Button from '../../atoms/Button/Button'
 import CustomLink from '../../atoms/Link/CustomLink'
+import Option from '../../atoms/Option/Option'
 import Switch from '../../atoms/Switch/Switch'
 
+import { currencies } from '~/stories/utils/Currencies'
 import Spacer from '~/utils/Spacer'
 
 const GeneralSettings = () => {
+  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [currency, setCurrency] = useState('USD')
+
+  const handleDarkMode = () => setIsDarkMode(isDarkMode)
+  const handleCurrency = (value: string) => setCurrency(value)
+
   return (
     <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
       <span className='text-3xl font-bold'>General</span>
@@ -39,7 +49,7 @@ const GeneralSettings = () => {
                 on: 'On',
                 off: 'Off',
               }}
-              handleClick={function (): void {}}
+              handleClick={handleDarkMode}
             />
           </div>
           <div className='flex flex-row'>
@@ -47,10 +57,15 @@ const GeneralSettings = () => {
             {/* TODO: */}
             <span>English</span>
           </div>
-          <div className='flex flex-row'>
+          <div className='flex flex-row items-center'>
             <span className='mr-2'>Flat currency: </span>
-            {/* TODO: */}
-            <span>USD</span>
+            <div className='w-1/6'>
+              <Option
+                options={currencies}
+                handleChange={handleCurrency}
+                defaultValue={currency}
+              />
+            </div>
           </div>
         </div>
       </div>

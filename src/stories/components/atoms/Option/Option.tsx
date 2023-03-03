@@ -9,15 +9,22 @@ export type Options = {
 type Props = {
   options: Options[]
   size?: null | 'lg'
+  handleChange?: (value: string) => void
+  defaultValue?: string
 }
 
-const Option: React.FC<Props> = ({ options, size = null }) => {
+const Option: React.FC<Props> = ({
+  options,
+  size = null,
+  handleChange,
+  defaultValue,
+}) => {
   const [currentVal, setCurrentVal] = useState<string>('')
   const [currentBg, setCurrentBg] = useState<string>('')
 
   useEffect(() => {
     const defaultBg =
-      'bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4] text-textBlack'
+      'bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4] text-textBlack appearance-none'
     const selectedOption = options.find((option) => option.value === currentVal)
     setCurrentBg(
       selectedOption?.bg !== undefined ? selectedOption?.bg : defaultBg
@@ -42,7 +49,6 @@ const Option: React.FC<Props> = ({ options, size = null }) => {
       <div className='max-w-96 w-full'>
         <select
           className={`form-select
-          appearance-none
           block
           w-full
           ${optionHeight()}
@@ -61,8 +67,11 @@ const Option: React.FC<Props> = ({ options, size = null }) => {
           ${currentBg}
           `}
           aria-label='Default select example'
-          onChange={(e) => setCurrentVal(e.target.value)}
-          defaultValue={currentVal}
+          onChange={(e) => {
+            setCurrentVal(e.target.value)
+            handleChange && handleChange(e.target.value)
+          }}
+          defaultValue={defaultValue || currentVal}
         >
           {options &&
             options.map((option, key) => (

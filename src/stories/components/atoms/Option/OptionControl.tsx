@@ -14,7 +14,7 @@ type Props = {
   handleChange?: (e: any) => void
 }
 
-const CustomOption: React.FC<Props> = ({
+const OptionControl: React.FC<Props> = ({
   options,
   registeredName,
   size = null,
@@ -74,4 +74,4 @@ const CustomOption: React.FC<Props> = ({
   )
 }
 
-export default CustomOption
+export default OptionControl

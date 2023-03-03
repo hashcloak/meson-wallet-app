@@ -10,7 +10,7 @@ import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
 import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
 import { InputControl } from '../../atoms/Input/InputControl'
 import { UnitInput } from '../../atoms/Input/UnitInput'
-import CustomOption from '../../atoms/Option/CustomOption'
+import OptionControl from '../../atoms/Option/OptionControl'
 
 import { AdvancedParametersModal } from './AdvancedParametersModal'
 
@@ -69,7 +69,6 @@ const tokens = [
 ]
 
 const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
-  isOpen,
   onClose,
   onPageChange,
   onSendingData,
@@ -169,7 +168,7 @@ const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
                 <div className='flex flex-row justify-center items-center'>
                   <Logo type={`${selectToken}Logo` as LogoTypes} size={'xxl'} />
                   <Spacer size={8} axis={'horizontal'} />
-                  <CustomOption
+                  <OptionControl
                     options={tokens}
                     size='lg'
                     registeredName={'selectedToken'}
@@ -213,7 +212,6 @@ const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
 }
 
 const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
-  isOpen,
   onClose,
   onPageChange,
   sendingData,

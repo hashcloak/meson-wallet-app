@@ -6,7 +6,7 @@ import * as z from 'zod'
 import Button from '../../atoms/Button/Button'
 import { InputControl } from '../../atoms/Input/InputControl'
 import CustomLink from '../../atoms/Link/CustomLink'
-import CustomOption from '../../atoms/Option/CustomOption'
+import OptionControl from '../../atoms/Option/OptionControl'
 import { mock } from '../../atoms/Option/options.stories'
 
 import StepContentLayout from '~/stories/utils/Layout/StepContentLayout'
@@ -58,7 +58,7 @@ const SelectMesonWallet = () => {
                   </span>
                 </div>
                 <div className='w-1/3'>
-                  <CustomOption
+                  <OptionControl
                     options={mock}
                     registeredName={'selectedNetwork'}
                   />
