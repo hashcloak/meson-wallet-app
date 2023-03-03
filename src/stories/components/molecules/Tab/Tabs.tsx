@@ -28,6 +28,31 @@ export const History = () => {
   )
 }
 
+export const Queue = () => {
+  return (
+    <>
+      <div className='flex flex-row justify-between w-full'>
+        <span className='text-2xl font-bold text-textWhite'>Queue</span>
+        <div>Filter</div>
+      </div>
+      <div className='rounded-2xl bg-bgDarkMid px-8 py-4 w-full h-full'>
+        <li className='flex flex-row justify-between'>
+          <ul>Action</ul>
+          <ul>Amount</ul>
+          <ul>Date</ul>
+          <ul>Confirmation</ul>
+          <ul>Status</ul>
+        </li>
+        <div className='flex justify-center items-center h-full'>
+          <span className='text-2xl font-bold text-textGray'>
+            No pending transaction
+          </span>
+        </div>
+      </div>
+    </>
+  )
+}
+
 type Props = {
   tabList: { [key: string]: JSX.Element }[]
 }
@@ -45,7 +70,6 @@ const Tabs: React.FC<Props> = ({ tabList }) => {
         selectedIndex={selectedIndex}
         onChange={(index) => {
           setSelectedIndex(index)
-          console.log('Changed selected tab to:', index)
         }}
       >
         <Tab.List className='flex flex-row items-center space-x-1 p-1 box-border'>

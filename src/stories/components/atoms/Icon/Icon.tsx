@@ -6,6 +6,7 @@ import ArrowForward from './images/ArrowForward'
 import ArrowNarrowDown from './images/ArrowNarrowDown'
 import Bell from './images/Bell'
 import CheckCircle from './images/CheckCircle'
+import ChevronRight from './images/ChevronRight'
 import Circle from './images/Circle'
 import Close from './images/Close'
 import Conflict from './images/Conflict'
@@ -48,6 +49,7 @@ const icons = {
   ArrowNarrowDown,
   Delete,
   Edit,
+  ChevronRight,
 }
 
 export type IconType = typeof icons
@@ -86,6 +88,7 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     ArrowNarrowDown: <ArrowNarrowDown iconSize={size} color={color} />,
     Delete: <Delete iconSize={size} color={color} />,
     Edit: <Edit iconSize={size} color={color} />,
+    ChevronRight: <ChevronRight iconSize={size} color={color} />,
   }
   return icons[type]
 }

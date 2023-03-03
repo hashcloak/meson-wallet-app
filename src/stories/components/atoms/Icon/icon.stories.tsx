@@ -41,6 +41,7 @@ export const Icons = (): React.ReactElement => {
     'ArrowNarrowDown',
     'Delete',
     'Edit',
+    'ChevronRight',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>
