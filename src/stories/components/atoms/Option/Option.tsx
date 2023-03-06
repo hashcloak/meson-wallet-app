@@ -40,7 +40,6 @@ const Option: React.FC<Props> = ({
       default:
         break
     }
-    console.log(height)
     return height
   }
 

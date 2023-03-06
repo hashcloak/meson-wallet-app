@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { object, z } from 'zod'
 
@@ -57,7 +57,7 @@ const RegisterAccountInfo = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value)
-    console.log(e.target.value)
+    console.log(userInput)
   }
 
   useEffect(() => {

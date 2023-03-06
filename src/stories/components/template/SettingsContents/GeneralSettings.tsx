@@ -5,15 +5,20 @@ import CustomLink from '../../atoms/Link/CustomLink'
 import Option from '../../atoms/Option/Option'
 import Switch from '../../atoms/Switch/Switch'
 
+import RemoveWalletModal from './RemoveWalletModal'
+
 import { currencies } from '~/stories/utils/Currencies'
 import Spacer from '~/utils/Spacer'
 
 const GeneralSettings = () => {
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [currency, setCurrency] = useState('USD')
+  const [openRemoveWalletModal, setOpenRemoveWalletModal] = useState(false)
 
   const handleDarkMode = () => setIsDarkMode(isDarkMode)
   const handleCurrency = (value: string) => setCurrency(value)
+  const handleRemoveWalletModal = () =>
+    setOpenRemoveWalletModal(!openRemoveWalletModal)
 
   return (
     <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
@@ -88,9 +93,18 @@ const GeneralSettings = () => {
       </div>
       <Spacer size={32} axis={'vertical'} />
       <div className='flex justify-end w-full'>
-        <Button btnVariant={'alert'} btnSize={'lg'} btnType={'button'}>
+        <Button
+          btnVariant={'alert'}
+          btnSize={'lg'}
+          btnType={'button'}
+          handleClick={handleRemoveWalletModal}
+        >
           Remove wallet
         </Button>
+        <RemoveWalletModal
+          isOpen={openRemoveWalletModal}
+          onClose={handleRemoveWalletModal}
+        />
       </div>
     </div>
   )
