@@ -10,17 +10,18 @@ import StepWrapper from '~/stories/utils/Layout/StepWrapper'
 import Spacer from '~/utils/Spacer'
 
 const DepositFund = () => {
-  const defaultAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
   const register = 'depositAmount'
 
   const schema = z.object({
-    depositAmount: z
-      .number({
-        required_error: 'Amount is required',
-        invalid_type_error: 'Amount must be a number',
-      })
-      .nonnegative()
-      .gt(0),
+    depositAmount: z.preprocess((value) => {
+      if (typeof value !== 'string') {
+        return Number(value)
+      }
+      if (value.trim() === '') {
+        return NaN
+      }
+      return Number(value)
+    }, z.union([z.number().nonnegative(), z.number().gt(0)]).optional()),
   })
 
   const methods = useForm({ resolver: zodResolver(schema) })

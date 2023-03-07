@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import SendFundsModal from '../../organisms/NewTx/SendFundsModal'
-import { mockContacts } from '../../template/ContactsContents/ContactsContents'
 import DeleteContactModal from '../../template/ContactsContents/DeleteContact'
 import EditContactModal from '../../template/ContactsContents/EditContact'
 

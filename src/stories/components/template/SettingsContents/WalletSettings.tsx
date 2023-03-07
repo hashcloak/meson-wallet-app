@@ -1,7 +1,13 @@
 import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
+import { OwnerType } from '../../organisms/EditOwners/EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
+
+export const mockOwners: OwnerType[] = [
+  { address: '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7', name: 'Owner1' },
+  { address: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5', name: '' },
+]
 
 const WalletSettings = () => {
   return (
@@ -36,19 +42,18 @@ const WalletSettings = () => {
             </button>
           </div>
           <div className='pl-6'>
-            <EthAddress
-              ethAddress={'0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'}
-              size={4.5}
-              length={'full'}
-              walletName={'Me'}
-            />
-            <Spacer size={8} axis={'vertical'} />
-            <EthAddress
-              ethAddress={'0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'}
-              size={4.5}
-              length={'full'}
-              walletName={'Owner1'}
-            />
+            {mockOwners.map((owner) => (
+              <>
+                <EthAddress
+                  ethAddress={owner.address}
+                  size={4.5}
+                  length={'full'}
+                  walletName={owner.name}
+                  key={owner.address}
+                />
+                <Spacer size={8} axis={'vertical'} />
+              </>
+            ))}
           </div>
         </div>
         <Spacer size={8} axis={'vertical'} />

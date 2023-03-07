@@ -6,22 +6,23 @@ import { z } from 'zod'
 import Button from '../../atoms/Button/Button'
 import { InputControl } from '../../atoms/Input/InputControl'
 
+import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
 
-type Props = {
+export type EditOwnerModalType = {
   isOpen: boolean
   onClose: () => void
   name: string
   address: string
 }
 
-type EditContactDetailsType = {
+export type EditOwnerDetailsType = {
   onClose: () => void
   name: string
   address: string
 }
 
-const EditContactDetails: React.FC<EditContactDetailsType> = ({
+const EditOwnerDetails: React.FC<EditOwnerDetailsType> = ({
   onClose,
   name,
   address,
@@ -34,7 +35,6 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
   const methods = useForm({
     defaultValues: {
       newName: name,
-      newAddress: address,
     },
     resolver: zodResolver(schema),
   })
@@ -50,20 +50,16 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
     <div className='flex flex-col text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-          <InputControl
-            label='Name'
-            placeholder='Name*'
-            type='text'
-            registeredName={'newName'}
-          />
-          <Spacer size={8} axis={'vertical'} />
-          <InputControl
-            label='Address'
-            placeholder='0xfF0000000000000000000000000000000000*'
-            type='text'
-            registeredName={'newAddress'}
-          />
-
+          <div className=' bg-bgDarkLight p-4'>
+            <InputControl
+              label='Name'
+              placeholder='Name*'
+              type='text'
+              registeredName={'newName'}
+            />
+            <Spacer size={8} axis={'vertical'} />
+            <EthAddress ethAddress={address} size={4.5} length={'full'} />
+          </div>
           <Spacer size={32} axis={'vertical'} />
           <div className='flex flex-row justify-around'>
             <Button
@@ -84,7 +80,7 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
   )
 }
 
-const EditContactModal: React.FC<Props> = ({
+const EditOwnerModal: React.FC<EditOwnerModalType> = ({
   isOpen,
   onClose,
   name,
@@ -106,12 +102,12 @@ const EditContactModal: React.FC<Props> = ({
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
               <span className='text-textWhite text-2xl font-bold'>
-                Edit contact
+                Edit owner
               </span>
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
-                <EditContactDetails
+                <EditOwnerDetails
                   onClose={onClose}
                   name={name}
                   address={address}
@@ -126,4 +122,4 @@ const EditContactModal: React.FC<Props> = ({
   )
 }
 
-export default EditContactModal
+export default EditOwnerModal

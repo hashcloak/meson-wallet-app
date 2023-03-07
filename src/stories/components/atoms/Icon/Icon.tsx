@@ -5,6 +5,7 @@ import AddExist from './images/AddExist'
 import ArrowForward from './images/ArrowForward'
 import ArrowNarrowDown from './images/ArrowNarrowDown'
 import Bell from './images/Bell'
+import Change from './images/Change'
 import CheckCircle from './images/CheckCircle'
 import ChevronRight from './images/ChevronRight'
 import Circle from './images/Circle'
@@ -50,6 +51,7 @@ const icons = {
   Delete,
   Edit,
   ChevronRight,
+  Change,
 }
 
 export type IconType = typeof icons
@@ -89,6 +91,7 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     Delete: <Delete iconSize={size} color={color} />,
     Edit: <Edit iconSize={size} color={color} />,
     ChevronRight: <ChevronRight iconSize={size} color={color} />,
+    Change: <Change iconSize={size} color={color} />,
   }
   return icons[type]
 }

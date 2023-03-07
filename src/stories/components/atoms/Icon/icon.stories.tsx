@@ -41,6 +41,7 @@ export const Icons = (): React.ReactElement => {
     'ArrowNarrowDown',
     'Delete',
     'Edit',
+    'Change',
     'ChevronRight',
   ]
   return (

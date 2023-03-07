@@ -68,14 +68,12 @@ const tokens = [
   },
 ]
 
-const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
+export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   onClose,
   onPageChange,
   onSendingData,
   address = '',
 }) => {
-  console.log(address)
-
   const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
   const [selectToken, setSelectToken] = useState('Eth')
 

@@ -17,7 +17,6 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        {' '}
         <span className='text-textWhite text-2xl font-bold'>③ Review</span>
         <form onSubmit={handleSubmit} className='w-[60rem]'>
           <StepWrapper>
