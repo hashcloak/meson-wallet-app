@@ -1,3 +1,4 @@
+import TxConflict from './TxConflict'
 import TxDetails from './TxDetails'
 
 export default {
@@ -7,4 +8,8 @@ export default {
 
 export const Default = () => {
   return <TxDetails />
+}
+
+export const TransactionConflict = () => {
+  return <TxConflict />
 }

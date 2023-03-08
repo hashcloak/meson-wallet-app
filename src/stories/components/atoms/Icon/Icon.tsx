@@ -24,6 +24,7 @@ import OpenInNew from './images/OpenInNew'
 import OwnerChange from './images/OwnerChange'
 import Receive from './images/Receive'
 import Send from './images/Send'
+import Warning from './images/Warning'
 
 import { theme } from '~/stories/utils/theme'
 
@@ -52,6 +53,7 @@ const icons = {
   Edit,
   ChevronRight,
   Change,
+  Warning,
 }
 
 export type IconType = typeof icons
@@ -92,6 +94,7 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     Edit: <Edit iconSize={size} color={color} />,
     ChevronRight: <ChevronRight iconSize={size} color={color} />,
     Change: <Change iconSize={size} color={color} />,
+    Warning: <Warning iconSize={size} color={color} />,
   }
   return icons[type]
 }
