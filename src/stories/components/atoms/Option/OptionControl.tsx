@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 export type Options = {
-  value: string | number
-  label: string | number
+  value: string
+  label: string
   bg?: string
 }
 
@@ -21,7 +21,7 @@ const OptionControl: React.FC<Props> = ({
   handleChange,
 }) => {
   const [currentVal, setCurrentVal] = useState<string>(
-    options[0].label as string
+    options.length > 0 ? options[0].label.toString() : ''
   )
   const [currentBg, setCurrentBg] = useState<string>('bg-bgGray')
 

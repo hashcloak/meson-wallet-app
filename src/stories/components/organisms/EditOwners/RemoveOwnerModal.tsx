@@ -1,76 +1,70 @@
 import { Dialog } from '@headlessui/react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 import Button from '../../atoms/Button/Button'
-import { InputControl } from '../../atoms/Input/InputControl'
+import OptionControl, { Options } from '../../atoms/Option/OptionControl'
 import { mockOwners } from '../../template/SettingsContents/WalletSettings'
 
-import { EditOwnerModalType as ReplaceOwnerModalType } from './EditOwnerModal'
+import { EditOwnerModalType as RemoveOwnerModalType } from './EditOwnerModal'
 import { OwnerType } from './EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
 
-type ReplaceOwnerInputType = {
+type RemoveOwnerInputType = {
   name: string
   address: string
   onClose: () => void
   onPageChange: () => void
-  onSetNewOwner: (data: NewOwnerType) => void
+  onNewConfirmation: (data: any) => void
 }
 
-type ReplaceOwnerDetailsProps = {
-  newOwner: NewOwnerType
+type RemoveOwnerDetailsProps = {
+  confirmation: string
   name: string
   address: string
   onClose: () => void
+  onPageChange: () => void
 }
 
-type NewOwnerType = { newOwnerAddress: string; newOwnerName: string }
-
-const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
+const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   onClose,
   name,
   address,
   onPageChange,
-  onSetNewOwner,
+  onNewConfirmation,
 }) => {
-  const schema = z.object({
-    newOwnerName: z.preprocess((value) => {
-      if (typeof value !== 'string') {
-        return String(value)
-      }
-      if (value.trim() === '') {
-        return ''
-      }
-      return String(value)
-    }, z.string().optional()),
-    newOwnerAddress: z
-      .string()
-      .min(1, { message: 'Owner Address is required' }),
-  })
+  const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([])
 
   const methods = useForm({
     defaultValues: {
-      newOwnerName: '',
-      newOwnerAddress: '',
+      confirmation: '1',
     },
-    resolver: zodResolver(schema),
   })
 
   const onSubmit = (data: any) => {
-    onSetNewOwner(data)
+    onNewConfirmation(data.confirmation)
     onPageChange && onPageChange()
   }
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e)
 
+  useEffect(() => {
+    const fields = [1, 2]
+    const numOfOwners: Options[] = fields.map((_, index) => {
+      return {
+        value: String(index + 1),
+        label: String(index + 1),
+        bg: 'bg-bgGray text-textBlack',
+      }
+    })
+    setNumOfConfirmation(numOfOwners)
+  }, [])
+
   return (
     <div className='flex flex-col text-textWhite'>
-      <span className='text-lg'>Current owner</span>
+      <span className='text-lg'>Removing owner</span>
       <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>
           <EthAddress
@@ -81,31 +75,27 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
           />
         </div>
       </div>
-
       <Spacer size={32} axis={'vertical'} />
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-          <span className='text-lg'>New owner</span>
-          <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
-            <InputControl
-              label='Owner name'
-              placeholder='Owner name'
-              type='text'
-              registeredName={'newOwnerName'}
-            />
-
-            <Spacer size={16} axis={'vertical'} />
-
-            <InputControl
-              label='Owner address'
-              placeholder='0xfF0000000000000000000000000000000000*'
-              type='text'
-              registeredName={'newOwnerAddress'}
-            />
+          <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
+            <span className='text-lg'>New required owner confirmation</span>
+            <Spacer size={24} axis={'vertical'} />
+            <span>Any transaction requires the confirmation of:</span>
+            <div className='grid grid-cols-4'>
+              <div className='col-span-1 mr-2'>
+                <OptionControl
+                  options={numOfConfirmation}
+                  registeredName={'confirmation'}
+                />
+              </div>
+              <span className='col-span-3'>
+                out of {numOfConfirmation.length} owner(s)
+              </span>
+            </div>
           </div>
 
-          <Spacer size={32} axis={'vertical'} />
           <div className='flex flex-row justify-around'>
             <Button
               btnVariant={'text'}
@@ -116,7 +106,7 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
               <span className='text-lg'>Cancel</span>
             </Button>
             <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
-              Review
+              Next
             </Button>
           </div>
         </form>
@@ -125,22 +115,20 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
   )
 }
 
-const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
+const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
   onClose,
-  newOwner,
+  confirmation,
   name,
   address,
+  onPageChange,
 }) => {
   const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([])
 
   useEffect(() => {
     const filterOwners = mockOwners.filter((owner) => {
-      return (
-        owner.address !== address && owner.address !== newOwner.newOwnerAddress
-      )
+      return owner.address !== address
     })
     setFilteredOwners(filterOwners)
-    console.log(filteredOwners, newOwner, name, address)
   }, [])
 
   return (
@@ -172,11 +160,13 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
               </span>
               <span className='text-lg text-textWhite'>Ethereum</span>
             </div>
-            <div className='flex flex-col mb-2'>
+            <div className='flex flex-col p-2 mb-2 bg-[#397F97] rounded-2xl h-[4rem]'>
               <span className='text-sm text-textGrayLight'>
                 Required confirmation
               </span>
-              <span className='text-lg text-textWhite'>1 out of 2 owners</span>
+              <span className='text-lg text-textWhite'>
+                {confirmation} out of {mockOwners.length} owners
+              </span>
             </div>
           </div>
         </div>
@@ -210,17 +200,6 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
                 walletName={name}
               />
             </div>
-
-            <div className='flex flex-col justify-center p-2 mb-2 bg-[#397F97] rounded-2xl h-[4.5rem] box-border w-full'>
-              <span className='font-bold'>New owner</span>
-              <EthAddress
-                ethAddress={newOwner && newOwner.newOwnerAddress}
-                size={4.5}
-                length={'full'}
-                icons={true}
-                walletName={newOwner?.newOwnerName}
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -250,11 +229,16 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
           btnVariant={'text'}
           btnSize={'lg'}
           btnType={'button'}
-          handleClick={onClose}
+          handleClick={onPageChange}
         >
           <span className='text-lg'>Back</span>
         </Button>
-        <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
+        <Button
+          btnVariant={'primary'}
+          btnSize={'lg'}
+          btnType={'submit'}
+          handleClick={() => onClose()}
+        >
           Submit
         </Button>
       </div>
@@ -262,14 +246,14 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
   )
 }
 
-const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
+const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
   isOpen,
   onClose,
   name,
   address,
 }) => {
   const [pageChange, setPageChange] = useState(false)
-  const [newOwner, setNewOwner] = useState<NewOwnerType | null>(null)
+  const [newConfirmation, onNewConfirmation] = useState<string | null>(null)
 
   const handlePageChange = () => {
     setPageChange(!pageChange)
@@ -291,26 +275,27 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
               <span className='text-textWhite text-2xl font-bold'>
-                Replace owner
+                Remove owner
               </span>
 
               <Dialog.Description>
                 {/* Description */}
 
                 {!pageChange ? (
-                  <ReplaceOwnerInput
+                  <RemoveOwnerInput
                     onClose={onClose}
                     name={name}
                     address={address}
                     onPageChange={handlePageChange}
-                    onSetNewOwner={setNewOwner}
+                    onNewConfirmation={onNewConfirmation}
                   />
                 ) : (
-                  <ReplaceOwnerDetails
+                  <RemoveOwnerDetails
                     onClose={onClose}
-                    newOwner={newOwner!}
+                    confirmation={newConfirmation!}
                     name={name}
                     address={address}
+                    onPageChange={handlePageChange}
                   />
                 )}
                 {/* Description */}
@@ -323,4 +308,4 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
   )
 }
 
-export default ReplaceOwnerModal
+export default RemoveOwnerModal

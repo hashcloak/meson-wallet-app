@@ -4,6 +4,7 @@ import { Icon } from '../../atoms/Icon/Icon'
 
 import EditOwnerModal from './EditOwnerModal'
 import { OwnerType } from './EditOwners'
+import RemoveOwnerModal from './RemoveOwnerModal'
 import ReplaceOwnerModal from './ReplaceOwnerModal'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
@@ -12,7 +13,7 @@ import Spacer from '~/utils/Spacer'
 const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
   const [isOpenEditOwnerModal, setIsOpenEditOwnerModal] = useState(false)
   const [isOpenReplaceOwnerModal, setIsOpenReplaceOwnerModal] = useState(false)
-  const [isOpenDeleteOwnerModal, setIsOpenDeleteOwnerModal] = useState(false)
+  const [isOpenRemoveOwnerModal, setIsOpenRemoveOwnerModal] = useState(false)
 
   const handleEditOwnerModal = (): void => {
     setIsOpenEditOwnerModal(!isOpenEditOwnerModal)
@@ -20,8 +21,8 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
   const handleReplaceOwnerModal = (): void => {
     setIsOpenReplaceOwnerModal(!isOpenReplaceOwnerModal)
   }
-  const handleDeleteOwnerModal = (): void => {
-    setIsOpenDeleteOwnerModal(!isOpenDeleteOwnerModal)
+  const handleRemoveOwnerModal = (): void => {
+    setIsOpenRemoveOwnerModal(!isOpenRemoveOwnerModal)
   }
   return (
     <div className='flex flex-row mb-2' key={owner.address}>
@@ -46,7 +47,7 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
 
         <Spacer size={8} axis={'horizontal'} />
 
-        <button type='button' onClick={handleDeleteOwnerModal}>
+        <button type='button' onClick={handleRemoveOwnerModal}>
           <Icon type={'Delete'} size={'lg'} color={'alert'} />
         </button>
       </div>
@@ -59,6 +60,12 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
       <ReplaceOwnerModal
         isOpen={isOpenReplaceOwnerModal}
         onClose={handleReplaceOwnerModal}
+        name={owner.name}
+        address={owner.address}
+      />
+      <RemoveOwnerModal
+        isOpen={isOpenRemoveOwnerModal}
+        onClose={handleRemoveOwnerModal}
         name={owner.name}
         address={owner.address}
       />
