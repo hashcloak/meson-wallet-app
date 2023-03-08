@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import Button from '../../atoms/Button/Button'
 
+import AddOwnerModal from './AddOwnerModal'
 import ChangeThresholdModal from './ChangeThresholdModal'
 import OwnerRow from './OwnerRow'
 
@@ -25,9 +26,13 @@ const EditOwnersDetails: React.FC<{
 }> = ({ owners, onClose }) => {
   const [isOpenChangeThresholdModal, setIsOpenChangeThresholdModal] =
     useState(false)
+  const [isOpenAddOwnerModal, setIsOpenAddOwnerModal] = useState(false)
 
   const handleChangeThresholdModal = () => {
     setIsOpenChangeThresholdModal(!isOpenChangeThresholdModal)
+  }
+  const handleAddOwnerModal = () => {
+    setIsOpenAddOwnerModal(!isOpenAddOwnerModal)
   }
   return (
     <>
@@ -64,7 +69,7 @@ const EditOwnersDetails: React.FC<{
               btnSize={'md'}
               btnType={'submit'}
               // handleClick={onClose}
-              handleClick={() => {}}
+              handleClick={handleAddOwnerModal}
             >
               Add new owner
             </Button>
@@ -72,6 +77,10 @@ const EditOwnersDetails: React.FC<{
           <ChangeThresholdModal
             isOpen={isOpenChangeThresholdModal}
             onClose={handleChangeThresholdModal}
+          />
+          <AddOwnerModal
+            isOpen={isOpenAddOwnerModal}
+            onClose={handleAddOwnerModal}
           />
         </div>
       </div>
