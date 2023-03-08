@@ -1,5 +1,7 @@
+import { useState } from 'react'
+
 import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
-import { OwnerType } from '../../organisms/EditOwners/EditOwners'
+import EditOwners, { OwnerType } from '../../organisms/EditOwners/EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
@@ -10,6 +12,9 @@ export const mockOwners: OwnerType[] = [
 ]
 
 const WalletSettings = () => {
+  const [isOpenEditOwner, setIsOpenEditOwner] = useState(false)
+  const handleEditOwner = () => setIsOpenEditOwner(!isOpenEditOwner)
+
   return (
     <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
       <span className='text-3xl font-bold'>Wallet settings</span>
@@ -37,7 +42,7 @@ const WalletSettings = () => {
             <div className='flex flex-row'>
               <span className='mr-2'>Owners: </span>
             </div>
-            <button type='button'>
+            <button type='button' onClick={() => handleEditOwner()}>
               <SidebarIcon type={'Settings'} size={'md'} color={'main'} />
             </button>
           </div>
@@ -63,6 +68,11 @@ const WalletSettings = () => {
           <span>1 out of 2 owners </span>
         </div>
       </div>
+      <EditOwners
+        isOpen={isOpenEditOwner}
+        owners={mockOwners}
+        onClose={handleEditOwner}
+      />
     </div>
   )
 }
