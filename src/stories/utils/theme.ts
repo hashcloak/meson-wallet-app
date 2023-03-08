@@ -15,7 +15,7 @@ export const theme = {
     },
     sizes: {
       sm: 'w-[5rem] h-[1.5rem] text-xs',
-      md: 'min-w-[8rem] max-w-[10rem] h-[2rem] text-sm',
+      md: 'px-6 min-w-[8rem] h-[2rem] text-sm',
       lg: 'w-[12.5rem] h-[2.5rem] text-base',
       sp: 'w-[25rem] h-[4.5rem] text-2xl font-bold',
     },

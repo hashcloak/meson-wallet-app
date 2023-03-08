@@ -1,7 +1,9 @@
 import { Dialog } from '@headlessui/react'
+import { useState } from 'react'
 
 import Button from '../../atoms/Button/Button'
 
+import ChangeThresholdModal from './ChangeThresholdModal'
 import OwnerRow from './OwnerRow'
 
 import Spacer from '~/utils/Spacer'
@@ -17,7 +19,16 @@ type Props = {
   onClose: () => void
 }
 
-const EditOwnersDetails: React.FC<{ owners: OwnerType[] }> = ({ owners }) => {
+const EditOwnersDetails: React.FC<{
+  owners: OwnerType[]
+  onClose: () => void
+}> = ({ owners, onClose }) => {
+  const [isOpenChangeThresholdModal, setIsOpenChangeThresholdModal] =
+    useState(false)
+
+  const handleChangeThresholdModal = () => {
+    setIsOpenChangeThresholdModal(!isOpenChangeThresholdModal)
+  }
   return (
     <>
       <div className='flex flex-col justify-center items-center text-textWhite'>
@@ -35,7 +46,7 @@ const EditOwnersDetails: React.FC<{ owners: OwnerType[] }> = ({ owners }) => {
               btnVariant={'text'}
               btnSize={'md'}
               btnType={'button'}
-              handleClick={() => {}}
+              handleClick={onClose}
             >
               <span className='text-lg'>Close</span>
             </Button>
@@ -44,7 +55,7 @@ const EditOwnersDetails: React.FC<{ owners: OwnerType[] }> = ({ owners }) => {
               btnSize={'md'}
               btnType={'submit'}
               // handleClick={onClose}
-              handleClick={() => {}}
+              handleClick={handleChangeThresholdModal}
             >
               Change threshold
             </Button>
@@ -58,6 +69,10 @@ const EditOwnersDetails: React.FC<{ owners: OwnerType[] }> = ({ owners }) => {
               Add new owner
             </Button>
           </div>
+          <ChangeThresholdModal
+            isOpen={isOpenChangeThresholdModal}
+            onClose={handleChangeThresholdModal}
+          />
         </div>
       </div>
     </>
@@ -86,7 +101,7 @@ const EditOwners: React.FC<Props> = ({ isOpen, onClose, owners }) => {
 
               <Dialog.Description className='py-6'>
                 {/* Description */}
-                <EditOwnersDetails owners={owners} />
+                <EditOwnersDetails owners={owners} onClose={onClose} />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>

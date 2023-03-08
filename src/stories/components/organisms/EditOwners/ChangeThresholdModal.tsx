@@ -6,32 +6,26 @@ import Button from '../../atoms/Button/Button'
 import OptionControl, { Options } from '../../atoms/Option/OptionControl'
 import { mockOwners } from '../../template/SettingsContents/WalletSettings'
 
-import { EditOwnerModalType as RemoveOwnerModalType } from './EditOwnerModal'
 import { OwnerType } from './EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'
 
-type RemoveOwnerInputType = {
-  name: string
-  address: string
+type ChangeThresholdInputType = {
   onClose: () => void
   onPageChange: () => void
   onNewConfirmation: (data: any) => void
 }
 
-type RemoveOwnerDetailsProps = {
+type ChangeThresholdDetailsProps = {
   confirmation: string
-  name: string
-  address: string
+
   onClose: () => void
   onPageChange: () => void
 }
 
-const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
+const ChangeThresholdInput: React.FC<ChangeThresholdInputType> = ({
   onClose,
-  name,
-  address,
   onPageChange,
   onNewConfirmation,
 }) => {
@@ -64,19 +58,6 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
 
   return (
     <div className='flex flex-col text-textWhite'>
-      <span className='text-lg'>Removing owner</span>
-      <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
-        <div className='pl-4'>
-          <EthAddress
-            ethAddress={address}
-            size={4.5}
-            length={'full'}
-            walletName={name}
-          />
-        </div>
-      </div>
-      <Spacer size={32} axis={'vertical'} />
-
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
@@ -107,7 +88,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
               <span className='text-lg'>Cancel</span>
             </Button>
             <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
-              Next
+              Review
             </Button>
           </div>
         </form>
@@ -116,22 +97,11 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   )
 }
 
-const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
+const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
   onClose,
   confirmation,
-  name,
-  address,
   onPageChange,
 }) => {
-  const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([])
-
-  useEffect(() => {
-    const filterOwners = mockOwners.filter((owner) => {
-      return owner.address !== address
-    })
-    setFilteredOwners(filterOwners)
-  }, [])
-
   return (
     <>
       <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base '>
@@ -177,8 +147,8 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2 w-full'>
             {/* Owners */}
-            {filteredOwners &&
-              filteredOwners.map((owner: OwnerType) => (
+            {mockOwners &&
+              mockOwners.map((owner: OwnerType) => (
                 <EthAddress
                   ethAddress={owner.address}
                   size={4.5}
@@ -188,19 +158,6 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
                   key={owner.address}
                 />
               ))}
-
-            <Spacer size={8} axis={'vertical'} />
-
-            <div className='flex flex-col justify-center p-2 mb-2 bg-[#DC2626] rounded-2xl h-[4.5rem] box-border w-full'>
-              <span className='font-bold'>Removing owner</span>
-              <EthAddress
-                ethAddress={address}
-                size={4.5}
-                length={'full'}
-                icons={true}
-                walletName={name}
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -247,12 +204,10 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
   )
 }
 
-const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
-  isOpen,
-  onClose,
-  name,
-  address,
-}) => {
+const ChangeThresholdModal: React.FC<{
+  isOpen: boolean
+  onClose: () => void
+}> = ({ isOpen, onClose }) => {
   const [pageChange, setPageChange] = useState(false)
   const [newConfirmation, onNewConfirmation] = useState<string | null>(null)
 
@@ -283,19 +238,15 @@ const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
                 {/* Description */}
 
                 {!pageChange ? (
-                  <RemoveOwnerInput
+                  <ChangeThresholdInput
                     onClose={onClose}
-                    name={name}
-                    address={address}
                     onPageChange={handlePageChange}
                     onNewConfirmation={onNewConfirmation}
                   />
                 ) : (
-                  <RemoveOwnerDetails
+                  <ChangeThresholdDetails
                     onClose={onClose}
                     confirmation={newConfirmation!}
-                    name={name}
-                    address={address}
                     onPageChange={handlePageChange}
                   />
                 )}
@@ -309,4 +260,4 @@ const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
   )
 }
 
-export default RemoveOwnerModal
+export default ChangeThresholdModal
