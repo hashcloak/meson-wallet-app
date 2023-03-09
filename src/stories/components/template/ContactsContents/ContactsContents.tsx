@@ -2,16 +2,12 @@ import { ChangeEvent, useEffect, useState } from 'react'
 
 import { Icon } from '../../atoms/Icon/Icon'
 import Input from '../../atoms/Input/Input'
-import ContactRow, { ContactType } from '../../molecules/ContactRow/ContactRow'
+import ContactRow from '../../molecules/ContactRow/ContactRow'
 
 import AddNewContactModal from './AddNewContact'
 
+import { mockContacts } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
-
-export const mockContacts: ContactType[] = [
-  { address: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5', name: 'test1' },
-  { address: '0xc740145D4b8b95F44Cd9e00acEA006B02d505E2E', name: 'Kang' },
-]
 
 const ContactsContents = () => {
   const [input, setInput] = useState('')

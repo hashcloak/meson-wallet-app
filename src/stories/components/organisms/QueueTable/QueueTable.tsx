@@ -1,4 +1,6 @@
-import { mockTransactions, TableLongRow } from '../Table/CustomTable'
+import { TableLongRow } from '../Table/CustomTable'
+
+import { mockTransactions } from '~/stories/utils/Mock'
 
 const QueueTable = () => {
   return (

@@ -7,10 +7,10 @@ import Button from '../../atoms/Button/Button'
 import { InputControl } from '../../atoms/Input/InputControl'
 import CustomLink from '../../atoms/Link/CustomLink'
 import OptionControl from '../../atoms/Option/OptionControl'
-import { mock } from '../../atoms/Option/options.stories'
 
 import StepContentLayout from '~/stories/utils/Layout/StepContentLayout'
 import StepWrapper from '~/stories/utils/Layout/StepWrapper'
+import { mockNetworks } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
 
 const SelectMesonWallet = () => {
@@ -27,7 +27,7 @@ const SelectMesonWallet = () => {
     defaultValues: {
       walletName: '',
       walletAddress: '',
-      selectedNetwork: mock[0],
+      selectedNetwork: mockNetworks[0],
     },
     resolver: zodResolver(schema),
   })
@@ -59,7 +59,7 @@ const SelectMesonWallet = () => {
                 </div>
                 <div className='w-1/3'>
                   <OptionControl
-                    options={mock}
+                    options={mockNetworks}
                     registeredName={'selectedNetwork'}
                   />
                 </div>

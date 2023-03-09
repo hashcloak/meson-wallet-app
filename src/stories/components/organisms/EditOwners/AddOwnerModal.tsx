@@ -7,11 +7,11 @@ import { z } from 'zod'
 import Button from '../../atoms/Button/Button'
 import { InputControl } from '../../atoms/Input/InputControl'
 import OptionControl, { Options } from '../../atoms/Option/OptionControl'
-import { mockOwners } from '../../template/SettingsContents/WalletSettings'
 
 import { OwnerType } from './EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
+import { mockOwners } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
 
 type AddOwnerInputType = {

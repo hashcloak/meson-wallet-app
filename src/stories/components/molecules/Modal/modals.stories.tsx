@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 import Button from '../../atoms/Button/Button'
-import { mockTransactions } from '../../organisms/Table/CustomTable'
 
 import Modal from './Modal'
 import TxModal from './TxModal'
 
+import { mockTransactions } from '~/stories/utils/Mock'
 import { DisplayBox } from '~/utils/DisplayBox'
 
 export default {
@@ -76,34 +76,6 @@ export const TxModals = () => {
   const onClose = () => {
     setIsOpen(!isOpen)
   }
-
-  const body = (
-    <p>
-      You are removing a Meson Wallet ONLY from your interface. It does not
-      delete the Meson wallet. You can always add it back using the above Meson
-      wallet’s address
-    </p>
-  )
-  const buttons = (
-    <>
-      <Button
-        btnVariant={'text'}
-        btnSize={'md'}
-        btnType={'button'}
-        handleClick={onClose}
-      >
-        Close
-      </Button>
-      <Button
-        btnVariant={'primary'}
-        btnSize={'md'}
-        btnType={'button'}
-        handleClick={onClose}
-      >
-        Submit
-      </Button>
-    </>
-  )
 
   return (
     <div className='flex flex-row w-screen flex-wrap'>

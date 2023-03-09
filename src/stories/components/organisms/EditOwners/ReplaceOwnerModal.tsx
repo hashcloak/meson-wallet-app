@@ -6,12 +6,12 @@ import { z } from 'zod'
 
 import Button from '../../atoms/Button/Button'
 import { InputControl } from '../../atoms/Input/InputControl'
-import { mockOwners } from '../../template/SettingsContents/WalletSettings'
 
 import { EditOwnerModalType as ReplaceOwnerModalType } from './EditOwnerModal'
 import { OwnerType } from './EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
+import { mockOwners } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
 
 type ReplaceOwnerInputType = {

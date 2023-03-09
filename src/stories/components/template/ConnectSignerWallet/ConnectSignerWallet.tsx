@@ -7,11 +7,11 @@ import Button from '../../atoms/Button/Button'
 import { InputControl } from '../../atoms/Input/InputControl'
 import CustomLink from '../../atoms/Link/CustomLink'
 import Option from '../../atoms/Option/Option'
-import { mock } from '../../atoms/Option/options.stories'
 import SignerWallets from '../../molecules/SignerWallets/SignerWallets'
 
 import StepContentLayout from '~/stories/utils/Layout/StepContentLayout'
 import StepWrapper from '~/stories/utils/Layout/StepWrapper'
+import { mockNetworks } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
 
 const ConnectSignerWallet = () => {
@@ -59,7 +59,7 @@ const ConnectSignerWallet = () => {
                   </div>
                   <Spacer size={24} axis={'vertical'} />
                   <div className='w-1/3'>
-                    <Option options={mock} />
+                    <Option options={mockNetworks} />
                   </div>
                 </div>
               </StepContentLayout>

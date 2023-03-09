@@ -1,5 +1,7 @@
 import Tabs from '../../molecules/Tab/Tabs'
-import { TableShortRow, mockTransactions } from '../Table/CustomTable'
+import { TableShortRow } from '../Table/CustomTable'
+
+import { mockTransactions } from '~/stories/utils/Mock'
 
 export const RecentQueue = () => {
   return (

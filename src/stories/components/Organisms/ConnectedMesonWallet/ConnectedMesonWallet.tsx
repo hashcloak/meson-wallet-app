@@ -3,9 +3,9 @@ import Blockies from 'react-blockies'
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
 import Option from '../../atoms/Option/Option'
-import { mock } from '../../atoms/Option/options.stories'
 
 import CopyToClipboardBtn from '~/stories/utils/CopyToClipboardBtn/CopyToClipboardBtn'
+import { mockNetworks } from '~/stories/utils/Mock'
 import ViewOn from '~/stories/utils/ViewOn/ViewOn'
 import { trimAddress } from '~/stories/utils/trimAddress'
 import Spacer from '~/utils/Spacer'
@@ -89,7 +89,7 @@ const ConnectedMesonWallet: React.FC<Props> = ({
                 <ViewOn address={ethAddress} />
               </div>
               <Spacer size={8} axis={'vertical'} />
-              <Option options={mock} />
+              <Option options={mockNetworks} />
             </div>
           </div>
           <Spacer size={24} axis={'vertical'} />

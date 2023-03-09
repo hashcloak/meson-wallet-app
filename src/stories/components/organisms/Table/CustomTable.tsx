@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 
-import Button from '../../atoms/Button/Button'
-import { Icon, IconTypes } from '../../atoms/Icon/Icon'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
 import { StatusTypes, TxStatus } from '../../molecules/IconText/TxStatus'
 import TxModal from '../../molecules/Modal/TxModal'
 
+import { mockTransactions } from '~/stories/utils/Mock'
 import { unixTimeConverter } from '~/stories/utils/unixTimeConverter'
 import Spacer from '~/utils/Spacer'
 
@@ -202,29 +201,6 @@ export const TableLongRow: React.FC<TableRowType> = ({ tx }) => {
 type Props = {
   size: 'short' | 'long'
 }
-
-export const mockTransactions: RowBodyType[] = [
-  {
-    amount: '- 0.00062',
-    token: 'Eth',
-    to: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5',
-    from: undefined,
-    timestamp: 1677055246,
-    status: 'Send',
-    numOfConfirmation: 1,
-    isSuccess: false,
-  },
-  {
-    amount: '+ 0.00062',
-    token: 'Dai',
-    to: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5',
-    from: undefined,
-    timestamp: 1674376846,
-    status: 'Send',
-    numOfConfirmation: 1,
-    isSuccess: false,
-  },
-]
 
 const CustomTable: React.FC<Props> = ({ size }) => {
   return (

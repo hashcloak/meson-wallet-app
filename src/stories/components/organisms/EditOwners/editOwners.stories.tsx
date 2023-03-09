@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { mockOwners } from '../../template/SettingsContents/WalletSettings'
-
 import EditOwners from './EditOwners'
+
+import { mockOwners } from '~/stories/utils/Mock'
 
 export default {
   title: 'Components/Organisms/EditOwners',

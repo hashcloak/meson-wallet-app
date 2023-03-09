@@ -1,4 +1,6 @@
-import { mockTransactions, TableShortRow } from '../Table/CustomTable'
+import { TableShortRow } from '../Table/CustomTable'
+
+import { mockTransactions } from '~/stories/utils/Mock'
 
 const RecentQueues = () => {
   return (

@@ -1,10 +1,8 @@
 import Breadcrumb from '../../molecules/Breadcrumbs/Breadcrumb'
 import { TxContents } from '../../molecules/Modal/TxModal'
-import {
-  mockTransactions as tx,
-  RowBodyLong,
-} from '../../organisms/Table/CustomTable'
+import { RowBodyLong } from '../../organisms/Table/CustomTable'
 
+import { mockTransactions as tx } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
 
 const TxDetails = () => {

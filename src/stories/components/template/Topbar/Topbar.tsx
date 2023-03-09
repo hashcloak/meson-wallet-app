@@ -1,7 +1,6 @@
 import Dialog from '../../atoms/Dialog/Dialog'
 import { Icon } from '../../atoms/Icon/Icon'
 import Option from '../../atoms/Option/Option'
-import { mock } from '../../atoms/Option/options.stories'
 import {
   ConnectedMesonWallet,
   ConnectedMesonWalletBtn,
@@ -14,6 +13,8 @@ import {
   Notification,
   NotificationBtn,
 } from '../../organisms/Notification/Notification'
+
+import { mockNetworks } from '~/stories/utils/Mock'
 
 const Topbar = () => {
   return (
@@ -44,7 +45,7 @@ const Topbar = () => {
           popupContent={<ConnectedSignerWallet isConnected={false} />}
         />
         <div className='p-4 border-l-2 border-borderGray'>
-          <Option options={mock} />
+          <Option options={mockNetworks} />
         </div>
       </div>
     </div>

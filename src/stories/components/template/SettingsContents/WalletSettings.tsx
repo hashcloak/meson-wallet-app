@@ -1,15 +1,11 @@
 import { useState } from 'react'
 
 import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
-import EditOwners, { OwnerType } from '../../organisms/EditOwners/EditOwners'
+import EditOwners from '../../organisms/EditOwners/EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
+import { mockOwners } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
-
-export const mockOwners: OwnerType[] = [
-  { address: '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7', name: 'Owner1' },
-  { address: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5', name: '' },
-]
 
 const WalletSettings = () => {
   const [isOpenEditOwner, setIsOpenEditOwner] = useState(false)
