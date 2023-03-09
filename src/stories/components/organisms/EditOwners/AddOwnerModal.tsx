@@ -95,8 +95,8 @@ const AddOwnerInput: React.FC<AddOwnerInputType> = ({
 
           <Spacer size={32} axis={'vertical'} />
 
+          <span className='text-lg'>New required owner confirmation</span>
           <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
-            <span className='text-lg'>New required owner confirmation</span>
             <Spacer size={24} axis={'vertical'} />
             <span>Any transaction requires the confirmation of:</span>
             <div className='grid grid-cols-4'>
@@ -276,7 +276,7 @@ const AddOwnerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
                 Add new owner
               </span>
 
-              <Dialog.Description>
+              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (

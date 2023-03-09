@@ -223,7 +223,7 @@ const ChangeThresholdModal: React.FC<{
                 Change threshold
               </span>
 
-              <Dialog.Description>
+              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (

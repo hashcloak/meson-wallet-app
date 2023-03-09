@@ -50,7 +50,7 @@ const EditOwnerDetails: React.FC<EditOwnerDetailsType> = ({
     <div className='flex flex-col text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-          <div className=' bg-bgDarkLight p-4'>
+          <div className=' bg-bgDarkLight rounded-2xl p-4'>
             <InputControl
               label='Name'
               placeholder='Name*'
@@ -105,7 +105,7 @@ const EditOwnerModal: React.FC<EditOwnerModalType> = ({
                 Edit owner
               </span>
 
-              <Dialog.Description className='p-6'>
+              <Dialog.Description className='py-6'>
                 {/* Description */}
                 <EditOwnerDetails
                   onClose={onClose}

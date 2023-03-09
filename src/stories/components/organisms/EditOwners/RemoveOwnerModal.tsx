@@ -268,7 +268,7 @@ const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
                 Remove owner
               </span>
 
-              <Dialog.Description>
+              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (

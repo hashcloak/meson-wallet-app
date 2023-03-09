@@ -280,7 +280,7 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
                 Replace owner
               </span>
 
-              <Dialog.Description>
+              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (
