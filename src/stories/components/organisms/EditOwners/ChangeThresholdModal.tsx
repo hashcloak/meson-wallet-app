@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 import Button from '../../atoms/Button/Button'
-import OptionControl, { Options } from '../../atoms/Option/OptionControl'
+import { Options } from '../../atoms/Option/OptionControl'
+import OwnerConfirmation from '../../molecules/OwnerConfirmation/OwnerConfirmation'
 
 import { OwnerType } from './EditOwners'
 
@@ -40,6 +41,7 @@ const ChangeThresholdInput: React.FC<ChangeThresholdInputType> = ({
   const onSubmit = (data: any) => {
     onNewConfirmation(data.confirmation)
     onPageChange && onPageChange()
+    console.log(data)
   }
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e)
@@ -57,27 +59,14 @@ const ChangeThresholdInput: React.FC<ChangeThresholdInputType> = ({
   }, [])
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textWhite w-full'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
+          <span className='text-lg'>New required owner confirmation</span>
           <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
-            <span className='text-lg'>New required owner confirmation</span>
-            <Spacer size={24} axis={'vertical'} />
-            <span>Any transaction requires the confirmation of:</span>
-            <div className='grid grid-cols-4'>
-              <div className='col-span-1 mr-2'>
-                <OptionControl
-                  options={numOfConfirmation}
-                  registeredName={'confirmation'}
-                />
-              </div>
-              <span className='col-span-3'>
-                out of {numOfConfirmation.length} owner(s)
-              </span>
-            </div>
+            <OwnerConfirmation numOfConfirmation={numOfConfirmation} />
           </div>
           <Spacer size={24} axis={'vertical'} />
-
           <div className='flex flex-row justify-around'>
             <Button
               btnVariant={'text'}
@@ -104,7 +93,7 @@ const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
 }) => {
   return (
     <>
-      <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base '>
+      <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 text-textWhite text-base'>
         <div className='flex flex-col w-full'>
           <span className='text-xl underline'>Details</span>
           <Spacer size={8} axis={'vertical'} />

@@ -110,11 +110,8 @@ const SelectMesonWallet = () => {
                   </span>
                 </div>
                 <div className='flex flex-col'>
-                  <label className='text-textGrayLight text-sm'>
-                    Meson wallet Address
-                  </label>
                   <InputControl
-                    label='Name of the new Meson Wallet'
+                    label='Meson wallet Address'
                     placeholder='0xfF0000000000000000000000000000000000*'
                     type='text'
                     registeredName={'walletAddress'}

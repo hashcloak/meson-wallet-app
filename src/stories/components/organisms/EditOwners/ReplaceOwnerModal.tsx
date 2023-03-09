@@ -5,7 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import Button from '../../atoms/Button/Button'
-import { InputControl } from '../../atoms/Input/InputControl'
+import NewOwnerInput from '../../molecules/OwnerInfoInput/NewOwnerInput'
 
 import { EditOwnerModalType as ReplaceOwnerModalType } from './EditOwnerModal'
 import { OwnerType } from './EditOwners'
@@ -88,21 +88,7 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New owner</span>
           <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
-            <InputControl
-              label='Owner name'
-              placeholder='Owner name'
-              type='text'
-              registeredName={'newOwnerName'}
-            />
-
-            <Spacer size={16} axis={'vertical'} />
-
-            <InputControl
-              label='Owner address'
-              placeholder='0xfF0000000000000000000000000000000000*'
-              type='text'
-              registeredName={'newOwnerAddress'}
-            />
+            <NewOwnerInput />
           </div>
 
           <Spacer size={32} axis={'vertical'} />

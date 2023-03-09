@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 import Button from '../../atoms/Button/Button'
-import OptionControl, { Options } from '../../atoms/Option/OptionControl'
+import { Options } from '../../atoms/Option/OptionControl'
+import OwnerConfirmation from '../../molecules/OwnerConfirmation/OwnerConfirmation'
 
 import { EditOwnerModalType as RemoveOwnerModalType } from './EditOwnerModal'
 import { OwnerType } from './EditOwners'
@@ -79,21 +80,9 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
+          <span className='text-lg'>New required owner confirmation</span>
           <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
-            <span className='text-lg'>New required owner confirmation</span>
-            <Spacer size={24} axis={'vertical'} />
-            <span>Any transaction requires the confirmation of:</span>
-            <div className='grid grid-cols-4'>
-              <div className='col-span-1 mr-2'>
-                <OptionControl
-                  options={numOfConfirmation}
-                  registeredName={'confirmation'}
-                />
-              </div>
-              <span className='col-span-3'>
-                out of {numOfConfirmation.length} owner(s)
-              </span>
-            </div>
+            <OwnerConfirmation numOfConfirmation={numOfConfirmation} />
           </div>
           <Spacer size={24} axis={'vertical'} />
 

@@ -23,7 +23,9 @@ const OptionControl: React.FC<Props> = ({
   const [currentVal, setCurrentVal] = useState<string>(
     options.length > 0 ? options[0].label.toString() : ''
   )
-  const [currentBg, setCurrentBg] = useState<string>('bg-bgGray')
+  const [currentBg, setCurrentBg] = useState<string>(
+    options.length > 0 && options[0].bg ? options[0].bg : 'bg-bgGray'
+  )
 
   const optionHeight = () => {
     let height = 'h-6'
@@ -38,11 +40,9 @@ const OptionControl: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    const defaultBg =
-      'bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4] text-textBlack'
     const selectedOption = options.find((option) => option.value === currentVal)
     setCurrentBg(
-      selectedOption?.bg !== undefined ? selectedOption?.bg : defaultBg
+      selectedOption?.bg !== undefined ? selectedOption?.bg : 'bg-bgGray'
     )
   }, [currentVal])
 
