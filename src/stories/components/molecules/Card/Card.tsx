@@ -75,7 +75,7 @@ const Card: React.FC<Props> = ({ tx }) => {
                 <TxStatus
                   type={status}
                   size={'xl'}
-                  color={'bgWhite'}
+                  color={'white'}
                   status={status}
                 />
               </div>
@@ -107,7 +107,20 @@ const Card: React.FC<Props> = ({ tx }) => {
             </div>
           </button>
           {/* TODO: Need to edit props after deciding the tx's data structure */}
-          <TxModal isOpen={isOpen} onClose={onClose} />
+          <TxModal
+            isOpen={isOpen}
+            onClose={onClose}
+            tx={{
+              amount: tx.amount,
+              token: tx.token,
+              to: tx.ethAddress,
+              from: undefined,
+              timestamp: tx.timestamp,
+              status: tx.status,
+              numOfConfirmation: undefined,
+              isSuccess: tx.isSuccess,
+            }}
+          />
         </span>
       </div>
     </div>

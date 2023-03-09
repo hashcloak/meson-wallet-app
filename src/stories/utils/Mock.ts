@@ -46,6 +46,16 @@ export const mockTransactions: RowBodyType[] = [
     numOfConfirmation: 1,
     isSuccess: false,
   },
+  {
+    amount: undefined,
+    token: undefined,
+    to: undefined,
+    from: undefined,
+    timestamp: 1674376846,
+    status: 'OnChainRejection',
+    numOfConfirmation: 1,
+    isSuccess: false,
+  },
 ]
 
 export const mockOwners: OwnerType[] = [

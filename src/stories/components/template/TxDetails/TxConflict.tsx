@@ -1,5 +1,6 @@
 import Button from '../../atoms/Button/Button'
 import { Icon } from '../../atoms/Icon/Icon'
+import { StatusIcon } from '../../atoms/Icon/StatusIcon'
 import { TxContents } from '../../molecules/Modal/TxModal'
 import { RowBodyLong } from '../../organisms/Table/CustomTable'
 
@@ -164,11 +165,11 @@ const TxConflict = () => {
         />
       </div>
       <div className='w-full bg-light h-6 flex justify-center items-center'>
-        <Icon type={'Warning'} size={'sm'} color={'black'} />
+        <StatusIcon type={'Warning'} size={'sm'} color={'black'} />
         <span className='text-textBlack text-center mx-2'>
           Executing one will automatically replace the other(s)
         </span>
-        <Icon type={'Warning'} size={'sm'} color={'black'} />
+        <StatusIcon type={'Warning'} size={'sm'} color={'black'} />
       </div>
 
       <Spacer size={24} axis={'vertical'} />

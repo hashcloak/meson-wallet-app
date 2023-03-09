@@ -21,7 +21,7 @@ const OnChainRejection: React.FC<Props> = ({ iconSize, color }) => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <circle cx='16.5' cy='16.375' r='16' className={`fill-${color}`} />
+      <circle cx='16.5' cy='16.375' r='16' fill={color} />
       <g clipPath='url(#clip0_10856_27728)'>
         <g clipPath='url(#clip1_10856_27728)'>
           <path

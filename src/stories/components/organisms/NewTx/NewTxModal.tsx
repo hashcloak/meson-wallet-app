@@ -1,9 +1,8 @@
 import { Dialog } from '@headlessui/react'
-import React, { useEffect, useState } from 'react'
 
 import EthAddress from '../../../utils/Ethereum/EthAddress'
 import Button from '../../atoms/Button/Button'
-import { Icon } from '../../atoms/Icon/Icon'
+import { StatusIcon } from '../../atoms/Icon/StatusIcon'
 import { Token, TokenTypes } from '../../molecules/IconText/Token'
 import { tokens } from '../Portfolio/Portfolio'
 
@@ -19,11 +18,8 @@ export type ModalProps = {
 }
 
 const NewTxDetails: React.FC<ModalProps> = ({
-  isOpen,
   onCloseNewTxModal,
-  isOpenReceiveFundsModal,
   handleReceiveFundsModal,
-  isOpenSendFundsModal,
   handleSendFundsModal,
 }) => {
   return (
@@ -54,7 +50,7 @@ const NewTxDetails: React.FC<ModalProps> = ({
               handleSendFundsModal()
             }}
           >
-            <Icon type={'Send'} color={'white'} size={'xl'} />
+            <StatusIcon type={'Send'} color={'white'} size={'xl'} />
             <Spacer size={8} axis={'horizontal'} />
             <span className='text-lg'>Send</span>
           </Button>
@@ -68,7 +64,7 @@ const NewTxDetails: React.FC<ModalProps> = ({
               handleReceiveFundsModal()
             }}
           >
-            <Icon type={'Receive'} color={'white'} size={'xl'} />
+            <StatusIcon type={'Receive'} color={'white'} size={'xl'} />
             <Spacer size={8} axis={'horizontal'} />
             <span className='text-lg'>Receive</span>
           </Button>

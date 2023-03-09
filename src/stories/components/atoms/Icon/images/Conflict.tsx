@@ -22,7 +22,7 @@ const Conflict: React.FC<Props> = ({ iconSize, color }) => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <circle cx='16' cy='16' r='16' className={`fill-${color}`} />
+      <circle cx='16' cy='16' r='16' fill={color} />
       <g clipPath='url(#clip0_10856_21409)'>
         <path
           d='M5 23H27L16 4L5 23ZM17 20H15V18H17V20ZM17 16H15V12H17V16Z'

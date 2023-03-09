@@ -3,6 +3,7 @@ import React from 'react'
 import { Icon, IconTypes } from './Icon'
 import { Logo, LogoTypes } from './Logo'
 import { SidebarIcon, SidebarIconTypes } from './SidebarIcon'
+import { StatusIcon, StatusIconTypes } from './StatusIcon'
 
 import { DisplayBox } from '~/utils/DisplayBox'
 
@@ -20,7 +21,6 @@ export default {
 export const Icons = (): React.ReactElement => {
   const icons: IconTypes[] = [
     'CheckCircle',
-    'FailCircle',
     'Close',
     'Info',
     'OpenInNew',
@@ -30,11 +30,6 @@ export const Icons = (): React.ReactElement => {
     'Bell',
     'MesonCircle',
     'AccountCircle',
-    'Send',
-    'Receive',
-    'Conflict',
-    'OwnerChange',
-    'OnChainRejection',
     'CreateNew',
     'AddExist',
     'Lines',
@@ -43,7 +38,7 @@ export const Icons = (): React.ReactElement => {
     'Edit',
     'Change',
     'ChevronRight',
-    'Warning',
+    'FailCircle',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>
@@ -177,5 +172,32 @@ export const Logos = (): React.ReactElement => {
         </div>
       </DisplayBox>
     </div>
+  )
+}
+
+export const StatusIcons = (): React.ReactElement => {
+  const statusIcons: StatusIconTypes[] = [
+    'Send',
+    'Receive',
+    'Conflict',
+    'OwnerChange',
+    'OnChainRejection',
+    'Warning',
+  ]
+
+  return (
+    <DisplayBox title={'Small'}>
+      <div className='flex flex-row justify-evenly flex-wrap'>
+        {statusIcons.map((type) => (
+          <div
+            className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32 bg-bgDarkMid'
+            key={type}
+          >
+            <StatusIcon type={type} size={'lg'} color={'white'} />
+            <p className='mt-4 text-textGray'>{type}</p>
+          </div>
+        ))}
+      </div>
+    </DisplayBox>
   )
 }

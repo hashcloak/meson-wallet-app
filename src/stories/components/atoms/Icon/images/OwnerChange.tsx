@@ -22,7 +22,7 @@ const OwnerChange: React.FC<Props> = ({ iconSize, color }) => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <circle cx='16.5' cy='16.375' r='16' className={`fill-${color}`} />
+      <circle cx='16.5' cy='16.375' r='16' fill={color} />
       <g clipPath='url(#clip0_10856_22357)'>
         <path
           d='M14.4998 16.375C16.7089 16.375 18.4998 14.5841 18.4998 12.375C18.4998 10.1659 16.7089 8.375 14.4998 8.375C12.2906 8.375 10.4998 10.1659 10.4998 12.375C10.4998 14.5841 12.2906 16.375 14.4998 16.375Z'
