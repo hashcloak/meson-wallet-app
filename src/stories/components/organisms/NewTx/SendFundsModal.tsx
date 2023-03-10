@@ -15,6 +15,7 @@ import OptionControl from '../../atoms/Option/OptionControl'
 import { AdvancedParametersModal } from './AdvancedParametersModal'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
+import { mockTokens } from '~/stories/utils/Mock'
 import Spacer from '~/utils/Spacer'
 
 type SubmitDataType = {
@@ -45,29 +46,6 @@ type SendFundsTxDetailsProps = {
   sendingData: SubmitDataType | null
 }
 
-const tokens = [
-  {
-    value: 'ethereum',
-    label: 'Ethereum',
-    id: 'eth',
-  },
-  {
-    value: 'dai',
-    label: 'Dai',
-    id: 'dai',
-  },
-  {
-    value: 'usdc',
-    label: 'USDC',
-    id: 'usdc',
-  },
-  {
-    value: 'bnb',
-    label: 'BNB Binance',
-    id: 'bnb',
-  },
-]
-
 export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   onClose,
   onPageChange,
@@ -94,7 +72,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   const methods = useForm({
     defaultValues: {
       recipientAddress: address,
-      selectedToken: tokens[0].value,
+      selectedToken: mockTokens[0].value,
       sendingAmount: 0,
     },
     resolver: zodResolver(schema),
@@ -109,7 +87,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e)
 
   const handleSelectToken = (e: any) => {
-    const currentToken = tokens.filter(
+    const currentToken = mockTokens.filter(
       (token) => token.value === e.target.value
     )
     const selectedTokenId = currentToken[0].id
@@ -124,9 +102,8 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
       <div>
-        <span className='text-left'>Sending from</span>
+        <span className='text-left text-xl'>Sending from</span>
         <div className='rounded-2xl bg-bgDarkLight p-4'>
-          <Spacer size={16} axis={'vertical'} />
           <EthAddress
             ethAddress={ethAddress}
             size={4.5}
@@ -148,7 +125,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
       <div className='w-full'>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-            <span>Recipient</span>
+            <span className='text-xl'>Recipient</span>
             <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
               <InputControl
                 label='Recipient address'
@@ -167,7 +144,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
                   <Logo type={`${selectToken}Logo` as LogoTypes} size={'xxl'} />
                   <Spacer size={8} axis={'horizontal'} />
                   <OptionControl
-                    options={tokens}
+                    options={mockTokens}
                     size='lg'
                     registeredName={'selectedToken'}
                     handleChange={handleSelectToken}
@@ -199,7 +176,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
                 <span className='text-lg'>Cancel</span>
               </Button>
               <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
-                Send
+                Review
               </Button>
             </div>
           </form>
@@ -225,7 +202,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
 
   useEffect(() => {
     const handleSelectToken = () => {
-      const currentToken = tokens.filter(
+      const currentToken = mockTokens.filter(
         (token) => token.value === sendingData?.selectedToken
       )
       const selectedTokenId = currentToken[0].id
@@ -238,9 +215,8 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
       <div>
-        <span className='text-left'>Sending from</span>
+        <span className='text-left text-xl'>Sending from</span>
         <div className='rounded-2xl bg-bgDarkLight p-4'>
-          <Spacer size={16} axis={'vertical'} />
           <EthAddress
             ethAddress={ethAddress}
             size={4.5}
@@ -260,7 +236,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
       <Spacer size={16} axis={'vertical'} />
       <div className='flex flex-row'>
         <Icon type={'ArrowNarrowDown'} size={'5xl'} color={'white'} />
-        <div className='flex flex-row'>
+        <div className='flex flex-row items-center'>
           <Logo
             type={
               `${
@@ -285,7 +261,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
       </div>
       <Spacer size={16} axis={'vertical'} />
       <div className='w-full'>
-        <span>Recipient</span>
+        <span className='text-xl'>Recipient</span>
         <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
           <EthAddress
             ethAddress={sendingData!.recipientAddress}
@@ -340,7 +316,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
             btnType={'submit'}
             handleClick={onClose}
           >
-            Review
+            Send
           </Button>
         </div>
       </div>

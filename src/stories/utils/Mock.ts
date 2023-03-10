@@ -67,3 +67,26 @@ export const mockContacts: ContactType[] = [
   { address: '0xf86B25473cC08F04DA275B2847F2448cf041Fbd5', name: 'test1' },
   { address: '0xc740145D4b8b95F44Cd9e00acEA006B02d505E2E', name: 'Kang' },
 ]
+
+export const mockTokens = [
+  {
+    value: 'ethereum',
+    label: 'Ethereum',
+    id: 'eth',
+  },
+  {
+    value: 'dai',
+    label: 'Dai',
+    id: 'dai',
+  },
+  {
+    value: 'usdc',
+    label: 'USDC',
+    id: 'usdc',
+  },
+  {
+    value: 'bnb',
+    label: 'BNB Binance',
+    id: 'bnb',
+  },
+]

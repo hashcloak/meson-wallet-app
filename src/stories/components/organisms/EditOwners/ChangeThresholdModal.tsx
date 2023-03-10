@@ -220,7 +220,12 @@ const ChangeThresholdModal: React.FC<{
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
               <span className='text-textWhite text-2xl font-bold'>
-                Change threshold
+                Change threshold{' '}
+                {!pageChange ? (
+                  <span className='text-sm text-textGrayLight'>(1/2)</span>
+                ) : (
+                  <span className='text-sm text-textGrayLight'>(2/2)</span>
+                )}
               </span>
 
               <Dialog.Description className='py-6'>
