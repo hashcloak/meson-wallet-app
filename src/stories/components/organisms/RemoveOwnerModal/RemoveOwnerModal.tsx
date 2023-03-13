@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import { useState } from 'react'
 
-import { EditOwnerModalType as RemoveOwnerModalType } from '../EditOwners/EditOwnerModal'
+import { EditOwnerModalType as RemoveOwnerModalType } from '../EditOwnerModal/EditOwnerModal'
 
 import RemoveOwnerDetails from './RemoveOwnerDetails'
 import RemoveOwnerInput from './RemoveOwnerInput'

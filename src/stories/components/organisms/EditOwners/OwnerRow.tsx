@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 import { Icon } from '../../atoms/Icon/Icon'
-import { OwnerType } from '../EditOwnerModal/EditOwners'
+import EditOwnerModal from '../EditOwnerModal/EditOwnerModal'
 import RemoveOwnerModal from '../RemoveOwnerModal/RemoveOwnerModal'
+import ReplaceOwnerModal from '../ReplaceOwnerModal/ReplaceOwnerModal'
 
-import EditOwnerModal from './EditOwnerModal'
-import ReplaceOwnerModal from './ReplaceOwnerModal'
+import { OwnerType } from './EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import Spacer from '~/utils/Spacer'

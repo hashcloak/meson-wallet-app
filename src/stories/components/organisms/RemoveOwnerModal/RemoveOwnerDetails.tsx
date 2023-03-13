@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import Button from '../../atoms/Button/Button'
-import { OwnerType } from '../EditOwnerModal/EditOwners'
+import { OwnerType } from '../EditOwners/EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import { mockOwners } from '~/stories/utils/Mock'

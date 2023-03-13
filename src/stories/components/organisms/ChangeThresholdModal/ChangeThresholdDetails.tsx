@@ -1,5 +1,5 @@
 import Button from '../../atoms/Button/Button'
-import { OwnerType } from '../EditOwnerModal/EditOwners'
+import { OwnerType } from '../EditOwners/EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import { mockOwners } from '~/stories/utils/Mock'
@@ -9,12 +9,14 @@ type ChangeThresholdDetailsProps = {
   confirmation: string
   onClose: () => void
   onPageChange: () => void
+  onLoad: () => void
 }
 
 const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
   onClose,
   confirmation,
   onPageChange,
+  onLoad,
 }) => {
   return (
     <>
@@ -101,15 +103,19 @@ const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
           btnVariant={'text'}
           btnSize={'lg'}
           btnType={'button'}
-          handleClick={onPageChange}
+          // handleClick={onPageChange}
+          handleClick={() => {
+            onPageChange()
+            onClose()
+          }}
         >
           <span className='text-lg'>Back</span>
         </Button>
         <Button
           btnVariant={'primary'}
           btnSize={'lg'}
-          btnType={'submit'}
-          handleClick={() => onClose()}
+          btnType={'button'}
+          handleClick={onLoad}
         >
           Submit
         </Button>

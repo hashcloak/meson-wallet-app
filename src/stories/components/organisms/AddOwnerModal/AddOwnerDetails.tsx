@@ -1,5 +1,5 @@
 import Button from '../../atoms/Button/Button'
-import { OwnerType } from '../EditOwnerModal/EditOwners'
+import { OwnerType } from '../EditOwners/EditOwners'
 
 import { NewOwnerType } from './AddOwnerModal'
 

@@ -6,13 +6,26 @@ import ChangeThresholdInput from './ChangeThresholdInput'
 
 const ChangeThresholdModal: React.FC<{
   isOpen: boolean
+  isLoading: boolean
   onClose: () => void
+  onLoad: () => void
 }> = ({ isOpen, onClose }) => {
   const [pageChange, setPageChange] = useState(false)
   const [newConfirmation, onNewConfirmation] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handlePageChange = () => {
     setPageChange(!pageChange)
+  }
+
+  const handleLoading = () => {
+    setIsLoading(!isLoading)
+    console.log('loading starts', isLoading)
+
+    setTimeout(() => {
+      setIsLoading(!isLoading)
+      console.log('loading ends', isLoading)
+    }, 5000)
   }
 
   return (
@@ -22,7 +35,7 @@ const ChangeThresholdModal: React.FC<{
           open={isOpen}
           onClose={onClose}
           className='fixed z-10 inset-0 overflow-y-auto'
-          // static
+          static={isLoading ? true : false}
         >
           <div className='flex items-center justify-center min-h-screen'>
             <Dialog.Overlay
@@ -53,6 +66,7 @@ const ChangeThresholdModal: React.FC<{
                     onClose={onClose}
                     confirmation={newConfirmation!}
                     onPageChange={handlePageChange}
+                    onLoad={handleLoading}
                   />
                 )}
                 {/* Description */}

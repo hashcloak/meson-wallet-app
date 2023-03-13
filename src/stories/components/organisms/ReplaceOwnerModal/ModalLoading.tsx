@@ -24,6 +24,7 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
   onPageChange,
 }) => {
   const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const filterOwners = mockOwners.filter((owner) => {
@@ -35,9 +36,23 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
     console.log(filteredOwners, newOwner, name, address)
   }, [])
 
+  const load = (): void => {
+    setIsLoading(!isLoading)
+    console.log('loading starts')
+
+    setTimeout(() => {
+      setIsLoading(!isLoading)
+      console.log('loading ends')
+    }, 5000)
+  }
+
   return (
     <>
-      <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base'>
+      <div
+        className={`grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base ${
+          isLoading && 'cursor-wait'
+        }`}
+      >
         <div className='flex flex-col w-full'>
           <span className='text-xl underline'>Details</span>
           <Spacer size={8} axis={'vertical'} />
@@ -72,6 +87,7 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
             </div>
           </div>
         </div>
+
         <div className='flex flex-col w-full'>
           <span className='text-xl underline'>Owners</span>
           <Spacer size={8} axis={'vertical'} />
@@ -141,7 +157,11 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
           btnVariant={'text'}
           btnSize={'lg'}
           btnType={'button'}
-          handleClick={onPageChange}
+          // handleClick={onPageChange}
+          handleClick={() => {
+            onClose()
+            onPageChange()
+          }}
         >
           <span className='text-lg'>Back</span>
         </Button>
@@ -149,7 +169,7 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
           btnVariant={'primary'}
           btnSize={'lg'}
           btnType={'submit'}
-          handleClick={onClose}
+          handleClick={load}
         >
           Submit
         </Button>

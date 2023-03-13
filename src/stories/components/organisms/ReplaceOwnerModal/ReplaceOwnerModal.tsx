@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import { useState } from 'react'
 
-import { EditOwnerModalType as ReplaceOwnerModalType } from '../EditOwners/EditOwnerModal'
+import { EditOwnerModalType as ReplaceOwnerModalType } from '../EditOwnerModal/EditOwnerModal'
 
 import ReplaceOwnerDetails from './ReplaceOwnerDetails'
 import ReplaceOwnerInput from './ReplaceOwnerInput'

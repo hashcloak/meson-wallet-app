@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { SidebarIcon } from '../../atoms/Icon/SidebarIcon'
-import EditOwners from '../../organisms/EditOwnerModal/EditOwners'
+import EditOwners from '../../organisms/EditOwners/EditOwners'
 
 import EthAddress from '~/stories/utils/Ethereum/EthAddress'
 import { mockOwners } from '~/stories/utils/Mock'

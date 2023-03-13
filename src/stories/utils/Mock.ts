@@ -1,5 +1,5 @@
 import { ContactType } from '../components/molecules/ContactRow/ContactRow'
-import { OwnerType } from '../components/organisms/EditOwnerModal/EditOwners'
+import { OwnerType } from '../components/organisms/EditOwners/EditOwners'
 import { RowBodyType } from '../components/organisms/Table/CustomTable'
 
 export const mockNetworks = [

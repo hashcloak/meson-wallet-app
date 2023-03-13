@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import EditOwners from '../EditOwnerModal/EditOwners'
+import EditOwners from './EditOwners'
 
 import { mockOwners } from '~/stories/utils/Mock'
 
