@@ -8,5 +8,19 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/,
     },
+    darkMode: {
+      current: 'light',
+    },
+    parameters: {
+      backgrounds: {
+        default: 'light',
+        values: [
+          {
+            name: 'light',
+            value: '#FFFFFF',
+          },
+        ],
+      },
+    },
   },
 }

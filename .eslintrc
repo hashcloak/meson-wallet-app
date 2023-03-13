@@ -58,7 +58,7 @@
         "allowShortCircuit": true
       }
     ],
-    "no-unused-vars": 1,
+    "no-unused-vars":  "off",
     "no-undef": "off",
     "no-empty": "off",
     "sort-imports": 0,
@@ -87,6 +87,7 @@
         "newlines-between": "always"
       }
     ],
+
     // ES2015
     "constructor-super": "error",
     "generator-star-spacing": ["error", "after"],
@@ -110,9 +111,15 @@
     "react/no-string-refs": "error",
     "react/prefer-stateless-function": "error",
     "react/prop-types": "off",
-    "react/self-closing-comp": "off",
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
     "react/destructuring-assignment": "off",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
     "react-hooks/rules-of-hooks": "error",
     "react/react-in-jsx-scope": "off"
   }
