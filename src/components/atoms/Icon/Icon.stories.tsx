@@ -39,6 +39,8 @@ export const Icons = (): React.ReactElement => {
     'Change',
     'ChevronRight',
     'FailCircle',
+    'Avatar',
+    'Visibility',
   ]
   return (
     <div className='flex flex-row w-screen flex-wrap'>

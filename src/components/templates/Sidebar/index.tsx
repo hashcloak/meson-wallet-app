@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import React from 'react'
+import Drawer from '../MyWallets'
 import { Footer } from '@/components/molecules/Footer'
 import { SidebarIconText } from '@/components/molecules/IconText'
 import Stepper from '@/components/molecules/Stepper'
@@ -19,17 +22,25 @@ const Sidebar: React.FC<Props> = ({ isStepper = false, isCreateNew, currentStep 
         <>
           <div>
             <div className='flex flex-col'>
-              <SidebarIconText type={'Home'} text={'Home'} />
-              <SidebarIconText type={'Transactions'} text={'Transactions'} />
-              <SidebarIconText type={'Contacts'} text={'Contacts'} />
-              <SidebarIconText type={'Settings'} text={'Settings'} />
+              <Link href={'/dashboard'}>
+                <SidebarIconText type={'Home'} text={'Home'} />
+              </Link>
+              <Link href='/transactions'>
+                <SidebarIconText type={'Transactions'} text={'Transactions'} />
+              </Link>
+              <Link href='/contacts'>
+                <SidebarIconText type={'Contacts'} text={'Contacts'} />
+              </Link>
+              <Link href='/settings'>
+                <SidebarIconText type={'Settings'} text={'Settings'} />
+              </Link>
               <SidebarIconText type={'Help'} text={'Help'} />
             </div>
             <Spacer size={24} axis={'vertical'} />
             <NewTx />
           </div>
           <div>
-            <SidebarIconText type={'AddCircle'} text={'Add new'} />
+            <Drawer />
             <Spacer size={16} axis={'vertical'} />
             <Footer />
           </div>

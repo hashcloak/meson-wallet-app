@@ -1,7 +1,7 @@
 import TxsContents from '.'
 
 export default {
-  title: 'Components/Template/TxsContents',
+  title: 'Components/Templates/TxsContents',
   component: TxsContents,
 }
 

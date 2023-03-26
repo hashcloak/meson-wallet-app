@@ -3,6 +3,7 @@ import AccountCircle from './images/AccountCircle'
 import AddExist from './images/AddExist'
 import ArrowForward from './images/ArrowForward'
 import ArrowNarrowDown from './images/ArrowNarrowDown'
+import Avatar from './images/Avatar'
 import Bell from './images/Bell'
 import Change from './images/Change'
 import CheckCircle from './images/CheckCircle'
@@ -19,6 +20,7 @@ import Lines from './images/Lines'
 import MesonCircle from './images/MesonCircle'
 import MesonLoader from './images/MesonLoader'
 import OpenInNew from './images/OpenInNew'
+import Visibility from './images/Visibility'
 import { theme } from '@/utils/theme'
 
 const icons = {
@@ -42,6 +44,8 @@ const icons = {
   ChevronRight,
   Change,
   FailCircle,
+  Avatar,
+  Visibility,
 }
 
 export type IconType = typeof icons
@@ -81,6 +85,8 @@ export const Icon: React.FC<Props> = ({ type, size, color }) => {
     ChevronRight: <ChevronRight iconSize={size} color={color} />,
     Change: <Change iconSize={size} color={color} />,
     FailCircle: <FailCircle iconSize={size} color={color} />,
+    Avatar: <Avatar iconSize={size} color={color} />,
+    Visibility: <Visibility iconSize={size} color={color} />,
   }
   return icons[type]
 }

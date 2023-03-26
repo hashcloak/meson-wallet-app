@@ -61,6 +61,7 @@ export const theme = {
       alert: '#DC2626',
       black: '#212121',
       white: '#FFFFFF',
+      gray: '#b2bbc0',
       none: 'none',
     },
   },
