@@ -121,35 +121,75 @@
 //     </>
 //   )
 // }
+// import Link from 'next/link'
+
+// export default function Home() {
+//   const products = [{ name: 'bag' }, { name: 'shoes' }, { name: 'socks' }]
+
+//   return (
+//     <div className='p-8'>
+//       <ul>
+//         <li>
+//           <Link href='/start' legacyBehavior>
+//             <a>Start</a>
+//           </Link>
+//         </li>
+//         <li>
+//           <Link href='/createNew' legacyBehavior>
+//             <a>create new</a>
+//           </Link>
+//         </li>
+//         <li>
+//           <Link href='/addExisting' legacyBehavior>
+//             <a>add existing</a>
+//           </Link>
+//         </li>
+//         <li>
+//           <Link href='/dashboard' legacyBehavior>
+//             <a>dashboard</a>
+//           </Link>
+//         </li>
+//       </ul>
+//     </div>
+//   )
+// }
+import Image from 'next/image'
 import Link from 'next/link'
+import { Button } from '@/components/atoms/Button'
+import { IconText } from '@/components/molecules/IconText'
+import LastOpenedWallet from '@/components/templates/LastOpenedWallet'
+import Topbar from '@/components/templates/Topbar'
+import { mockLastOpenedWallets as wallets } from '@/utils/Mock'
+import Spacer from '@/utils/Spacer'
 
 export default function Home() {
-  const products = [{ name: 'bag' }, { name: 'shoes' }, { name: 'socks' }]
-
   return (
-    <div>
-      <ul>
-        {products.map((product) => {
-          return (
-            <li key={product.name}>
-              <Link href={`/products/${product.name}`} legacyBehavior>
-                <a>{product.name}</a>
-              </Link>
-            </li>
-          )
-        })}
-        <li>
-          <Link href='/about' legacyBehavior>
-            <a>About</a>
+    <div className='w-screen h-screen flex flex-col'>
+      <Topbar />
+
+      <div className='flex flex-col justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgDark'>
+        <Image src='/Meson_start_logo.png' alt='mesonTopbarLogo' width='176' height='40' />
+
+        <Spacer size={16} axis={'vertical'} />
+        <LastOpenedWallet wallets={wallets} />
+        <Spacer size={16} axis={'vertical'} />
+        <div className='flex flex-row justify-between items-center w-[51rem] '>
+          <Link href='/createNew/step1' className='w-full'>
+            <Button btnVariant={'special'} btnSize={'sp'} btnType={'button'}>
+              <IconText iconType={'CreateNew'} iconColor={'white'}>
+                Create new wallet
+              </IconText>
+            </Button>
           </Link>
-        </li>
-        <li>
-          <Link href='/admin' legacyBehavior>
-            <a>Admin</a>
+          <Link href='/addExisting/step1' className='w-full'>
+            <Button btnVariant={'special'} btnSize={'sp'} btnType={'button'}>
+              <IconText iconType={'AddExist'} iconColor={'white'}>
+                Add existing wallet
+              </IconText>
+            </Button>
           </Link>
-        </li>
-      </ul>
-      <h1>Hello Next.js</h1>
+        </div>
+      </div>
     </div>
   )
 }

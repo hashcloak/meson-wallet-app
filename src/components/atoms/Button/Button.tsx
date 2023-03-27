@@ -21,8 +21,6 @@ const Button: React.FC<Props> = ({
 
   const btnStyle = `flex justify-center items-center rounded-xl text-center font-bold	text-sm	 ${variants[btnVariant]} ${sizes[btnSize]}`
 
-  console.log(btnStyle)
-
   return (
     <button
       type={btnType}

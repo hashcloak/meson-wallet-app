@@ -29,7 +29,6 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
       return owner.address !== address && owner.address !== newOwner.newOwnerAddress
     })
     setFilteredOwners(filterOwners)
-    console.log(filteredOwners, newOwner, name, address)
   }, [])
 
   const load = (): void => {

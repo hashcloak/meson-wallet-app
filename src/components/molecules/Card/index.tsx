@@ -27,7 +27,6 @@ const Card: React.FC<Props> = ({ tx }) => {
 
   const { token, amount, isSuccess, status, ethAddress, timestamp } = tx
   const { date, time } = unixTimeConverter(timestamp)
-  console.log(tokens[token].logo)
 
   return (
     <>

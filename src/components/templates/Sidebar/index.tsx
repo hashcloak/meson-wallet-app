@@ -40,7 +40,8 @@ const Sidebar: React.FC<Props> = ({ isStepper = false, isCreateNew, currentStep 
             <NewTx />
           </div>
           <div>
-            <Drawer />
+            {/* <Drawer /> */}
+            <SidebarIconText type={'AddCircle'} text={'Add new'} />
             <Spacer size={16} axis={'vertical'} />
             <Footer />
           </div>

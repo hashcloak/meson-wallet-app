@@ -12,14 +12,8 @@ const Start = () => {
       <Topbar />
 
       <div className='flex flex-col justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgDark'>
-        <Image
-          src='/Meson_start_logo.png'
-          alt='mesonStartLogo'
-          width='0'
-          height='0'
-          sizes='100vw'
-          className='w-[11rem] h-auto'
-        />
+        <Image src='/Meson_start_logo.png' alt='mesonTopbarLogo' width='176' height='40' />
+
         <Spacer size={16} axis={'vertical'} />
         <LastOpenedWallet wallets={wallets} />
         <Spacer size={16} axis={'vertical'} />
