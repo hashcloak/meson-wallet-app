@@ -1,5 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message'
 import { zodResolver } from '@hookform/resolvers/zod'
+import router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { object, z } from 'zod'
@@ -182,9 +183,11 @@ const RegisterAccountInfo = () => {
                 btnVariant={'text'}
                 btnSize={'lg'}
                 btnType={'button'}
-                handleClick={() => console.log('Cancel')}
+                handleClick={() => {
+                  router.back()
+                }}
               >
-                Cancel
+                Back
               </Button>
               {/* TODO:Button validation needs to be updated based on signer wallet connection */}
               <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>

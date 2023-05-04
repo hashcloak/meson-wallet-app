@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 export type Options = {
-  value: string
-  label: string
+  value: string | number
+  label: string | number
   bg?: string
 }
 

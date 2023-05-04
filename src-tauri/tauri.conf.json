@@ -57,7 +57,7 @@
       {
         "fullscreen": false,
         "height": 1050,
-        "resizable": false,
+        "resizable": true,
         "title": "Meson wallet",
         "width": 1680
       }

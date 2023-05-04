@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 import EthAddress from '@/utils/Ethereum/EthAddress'
@@ -37,26 +38,23 @@ const LastOpenedWallet: React.FC<Props> = ({ wallets }) => {
       {wallets && wallets ? (
         sortedWalelts.map(({ id, walletName, ethAddress, lastOpened }) => (
           // TODO: Make this part button or anchor tag
-          <div
-            className='px-6 mb-2 hover:bg-dark w-full rounded-xl'
-            key={id}
-            role='button'
-            tabIndex={0}
-          >
-            <div className='flex flex-row items-center justify-between '>
-              <EthAddress
-                walletName={walletName}
-                ethAddress={ethAddress}
-                size={4.5}
-                length={'full'}
-                icons={false}
-              />
-              <div className='flex flex-col text-sm text-textGrayLight h-full items-center justify-center'>
-                <span>Last opened</span>
-                <span>{convertedDate(lastOpened)}</span>
+          <Link href='/dashboard' className='w-full' key={id}>
+            <div className='px-6 mb-2 hover:bg-dark w-full rounded-xl' role='button' tabIndex={0}>
+              <div className='flex flex-row items-center justify-between '>
+                <EthAddress
+                  walletName={walletName}
+                  ethAddress={ethAddress}
+                  size={4.5}
+                  length={'full'}
+                  icons={false}
+                />
+                <div className='flex flex-col text-sm text-textGrayLight h-full items-center justify-center'>
+                  <span>Last opened</span>
+                  <span>{convertedDate(lastOpened)}</span>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))
       ) : (
         <div className='flex items-center justify-center w-full mb-4'>

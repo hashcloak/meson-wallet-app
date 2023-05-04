@@ -174,14 +174,14 @@ export default function Home() {
         <LastOpenedWallet wallets={wallets} />
         <Spacer size={16} axis={'vertical'} />
         <div className='flex flex-row justify-between items-center w-[51rem] '>
-          <Link href='/createNew/step1' className='w-full'>
+          <Link href='/create-new/step1' className='w-full'>
             <Button btnVariant={'special'} btnSize={'sp'} btnType={'button'}>
               <IconText iconType={'CreateNew'} iconColor={'white'}>
                 Create new wallet
               </IconText>
             </Button>
           </Link>
-          <Link href='/addExisting/step1' className='w-full'>
+          <Link href='/add-existing/step1' className='w-full'>
             <Button btnVariant={'special'} btnSize={'sp'} btnType={'button'}>
               <IconText iconType={'AddExist'} iconColor={'white'}>
                 Add existing wallet

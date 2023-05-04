@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
 import React, { ChangeEvent, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import * as z from 'zod'
-
 import { Button } from '@/components/atoms/Button'
 import CustomLink from '@/components/atoms/CustomLink'
 import { InputControl } from '@/components/atoms/Input'
@@ -93,23 +93,28 @@ const ConnectSignerWallet = () => {
 
               {/* Button */}
               <StepContentLayout isBtn={true}>
-                <Button
-                  btnVariant={'text'}
-                  btnSize={'lg'}
-                  btnType={'button'}
-                  handleClick={() => console.log('Cancel')}
-                >
-                  Cancel
-                </Button>
+                <Link href='/' className='w-full'>
+                  <Button
+                    btnVariant={'text'}
+                    btnSize={'lg'}
+                    btnType={'button'}
+                    handleClick={() => console.log('Cancel')}
+                  >
+                    Cancel
+                  </Button>
+                </Link>
+
                 {/* TODO:Button validation needs to be updated based on signer wallet connection */}
-                <Button
-                  btnVariant={userInput.length ? 'primary' : 'disable'}
-                  btnSize={'lg'}
-                  btnType={'submit'}
-                  disabled={userInput.length! ? false : true}
-                >
-                  Next
-                </Button>
+                <Link href='create-new/step2' className='w-full'>
+                  <Button
+                    btnVariant={userInput.length ? 'primary' : 'disable'}
+                    btnSize={'lg'}
+                    btnType={'submit'}
+                    disabled={userInput.length! ? false : true}
+                  >
+                    Next
+                  </Button>
+                </Link>
               </StepContentLayout>
             </StepWrapper>
           </form>
