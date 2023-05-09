@@ -29,26 +29,22 @@ const Stepper: React.FC<StepperPropsType> = ({ isCreateNew = true, currentStep =
 
   const stepper = isCreateNew
     ? createNewSteps.map((step, index) => (
-        <>
-          <Step
-            text={step.text}
-            isActive={index === currentStep ? true : false}
-            step={step.step}
-            isLast={step.isLast}
-            key={index}
-          />
-        </>
+        <Step
+          text={step.text}
+          isActive={index === currentStep ? true : false}
+          step={step.step}
+          isLast={step.isLast}
+          key={step.text}
+        />
       ))
     : addExistingSteps.map((step, index) => (
-        <>
-          <Step
-            text={step.text}
-            isActive={index === currentStep ? true : false}
-            step={step.step}
-            isLast={step.isLast}
-            key={index}
-          />
-        </>
+        <Step
+          text={step.text}
+          isActive={index === currentStep ? true : false}
+          step={step.step}
+          isLast={step.isLast}
+          key={step.text}
+        />
       ))
 
   return <div className='flex flex-col items-center h-16 max-w-[5rem] max-h-16 '>{stepper}</div>

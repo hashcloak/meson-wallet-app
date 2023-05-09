@@ -1,11 +1,19 @@
 import { action } from '@storybook/addon-actions'
+import { Wallet } from 'ethers'
+import { MockWagmiDecorator } from '../../../../.storybook/decorators'
+import { LogoTypes } from '../Icon/Logo'
+import WalletConnectButton from './WalletConnectButton.tsx'
 import { Button, SignerWalletButton } from '.'
+import { supportedSignerWallets } from '@/utils/supportedSignerWallets'
 import { theme } from '@/utils/theme'
+
+const demoWallet = new Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80')
 
 export default {
   title: 'Components/Atmos/Button',
   component: { Button, SignerWalletButton },
   argTypes: { onClick: { action: 'clicked' } },
+  decorators: [MockWagmiDecorator(demoWallet)],
 }
 
 export const Default = (): React.ReactElement => {
@@ -67,17 +75,24 @@ export const Default = (): React.ReactElement => {
   )
 }
 
-// export const SignerWalletButtons = (): React.ReactElement => {
-//   const variants = Object.keys(theme.buttons.variants)
+export const SignerWalletButtons = (): React.ReactElement => {
+  const variants = Object.keys(theme.buttons.variants)
 
-//   return (
-//     <div className='flex flex-row w-screen flex-wrap'>
-//       <div className='flex flex-row flex-wrap w-full'>
-//             <SignerWalletButton            >
-//               Submit
-//             </SignerWalletButton>
-//       </div>
+  return (
+    <>
+      {supportedSignerWallets.map((wallet) => (
+        <SignerWalletButton
+          btnType={'button'}
+          logoType={Object.keys(wallet)[0] as LogoTypes}
+          logoName={Object.values(wallet)[0]}
+          interact={true}
+          key={Object.keys(wallet)[0]}
+        />
+      ))}
+    </>
+  )
+}
 
-//     </div>
-//   )
-// }
+export const WalletConnectConnector = (): React.ReactElement => {
+  return <WalletConnectButton />
+}
