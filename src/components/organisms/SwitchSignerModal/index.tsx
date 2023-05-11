@@ -1,9 +1,6 @@
 import { Dialog } from '@headlessui/react'
 import { useState } from 'react'
-
-import AddOwnerDetails from './SwitchSignerDetails'
-import AddOwnerInput from './SwitchSignerInput'
-import SwitchSignerInput from './SwitchSignerInput'
+import SwitchSignerDetail from './SwitchSignerDetail'
 
 export type NewOwnerType = {
   newOwnerAddress: string
@@ -42,7 +39,7 @@ const SwitchSignerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
               <Dialog.Description className='py-6'>
                 {/* Description */}
 
-                <SwitchSignerInput onClose={onClose} />
+                <SwitchSignerDetail onClose={onClose} />
 
                 {/* Description */}
               </Dialog.Description>
