@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { NewOwnerType } from '.'
 import { Button } from '@/components/atoms/Button'
 import OptionControl, { Options } from '@/components/atoms/Option/OptionControl'
+import Spinner from '@/components/atoms/Spinner'
 import NewOwnerInput from '@/components/molecules/NewOwnerInput'
 import { mockOwners } from '@/utils/Mock'
 import Spacer from '@/utils/Spacer'
@@ -92,27 +93,36 @@ const SwitchSignerInput: React.FC<SwitchSignerInputType> = ({
       address: '0x12fdE4B42d1183120233c4862630A33d36dD45a4',
     },
   ]
-  const [trezorFullAccounts, setTrezorFullAccounts] = useState<any>([])
+  const [trezorFullAccounts, setTrezorFullAccounts] = useState<any>(trezorAccounts)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    setIsLoading(!isLoading)
     const data = async () => {
       const network = 'mainnet'
-      const provider = ethers.getDefaultProvider(network)
-      const updateAccounts = trezorAccounts.map(async (account) => {
-        const balance = await provider.getBalance(account.address)
-        const balanceInEth = ethers.utils.formatEther(balance)
-        const fullAccount = {
-          serializedPath: account.serializedPath,
-          address: account.address,
-          balance: balance,
-        }
-        console.log(`balance: ${balanceInEth} ETH`)
-        return fullAccount
+      const provider = ethers.getDefaultProvider(network, {
+        etherscan: 'I4P83IRDZKC3PM6BJIFABGUY6RBHAGB63Y',
+        infura: 'e31737b3710d4bdca5886411fd8d169f',
       })
+      const updateAccounts = await Promise.all(
+        trezorAccounts.map(async (account) => {
+          const balance = await provider.getBalance(account.address)
+          const balanceInEth = ethers.utils.formatEther(balance)
+          const fullAccount = {
+            serializedPath: account.serializedPath,
+            address: account.address,
+            balance: balanceInEth,
+          }
+          console.log(`balance: ${balanceInEth} ETH`)
+          return fullAccount
+        }),
+      )
+      console.log('updateAccounts', updateAccounts)
+
       setTrezorFullAccounts(updateAccounts)
+      setIsLoading(false)
     }
     data()
-    console.log(trezorFullAccounts)
   }, [])
 
   return (
@@ -125,17 +135,17 @@ const SwitchSignerInput: React.FC<SwitchSignerInputType> = ({
               <div className='grid grid-cols-1 text-textGrayLight'>
                 <span className='col-span-1'>Address</span>
               </div>
-              <div className='grid grid-cols-2 text-textGrayLight'>
+              <div className='grid grid-cols-3 gap-x-8 text-textGrayLight'>
                 <span className='col-span-1'>Path</span>
-                <span className='col-span-1'>Asset</span>
+                <span className='col-span-2'>Asset</span>
               </div>
 
               <div className='grid grid-cols-1'>
                 <span className='col-span-1'>{currentAddress}</span>
               </div>
-              <div className='grid grid-cols-2'>
+              <div className='grid grid-cols-3 gap-x-8'>
                 <span className='col-span-1'>{currentPath}</span>
-                <span className='col-span-1'>{currentAsset}</span>
+                <span className='col-span-2'>{currentAsset}</span>
               </div>
             </div>
           </div>
@@ -144,26 +154,32 @@ const SwitchSignerInput: React.FC<SwitchSignerInputType> = ({
 
           <span className='text-lg'>Available signers</span>
           <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
-            <div className='grid grid-cols-2 gap-x-8 box-border w-full'>
-              <div className='grid grid-cols-1 text-textGrayLight'>
-                <span className='col-span-1'>Address</span>
+            {isLoading ? (
+              <div className='w-full h-full self-center'>
+                <Spinner />
               </div>
-              <div className='grid grid-cols-2 text-textGrayLight'>
-                <span className='col-span-1'>Path</span>
-                <span className='col-span-1'>Asset</span>
+            ) : (
+              <div className='grid grid-cols-2 gap-x-8 box-border w-full'>
+                <div className='grid grid-cols-1 text-textGrayLight'>
+                  <span className='col-span-1'>Address</span>
+                </div>
+                <div className='grid grid-cols-3 gap-x-8 text-textGrayLight'>
+                  <span className='col-span-1'>Path</span>
+                  <span className='col-span-2'>Asset</span>
+                </div>
+                {trezorFullAccounts.map((account: any) => (
+                  <>
+                    <div className='grid grid-cols-1' key={account.address}>
+                      <span className='col-span-1'>{account.address}</span>
+                    </div>
+                    <div className='grid grid-cols-3 gap-x-8'>
+                      <span className='col-span-1'>{account.serializedPath}</span>
+                      <span className='col-span-2'>{account.balance} ETH</span>
+                    </div>
+                  </>
+                ))}
               </div>
-              {trezorFullAccounts.map((account: any) => (
-                <>
-                  <div className='grid grid-cols-1' key={account.address}>
-                    <span className='col-span-1'>{account.address}</span>
-                  </div>
-                  <div className='grid grid-cols-2'>
-                    <span className='col-span-1'>{account.serializedPath}</span>
-                    <span className='col-span-1'>{account.balance}</span>
-                  </div>
-                </>
-              ))}
-            </div>
+            )}
           </div>
 
           <Spacer size={32} axis={'vertical'} />
