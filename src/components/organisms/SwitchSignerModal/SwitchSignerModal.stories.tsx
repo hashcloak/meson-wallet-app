@@ -7,5 +7,10 @@ export default {
 }
 
 export const Default = (): React.ReactElement => {
-  return <SwitchSignerModal isOpen={true} onClose={() => {}} />
+  const [isOpen, setIsOpen] = useState(true)
+  const handleIsOpen = () => {
+    setIsOpen(!isOpen)
+  }
+
+  return <SwitchSignerModal isOpen={isOpen} onClose={handleIsOpen} />
 }

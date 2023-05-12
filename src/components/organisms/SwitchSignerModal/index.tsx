@@ -12,13 +12,6 @@ const SwitchSignerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
   onClose,
 }) => {
-  const [pageChange, setPageChange] = useState(false)
-  const [newOwner, setNewOwner] = useState<NewOwnerType | null>(null)
-
-  const handlePageChange = () => {
-    setPageChange(!pageChange)
-  }
-
   return (
     <>
       {isOpen && (
