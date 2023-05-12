@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import SwitchSignerModal from '../SwitchSignerModal'
 import { AdvancedParametersModal } from './AdvancedParametersModal'
 import Button from '@/components/atoms/Button/Button'
 import { Icon } from '@/components/atoms/Icon/Icon'
@@ -89,6 +90,9 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
     setSelectToken(selectedTokenId.charAt(0).toUpperCase() + selectedTokenId.slice(1))
   }
 
+  const [isOpen, setIsOpen] = useState(false)
+  const handleIsOpen = () => setIsOpen(!isOpen)
+
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
       <div>
@@ -96,12 +100,22 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
         <div className='rounded-2xl bg-bgDarkLight p-4'>
           <EthAddress ethAddress={ethAddress} size={4.5} length={'full'} walletName={'My wallet'} />
           <Spacer size={8} axis={'vertical'} />
-          <div className='flex flex-row items-center'>
-            <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
-            <span>0.080</span>
-            <span className='ml-2'>ETH</span>
+          <div className='flex flex-row justify-between'>
+            <div className='flex flex-row items-center'>
+              <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
+              <span>0.080</span>
+              <span className='ml-2'>ETH</span>
+            </div>
+            <button
+              className='transition ease-in-out border border-main px-2 rounded-xl text-textLink hover:bg-dark hover:border-dark duration-150 hover:text-textWhite text-xs'
+              type='button'
+              onClick={handleIsOpen}
+            >
+              Switch signer
+            </button>
           </div>
         </div>
+        <SwitchSignerModal isOpen={isOpen} onClose={handleIsOpen} />
       </div>
 
       <Spacer size={16} axis={'vertical'} />
