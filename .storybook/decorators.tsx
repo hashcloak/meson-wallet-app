@@ -6,12 +6,11 @@ import { configureChains, createClient, goerli, mainnet, WagmiConfig } from 'wag
 import { infuraProvider } from 'wagmi/providers/infura'
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [goerli, mainnet],
+  [mainnet],
   [infuraProvider({ apiKey: process.env.INFURA_API! })],
 )
 
 const client = createClient({
-  autoConnect: true,
   connectors: [],
   provider,
   webSocketProvider,

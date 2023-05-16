@@ -1,33 +1,38 @@
 import '@/styles/globals.css'
+import { configureStore } from '@reduxjs/toolkit'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
+import { Provider as ReduxProvider } from 'react-redux'
+import { persistReducer, persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
 import { WagmiConfig, createClient, configureChains, goerli, mainnet } from 'wagmi'
-import { LedgerConnector } from 'wagmi/connectors/ledger'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { infuraProvider } from 'wagmi/providers/infura'
+import reducers from '@/features/reducers'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const admin = router.route.startsWith('/admin') ? true : false
 
   const { chains, provider, webSocketProvider } = configureChains(
-    [goerli, mainnet],
+    [mainnet],
     [infuraProvider({ apiKey: process.env.INFURA_API! })],
   )
 
   const client = createClient({
-    autoConnect: true,
-    connectors: [
-      new WalletConnectConnector({
-        chains: [goerli, mainnet],
-        options: {
-          projectId: process.env.WALLETCONNECT_PROJECT_ID!,
-        },
-      }),
-    ],
+    connectors: [],
     provider,
     webSocketProvider,
   })
+
+  const persistConfig = {
+    key: 'root',
+    storage,
+  }
+
+  const persistedReducer = persistReducer(persistConfig, reducers)
+  const store = configureStore({ reducer: persistedReducer })
+  const persistor = persistStore(store)
 
   // const getLayout = admin
   //   ? (page: ReactNode) => <AdminLayout>{page}</AdminLayout>
@@ -36,7 +41,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   // return <>{getLayout(<Component {...pageProps} />)}</>
   return (
     <WagmiConfig client={client}>
-      <Component {...pageProps} />
+      <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Component {...pageProps} />
+        </PersistGate>
+      </ReduxProvider>
     </WagmiConfig>
   )
 }
