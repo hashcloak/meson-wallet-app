@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import Dialog from '@/components/atoms/Dialog'
 import { Icon } from '@/components/atoms/Icon'
 import { Option } from '@/components/atoms/Option'
@@ -13,11 +14,18 @@ import {
 } from '@/components/organisms/ConnectedSignerWallet'
 import { Notification, NotificationBtn } from '@/components/organisms/Notification'
 import SwitchSignerModal from '@/components/organisms/SwitchSignerModal'
+import { RootState } from '@/features/reducers'
 import { mockNetworks } from '@/utils/Mock'
 
 const Topbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isConnected, setIsConnected] = useState(false)
   const handleIsOpen = () => setIsOpen(!isOpen)
+  const address = useSelector<RootState, string>((state) => state.signerWallet.address)
+
+  useEffect(() => {
+    if (address) setIsConnected(isConnected)
+  }, [address])
 
   return (
     <div className='flex flex-row justify-between items-center w-full h-[3.5rem] bg-bgDarkLight'>
@@ -32,14 +40,14 @@ const Topbar = () => {
       <div className='flex flex-row justify-center items-center'>
         <Dialog popupBtn={<NotificationBtn />} popupContent={<Notification />} />
         <Dialog
-          popupBtn={<ConnectedMesonWalletBtn isConnected={false} />}
-          popupContent={<ConnectedMesonWallet isConnected={false} />}
+          popupBtn={<ConnectedMesonWalletBtn isConnected={isConnected} />}
+          popupContent={<ConnectedMesonWallet isConnected={isConnected} />}
         />
         <Dialog
           popupBtn={
             <ConnectedSignerWalletBtn
               isConnected={true}
-              ethAddress='0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
+              ethAddress={address || '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'}
               signerWallet='Trezor'
               network='Ethereum'
             />
@@ -47,7 +55,7 @@ const Topbar = () => {
           popupContent={
             <ConnectedSignerWallet
               isConnected={true}
-              ethAddress='0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
+              ethAddress={address || '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'}
               signerWallet='Trezor'
               network='Ethereum'
               handleIsOpen={handleIsOpen}

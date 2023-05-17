@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { setPrimarySigner } from './actions'
 
 export interface SignerState {
   address: string
@@ -13,10 +12,11 @@ export const signerWalletSlice = createSlice({
   name: 'signerWallet',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<any>) => {
-      state.address = action.payload.address
-      state.serializedPath = action.payload.serializedPath
-      state.balance = action.payload.balance
-    },
+    setSignerWallet: (state, action: PayloadAction<SignerState>) => ({
+      ...state,
+      address: action.payload.address,
+      serializedPath: action.payload.serializedPath,
+      balance: action.payload.balance,
+    }),
   },
 })

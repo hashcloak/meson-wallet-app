@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { signerWalletSlice } from './signerWallet/reducers'
+import { signerWalletSlice } from './signerWallet'
 
 const reducers = combineReducers({
   signerWallet: signerWalletSlice.reducer,
