@@ -14,9 +14,9 @@ export const useConnectWC = () => {
 
       const result: any = await connect({
         connector: new WalletConnectConnector({
-          chains: [goerli],
+          chains: [mainnet],
           options: {
-            projectId: process.env.WALLETCONNECT_PROJECT_ID!,
+            projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
           },
         }),
       })

@@ -16,7 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   const { chains, provider, webSocketProvider } = configureChains(
     [mainnet],
-    [infuraProvider({ apiKey: process.env.INFURA_API! })],
+    [infuraProvider({ apiKey: process.env.NEXT_PUBLIC_NEXT_PUBLIC_INFURA_API! })],
   )
 
   const client = createClient({
@@ -34,11 +34,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const store = configureStore({ reducer: persistedReducer })
   const persistor = persistStore(store)
 
-  // const getLayout = admin
-  //   ? (page: ReactNode) => <AdminLayout>{page}</AdminLayout>
-  //   : (page: ReactNode) => <Layout>{page}</Layout>
-
-  // return <>{getLayout(<Component {...pageProps} />)}</>
   return (
     <WagmiConfig client={client}>
       <ReduxProvider store={store}>

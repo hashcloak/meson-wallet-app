@@ -7,7 +7,7 @@ import { infuraProvider } from 'wagmi/providers/infura'
 
 const { chains, provider, webSocketProvider } = configureChains(
   [mainnet],
-  [infuraProvider({ apiKey: process.env.INFURA_API! })],
+  [infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_API! })],
 )
 
 const client = createClient({

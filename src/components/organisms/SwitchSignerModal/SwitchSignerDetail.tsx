@@ -50,8 +50,8 @@ const SwitchSignerDetail: React.FC<SwitchSignerDetailType> = ({ onClose }) => {
     const data = async () => {
       const network = 'mainnet'
       const provider = ethers.getDefaultProvider(network, {
-        etherscan: process.env.ETHERSCAN_API,
-        infura: process.env.INFURA_API,
+        etherscan: process.env.NEXT_PUBLIC_ETHERSCAN_API,
+        infura: process.env.NEXT_PUBLIC_INFURA_API,
       })
       const updateAccounts = await Promise.all(
         trezorAccounts.map(async (account) => {
