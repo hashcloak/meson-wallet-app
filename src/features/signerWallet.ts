@@ -7,10 +7,7 @@ const SignerWallets = {
   WalletConnect: 'WalletConnect',
 } as const
 
-// type SizeType = "small" | "medium" | "large"
 export type SupportedSignerWallet = (typeof SignerWallets)[keyof typeof SignerWallets]
-// 全てのtypeを配列として取得
-// const AllSizeType: ("small" | "medium" | "large")[]
 
 export interface SignerState {
   signerWalletAddress: string

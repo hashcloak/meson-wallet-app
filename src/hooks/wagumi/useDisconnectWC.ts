@@ -8,7 +8,13 @@ export const useDisconnectWC = () => {
 
   const disconnectWC = async () => {
     await disconnect()
-    dispatch(setSignerWallet({ address: '' }))
+    dispatch(
+      setSignerWallet({
+        signerWalletAddress: '',
+        isConnected: false,
+        wallet: null,
+      }),
+    )
   }
 
   return { disconnectWC }

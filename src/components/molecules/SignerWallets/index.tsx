@@ -1,5 +1,6 @@
 import React from 'react'
 import { SignerWalletButton } from '@/components/atoms/Button'
+import TrezorButton from '@/components/atoms/Button/TrezorButton'
 import WalletConnectButton from '@/components/atoms/Button/WalletConnectButton.tsx'
 import { LogoTypes } from '@/components/atoms/Icon/Logo'
 import { useConnectWC } from '@/hooks/wagumi/useConnectWC'
@@ -21,20 +22,12 @@ const SignerWallets = () => {
     },
   }
 
-  const trezorConnector = () => console.log('trezor')
   const ledgerConnector = () => console.log('ledger')
-  const { walletConnectConnector, address, isConnected } = useConnectWC()
 
   return (
     <>
       {/* Trezor */}
-      <SignerWalletButton
-        btnType={'button'}
-        logoType={supportedSignerWallets.TREZOR.logoType as LogoTypes}
-        logoName={supportedSignerWallets.TREZOR.logoName}
-        interact={true}
-        handleConnect={trezorConnector}
-      />
+      <TrezorButton />
 
       {/* Ledger */}
       <SignerWalletButton
