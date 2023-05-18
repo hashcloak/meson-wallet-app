@@ -30,7 +30,7 @@ const EthAddress: React.FC<Props> = ({
 
   return (
     <div className='flex flex-row items-center'>
-      <Blockies seed={address} scale={size} className='identicon rounded-full' />
+      <Blockies seed={ethAddress} scale={size} className='identicon rounded-full' />
       <div className='flex flex-col ml-2 items-start'>
         {walletName && walletName ? (
           <span className='text-textWhite text-base font-normal'>My wallet</span>

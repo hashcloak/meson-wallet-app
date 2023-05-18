@@ -4,6 +4,7 @@ import Button from '../../atoms/Button/Button'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
 import SwitchSignerModal from '../SwitchSignerModal'
 import NoSignerWallet from './NoSignerWallet'
+import { useDisconnectWC } from '@/hooks/wagumi/useDisconnectWC'
 import CopyToClipboardBtn from '@/utils/CopyToClipboardBtn'
 import Spacer from '@/utils/Spacer'
 import ViewOn from '@/utils/ViewOn'
@@ -21,7 +22,6 @@ export const signerWallets: { [k in LogoTypes]?: string }[] = [
   { TrezorLogo: 'Trezor' },
   { WalletConnectLogo: 'WalletConnect' },
   { LedgerLogo: 'Ledger' },
-  { MetamaskLogo: 'Metamask' },
 ]
 
 // TODO: This needs to be dynamically change based on the props
@@ -35,6 +35,12 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
   const selectedSignerWallet = Object.values(signerWallets).filter(
     (wallet) => Object.values(wallet)[0].toString() == signerWallet,
   )[0] as unknown as string
+
+  const { disconnectWC } = useDisconnectWC()
+
+  const handleDisconnect = () => {
+    disconnectWC()
+  }
 
   return (
     <>
@@ -105,7 +111,7 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                 btnVariant={'alert'}
                 btnSize={'md'}
                 btnType={'button'}
-                handleClick={() => console.log('Disconnect')}
+                handleClick={handleDisconnect}
               >
                 <span className='text-sm'>Disconnect</span>
               </Button>

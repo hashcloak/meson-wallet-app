@@ -15,17 +15,18 @@ import {
 import { Notification, NotificationBtn } from '@/components/organisms/Notification'
 import SwitchSignerModal from '@/components/organisms/SwitchSignerModal'
 import { RootState } from '@/features/reducers'
+import { SignerState } from '@/features/signerWallet'
 import { mockNetworks } from '@/utils/Mock'
 
 const Topbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isConnected, setIsConnected] = useState(false)
-  const handleIsOpen = () => setIsOpen(!isOpen)
-  const address = useSelector<RootState, string>((state) => state.signerWallet.address)
+  const { signerWalletAddress, isConnected, wallet } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet,
+  )
 
-  useEffect(() => {
-    if (address) setIsConnected(isConnected)
-  }, [address])
+  const [isOpen, setIsOpen] = useState(false)
+  const handleIsOpen = () => setIsOpen(!isOpen)
+
+  useEffect(() => {}, [isConnected])
 
   return (
     <div className='flex flex-row justify-between items-center w-full h-[3.5rem] bg-bgDarkLight'>
@@ -46,17 +47,17 @@ const Topbar = () => {
         <Dialog
           popupBtn={
             <ConnectedSignerWalletBtn
-              isConnected={true}
-              ethAddress={address || '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'}
-              signerWallet='Trezor'
+              isConnected={isConnected}
+              ethAddress={signerWalletAddress || ''}
+              signerWallet={wallet!}
               network='Ethereum'
             />
           }
           popupContent={
             <ConnectedSignerWallet
-              isConnected={true}
-              ethAddress={address || '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'}
-              signerWallet='Trezor'
+              isConnected={isConnected}
+              ethAddress={signerWalletAddress || ''}
+              signerWallet={wallet!}
               network='Ethereum'
               handleIsOpen={handleIsOpen}
             />

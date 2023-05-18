@@ -6,7 +6,9 @@ import { RootState } from '@/features/reducers'
 import { signerWalletSlice } from '@/features/signerWallet'
 
 export const useConnectWC = () => {
-  const currentSignerAddress = useSelector<RootState, string>((state) => state.signerWallet.address)
+  const currentSignerAddress = useSelector<RootState, string>(
+    (state) => state.signerWallet.signerWalletAddress,
+  )
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const [signerAddress, setSignerAddress] = useState(currentSignerAddress || '')
@@ -31,9 +33,13 @@ export const useConnectWC = () => {
         }),
       })
       setSignerAddress(result.account)
-      console.log(await result.connector.getProvider())
-      console.log(await result)
-      dispatch(setSignerWallet({ address: result.account }))
+      dispatch(
+        setSignerWallet({
+          signerWalletAddress: result.account,
+          isConnected: true,
+          wallet: 'WalletConnect',
+        }),
+      )
     } catch (err) {
       throw new Error(`something's wrong: ${err}`)
     } finally {
@@ -42,7 +48,5 @@ export const useConnectWC = () => {
 
     setIsLoading(false)
   }
-  console.log(signerAddress)
-
-  return { connectWC, signerAddress, isLoading, errorMessage }
+  return { connectWC, isLoading, errorMessage }
 }

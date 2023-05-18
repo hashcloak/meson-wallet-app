@@ -1,7 +1,15 @@
-import { useDisconnect } from 'wagmi'
+import { disconnect } from '@wagmi/core'
+import { useDispatch } from 'react-redux'
+import { signerWalletSlice } from '@/features/signerWallet'
 
 export const useDisconnectWC = () => {
-  // const { disconnect } = useDisconnect()
-  // return disconnect
-  return
+  const dispatch = useDispatch()
+  const { setSignerWallet } = signerWalletSlice.actions
+
+  const disconnectWC = async () => {
+    await disconnect()
+    dispatch(setSignerWallet({ address: '' }))
+  }
+
+  return { disconnectWC }
 }
