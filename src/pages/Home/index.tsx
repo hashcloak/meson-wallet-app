@@ -177,7 +177,7 @@ export const Home: FC = () => {
           height='40'
         /> */}
         <img
-          src='../../assets/Meson_start_logo.png'
+          src='/assets/Meson_start_logo.png'
           alt='Meson Logo'
           width='176'
           height='40'

@@ -48,7 +48,7 @@ const Topbar: FC = () => {
           height='40'
         /> */}
         <img
-          src='../../../assets/Meson_topbar_logo.png'
+          src='/assets/Meson_topbar_logo.png'
           alt='Meson Logo'
           width='176'
           height='40'
