@@ -1,11 +1,17 @@
-import { mainnet, goerli, connect } from '@wagmi/core'
-import { useEffect, useState } from 'react'
+import { mainnet, connect } from '@wagmi/core'
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { RootState } from '@/features/reducers'
 import { signerWalletSlice } from '@/features/signerWallet'
 
-export const useConnectWC = () => {
+type ReturnValue = {
+  connectWC: () => void
+  isLoading: boolean
+  errorMessage: string
+}
+
+export const useConnectWC = (): ReturnValue => {
   const currentSignerAddress = useSelector<RootState, string>(
     (state) => state.signerWallet.signerWalletAddress,
   )
@@ -18,6 +24,7 @@ export const useConnectWC = () => {
   const connectWC = async () => {
     if (currentSignerAddress) {
       setIsLoading(false)
+
       return { signerAddress, isLoading, errorMessage }
     }
     try {
@@ -28,19 +35,23 @@ export const useConnectWC = () => {
         connector: new WalletConnectConnector({
           chains: [mainnet],
           options: {
-            projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
+            projectId: process.env.NEXT_PUBLIC_NEXT_WALLETCONNECT_PROJECT_ID as string,
           },
         }),
       })
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       setSignerAddress(result.account)
       dispatch(
         setSignerWallet({
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           signerWalletAddress: result.account,
           isConnected: true,
           wallet: 'WalletConnect',
         }),
       )
     } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`something's wrong: ${err}`)
     } finally {
       setIsLoading(false)

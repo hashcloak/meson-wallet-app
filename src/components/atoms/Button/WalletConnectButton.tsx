@@ -1,6 +1,5 @@
+import { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { goerli, mainnet, useAccount, useConnect } from 'wagmi'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { Logo } from '../Icon'
 import { LogoTypes } from '../Icon/Logo'
 import Spinner from '../Spinner'
@@ -8,15 +7,7 @@ import { RootState } from '@/features/reducers'
 import { SignerState } from '@/features/signerWallet'
 import { useConnectWC } from '@/hooks/wagumi/useConnectWC'
 
-type Props = {
-  btnType?: 'button' | 'submit'
-  logoType?: LogoTypes
-  logoName?: string
-  interact?: boolean
-  handleConnect?: () => void
-}
-
-const WalletConnectButton = () => {
+const WalletConnectButton: FC = () => {
   const supportedSignerWallets = {
     TREZOR: {
       logoType: 'TrezorLogo',

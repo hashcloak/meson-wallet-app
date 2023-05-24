@@ -47,6 +47,7 @@ export const getAccounts = async (): Promise<EthereumAddress[]> => {
       originError: response.payload.error,
     })
   }
+  console.log(response.payload)
 
   return response.payload
 }

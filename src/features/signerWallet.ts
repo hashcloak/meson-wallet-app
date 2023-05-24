@@ -12,7 +12,7 @@ export type SupportedSignerWallet = (typeof SignerWallets)[keyof typeof SignerWa
 export interface SignerState {
   signerWalletAddress: string
   serializedPath?: string
-  balance?: number
+  balance?: number | string
   isConnected: boolean
   wallet: SupportedSignerWallet | null
 }

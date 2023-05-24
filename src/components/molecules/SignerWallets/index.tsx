@@ -1,12 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { SignerWalletButton } from '@/components/atoms/Button'
 import TrezorButton from '@/components/atoms/Button/TrezorButton'
-import WalletConnectButton from '@/components/atoms/Button/WalletConnectButton.tsx'
+import WalletConnectButton from '@/components/atoms/Button/WalletConnectButton'
 import { LogoTypes } from '@/components/atoms/Icon/Logo'
-import { useConnectWC } from '@/hooks/wagumi/useConnectWC'
-import { supportedSignerWallets } from '@/utils/supportedSignerWallets'
 
-const SignerWallets = () => {
+const SignerWallets: FC = () => {
   const supportedSignerWallets = {
     TREZOR: {
       logoType: 'TrezorLogo',

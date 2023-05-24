@@ -1,8 +1,6 @@
-import { useState } from 'react'
 import Blockies from 'react-blockies'
 import Button from '../../atoms/Button/Button'
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo'
-import SwitchSignerModal from '../SwitchSignerModal'
 import NoSignerWallet from './NoSignerWallet'
 import { useDisconnectWC } from '@/hooks/wagumi/useDisconnectWC'
 import CopyToClipboardBtn from '@/utils/CopyToClipboardBtn'
@@ -18,7 +16,7 @@ export type ConnectedSignerWalletProps = {
   handleIsOpen?: () => void
 }
 
-export const signerWallets: { [k in LogoTypes]?: string }[] = [
+export const signerWallets: Array<{ [k in LogoTypes]?: string }> = [
   { TrezorLogo: 'Trezor' },
   { WalletConnectLogo: 'WalletConnect' },
   { LedgerLogo: 'Ledger' },
@@ -33,13 +31,13 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
   handleIsOpen,
 }) => {
   const selectedSignerWallet = Object.values(signerWallets).filter(
-    (wallet) => Object.values(wallet)[0].toString() == signerWallet,
+    (wallet) => Object.values(wallet)[0].toString() === signerWallet,
   )[0] as unknown as string
 
   const { disconnectWC } = useDisconnectWC()
 
   const handleDisconnect = () => {
-    disconnectWC()
+    void disconnectWC()
   }
 
   return (
@@ -89,7 +87,7 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
             </div>
             <Spacer size={24} axis={'vertical'} />
             <div className='flex flex-col justify-center gap-4'>
-              {signerWallet == 'Trezor' ? (
+              {signerWallet === 'Trezor' ? (
                 <Button
                   btnVariant={'border'}
                   btnSize={'md'}

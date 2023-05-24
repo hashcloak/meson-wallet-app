@@ -1,26 +1,36 @@
-import { mainnet, goerli, connect } from '@wagmi/core'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { EthereumAddress } from 'trezor-connect'
 import { RootState } from '@/features/reducers'
 import { signerWalletSlice } from '@/features/signerWallet'
-import { trezorActions } from '@/features/tezorWallet'
-import { get50Accounts, getAccounts } from '@/service'
+import { ITrezorState, trezorActions } from '@/features/tezorWallet'
+import { getAccounts } from '@/service'
 
-export const useConnectTrezor = () => {
-  const currentSignerAddress = useSelector<RootState, string>(
-    (state) => state.signerWallet.signerWalletAddress,
-  )
+type ReturnValue = {
+  getFullAccounts: () => void
+  trezorAccounts: EthereumAddress[]
+  isLoading: boolean
+}
+
+export const useConnectTrezor = (): ReturnValue => {
+  // const currentSignerAddress = useSelector<RootState, string>(
+  //   (state) => state.signerWallet.signerWalletAddress
+  // );
   const dispatch = useDispatch()
-  const [isLoading, setIsLoading] = useState(false)
-  const [signerAddress, setSignerAddress] = useState(currentSignerAddress || '')
-  const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  // const [signerAddress, setSignerAddress] = useState(
+  //   currentSignerAddress || ''
+  // );
+  // const [errorMessage, setErrorMessage] = useState('');
   const { setSignerWallet } = signerWalletSlice.actions
 
-  const trezorAccounts = useSelector((state: any) => state.trezor)
+  const trezorAccounts = useSelector<RootState, ITrezorState>(
+    (state) => state.trezorWallet,
+  ) as unknown as EthereumAddress[]
 
   const getFullAccounts = useCallback(async () => {
-    if (trezorAccounts) {
+    setIsLoading(true)
+    if (trezorAccounts.length) {
       return trezorAccounts
     }
 
@@ -35,49 +45,50 @@ export const useConnectTrezor = () => {
         serializedPath: trezorGetAccountResponse[0].serializedPath,
       }),
     )
+    setIsLoading(false)
 
     return trezorGetAccountResponse
   }, [dispatch, trezorAccounts])
 
-  const connectTrezor = async () => {
-    if (currentSignerAddress) {
-      setIsLoading(false)
-      return { signerAddress, isLoading, errorMessage }
-    }
-    try {
-      setIsLoading(true)
-      setErrorMessage('')
+  // const connectTrezor = async () => {
+  //   if (currentSignerAddress) {
+  //     setIsLoading(false);
 
-      const result: any = await connect({
-        connector: new WalletConnectConnector({
-          chains: [mainnet],
-          options: {
-            projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
-          },
-        }),
-      })
-      setSignerAddress(result.account)
-      dispatch(
-        setSignerWallet({
-          signerWalletAddress: result.account,
-          isConnected: true,
-          wallet: 'WalletConnect',
-        }),
-      )
-    } catch (err) {
-      throw new Error(`something's wrong: ${err}`)
-    } finally {
-      setIsLoading(false)
-    }
+  //     return { signerAddress, isLoading, errorMessage };
+  //   }
+  //   try {
+  //     setIsLoading(true);
+  //     setErrorMessage('');
 
-    setIsLoading(false)
-  }
+  //     const result: any = await connect({
+  //       connector: new WalletConnectConnector({
+  //         chains: [mainnet],
+  //         options: {
+  //           projectId: import.meta.env.VITE_PUBLIC_WALLETCONNECT_PROJECT_ID as string ,
+  //         },
+  //       }),
+  //     });
+  //     setSignerAddress(result.account);
+  //     dispatch(
+  //       setSignerWallet({
+  //         signerWalletAddress: result.account,
+  //         isConnected: true,
+  //         wallet: 'WalletConnect',
+  //       })
+  //     );
+  //   } catch (err) {
+  //     throw new Error(`something's wrong: ${err}`);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+
+  //   setIsLoading(false);
+  // };
 
   return {
     getFullAccounts,
     trezorAccounts,
-    connectTrezor,
     isLoading,
-    errorMessage,
+    // errorMessage,
   }
 }
