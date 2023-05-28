@@ -12,6 +12,7 @@ export type SupportedSignerWallet =
 
 export interface SignerState {
   signerWalletAddress: string;
+  publicKey: string;
   serializedPath?: string;
   balance?: number | string;
   isConnected: boolean;
@@ -19,6 +20,7 @@ export interface SignerState {
 }
 const initialState: SignerState = {
   signerWalletAddress: '',
+  publicKey: '',
   serializedPath: '',
   balance: 0,
   isConnected: false,
@@ -32,6 +34,7 @@ export const signerWalletSlice = createSlice({
     setSignerWallet: (state, action: PayloadAction<SignerState>) => ({
       ...state,
       signerWalletAddress: action.payload.signerWalletAddress,
+      publicKey: action.payload.publicKey,
       serializedPath: action.payload.serializedPath,
       balance: action.payload.balance,
       isConnected: action.payload.isConnected,

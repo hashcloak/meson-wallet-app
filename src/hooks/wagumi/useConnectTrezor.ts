@@ -37,14 +37,6 @@ export const useConnectTrezor = (): ReturnValue => {
     dispatch(trezorActions.setTrezorAccounts(trezorGetAccountResponse));
     const fullAccounts = await getBalance(trezorGetAccountResponse);
 
-    // dispatch(
-    //   setSignerWallet({
-    //     signerWalletAddress: trezorGetAccountResponse[0].address,
-    //     isConnected: true,
-    //     wallet: 'Trezor',
-    //     serializedPath: trezorGetAccountResponse[0].serializedPath,
-    //   })
-    // );
     setIsLoading(false);
 
     return fullAccounts;
@@ -63,56 +55,12 @@ export const useConnectTrezor = (): ReturnValue => {
         trezorGetAccountResponse,
       ]);
 
-      // dispatch(
-      //   setSignerWallet({
-      //     signerWalletAddress: fullAccount[0].address,
-      //     isConnected: true,
-      //     wallet: 'Trezor',
-      //     serializedPath: fullAccount[0].serializedPath,
-      //     balance: fullAccount[0].balance
-      //   })
-      // );
       setIsLoading(false);
 
       return fullAccount;
     },
     [dispatch, trezorAccounts]
   );
-
-  // const connectTrezor = async () => {
-  //   if (currentSignerAddress) {
-  //     setIsLoading(false);
-
-  //     return { signerAddress, isLoading, errorMessage };
-  //   }
-  //   try {
-  //     setIsLoading(true);
-  //     setErrorMessage('');
-
-  //     const result: any = await connect({
-  //       connector: new WalletConnectConnector({
-  //         chains: [mainnet],
-  //         options: {
-  //           projectId: import.meta.env.VITE_PUBLIC_WALLETCONNECT_PROJECT_ID as string ,
-  //         },
-  //       }),
-  //     });
-  //     setSignerAddress(result.account);
-  //     dispatch(
-  //       setSignerWallet({
-  //         signerWalletAddress: result.account,
-  //         isConnected: true,
-  //         wallet: 'WalletConnect',
-  //       })
-  //     );
-  //   } catch (err) {
-  //     throw new Error(`something's wrong: ${err}`);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-
-  //   setIsLoading(false);
-  // };
 
   return {
     getFullAccounts,

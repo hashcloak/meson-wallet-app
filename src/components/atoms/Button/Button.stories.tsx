@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { Wallet } from 'ethers';
 import { MockWagmiDecorator } from '../../../../.storybook/decorators';
 import { LogoTypes } from '../Icon/Logo';
+import LedgerButton from './LedgerButton';
 import WalletConnectButton from './WalletConnectButton';
 import { Button, SignerWalletButton, TrezorButton } from '.';
 import { supportedSignerWallets } from '~/utils/supportedSignerWallets';
@@ -105,4 +106,8 @@ export const WalletConnectConnector = (): React.ReactElement => {
 
 export const TrezorConnector = (): React.ReactElement => {
   return <TrezorButton />;
+};
+
+export const LedgerConnector = (): React.ReactElement => {
+  return <LedgerButton />;
 };

@@ -17,6 +17,7 @@ export const useDisconnectWC = (): ReturnedType => {
         signerWalletAddress: '',
         isConnected: false,
         wallet: null,
+        publicKey: '',
       })
     );
   };

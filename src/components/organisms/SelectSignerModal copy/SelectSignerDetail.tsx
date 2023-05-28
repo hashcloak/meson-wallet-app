@@ -48,8 +48,14 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
   const dispatch = useDispatch();
   const { setSignerWallet } = signerWalletSlice.actions;
 
-  const { signerWalletAddress, serializedPath, balance, isConnected, wallet } =
-    useSelector<RootState, SignerState>((state) => state.signerWallet);
+  const {
+    signerWalletAddress,
+    publicKey,
+    serializedPath,
+    balance,
+    isConnected,
+    wallet,
+  } = useSelector<RootState, SignerState>((state) => state.signerWallet);
   const { getFullAccounts, getAccount, isLoading } = useConnectTrezor();
   const [trezorFullAccounts, setTrezorAccountsWithBalance] = useState<
     NewTrezorAccountType[]
@@ -72,6 +78,7 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
     balance,
     isConnected,
     wallet,
+    publicKey,
   });
 
   useEffect(() => {
@@ -88,6 +95,7 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
   const handleSetNewPrimarySigner = (account: any) => {
     const newPrimarySigner: SignerState = {
       signerWalletAddress: account.address,
+      publicKey: account.publicKey,
       serializedPath: account.serializedPath,
       balance: account.balance,
       isConnected: true,
