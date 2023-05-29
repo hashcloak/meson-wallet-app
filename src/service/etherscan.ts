@@ -16,21 +16,24 @@ export const getBalance = async (
   const provider = ethers.getDefaultProvider(network, {
     etherscan: import.meta.env.VITE_ETHERSCAN_API as string,
   });
+  try {
+    const updateAccounts: FullAccountType[] = await Promise.all(
+      accounts.map(async (account: EthereumAddress | LedgerAccountType) => {
+        console.log('updateAccounts', account);
 
-  const updateAccounts: FullAccountType[] = await Promise.all(
-    accounts.map(async (account: EthereumAddress | LedgerAccountType) => {
-      console.log('updateAccounts', account);
+        const balance = await provider.getBalance(account.address);
+        const balanceInEth = ethers.utils.formatEther(balance);
+        const fullAccount = {
+          ...account,
+          balance: balanceInEth,
+        };
 
-      const balance = await provider.getBalance(account.address);
-      const balanceInEth = ethers.utils.formatEther(balance);
-      const fullAccount = {
-        ...account,
-        balance: balanceInEth,
-      };
+        return fullAccount;
+      })
+    );
 
-      return fullAccount;
-    })
-  );
-
-  return updateAccounts;
+    return updateAccounts;
+  } catch (error) {
+    throw new Error('API connection failed');
+  }
 };

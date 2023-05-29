@@ -34,11 +34,15 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
     resolver: zodResolver(schema),
   });
 
+  const [inputNumber, setInputNumber] = useState('');
   const onSubmit = async (data: { accountNumber: string }) => {
+    setIsLoading(true);
+    setInputNumber(data.accountNumber);
     const customAccount = await getAccount(data.accountNumber);
-    const fullAccount: FullAccountType[] = await getBalance(customAccount);
+    const fullAccount: FullAccountType[] = await getBalance([customAccount]);
 
     setFetchedCustomAccount(fullAccount);
+    setIsLoading(false);
   };
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
@@ -54,7 +58,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
     isConnected,
     wallet,
   } = useSelector<RootState, SignerState>((state) => state.signerWallet);
-  const { getAccount, isLoading } = useConnectLedger();
+  const { getAccount } = useConnectLedger();
 
   const [ledgerFullAccounts, setLedgerAccountsWithBalance] = useState<
     FullAccountType[]
@@ -80,19 +84,18 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
   const { ledgerAccounts } = useSelector<RootState, ILedgerState>(
     (state) => state.ledgerWallet
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const data = async () => {
-      console.log('start');
-
       const fullAccounts: FullAccountType[] = await getBalance(ledgerAccounts);
-      console.log(fullAccounts);
 
       setLedgerAccountsWithBalance(fullAccounts);
       setFiveLedgerAccounts(fullAccounts.slice(0, 5));
+      setIsLoading(false);
     };
     void data();
-  }, [ledgerAccounts]);
+  }, []);
 
   // TODO
   const handleSetNewPrimarySigner = (account: FullAccountType) => {
@@ -137,14 +140,14 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
 
   return (
     <div className='flex flex-col text-textWhite'>
-      <span className='text-lg'>Select Base Path (Option)</span>
+      <span className='text-lg'>Select account# (Option)</span>
       <div className=' bg-bgDarkLight p-4 rounded-2xl'>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
             <div className='flex gap-8 items-end justify-center'>
               <InputControl
-                label='Custom path'
-                placeholder="m/44'/60'/0'/0'"
+                label='account#'
+                placeholder='0'
                 type='text'
                 registeredName={'accountNumber'}
               />
@@ -174,7 +177,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
                 <span className='col-span-1'>Address</span>
               </div>
               <div className='grid grid-cols-3 gap-x-8 text-textGrayLight'>
-                <span className='col-span-1'>Path</span>
+                <span className='col-span-1'>Account#</span>
                 <span className='col-span-2'>Asset</span>
               </div>
             </div>
@@ -182,7 +185,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
               <>
                 {fetchedCustomAccount.map((account: FullAccountType) => (
                   <div
-                    className={`grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
+                    className={`transition ease-in-out grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
                       account.address === primarySigner.signerWalletAddress
                         ? 'bg-dark'
                         : ''
@@ -195,9 +198,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
                       <span className='col-span-1'>{account.address}</span>
                     </div>
                     <div className='grid grid-cols-3 gap-x-8'>
-                      <span className='col-span-1'>
-                        {account.serializedPath}
-                      </span>
+                      <span className='col-span-1'>{inputNumber}</span>
                       <span className='col-span-2'>{account.balance} ETH</span>
                     </div>
                   </div>
@@ -207,7 +208,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
               <>
                 {fiveLedgerAccounts?.map((account: FullAccountType) => (
                   <div
-                    className={`grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
+                    className={`transition ease-in-out grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
                       account.address === primarySigner.signerWalletAddress
                         ? 'bg-dark'
                         : ''
@@ -221,7 +222,9 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
                     </div>
                     <div className='grid grid-cols-3 gap-x-8'>
                       <span className='col-span-1'>
-                        {account.serializedPath}
+                        {ledgerFullAccounts.findIndex(
+                          (fullAcc) => fullAcc.address === account.address
+                        )}
                       </span>
                       <span className='col-span-2'>{account.balance} ETH</span>
                     </div>

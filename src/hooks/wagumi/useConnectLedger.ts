@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { ledgerActions } from '~/features/ledgerWallet';
 import { getLedgerAccounts, getLedgerCustomAccount } from '~/service';
@@ -10,34 +10,26 @@ export type LedgerAccountType = {
 
 type ReturnValue = {
   getFullAccounts: () => Promise<LedgerAccountType[]>;
-  getAccount: (arg0: string) => Promise<LedgerAccountType[]>;
-  isLoading: boolean;
+  getAccount: (arg0: string) => Promise<LedgerAccountType>;
 };
 
 export const useConnectLedger = (): ReturnValue => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const getFullAccounts = useCallback(async () => {
-    setIsLoading(true);
     try {
       const ledgerAddresses: LedgerAccountType[] = await getLedgerAccounts();
 
       dispatch(ledgerActions.setLedgerAccounts(ledgerAddresses));
 
-      setIsLoading(false);
-
       return ledgerAddresses;
     } catch (e: any) {
-      setIsLoading(false);
       throw new Error('Please connect your Ledger hardware wallet');
     }
   }, [dispatch]);
 
   const getAccount = useCallback(
     async (accountNumber: string) => {
-      setIsLoading(true);
-
       try {
         const ledgerAddress: LedgerAccountType = await getLedgerCustomAccount(
           accountNumber
@@ -45,18 +37,8 @@ export const useConnectLedger = (): ReturnValue => {
 
         dispatch(ledgerActions.setLedgerAccounts([ledgerAddress]));
 
-        // const customAccount: FullAccountType[] = await getBalance([
-        //   ledgerAddress,
-        // ]);
-        // console.log(customAccount);
-
-        setIsLoading(false);
-
         return ledgerAddress;
       } catch (e: any) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        console.error('Error:');
-        setIsLoading(false);
         throw new Error('Please connect your Ledger hardware wallet');
       }
     },
@@ -80,6 +62,5 @@ export const useConnectLedger = (): ReturnValue => {
   return {
     getFullAccounts,
     getAccount,
-    isLoading,
   };
 };
