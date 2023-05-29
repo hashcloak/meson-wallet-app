@@ -1,46 +1,67 @@
-import { useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri';
+import { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { ledgerActions } from '~/features/ledgerWallet';
+import { getLedgerAccounts, getLedgerCustomAccount } from '~/service';
+
+export type LedgerAccountType = {
+  publicKey: string;
+  address: string;
+};
 
 type ReturnValue = {
-  getPublicKey: () => Promise<Array<{ publicKey: string; address: string }>>;
+  getFullAccounts: () => Promise<LedgerAccountType[]>;
+  getAccount: (arg0: string) => Promise<LedgerAccountType[]>;
   isLoading: boolean;
 };
 
 export const useConnectLedger = (): ReturnValue => {
-  //   currentSignerAddress || ''
-  // );
-  // const [errorMessage, setErrorMessage] = useState('');
-  // const { setSignerWallet } = signerWalletSlice.actions;
-  const [ledgerAddresses, setLedgerAddresses] = useState<
-    Array<{ publicKey: string; address: string }>
-  >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
-  const getPublicKey = async () => {
+  const getFullAccounts = useCallback(async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
+      const ledgerAddresses: LedgerAccountType[] = await getLedgerAccounts();
 
-      for (let index = 0; index < 24; index++) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-        const response: string = await invoke('get_pk', {
-          num: String(Number(index)),
-        });
+      dispatch(ledgerActions.setLedgerAccounts(ledgerAddresses));
 
-        const pk: string = '0x' + response.split('\n')[0].split(':')[1];
-        const address: string = response.split('Addr:')[1];
-
-        setLedgerAddresses([...ledgerAddresses, { publicKey: pk, address }]);
-        setIsLoading(false);
-      }
+      setIsLoading(false);
 
       return ledgerAddresses;
     } catch (e: any) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      console.error('Error:');
       setIsLoading(false);
       throw new Error('Please connect your Ledger hardware wallet');
     }
-  };
+  }, [dispatch]);
+
+  const getAccount = useCallback(
+    async (accountNumber: string) => {
+      setIsLoading(true);
+
+      try {
+        const ledgerAddress: LedgerAccountType = await getLedgerCustomAccount(
+          accountNumber
+        );
+
+        dispatch(ledgerActions.setLedgerAccounts([ledgerAddress]));
+
+        // const customAccount: FullAccountType[] = await getBalance([
+        //   ledgerAddress,
+        // ]);
+        // console.log(customAccount);
+
+        setIsLoading(false);
+
+        return ledgerAddress;
+      } catch (e: any) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        console.error('Error:');
+        setIsLoading(false);
+        throw new Error('Please connect your Ledger hardware wallet');
+      }
+    },
+    [dispatch]
+  );
 
   // async function sign_data() {
   //   dataMsgEl.textContent = "Comfirm on Ledger";
@@ -57,7 +78,8 @@ export const useConnectLedger = (): ReturnValue => {
   // }
 
   return {
-    getPublicKey,
+    getFullAccounts,
+    getAccount,
     isLoading,
   };
 };

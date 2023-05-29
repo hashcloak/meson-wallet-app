@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import SelectSignerModal from '~/components/organisms/SelectSignerModal copy';
+import SelectSignerModal from '~/components/organisms/SelectSignerModal';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
 import Spinner from '../Spinner';
@@ -50,7 +50,11 @@ const TrezorButton: FC = () => {
           </span>
         )}
       </button>
-      <SelectSignerModal isOpen={isOpen} onClose={handleIsOpen} />
+      <SelectSignerModal
+        isOpen={isOpen}
+        onClose={handleIsOpen}
+        wallet={'trezor'}
+      />
     </>
   );
 };

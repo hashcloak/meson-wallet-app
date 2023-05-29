@@ -56,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "width": 1920,
+        "height": 1080,
         "resizable": true,
-        "title": "Meson Wallet",
-        "width": 800
+        "title": "Meson Wallet"
       }
     ]
   }

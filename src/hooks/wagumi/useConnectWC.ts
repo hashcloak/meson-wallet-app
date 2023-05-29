@@ -50,6 +50,7 @@ export const useConnectWC = (): ReturnValue => {
           signerWalletAddress: result.account,
           isConnected: true,
           wallet: 'WalletConnect',
+          publicKey: '',
         })
       );
     } catch (err) {

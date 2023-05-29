@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import SelectSignerModal from '~/components/organisms/SelectSignerModal copy';
+import SelectSignerModal from '~/components/organisms/SelectSignerModal';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
 import Spinner from '../Spinner';
@@ -21,13 +21,13 @@ const LedgerButton: FC = () => {
     },
   };
   const [isOpen, setIsOpen] = useState(false);
-  const handleIsOpen = () => setIsOpen(!isOpen);
 
-  const { getPublicKey, isLoading } = useConnectLedger();
+  const { isLoading } = useConnectLedger();
+  const { getFullAccounts } = useConnectLedger();
 
-  const handleConnect = async () => {
+  const handleIsOpen = async () => {
     setIsOpen(!isOpen);
-    await getPublicKey();
+    await getFullAccounts();
   };
 
   return (
@@ -35,7 +35,7 @@ const LedgerButton: FC = () => {
       <button
         type='button'
         className='flex flex-row items-center w-48 h-12 px-6 py-2 rounded-xl bg-bgGrayMid hover:bg-dark group'
-        onClick={handleConnect}
+        onClick={async () => await handleIsOpen()}
       >
         <Logo
           type={supportedSignerWallets.LEDGER.logoType as LogoTypes}
@@ -52,7 +52,11 @@ const LedgerButton: FC = () => {
           </span>
         )}
       </button>
-      <SelectSignerModal isOpen={isOpen} onClose={handleIsOpen} />
+      <SelectSignerModal
+        isOpen={isOpen}
+        onClose={handleIsOpen}
+        wallet='ledger'
+      />
     </>
   );
 };

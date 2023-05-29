@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -14,35 +11,36 @@ import { InputControl } from '~/components/atoms/Input';
 import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
+import { ILedgerState } from '~/features/ledgerWallet';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
-import { useConnectTrezor } from '~/hooks/wagumi/useConnectTrezor';
+import { useConnectLedger } from '~/hooks/wagumi/useConnectLedger';
+import { FullAccountType, getBalance } from '~/service';
 
-type SelectSignerDetailType = {
+type SelectLedgerSignerDetailType = {
   onClose: () => void;
 };
 
-export type NewTrezorAccountType = {
-  address: string;
-  serializedPath: string;
-  balance: string;
-};
-
-const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
+const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
+  onClose,
+}) => {
   const schema = z.object({
-    customPath: z
+    accountNumber: z
       .string()
       .min(1, { message: 'Custom derivation path is required' }),
   });
 
-  const methods = useForm<{ customPath: string }>({
+  const methods = useForm<{ accountNumber: string }>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data: { customPath: string }) => {
-    const customAccount = await getAccount(data.customPath);
-    setFetchedCustomAccount(customAccount);
+  const onSubmit = async (data: { accountNumber: string }) => {
+    const customAccount = await getAccount(data.accountNumber);
+    const fullAccount: FullAccountType[] = await getBalance(customAccount);
+
+    setFetchedCustomAccount(fullAccount);
   };
+
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   const dispatch = useDispatch();
@@ -56,20 +54,18 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
     isConnected,
     wallet,
   } = useSelector<RootState, SignerState>((state) => state.signerWallet);
-  const { getFullAccounts, getAccount, isLoading } = useConnectTrezor();
-  const [trezorFullAccounts, setTrezorAccountsWithBalance] = useState<
-    NewTrezorAccountType[]
-  >([]);
-  // const [trezorFullAccounts, setTrezorAccountsWithBalance] = useState<
-  //   NewTrezorAccountType[] | any
-  // >(mockTrezorAccounts);
+  const { getAccount, isLoading } = useConnectLedger();
 
-  const [fiveTrezorAccounts, setFiveTrezorAccounts] = useState<
-    NewTrezorAccountType[]
+  const [ledgerFullAccounts, setLedgerAccountsWithBalance] = useState<
+    FullAccountType[]
+  >([]);
+
+  const [fiveLedgerAccounts, setFiveLedgerAccounts] = useState<
+    FullAccountType[]
   >([]);
 
   const [fetchedCustomAccount, setFetchedCustomAccount] = useState<
-    NewTrezorAccountType[]
+    FullAccountType[]
   >([]);
 
   const [primarySigner, setPrimarySigner] = useState<SignerState>({
@@ -81,25 +77,32 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
     publicKey,
   });
 
+  const { ledgerAccounts } = useSelector<RootState, ILedgerState>(
+    (state) => state.ledgerWallet
+  );
+
   useEffect(() => {
     const data = async () => {
-      const updateAccounts = await getFullAccounts();
+      console.log('start');
 
-      setTrezorAccountsWithBalance(updateAccounts);
-      setFiveTrezorAccounts(updateAccounts.slice(0, 5));
+      const fullAccounts: FullAccountType[] = await getBalance(ledgerAccounts);
+      console.log(fullAccounts);
+
+      setLedgerAccountsWithBalance(fullAccounts);
+      setFiveLedgerAccounts(fullAccounts.slice(0, 5));
     };
     void data();
-  }, []);
+  }, [ledgerAccounts]);
 
   // TODO
-  const handleSetNewPrimarySigner = (account: any) => {
+  const handleSetNewPrimarySigner = (account: FullAccountType) => {
     const newPrimarySigner: SignerState = {
       signerWalletAddress: account.address,
-      publicKey: account.publicKey,
+      publicKey: (account.publicKey ?? '') || '',
       serializedPath: account.serializedPath,
       balance: account.balance,
       isConnected: true,
-      wallet: 'Trezor',
+      wallet: 'Ledger',
     };
     setPrimarySigner(newPrimarySigner);
   };
@@ -113,24 +116,19 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
   const handlePageChange = (page: number) => {
     switch (page) {
       case 1:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(0, 5));
-        console.log(fiveTrezorAccounts);
+        setFiveLedgerAccounts(ledgerFullAccounts.slice(0, 5));
         break;
       case 2:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(5, 10));
-        console.log(fiveTrezorAccounts);
+        setFiveLedgerAccounts(ledgerFullAccounts.slice(5, 10));
         break;
       case 3:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(10, 15));
-        console.log(fiveTrezorAccounts);
+        setFiveLedgerAccounts(ledgerFullAccounts.slice(10, 15));
         break;
       case 4:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(15, 20));
-        console.log(fiveTrezorAccounts);
+        setFiveLedgerAccounts(ledgerFullAccounts.slice(15, 20));
         break;
       case 5:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(20, 25));
-        console.log(fiveTrezorAccounts);
+        setFiveLedgerAccounts(ledgerFullAccounts.slice(20, 25));
         break;
       default:
         break;
@@ -148,7 +146,7 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
                 label='Custom path'
                 placeholder="m/44'/60'/0'/0'"
                 type='text'
-                registeredName={'customPath'}
+                registeredName={'accountNumber'}
               />
               <button
                 className='transition ease-in-out border border-main px-2 rounded-xl h-10 w-20 text-textLink hover:bg-dark hover:border-dark duration-150 hover:text-textWhite text-xs'
@@ -182,7 +180,7 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
             </div>
             {fetchedCustomAccount.length ? (
               <>
-                {fetchedCustomAccount.map((account: any) => (
+                {fetchedCustomAccount.map((account: FullAccountType) => (
                   <div
                     className={`grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
                       account.address === primarySigner.signerWalletAddress
@@ -207,7 +205,7 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
               </>
             ) : (
               <>
-                {fiveTrezorAccounts?.map((account: any) => (
+                {fiveLedgerAccounts?.map((account: FullAccountType) => (
                   <div
                     className={`grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
                       account.address === primarySigner.signerWalletAddress
@@ -268,4 +266,4 @@ const SelectSignerDetail: React.FC<SelectSignerDetailType> = ({ onClose }) => {
   );
 };
 
-export default SelectSignerDetail;
+export default SelectLedgerSignerDetail;

@@ -57,31 +57,31 @@ const Pagination: React.FC<Props> = ({ sum, per, onPageChange }) => {
           <button onClick={() => handleBack()} className='p-2 mx-2'>
             ＜
           </button>
-          <ul className='flex flex-row gap-x-2'>
+          <div className='flex flex-row gap-x-2'>
             {[...Array(totalPage).keys()].map((page) => {
               page++;
 
               return page === currentPage ? (
-                <li key={page}>
+                <span key={page}>
                   <button
                     onClick={() => handleMove(page)}
                     className='py-2 px-4 rounded-lg transition ease-in-out bg-dark text-textWhite'
                   >
                     {page}
                   </button>
-                </li>
+                </span>
               ) : (
-                <li key={page}>
+                <span key={page}>
                   <button
                     onClick={() => handleMove(page)}
                     className='py-2 px-4'
                   >
                     {page}
                   </button>
-                </li>
+                </span>
               );
             })}
-          </ul>
+          </div>
           <button onClick={() => handleForward()} className='p-2 mx-2'>
             ＞
           </button>
