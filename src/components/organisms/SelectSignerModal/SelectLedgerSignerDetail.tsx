@@ -14,8 +14,7 @@ import Pagination from './Pagination';
 import { ILedgerState } from '~/features/ledgerWallet';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
-import { useConnectLedger } from '~/hooks/wagumi/useConnectLedger';
-import { FullAccountType, getBalance } from '~/service';
+import { FullAccountType, getCustomLedgerAccount } from '~/service';
 
 type SelectLedgerSignerDetailType = {
   onClose: () => void;
@@ -34,18 +33,24 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
     resolver: zodResolver(schema),
   });
 
-  const [inputNumber, setInputNumber] = useState('');
+  const [inputNumber, setInputNumber] = useState<string>('');
   const onSubmit = async (data: { accountNumber: string }) => {
+    const { accountNumber } = data;
     setIsLoading(true);
-    setInputNumber(data.accountNumber);
-    const customAccount = await getAccount(data.accountNumber);
-    const fullAccount: FullAccountType[] = await getBalance([customAccount]);
-
-    setFetchedCustomAccount(fullAccount);
-    setIsLoading(false);
+    setInputNumber(accountNumber);
+    try {
+      const ledgerCustomAccount: FullAccountType[] =
+        await getCustomLedgerAccount(accountNumber);
+      setFetchedCustomAccount(ledgerCustomAccount);
+    } catch (error) {
+      throw new Error('Something went wrong. Please retry');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
+  const onError = (errors: unknown, e: unknown) =>
+    console.log('Error:', errors, e);
 
   const dispatch = useDispatch();
   const { setSignerWallet } = signerWalletSlice.actions;
@@ -58,11 +63,6 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
     isConnected,
     wallet,
   } = useSelector<RootState, SignerState>((state) => state.signerWallet);
-  const { getAccount } = useConnectLedger();
-
-  const [ledgerFullAccounts, setLedgerAccountsWithBalance] = useState<
-    FullAccountType[]
-  >([]);
 
   const [fiveLedgerAccounts, setFiveLedgerAccounts] = useState<
     FullAccountType[]
@@ -71,6 +71,8 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
   const [fetchedCustomAccount, setFetchedCustomAccount] = useState<
     FullAccountType[]
   >([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [primarySigner, setPrimarySigner] = useState<SignerState>({
     signerWalletAddress,
@@ -84,18 +86,11 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
   const { ledgerAccounts } = useSelector<RootState, ILedgerState>(
     (state) => state.ledgerWallet
   );
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const data = async () => {
-      const fullAccounts: FullAccountType[] = await getBalance(ledgerAccounts);
-
-      setLedgerAccountsWithBalance(fullAccounts);
-      setFiveLedgerAccounts(fullAccounts.slice(0, 5));
-      setIsLoading(false);
-    };
-    void data();
-  }, []);
+    setFiveLedgerAccounts(ledgerAccounts.slice(0, 5) as FullAccountType[]);
+    setIsLoading(false);
+  }, [ledgerAccounts]);
 
   // TODO
   const handleSetNewPrimarySigner = (account: FullAccountType) => {
@@ -119,19 +114,25 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
   const handlePageChange = (page: number) => {
     switch (page) {
       case 1:
-        setFiveLedgerAccounts(ledgerFullAccounts.slice(0, 5));
+        setFiveLedgerAccounts(ledgerAccounts.slice(0, 5) as FullAccountType[]);
         break;
       case 2:
-        setFiveLedgerAccounts(ledgerFullAccounts.slice(5, 10));
+        setFiveLedgerAccounts(ledgerAccounts.slice(5, 10) as FullAccountType[]);
         break;
       case 3:
-        setFiveLedgerAccounts(ledgerFullAccounts.slice(10, 15));
+        setFiveLedgerAccounts(
+          ledgerAccounts.slice(10, 15) as FullAccountType[]
+        );
         break;
       case 4:
-        setFiveLedgerAccounts(ledgerFullAccounts.slice(15, 20));
+        setFiveLedgerAccounts(
+          ledgerAccounts.slice(15, 20) as FullAccountType[]
+        );
         break;
       case 5:
-        setFiveLedgerAccounts(ledgerFullAccounts.slice(20, 25));
+        setFiveLedgerAccounts(
+          ledgerAccounts.slice(20, 25) as FullAccountType[]
+        );
         break;
       default:
         break;
@@ -222,8 +223,9 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
                     </div>
                     <div className='grid grid-cols-3 gap-x-8'>
                       <span className='col-span-1'>
-                        {ledgerFullAccounts.findIndex(
-                          (fullAcc) => fullAcc.address === account.address
+                        {ledgerAccounts?.findIndex(
+                          (fullAcc: FullAccountType) =>
+                            fullAcc?.address === account?.address
                         )}
                       </span>
                       <span className='col-span-2'>{account.balance} ETH</span>

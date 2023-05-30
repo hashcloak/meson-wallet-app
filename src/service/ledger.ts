@@ -1,7 +1,12 @@
 import { invoke } from '@tauri-apps/api/tauri';
-import { LedgerAccountType } from '~/hooks/wagumi/useConnectLedger';
+import { FullAccountType, getBalance } from './etherscan';
 
-export const getLedgerAccounts = async (): Promise<LedgerAccountType[]> => {
+export type LedgerAccountType = {
+  publicKey: string;
+  address: string;
+};
+
+const getAccounts = async (): Promise<LedgerAccountType[]> => {
   try {
     const ledgerAddresses: LedgerAccountType[] = [];
 
@@ -21,7 +26,7 @@ export const getLedgerAccounts = async (): Promise<LedgerAccountType[]> => {
   }
 };
 
-export const getLedgerCustomAccount = async (
+const getCustomAccount = async (
   accountNumber: string
 ): Promise<LedgerAccountType> => {
   try {
@@ -36,5 +41,35 @@ export const getLedgerCustomAccount = async (
     return ledgerAddress;
   } catch (error) {
     throw new Error('Please connect your Ledger hardware wallet');
+  }
+};
+
+export const getFullLedgerAccounts = async (): Promise<FullAccountType[]> => {
+  try {
+    const ledgerAccounts: LedgerAccountType[] = await getAccounts();
+    const ledgerFullAccounts: FullAccountType[] = await getBalance(
+      ledgerAccounts
+    );
+
+    return ledgerFullAccounts;
+  } catch (e: unknown) {
+    throw new Error('Something went wrong. Please retry.');
+  }
+};
+
+export const getCustomLedgerAccount = async (
+  accountNumber: string
+): Promise<FullAccountType[]> => {
+  try {
+    const customAccount: LedgerAccountType = await getCustomAccount(
+      accountNumber
+    );
+    const ledgerCustomAccount: FullAccountType[] = await getBalance([
+      customAccount,
+    ]);
+
+    return ledgerCustomAccount;
+  } catch (e: unknown) {
+    throw new Error('Something went wrong. Please retry.');
   }
 };

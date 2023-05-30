@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { EthereumAddress } from 'trezor-connect';
-import { LedgerAccountType } from '~/hooks/wagumi/useConnectLedger';
+import { LedgerAccountType } from './ledger';
 
 export type FullAccountType = {
   address: string;
@@ -19,8 +19,6 @@ export const getBalance = async (
   try {
     const updateAccounts: FullAccountType[] = await Promise.all(
       accounts.map(async (account: EthereumAddress | LedgerAccountType) => {
-        console.log('updateAccounts', account);
-
         const balance = await provider.getBalance(account.address);
         const balanceInEth = ethers.utils.formatEther(balance);
         const fullAccount = {

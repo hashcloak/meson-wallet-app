@@ -49,7 +49,7 @@ const InputControl: React.FC<InputProps> = ({
         errors={errors}
         name={registeredName}
         render={({ message }) => (
-          <p className='text-alert text-sm'>{message}</p>
+          <span className='text-alert text-sm'>{message}</span>
         )}
       />
     </div>

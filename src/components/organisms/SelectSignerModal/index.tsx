@@ -32,7 +32,7 @@ const SelectSignerModal: React.FC<{
                 Select signer
               </span>
 
-              <Dialog.Description className='py-6'>
+              <div className='py-6'>
                 {/* Description */}
 
                 {wallet === 'trezor' && (
@@ -43,7 +43,7 @@ const SelectSignerModal: React.FC<{
                 )}
 
                 {/* Description */}
-              </Dialog.Description>
+              </div>
             </Dialog.Panel>
           </div>
         </Dialog>
