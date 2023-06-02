@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { EthereumAddress } from 'trezor-connect';
+import { FullAccountType } from '~/service';
 
 export interface ITrezorState {
-  trezorAccounts: EthereumAddress[];
+  trezorAccounts: EthereumAddress[] | FullAccountType[];
 }
 
 const initialState: ITrezorState = {
@@ -16,7 +17,7 @@ export const TrezorSlice = createSlice({
   reducers: {
     setTrezorAccounts: (
       state: ITrezorState,
-      action: PayloadAction<EthereumAddress[]>
+      action: PayloadAction<EthereumAddress[] | FullAccountType[]>
     ) => {
       state.trezorAccounts = action.payload;
     },

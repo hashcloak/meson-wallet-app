@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -16,8 +12,12 @@ import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
-import { useConnectTrezor } from '~/hooks/wagumi/useConnectTrezor';
-import { FullAccountType } from '~/service';
+import { ITrezorState, trezorActions } from '~/features/tezorWallet';
+import {
+  FullAccountType,
+  getCustomTrezorAccount,
+  getFullTrezorAccounts,
+} from '~/service';
 
 type SelectTrezorSignerDetailType = {
   onClose: () => void;
@@ -37,9 +37,10 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   });
 
   const onSubmit = async (data: { customPath: string }) => {
-    const customAccount = await getAccount(data.customPath);
+    const customAccount = await getCustomTrezorAccount(data.customPath);
     setFetchedCustomAccount(customAccount);
   };
+
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   const dispatch = useDispatch();
@@ -53,13 +54,10 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
     isConnected,
     wallet,
   } = useSelector<RootState, SignerState>((state) => state.signerWallet);
-  const { getFullAccounts, getAccount, isLoading } = useConnectTrezor();
-  const [trezorFullAccounts, setTrezorAccountsWithBalance] = useState<
-    FullAccountType[]
-  >([]);
-  // const [trezorFullAccounts, setTrezorAccountsWithBalance] = useState<
-  //   FullAccountType[] | any
-  // >(mockTrezorAccounts);
+
+  const { trezorAccounts } = useSelector<RootState, ITrezorState>(
+    (state) => state.trezorWallet
+  );
 
   const [fiveTrezorAccounts, setFiveTrezorAccounts] = useState<
     FullAccountType[]
@@ -68,6 +66,8 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   const [fetchedCustomAccount, setFetchedCustomAccount] = useState<
     FullAccountType[]
   >([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [primarySigner, setPrimarySigner] = useState<SignerState>({
     signerWalletAddress,
@@ -79,25 +79,34 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   });
 
   useEffect(() => {
+    setIsLoading(true);
     const data = async () => {
-      const updateAccounts: FullAccountType[] = await getFullAccounts();
+      try {
+        const updateAccounts: FullAccountType[] = await getFullTrezorAccounts();
+        dispatch(trezorActions.setTrezorAccounts(trezorAccounts));
 
-      setTrezorAccountsWithBalance(updateAccounts);
-      setFiveTrezorAccounts(updateAccounts.slice(0, 5));
+        setFiveTrezorAccounts(updateAccounts.slice(0, 5));
+      } catch (error) {
+        throw new Error('Something went wrong');
+      } finally {
+        setIsLoading(true);
+      }
     };
     void data();
   }, []);
 
   // TODO
-  const handleSetNewPrimarySigner = (account: any) => {
+  const handleSetNewPrimarySigner = (account: FullAccountType) => {
     const newPrimarySigner: SignerState = {
       signerWalletAddress: account.address,
-      publicKey: account.publicKey,
+      publicKey: account.publicKey as string,
       serializedPath: account.serializedPath,
       balance: account.balance,
       isConnected: true,
       wallet: 'Trezor',
     };
+    dispatch(setSignerWallet(primarySigner));
+
     setPrimarySigner(newPrimarySigner);
   };
 
@@ -110,24 +119,25 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   const handlePageChange = (page: number) => {
     switch (page) {
       case 1:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(0, 5));
-        console.log(fiveTrezorAccounts);
+        setFiveTrezorAccounts(trezorAccounts.slice(0, 5) as FullAccountType[]);
         break;
       case 2:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(5, 10));
-        console.log(fiveTrezorAccounts);
+        setFiveTrezorAccounts(trezorAccounts.slice(5, 10) as FullAccountType[]);
         break;
       case 3:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(10, 15));
-        console.log(fiveTrezorAccounts);
+        setFiveTrezorAccounts(
+          trezorAccounts.slice(10, 15) as FullAccountType[]
+        );
         break;
       case 4:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(15, 20));
-        console.log(fiveTrezorAccounts);
+        setFiveTrezorAccounts(
+          trezorAccounts.slice(15, 20) as FullAccountType[]
+        );
         break;
       case 5:
-        setFiveTrezorAccounts(trezorFullAccounts.slice(20, 25));
-        console.log(fiveTrezorAccounts);
+        setFiveTrezorAccounts(
+          trezorAccounts.slice(20, 25) as FullAccountType[]
+        );
         break;
       default:
         break;
@@ -179,7 +189,7 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
             </div>
             {fetchedCustomAccount.length ? (
               <>
-                {fetchedCustomAccount.map((account: any) => (
+                {fetchedCustomAccount.map((account: FullAccountType) => (
                   <div
                     className={`grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
                       account.address === primarySigner.signerWalletAddress
@@ -204,7 +214,7 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
               </>
             ) : (
               <>
-                {fiveTrezorAccounts?.map((account: any) => (
+                {fiveTrezorAccounts?.map((account: FullAccountType) => (
                   <div
                     className={`grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
                       account.address === primarySigner.signerWalletAddress

@@ -223,9 +223,8 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
                     </div>
                     <div className='grid grid-cols-3 gap-x-8'>
                       <span className='col-span-1'>
-                        {ledgerAccounts?.findIndex(
-                          (fullAcc: FullAccountType) =>
-                            fullAcc?.address === account?.address
+                        {ledgerAccounts.findIndex(
+                          (fullAcc) => fullAcc.address === account.address
                         )}
                       </span>
                       <span className='col-span-2'>{account.balance} ETH</span>

@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { LedgerAccountType } from '~/hooks/wagumi/useConnectLedger';
-import { FullAccountType } from '~/service';
+import { FullAccountType, LedgerAccountType } from '~/service';
 
 export interface ILedgerState {
   ledgerAccounts: LedgerAccountType[] | FullAccountType[];
