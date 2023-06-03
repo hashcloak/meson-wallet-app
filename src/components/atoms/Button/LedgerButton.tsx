@@ -32,10 +32,12 @@ const LedgerButton: FC = () => {
     dispatch(setLoading());
     dispatch(ledgerActions.setLedgerAccounts([]));
     try {
+      if (ledgerFullAccounts.length) setIsOpen(true);
+
       const ledgerFullAccounts: FullAccountType[] =
         await getFullLedgerAccounts();
       dispatch(ledgerActions.setLedgerAccounts(ledgerFullAccounts));
-      setIsOpen(!isOpen);
+      dispatch(resetLoading({ message: '' }));
     } catch (error) {
       dispatch(resetLoading({ message: t('walletConnect.error') }));
       throw new Error('Something went wrong, please retry');

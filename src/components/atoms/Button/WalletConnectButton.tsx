@@ -1,10 +1,7 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
 import Spinner from '../Spinner';
-import { RootState } from '~/features/reducers';
-import { SignerState } from '~/features/signerWallet';
 import { useConnectWC } from '~/hooks/wagumi/useConnectWC';
 
 const WalletConnectButton: FC = () => {
@@ -23,10 +20,7 @@ const WalletConnectButton: FC = () => {
     },
   };
 
-  const { connectWC, isLoading, errorMessage } = useConnectWC();
-  const { isConnected } = useSelector<RootState, SignerState>(
-    (state) => state.signerWallet
-  );
+  const { connectWC, isLoading } = useConnectWC();
 
   return (
     <>
@@ -50,8 +44,6 @@ const WalletConnectButton: FC = () => {
           </span>
         )}
       </button>
-      {errorMessage && <div>{errorMessage}</div>}
-      {isConnected && <div className='text-textAlert'>Connected!</div>}
     </>
   );
 };

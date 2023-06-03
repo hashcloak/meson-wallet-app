@@ -13,7 +13,7 @@ import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
 import { ILedgerState } from '~/features/ledgerWallet';
-import { resetLoading } from '~/features/loading';
+import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
 import { FullAccountType, getCustomLedgerAccount } from '~/service';
@@ -38,17 +38,16 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
   const [inputNumber, setInputNumber] = useState<string>('');
   const onSubmit = async (data: { accountNumber: string }) => {
     const { accountNumber } = data;
-    setIsLoading(true);
+    dispatch(setLoading());
     setInputNumber(accountNumber);
     try {
       const ledgerCustomAccount: FullAccountType[] =
         await getCustomLedgerAccount(accountNumber);
       setFetchedCustomAccount(ledgerCustomAccount);
-      dispatch(resetLoading({ message: t('walletConnect.success') }));
+      dispatch(resetLoading({ message: '' }));
     } catch (error) {
+      dispatch(resetLoading({ message: t('walletConnect.networkError') }));
       throw new Error('Something went wrong. Please retry');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -77,7 +76,9 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
     FullAccountType[]
   >([]);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading } = useSelector<RootState, LoadingState>(
+    (state) => state.loading
+  );
 
   const [primarySigner, setPrimarySigner] = useState<SignerState>({
     signerWalletAddress,
@@ -94,7 +95,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
 
   useEffect(() => {
     setFiveLedgerAccounts(ledgerAccounts.slice(0, 5) as FullAccountType[]);
-    setIsLoading(false);
+    dispatch(resetLoading({ message: '' }));
   }, [ledgerAccounts]);
 
   // TODO
