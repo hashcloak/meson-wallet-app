@@ -1,45 +1,31 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import LedgerButton from '~/components/atoms/Button/LedgerButton';
-// import { SignerWalletButton } from '~/components/atoms/Button';
 import TrezorButton from '~/components/atoms/Button/TrezorButton';
 import WalletConnectButton from '~/components/atoms/Button/WalletConnectButton';
-// import { LogoTypes } from '~/components/atoms/Icon/Logo';
+import Spinner from '~/components/atoms/Spinner';
+import { LoadingState } from '~/features/loading';
+import { RootState } from '~/features/reducers';
 
 const SignerWallets: React.FC = () => {
-  // const supportedSignerWallets = {
-  //   TREZOR: {
-  //     logoType: 'TrezorLogo',
-  //     logoName: 'Trezor',
-  //   },
-  //   LEDGER: {
-  //     logoType: 'LedgerLogo',
-  //     logoName: 'Ledger',
-  //   },
-  //   WALLETCONNECT: {
-  //     logoType: 'WalletConnectLogo',
-  //     logoName: 'WalletConnect',
-  //   },
-  // };
-
-  // const ledgerConnector = () => console.log('ledger');
+  const { isLoading, message } = useSelector<RootState, LoadingState>(
+    (state) => state.loading
+  );
 
   return (
     <>
-      {/* Trezor */}
-      <TrezorButton />
-
-      {/* Ledger */}
-      {/* <SignerWalletButton
-        btnType={'button'}
-        logoType={supportedSignerWallets.LEDGER.logoType as LogoTypes}
-        logoName={supportedSignerWallets.LEDGER.logoName}
-        interact={true}
-        handleConnect={ledgerConnector}
-      /> */}
-      <LedgerButton />
-
-      {/* WalletConnect */}
-      <WalletConnectButton />
+      {!isLoading ? (
+        <>
+          <TrezorButton />
+          <LedgerButton />
+          <WalletConnectButton />
+        </>
+      ) : (
+        <Spinner />
+      )}
+      {message != null && (
+        <span className='text-textWhite text-sm'>{message}</span>
+      )}
     </>
   );
 };

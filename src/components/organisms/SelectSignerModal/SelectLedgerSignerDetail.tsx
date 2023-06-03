@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
@@ -12,6 +13,7 @@ import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
 import { ILedgerState } from '~/features/ledgerWallet';
+import { resetLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
 import { FullAccountType, getCustomLedgerAccount } from '~/service';
@@ -42,6 +44,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
       const ledgerCustomAccount: FullAccountType[] =
         await getCustomLedgerAccount(accountNumber);
       setFetchedCustomAccount(ledgerCustomAccount);
+      dispatch(resetLoading({ message: t('walletConnect.success') }));
     } catch (error) {
       throw new Error('Something went wrong. Please retry');
     } finally {
@@ -53,6 +56,8 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
     console.log('Error:', errors, e);
 
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const { setSignerWallet } = signerWalletSlice.actions;
 
   const {
@@ -103,6 +108,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
       wallet: 'Ledger',
     };
     setPrimarySigner(newPrimarySigner);
+    dispatch(resetLoading({ message: t('walletConnect.success') }));
   };
 
   const handleSelect = () => {

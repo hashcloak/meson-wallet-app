@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ConnectSignerWallet from '~/components/templates/ConnectSignerWallet';
 import Sidebar from '~/components/templates/Sidebar';
 import Topbar from '~/components/templates/Topbar';
+import { setStandby } from '~/features/loading';
 
 const Step1: React.FC = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setStandby());
+  }, []);
+
   return (
     <div className='w-screen h-screen flex flex-col'>
       <div className='w-full h-[3.5rem] bg-bgDarkLight box-border'>

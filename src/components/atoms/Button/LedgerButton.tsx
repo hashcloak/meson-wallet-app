@@ -1,10 +1,11 @@
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import SelectSignerModal from '~/components/organisms/SelectSignerModal';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
-import Spinner from '../Spinner';
 import { ledgerActions } from '~/features/ledgerWallet';
+import { resetLoading, setLoading } from '~/features/loading';
 import { FullAccountType, getFullLedgerAccounts } from '~/service';
 
 const LedgerButton: FC = () => {
@@ -23,23 +24,21 @@ const LedgerButton: FC = () => {
     },
   };
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleClick = async () => {
-    setIsLoading(true);
+    dispatch(setLoading());
     dispatch(ledgerActions.setLedgerAccounts([]));
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const ledgerFullAccounts: FullAccountType[] =
         await getFullLedgerAccounts();
       dispatch(ledgerActions.setLedgerAccounts(ledgerFullAccounts));
-    } catch (error) {
-      throw new Error('Something went wrong, please retry');
-    } finally {
-      setIsLoading(false);
       setIsOpen(!isOpen);
+    } catch (error) {
+      dispatch(resetLoading({ message: t('walletConnect.error') }));
+      throw new Error('Something went wrong, please retry');
     }
   };
 
@@ -55,15 +54,9 @@ const LedgerButton: FC = () => {
           size={'xl'}
           interact={true}
         />
-        {isLoading ? (
-          <div className='w-full text-center'>
-            <Spinner size='sm' />
-          </div>
-        ) : (
-          <span className='text-sm text-textBlack group-hover:text-textWhite mx-4'>
-            {supportedSignerWallets.LEDGER.logoName}
-          </span>
-        )}
+        <span className='text-sm text-textBlack group-hover:text-textWhite mx-4'>
+          {supportedSignerWallets.LEDGER.logoName}
+        </span>
       </button>
       <SelectSignerModal
         isOpen={isOpen}
