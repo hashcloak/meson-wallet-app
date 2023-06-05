@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
@@ -10,14 +11,11 @@ import { InputControl } from '~/components/atoms/Input';
 import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
+import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
-import { ITrezorState, trezorActions } from '~/features/tezorWallet';
-import {
-  FullAccountType,
-  getCustomTrezorAccount,
-  getFullTrezorAccounts,
-} from '~/service';
+import { ITrezorState } from '~/features/tezorWallet';
+import { FullAccountType, getCustomTrezorAccount } from '~/service';
 
 type SelectTrezorSignerDetailType = {
   onClose: () => void;
@@ -37,13 +35,20 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   });
 
   const onSubmit = async (data: { customPath: string }) => {
-    const customAccount = await getCustomTrezorAccount(data.customPath);
-    setFetchedCustomAccount(customAccount);
+    dispatch(setLoading());
+    setFetchedCustomAccount([]);
+    try {
+      const customAccount = await getCustomTrezorAccount(data.customPath);
+      setFetchedCustomAccount(customAccount);
+      dispatch(resetLoading({ message: '' }));
+    } catch (error) {
+      dispatch(resetLoading({ message: t('walletConnect.networkError') }));
+      throw new Error('Something went wrong. Please retry');
+    }
   };
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
-  const dispatch = useDispatch();
   const { setSignerWallet } = signerWalletSlice.actions;
 
   const {
@@ -58,6 +63,9 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   const { trezorAccounts } = useSelector<RootState, ITrezorState>(
     (state) => state.trezorWallet
   );
+  const { isLoading } = useSelector<RootState, LoadingState>(
+    (state) => state.loading
+  );
 
   const [fiveTrezorAccounts, setFiveTrezorAccounts] = useState<
     FullAccountType[]
@@ -67,8 +75,6 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
     FullAccountType[]
   >([]);
 
-  const [isLoading, setIsLoading] = useState(true);
-
   const [primarySigner, setPrimarySigner] = useState<SignerState>({
     signerWalletAddress,
     serializedPath,
@@ -77,23 +83,15 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
     wallet,
     publicKey,
   });
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    setIsLoading(true);
-    const data = async () => {
-      try {
-        const updateAccounts: FullAccountType[] = await getFullTrezorAccounts();
-        dispatch(trezorActions.setTrezorAccounts(trezorAccounts));
-
-        setFiveTrezorAccounts(updateAccounts.slice(0, 5));
-      } catch (error) {
-        throw new Error('Something went wrong');
-      } finally {
-        setIsLoading(true);
-      }
-    };
-    void data();
-  }, []);
+    if (trezorAccounts.length) {
+      setFiveTrezorAccounts(trezorAccounts.slice(0, 5) as FullAccountType[]);
+      dispatch(resetLoading({ message: '' }));
+    }
+  }, [trezorAccounts]);
 
   // TODO
   const handleSetNewPrimarySigner = (account: FullAccountType) => {

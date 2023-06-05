@@ -40,6 +40,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
     const { accountNumber } = data;
     dispatch(setLoading());
     setInputNumber(accountNumber);
+    setFetchedCustomAccount([]);
     try {
       const ledgerCustomAccount: FullAccountType[] =
         await getCustomLedgerAccount(accountNumber);
@@ -94,8 +95,10 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
   );
 
   useEffect(() => {
-    setFiveLedgerAccounts(ledgerAccounts.slice(0, 5) as FullAccountType[]);
-    dispatch(resetLoading({ message: '' }));
+    if (ledgerAccounts.length) {
+      setFiveLedgerAccounts(ledgerAccounts.slice(0, 5) as FullAccountType[]);
+      dispatch(resetLoading({ message: '' }));
+    }
   }, [ledgerAccounts]);
 
   // TODO
