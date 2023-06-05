@@ -14,6 +14,8 @@ export const getBalance = async (
 ): Promise<FullAccountType[]> => {
   const network = 'mainnet';
   const provider = ethers.getDefaultProvider(network, {
+    alchemy: import.meta.env.VITE_ALCHEMY_API as string,
+    infura: import.meta.env.VITE_INFURA_API as string,
     etherscan: import.meta.env.VITE_ETHERSCAN_API as string,
   });
   try {
