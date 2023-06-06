@@ -28,7 +28,13 @@ const SignerWallets: React.FC = () => {
         </div>
       )} */}
       {message != null && (
-        <span className='text-textWhite text-sm'>{message}</span>
+        <span
+          className={`text-textBlack text-sm rounded-lg bg-light ${
+            message && 'px-2'
+          }`}
+        >
+          {message}
+        </span>
       )}
     </>
   );

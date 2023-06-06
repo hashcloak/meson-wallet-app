@@ -13,8 +13,11 @@
   "tauri": {
     "allowlist": {
       "http": {
+        "all": true,
+        "request": true,
         "scope": ["https://api.etherscan.io/*"]
-      }
+
+     }
     },
     "bundle": {
       "active": true,

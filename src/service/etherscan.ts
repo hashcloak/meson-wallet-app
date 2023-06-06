@@ -37,3 +37,19 @@ export const getBalance = async (
     throw new Error('API connection failed');
   }
 };
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getNetwork = async () => {
+  const network = 'mainnet';
+  const provider = ethers.getDefaultProvider(network, {
+    alchemy: import.meta.env.VITE_ALCHEMY_API as string,
+    infura: import.meta.env.VITE_INFURA_API as string,
+    etherscan: import.meta.env.VITE_ETHERSCAN_API as string,
+  });
+  try {
+    const chainId = await provider.getNetwork();
+    console.log('Chain ID: ', chainId);
+  } catch (error) {
+    throw new Error('API connection failed');
+  }
+};
