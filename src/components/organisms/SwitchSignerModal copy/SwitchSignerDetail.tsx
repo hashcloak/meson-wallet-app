@@ -11,7 +11,7 @@ import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
-import { ITrezorState } from '~/features/tezorWallet';
+import { ITrezorState } from '~/features/trezorWallet';
 
 type SwitchSignerDetailType = {
   onClose: () => void;

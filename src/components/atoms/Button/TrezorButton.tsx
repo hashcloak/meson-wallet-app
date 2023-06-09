@@ -5,7 +5,7 @@ import SelectSignerModal from '~/components/organisms/SelectSignerModal';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
 import { resetLoading, setLoading } from '~/features/loading';
-import { trezorActions } from '~/features/tezorWallet';
+import { trezorActions } from '~/features/trezorWallet';
 import { FullAccountType, getFullTrezorAccounts } from '~/service';
 
 const TrezorButton: FC = () => {

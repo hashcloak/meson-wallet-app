@@ -14,7 +14,7 @@ import Pagination from './Pagination';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, signerWalletSlice } from '~/features/signerWallet';
-import { ITrezorState } from '~/features/tezorWallet';
+import { ITrezorState } from '~/features/trezorWallet';
 import { FullAccountType, getCustomTrezorAccount } from '~/service';
 
 type SelectTrezorSignerDetailType = {
