@@ -11,7 +11,7 @@ const initialState: LoadingState = {
   isLoading: false,
 };
 
-export const loadingSlice = createSlice({
+export const LoadingSlice = createSlice({
   name: 'loading',
   initialState,
   reducers: {
@@ -30,5 +30,5 @@ export const loadingSlice = createSlice({
   },
 });
 
-export const { setLoading, resetLoading, setStandby } = loadingSlice.actions;
-export default loadingSlice.reducer;
+export const { setLoading, resetLoading, setStandby } = LoadingSlice.actions;
+export default LoadingSlice.reducer;

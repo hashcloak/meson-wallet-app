@@ -1,5 +1,9 @@
 import { Dialog } from '@headlessui/react';
-import SwitchSignerDetail from './SwitchSignerDetail';
+import { useSelector } from 'react-redux';
+import SelectLedgerSignerDetail from '../SelectSignerModal/SelectLedgerSignerDetail';
+import SelectTrezorSignerDetail from '../SelectSignerModal/SelectTrezorSignerDetail';
+import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
 
 export type NewOwnerType = {
   newOwnerAddress: string;
@@ -11,6 +15,10 @@ const SwitchSignerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
   onClose,
 }) => {
+  const { wallet } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
+
   return (
     <>
       {isOpen && (
@@ -32,9 +40,12 @@ const SwitchSignerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
 
               <Dialog.Description className='py-6'>
                 {/* Description */}
-
-                <SwitchSignerDetail onClose={onClose} />
-
+                {wallet === 'Trezor' && (
+                  <SelectTrezorSignerDetail onClose={onClose} />
+                )}
+                {wallet === 'Ledger' && (
+                  <SelectLedgerSignerDetail onClose={onClose} />
+                )}
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>

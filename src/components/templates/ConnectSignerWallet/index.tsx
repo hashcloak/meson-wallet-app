@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 // import Link from 'next/link'
 import { useForm, FormProvider } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import * as z from 'zod';
 import { Button } from '~/components/atoms/Button';
 import CustomLink from '~/components/atoms/CustomLink';
@@ -12,6 +13,7 @@ import SignerWallets from '~/components/molecules/SignerWallets';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import { mockNetworks } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
+import { NetworkState, setNetwork } from '~/features/network';
 
 const ConnectSignerWallet: React.FC = () => {
   const [userInput, setUserInput] = useState('');
@@ -22,9 +24,20 @@ const ConnectSignerWallet: React.FC = () => {
   });
 
   const methods = useForm({ resolver: zodResolver(schema) });
-  const onSubmit = (data: any) => alert(JSON.stringify(data));
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+  const onSubmit = (data: any) => {
+    alert(JSON.stringify(data));
+    console.log(data);
+  };
+  const dispatch = useDispatch();
+
+  const handleNetworkChange = (value: string) => {
+    const payload: NetworkState = {
+      network: value,
+    };
+    dispatch(setNetwork(payload));
+  };
+
+  const handleWalletName = (e: ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
 
@@ -58,7 +71,10 @@ const ConnectSignerWallet: React.FC = () => {
                   </div>
                   <Spacer size={24} axis={'vertical'} />
                   <div className='w-1/3'>
-                    <Option options={mockNetworks} />
+                    <Option
+                      options={mockNetworks}
+                      handleChange={handleNetworkChange}
+                    />
                   </div>
                 </div>
               </StepContentLayout>
@@ -79,7 +95,7 @@ const ConnectSignerWallet: React.FC = () => {
                     placeholder='Your-wallet-name*'
                     type='text'
                     registeredName={register}
-                    handleChange={onChange}
+                    handleChange={handleWalletName}
                   >
                     <span className='text-textWhite text-sm'>
                       By continuing you consent to{' '}
@@ -98,7 +114,7 @@ const ConnectSignerWallet: React.FC = () => {
 
               {/* Button */}
               <StepContentLayout isBtn={true}>
-                <Link to='/' className='w-full'>
+                <Link to='/'>
                   <Button
                     btnVariant={'text'}
                     btnSize={'lg'}
@@ -110,7 +126,7 @@ const ConnectSignerWallet: React.FC = () => {
                 </Link>
 
                 {/* TODO:Button validation needs to be updated based on signer wallet connection */}
-                <Link to='create-new/step2' className='w-full'>
+                <Link to='/create-new/step2'>
                   <Button
                     btnVariant={userInput.length ? 'primary' : 'disable'}
                     btnSize={'lg'}

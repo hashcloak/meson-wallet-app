@@ -15,7 +15,7 @@ import Pagination from './Pagination';
 import { ILedgerState } from '~/features/ledgerWallet';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
-import { SignerState, signerWalletSlice } from '~/features/signerWallet';
+import { SignerState, SignerWalletSlice } from '~/features/signerWallet';
 import { FullAccountType, getCustomLedgerAccount } from '~/service';
 
 type SelectLedgerSignerDetailType = {
@@ -58,7 +58,7 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { setSignerWallet } = signerWalletSlice.actions;
+  const { setSignerWallet } = SignerWalletSlice.actions;
 
   const {
     signerWalletAddress,

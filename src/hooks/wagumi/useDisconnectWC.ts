@@ -1,6 +1,6 @@
 import { disconnect } from '@wagmi/core';
 import { useDispatch } from 'react-redux';
-import { signerWalletSlice } from '~/features/signerWallet';
+import { SignerWalletSlice } from '~/features/signerWallet';
 
 type ReturnedType = {
   disconnectWC: () => Promise<void>;
@@ -8,7 +8,7 @@ type ReturnedType = {
 
 export const useDisconnectWC = (): ReturnedType => {
   const dispatch = useDispatch();
-  const { setSignerWallet } = signerWalletSlice.actions;
+  const { setSignerWallet } = SignerWalletSlice.actions;
 
   const disconnectWC = async () => {
     await disconnect();

@@ -27,7 +27,7 @@ const initialState: SignerState = {
   wallet: null,
 };
 
-export const signerWalletSlice = createSlice({
+export const SignerWalletSlice = createSlice({
   name: 'signerWallet',
   initialState,
   reducers: {
@@ -40,5 +40,11 @@ export const signerWalletSlice = createSlice({
       isConnected: action.payload.isConnected,
       wallet: action.payload.wallet,
     }),
+    resetSignerWallet: () => ({
+      ...initialState,
+    }),
   },
 });
+
+export const { setSignerWallet, resetSignerWallet } = SignerWalletSlice.actions;
+export default SignerWalletSlice.reducer;

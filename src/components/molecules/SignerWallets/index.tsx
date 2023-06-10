@@ -3,40 +3,42 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import LedgerButton from '~/components/atoms/Button/LedgerButton';
 import TrezorButton from '~/components/atoms/Button/TrezorButton';
-import WalletConnectButton from '~/components/atoms/Button/WalletConnectButton';
-import Spinner from '~/components/atoms/Spinner';
+// import WalletConnectButton from '~/components/atoms/Button/WalletConnectButton';
 import { LoadingState } from '~/features/loading';
 import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
 
 const SignerWallets: React.FC = () => {
   const { isLoading, message } = useSelector<RootState, LoadingState>(
     (state) => state.loading
   );
+  const { signerWalletAddress } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
 
   return (
-    <>
-      <>
+    <div>
+      <div className='flex flex-row gap-4'>
         <TrezorButton />
         <LedgerButton />
-        <WalletConnectButton />
-      </>
-      {/* {isLoading && (
-        <div className='fixed top-0 left-0 w-full h-full bg-bgDarkMid opacity-90 z-[999]'>
-          <div className='absolute h-16 w-16 top-2/4 left-2/4 z-[999] flex justify-center items-center'>
-            <Spinner />
-          </div>
-        </div>
-      )} */}
+        {/* <WalletConnectButton /> */}
+      </div>
+
       {message != null && (
         <span
-          className={`text-textBlack text-sm rounded-lg bg-light ${
+          className={`text-textBlack text-sm rounded-md bg-light ${
             message && 'px-2'
           }`}
         >
           {message}
         </span>
       )}
-    </>
+      {signerWalletAddress && (
+        <span className={`text-textBlack text-sm rounded-md bg-light px-2`}>
+          Connected!
+        </span>
+      )}
+    </div>
   );
 };
 

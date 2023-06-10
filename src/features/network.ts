@@ -11,7 +11,7 @@ const initialState: NetworkState = {
   chainId: 1,
 };
 
-export const networkSlice = createSlice({
+export const NetworkSlice = createSlice({
   name: 'network',
   initialState,
   reducers: {
@@ -28,5 +28,5 @@ export const networkSlice = createSlice({
   },
 });
 
-export const { setNetwork, resetNetwork } = networkSlice.actions;
-export default networkSlice.reducer;
+export const { setNetwork, resetNetwork } = NetworkSlice.actions;
+export default NetworkSlice.reducer;

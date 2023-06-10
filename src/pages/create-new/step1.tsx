@@ -4,10 +4,13 @@ import ConnectSignerWallet from '~/components/templates/ConnectSignerWallet';
 import Sidebar from '~/components/templates/Sidebar';
 import Topbar from '~/components/templates/Topbar';
 import { setStandby } from '~/features/loading';
+import { resetSignerWallet } from '~/features/signerWallet';
 
 const Step1: React.FC = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(resetSignerWallet());
     dispatch(setStandby());
   }, []);
 

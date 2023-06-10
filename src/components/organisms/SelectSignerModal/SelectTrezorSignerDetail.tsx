@@ -13,7 +13,7 @@ import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
-import { SignerState, signerWalletSlice } from '~/features/signerWallet';
+import { SignerState, SignerWalletSlice } from '~/features/signerWallet';
 import { ITrezorState } from '~/features/trezorWallet';
 import { FullAccountType, getCustomTrezorAccount } from '~/service';
 
@@ -49,7 +49,7 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
-  const { setSignerWallet } = signerWalletSlice.actions;
+  const { setSignerWallet } = SignerWalletSlice.actions;
 
   const {
     signerWalletAddress,

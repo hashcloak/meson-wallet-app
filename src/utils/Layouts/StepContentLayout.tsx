@@ -14,7 +14,7 @@ const StepContentLayout: React.FC<Props> = ({
   children,
 }) => {
   const contentStyle = isBtn
-    ? 'flex items-center justify-center gap-8 rounded-2xl bg-bgDarkMid box-border py-4 px-8'
+    ? 'flex items-center justify-around gap-8 rounded-2xl bg-bgDarkMid box-border py-4 px-8'
     : `grid grid-cols-${cols} gap-[${gap}rem] rounded-2xl bg-bgDarkMid box-border py-4 px-8`;
 
   return <div className={contentStyle}>{children}</div>;

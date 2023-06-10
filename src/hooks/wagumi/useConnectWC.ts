@@ -3,7 +3,7 @@ import { mainnet, connect } from '@wagmi/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { RootState } from '~/features/reducers';
-import { signerWalletSlice } from '~/features/signerWallet';
+import { SignerWalletSlice } from '~/features/signerWallet';
 
 type ReturnValue = {
   connectWC: () => void;
@@ -21,7 +21,7 @@ export const useConnectWC = (): ReturnValue => {
     currentSignerAddress || ''
   );
   const [errorMessage, setErrorMessage] = useState('');
-  const { setSignerWallet } = signerWalletSlice.actions;
+  const { setSignerWallet } = SignerWalletSlice.actions;
 
   const connectWC = async () => {
     if (currentSignerAddress) {

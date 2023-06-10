@@ -1,16 +1,18 @@
 import { combineReducers } from 'redux';
 import { LedgerSlice } from './ledgerWallet';
-import { loadingSlice } from './loading';
-import { networkSlice } from './network';
-import { signerWalletSlice } from './signerWallet';
+import { LoadingSlice } from './loading';
+import { MesonWalletSlice } from './mesonWallet';
+import { NetworkSlice } from './network';
+import { SignerWalletSlice } from './signerWallet';
 import { TrezorSlice } from './trezorWallet';
 
 const reducers = combineReducers({
-  signerWallet: signerWalletSlice.reducer,
+  signerWallet: SignerWalletSlice.reducer,
   trezorWallet: TrezorSlice.reducer,
   ledgerWallet: LedgerSlice.reducer,
-  loading: loadingSlice.reducer,
-  network: networkSlice.reducer,
+  loading: LoadingSlice.reducer,
+  network: NetworkSlice.reducer,
+  mesonWallet: MesonWalletSlice.reducer,
 });
 
 export default reducers;
