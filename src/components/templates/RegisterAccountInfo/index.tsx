@@ -1,31 +1,42 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import router from 'next/router'
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { object, z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { Icon } from '~/components/atoms/Icon';
 import { Options } from '~/components/atoms/Option/OptionControl';
+import { validateEthAddress } from '~/utils/Ethereum/AddressValidator';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState, Owner, setOwners } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
 
 const RegisterAccountInfo: React.FC = () => {
   const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
-  const [currentVal, setCurrentVal] = useState<string>('');
-  const [userInput, setUserInput] = useState<string>('');
+  const [currentVal, setCurrentVal] = useState<number>(0);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const defaultAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7';
+  const { signerWalletAddress } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
 
   const schema = object({
-    owner: z
+    owners: z
       .object({
-        ownerName: z.string().optional(),
+        // ownerName: z.string().optional(),
+        ownerName: z.string().min(1, { message: 'Owner name is required' }),
         ownerAddress: z
           .string()
-          .min(1, { message: 'Owner address is required' }),
+          .min(1, { message: 'Owner address is required' })
+          .refine((v: unknown) => {
+            return validateEthAddress(String(v));
+          }, 'Please input valid Eth address'),
       })
       .array(),
   });
@@ -35,10 +46,11 @@ const RegisterAccountInfo: React.FC = () => {
     control,
     reset,
     formState: { errors },
+    getValues,
     handleSubmit,
   } = useForm({
     defaultValues: {
-      owner: [{ ownerName: '', ownerAddress: defaultAddress }],
+      owners: [{ ownerName: '', ownerAddress: signerWalletAddress }],
       confirmation: 1,
     },
     resolver: zodResolver(schema),
@@ -46,19 +58,32 @@ const RegisterAccountInfo: React.FC = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'owner',
+    name: 'owners',
   });
 
-  const onSubmit = (data: any): void => {
-    console.log('owners', data);
+  const MESON_WALLET = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+
+  const onSubmit = (data: unknown) => {
+    const { owners } = data as { owners: Owner[] };
+    const confirmation = getValues('confirmation');
+    console.log('owners:', data);
+    console.log('confirmation:', confirmation);
+
+    dispatch(
+      setOwners({
+        owners,
+        confirmation,
+      })
+    );
+
+    console.log(MESON_WALLET);
     reset();
   };
-  const onError = (errors: any, e: any) => console.log(errors, e);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(e.target.value);
-    console.log(userInput);
-  };
+  const onError = (errors: any, e: any) =>
+    console.log('submit error:', errors, e);
 
   useEffect(() => {
     setNumOfConfirmation([]);
@@ -98,15 +123,15 @@ const RegisterAccountInfo: React.FC = () => {
                     <div className='grid grid-cols-8 gap-1 w-full'>
                       <div className='col-span-2'>
                         <input
-                          {...register(`owner.${index}.ownerName`)}
+                          {...register(`owners.${index}.ownerName`)}
                           placeholder='Owner name*'
                           type='text'
                           className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
-                          name={`owner.${index}.ownerName`}
+                          name={`owners.${index}.ownerName`}
                         />
                         <ErrorMessage
                           errors={errors}
-                          name={`owner.${index}.ownerName`}
+                          name={`owners.${index}.ownerName`}
                           render={({ message }) => (
                             <p className='text-alert text-sm'>{message}</p>
                           )}
@@ -115,16 +140,15 @@ const RegisterAccountInfo: React.FC = () => {
 
                       <div className='col-span-5'>
                         <input
-                          {...register(`owner.${index}.ownerAddress`)}
+                          {...register(`owners.${index}.ownerAddress`)}
                           placeholder={index === 0 ? '' : 'Owner address*'}
                           type='text'
                           className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
-                          name={`owner.${index}.ownerAddress`}
-                          onChange={(e) => handleChange(e)}
+                          name={`owners.${index}.ownerAddress`}
                         />
                         <ErrorMessage
                           errors={errors}
-                          name={`owner.${index}.ownerAddress`}
+                          name={`owners.${index}.ownerAddress`}
                           render={({ message }) => (
                             <p className='text-alert text-sm'>{message}</p>
                           )}
@@ -179,7 +203,8 @@ const RegisterAccountInfo: React.FC = () => {
                         'text-textBlack form-select appearance-none block w-full h-6 px-6 text-sm text-center border-borderGray rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none bg-bgGray'
                       }
                       {...register('confirmation')}
-                      onChange={(e) => setCurrentVal(e.target.value)}
+                      name={'confirmation'}
+                      onChange={(e) => setCurrentVal(Number(e.target.value))}
                       defaultValue={currentVal}
                     >
                       {numOfConfirmation?.map((option, key) => (

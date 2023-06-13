@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 // import Link from 'next/link'
 import { useForm, FormProvider } from 'react-hook-form';
@@ -13,22 +13,32 @@ import SignerWallets from '~/components/molecules/SignerWallets';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import { mockNetworks } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
+import { setMesonWalletName } from '~/features/mesonWallet';
 import { NetworkState, setNetwork } from '~/features/network';
 
 const ConnectSignerWallet: React.FC = () => {
   const [userInput, setUserInput] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const register = 'walletName';
   const schema = z.object({
     walletName: z.string().min(1, { message: 'Wallet name is required' }),
   });
 
-  const methods = useForm({ resolver: zodResolver(schema) });
-  const onSubmit = (data: any) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+  const methods = useForm({
+    defaultValues: {
+      walletName: '',
+    },
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = (data: { walletName: string }) => {
+    dispatch(setMesonWalletName(data));
+    navigate('/create-new/step2');
+    methods.reset();
   };
-  const dispatch = useDispatch();
+
+  const onError = (errors: any, e: any) => console.log(errors, e);
 
   const handleNetworkChange = (value: string) => {
     const payload: NetworkState = {
@@ -37,7 +47,7 @@ const ConnectSignerWallet: React.FC = () => {
     dispatch(setNetwork(payload));
   };
 
-  const handleWalletName = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleWalletName = (e: ChangeEvent<HTMLInputElement>): void => {
     setUserInput(e.target.value);
   };
 
@@ -48,7 +58,7 @@ const ConnectSignerWallet: React.FC = () => {
           ① Connect your signer wallet
         </span>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
             <StepWrapper>
               {/* 1st row */}
               <StepContentLayout>
@@ -94,15 +104,15 @@ const ConnectSignerWallet: React.FC = () => {
                     label='Name of the new Meson Wallet'
                     placeholder='Your-wallet-name*'
                     type='text'
-                    registeredName={register}
+                    registeredName={'walletName'}
                     handleChange={handleWalletName}
                   >
                     <span className='text-textWhite text-sm'>
                       By continuing you consent to{' '}
                       <CustomLink url={''} size={'sm'}>
                         the terms of use
-                      </CustomLink>
-                      and
+                      </CustomLink>{' '}
+                      and{' '}
                       <CustomLink url={''} size={'sm'}>
                         privacy policy
                       </CustomLink>
@@ -126,16 +136,14 @@ const ConnectSignerWallet: React.FC = () => {
                 </Link>
 
                 {/* TODO:Button validation needs to be updated based on signer wallet connection */}
-                <Link to='/create-new/step2'>
-                  <Button
-                    btnVariant={userInput.length ? 'primary' : 'disable'}
-                    btnSize={'lg'}
-                    btnType={'submit'}
-                    disabled={!userInput.length}
-                  >
-                    Next
-                  </Button>
-                </Link>
+                <Button
+                  btnVariant={userInput.length ? 'primary' : 'disable'}
+                  btnSize={'lg'}
+                  btnType={'submit'}
+                  disabled={!userInput.length}
+                >
+                  Next
+                </Button>
               </StepContentLayout>
             </StepWrapper>
           </form>
