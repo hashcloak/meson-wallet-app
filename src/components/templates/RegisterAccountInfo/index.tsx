@@ -12,13 +12,14 @@ import { Options } from '~/components/atoms/Option/OptionControl';
 import { validateEthAddress } from '~/utils/Ethereum/AddressValidator';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
-import { MesonWalletState, Owner, setOwners } from '~/features/mesonWallet';
+import { Owner, setOwners } from '~/features/mesonWallet';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 
 const RegisterAccountInfo: React.FC = () => {
   const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
   const [currentVal, setCurrentVal] = useState<number>(0);
+  const [duplicatedAddress, setDuplicatedAddress] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,7 +31,7 @@ const RegisterAccountInfo: React.FC = () => {
     owners: z
       .object({
         // ownerName: z.string().optional(),
-        ownerName: z.string().min(1, { message: 'Owner name is required' }),
+        ownerName: z.string().optional(),
         ownerAddress: z
           .string()
           .min(1, { message: 'Owner address is required' })
@@ -61,25 +62,28 @@ const RegisterAccountInfo: React.FC = () => {
     name: 'owners',
   });
 
-  const MESON_WALLET = useSelector<RootState, MesonWalletState>(
-    (state) => state.mesonWallet
-  );
-
   const onSubmit = (data: unknown) => {
     const { owners } = data as { owners: Owner[] };
     const confirmation = getValues('confirmation');
-    console.log('owners:', data);
-    console.log('confirmation:', confirmation);
 
-    dispatch(
-      setOwners({
-        owners,
-        confirmation,
-      })
-    );
+    const duplicatedAddress = owners.filter(({ ownerAddress }) => {
+      return String(ownerAddress) === String(signerWalletAddress);
+    });
 
-    console.log(MESON_WALLET);
-    reset();
+    if (duplicatedAddress.length > 1) {
+      setDuplicatedAddress(true);
+    } else {
+      dispatch(
+        setOwners({
+          owners,
+          confirmation,
+        })
+      );
+
+      setDuplicatedAddress(false);
+      reset();
+      navigate('/create-new/step3');
+    }
   };
 
   const onError = (errors: any, e: any) =>
@@ -145,6 +149,7 @@ const RegisterAccountInfo: React.FC = () => {
                           type='text'
                           className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
                           name={`owners.${index}.ownerAddress`}
+                          onChange={() => setDuplicatedAddress(false)}
                         />
                         <ErrorMessage
                           errors={errors}
@@ -176,6 +181,11 @@ const RegisterAccountInfo: React.FC = () => {
                 >
                   + Add more owner
                 </button>
+                {duplicatedAddress && (
+                  <span className='text-textBlack text-sm rounded-md bg-light px-2 inline-block'>
+                    The address is duplicated. Please correct the value.
+                  </span>
+                )}
               </div>
             </StepContentLayout>
 

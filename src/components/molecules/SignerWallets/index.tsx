@@ -9,7 +9,7 @@ import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 
 const SignerWallets: React.FC = () => {
-  const { isLoading, message } = useSelector<RootState, LoadingState>(
+  const { message } = useSelector<RootState, LoadingState>(
     (state) => state.loading
   );
   const { signerWalletAddress } = useSelector<RootState, SignerState>(
