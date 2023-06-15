@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -8,7 +9,9 @@ import Spacer from '~/utils/Spacer';
 
 const DepositFund: React.FC = () => {
   const register = 'depositAmount';
+  const navigate = useNavigate();
 
+  // TODO: Need to add validation method for the input amount
   const schema = z.object({
     depositAmount: z.preprocess((value) => {
       if (typeof value !== 'string') {
@@ -22,8 +25,23 @@ const DepositFund: React.FC = () => {
     }, z.union([z.number().nonnegative(), z.number().gt(0)]).optional()),
   });
 
-  const methods = useForm({ resolver: zodResolver(schema) });
-  const onSubmit = (data: any) => console.log(data);
+  const methods = useForm({
+    defaultValues: {
+      depositAmount: 0,
+    },
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+
+    // Create wallet with/without funds
+
+    // Success
+    navigate('/dashboard');
+
+    // Fail
+  };
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
@@ -40,7 +58,7 @@ const DepositFund: React.FC = () => {
                 <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
                   <div>
                     <span className='text-xl underline'>Deposit funds</span>
-                    <span className='text-sm'>(Optional)</span>
+                    <span className='text-sm'> (Optional)</span>
                   </div>
                   <Spacer size={8} axis={'vertical'} />
                   <div className='pl-4'>
