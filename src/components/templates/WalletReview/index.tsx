@@ -1,16 +1,34 @@
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import { EthAddress } from '~/utils/Ethereum';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { NetworkState } from '~/features/network';
+import { RootState } from '~/features/reducers';
 
 type Props = {
   isCreateNew?: boolean;
 };
 
 const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
-  const defaultAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7';
+  const navigate = useNavigate();
 
-  const handleSubmit = () => console.log('submit');
+  const { walletName, owners, confirmation } = useSelector<
+    RootState,
+    MesonWalletState
+  >((state) => state.mesonWallet);
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+
+  const titleCase = (text: string): string =>
+    text[0].toUpperCase() + text.slice(1).toLowerCase();
+
+  const handleSubmit = () => {
+    navigate('/create-new/step4');
+  };
 
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
@@ -28,15 +46,15 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
                     <span className='text-sm text-textGrayLight'>
                       Name of the Meson Wallet
                     </span>
-                    <span className='text-lg text-textWhite'>
-                      Sample wallet
-                    </span>
+                    <span className='text-lg text-textWhite'>{walletName}</span>
                   </div>
                   <div className='flex flex-col mb-2'>
                     <span className='text-sm text-textGrayLight'>
                       Selected network
                     </span>
-                    <span className='text-lg text-textWhite'>Ethereum</span>
+                    <span className='text-lg text-textWhite'>
+                      {titleCase(network)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -46,30 +64,26 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
                 <Spacer size={8} axis={'vertical'} />
                 <div className='pl-4'>
                   {/* Owners */}
-                  <div className='flex flex-col mb-2'>
-                    <EthAddress
-                      ethAddress={defaultAddress}
-                      size={4.5}
-                      length={'full'}
-                      icons={true}
-                    />
-                  </div>
-                  <div className='flex flex-col mb-2'>
-                    <EthAddress
-                      ethAddress={defaultAddress}
-                      size={4.5}
-                      length={'full'}
-                      icons={true}
-                    />
-                  </div>
-
+                  {owners?.map((owner) => (
+                    <div
+                      className='flex flex-col mb-2'
+                      key={owner.ownerAddress}
+                    >
+                      <EthAddress
+                        ethAddress={owner.ownerAddress}
+                        size={4.5}
+                        length={'full'}
+                        icons={true}
+                      />
+                    </div>
+                  ))}
                   {/* Confirmation */}
                   <div className='flex flex-col mb-2'>
                     <span className='text-sm text-textGrayLight'>
                       Required confirmation
                     </span>
                     <span className='text-lg text-textWhite pl-2'>
-                      1 out of 2 owners
+                      {confirmation} out of {owners?.length} owners
                     </span>
                   </div>
                 </div>
@@ -79,7 +93,10 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
                   <div className='flex flex-col'>
                     <span>
                       ※ You&apos;re almost creating a new Meson Wallet on{' '}
-                      <span className='font-bold text-warning'>Ethereum</span>.{' '}
+                      <span className='font-bold text-warning'>
+                        {titleCase(network)}
+                      </span>
+                      .{' '}
                     </span>
                     <span>
                       ・You will have to confirm a transaction with your
@@ -104,7 +121,7 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
                 btnVariant={'text'}
                 btnSize={'lg'}
                 btnType={'button'}
-                handleClick={() => console.log('Back')}
+                handleClick={() => navigate(-1)}
               >
                 Back
               </Button>
