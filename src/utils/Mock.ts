@@ -5,6 +5,13 @@ import { RowBodyType } from '~/components/organisms/RowBody';
 
 export const mockNetworks = [
   {
+    value: 'localhost',
+    label: 'Localhost',
+    bg: 'bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4] text-textBlack',
+    url: 'http://127.0.0.1:8545/',
+    chainId: 31337,
+  },
+  {
     value: 'ethreaum',
     label: 'Ethereum',
     bg: 'bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4] text-textBlack',

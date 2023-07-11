@@ -41,12 +41,6 @@ const Topbar: FC = () => {
             <Icon type={'Lines'} size={'md'} color={'white'} />
           </button>
         </div>
-        {/* <Image
-          src='/Meson_topbar_logo.png'
-          alt='mesonTopbarLogo'
-          width='176'
-          height='40'
-        /> */}
         <img
           src='/assets/Meson_topbar_logo.png'
           alt='Meson Logo'

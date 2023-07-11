@@ -3,12 +3,20 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type NetworkState = {
   network: string;
-  chainId?: number;
+  chainId: number;
+  url: string;
+};
+
+export type NetworksState = {
+  localhost: NetworkState;
+  ethereum: NetworkState;
+  sepolia: NetworkState;
 };
 
 const initialState: NetworkState = {
-  network: 'mainnet',
-  chainId: 1,
+  network: 'localhost',
+  url: 'http://127.0.0.1:8545/',
+  chainId: 31337,
 };
 
 export const NetworkSlice = createSlice({
@@ -17,9 +25,8 @@ export const NetworkSlice = createSlice({
   reducers: {
     setNetwork: (state, action: PayloadAction<NetworkState>) => {
       state.network = action.payload.network;
-      if (state.chainId != null) {
-        state.chainId = action.payload.chainId;
-      }
+      state.chainId = action.payload.chainId;
+      state.url = action.payload.url;
     },
     resetNetwork: (state) => {
       state.network = 'mainnet';

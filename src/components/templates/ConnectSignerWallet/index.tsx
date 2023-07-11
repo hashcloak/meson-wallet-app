@@ -1,23 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import Link from 'next/link'
 import { useForm, FormProvider } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import * as z from 'zod';
 import { Button } from '~/components/atoms/Button';
 import CustomLink from '~/components/atoms/CustomLink';
 import { InputControl } from '~/components/atoms/Input';
-import { Option } from '~/components/atoms/Option';
+import { SelectNetwork } from '~/components/atoms/Option';
 import SignerWallets from '~/components/molecules/SignerWallets';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
-import { mockNetworks } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
 import { setMesonWalletName } from '~/features/mesonWallet';
-import { NetworkState, setNetwork } from '~/features/network';
+import { NetworkState, NetworksState, setNetwork } from '~/features/network';
+// eslint-disable-next-line import/extensions
+import * as networksJson from '~/utils/networkList.json';
 
 const ConnectSignerWallet: React.FC = () => {
+  const networks = JSON.parse(JSON.stringify(networksJson))
+    .default as NetworksState;
   const [userInput, setUserInput] = useState('');
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkState>(
+    networks.localhost
+  );
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,17 +41,15 @@ const ConnectSignerWallet: React.FC = () => {
 
   const onSubmit = (data: { walletName: string }) => {
     dispatch(setMesonWalletName(data));
+    dispatch(setNetwork(selectedNetwork));
     navigate('/create-new/step2');
     methods.reset();
   };
 
   const onError = (errors: any, e: any) => console.log(errors, e);
 
-  const handleNetworkChange = (value: string) => {
-    const payload: NetworkState = {
-      network: value,
-    };
-    dispatch(setNetwork(payload));
+  const handleNetworkSelect = (currentVal: keyof NetworksState) => {
+    setSelectedNetwork(networks[currentVal]);
   };
 
   const handleWalletName = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -81,9 +86,9 @@ const ConnectSignerWallet: React.FC = () => {
                   </div>
                   <Spacer size={24} axis={'vertical'} />
                   <div className='w-1/3'>
-                    <Option
-                      options={mockNetworks}
-                      handleChange={handleNetworkChange}
+                    <SelectNetwork
+                      networks={networks}
+                      handleChange={handleNetworkSelect}
                     />
                   </div>
                 </div>

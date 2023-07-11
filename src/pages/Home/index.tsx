@@ -170,12 +170,6 @@ export const Home: FC = () => {
       <Topbar />
 
       <div className='flex flex-col justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgDark'>
-        {/* <Image
-          src='/Meson_start_logo.png'
-          alt='mesonTopbarLogo'
-          width='176'
-          height='40'
-        /> */}
         <img
           src='/assets/Meson_start_logo.png'
           alt='Meson Logo'
