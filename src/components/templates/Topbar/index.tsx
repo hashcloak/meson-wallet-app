@@ -1,9 +1,9 @@
 // import Image from 'next/image'
 import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Dialog from '~/components/atoms/Dialog';
 import { Icon } from '~/components/atoms/Icon';
-import { Option } from '~/components/atoms/Option';
+import { SelectNetwork } from '~/components/atoms/Option';
 import {
   ConnectedMesonWallet,
   ConnectedMesonWalletBtn,
@@ -17,18 +17,28 @@ import {
   NotificationBtn,
 } from '~/components/organisms/Notification';
 import SwitchSignerModal from '~/components/organisms/SwitchSignerModal';
-import { mockNetworks } from '~/utils/Mock';
+import { NetworksState, setNetwork } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
+// eslint-disable-next-line import/extensions
+import * as networksJson from '~/utils/networkList.json';
 
 const Topbar: FC = () => {
   const { signerWalletAddress, isConnected, wallet } = useSelector<
     RootState,
     SignerState
   >((state) => state.signerWallet);
-
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const networks = JSON.parse(JSON.stringify(networksJson))
+    .default as NetworksState;
   const [isOpen, setIsOpen] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
+
+  const dispatch = useDispatch();
+
+  const handleNetworkSelect = (currentVal: keyof NetworksState) => {
+    dispatch(setNetwork(networks[currentVal]));
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   useEffect(() => {}, [isConnected]);
@@ -77,7 +87,10 @@ const Topbar: FC = () => {
           }
         />
         <div className='p-4 border-l-2 border-borderGray'>
-          <Option options={mockNetworks} />
+          <SelectNetwork
+            networks={networks}
+            handleChange={handleNetworkSelect}
+          />
         </div>
       </div>
       <SwitchSignerModal isOpen={isOpen} onClose={handleIsOpen} />
