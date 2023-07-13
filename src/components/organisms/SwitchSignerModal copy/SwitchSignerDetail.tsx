@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -10,7 +11,7 @@ import { Button } from '~/components/atoms/Button';
 import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import { RootState } from '~/features/reducers';
-import { SignerState, signerWalletSlice } from '~/features/signerWallet';
+import { SignerState, SignerWalletSlice } from '~/features/signerWallet';
 import { ITrezorState } from '~/features/trezorWallet';
 
 type SwitchSignerDetailType = {
@@ -24,33 +25,8 @@ type NewTrezorAccountType = {
 };
 
 const SwitchSignerDetail: React.FC<SwitchSignerDetailType> = ({ onClose }) => {
-  // const currentAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
-  // const currentPath = "m/44'/60'/0'/0/0"
-  // const currentAsset = '100 ETH'
-  // const trezorAccounts = [
-  //   {
-  //     serializedPath: "m/44'/60'/0'/0/1",
-  //     address: '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F',
-  //   },
-  //   {
-  //     serializedPath: "m/44'/60'/0'/0/2",
-  //     address: '0x033d1c7f7147A9109C2b758F09c2b9B258cfF063',
-  //   },
-  //   {
-  //     serializedPath: "m/44'/60'/0'/0/3",
-  //     address: '0x9d15bc47B6c2db762f191E370e4Af5B1f2914AD0',
-  //   },
-  //   {
-  //     serializedPath: "m/44'/60'/0'/0/4",
-  //     address: '0x52411Da3aB0F1268b11160E342D27A5167e1729C',
-  //   },
-  //   {
-  //     serializedPath: "m/44'/60'/0'/0/5",
-  //     address: '0x12fdE4B42d1183120233c4862630A33d36dD45a4',
-  //   },
-  // ]
   const dispatch = useDispatch();
-  const { setSignerWallet } = signerWalletSlice.actions;
+  const { setSignerWallet } = SignerWalletSlice.actions;
 
   const trezorAccounts = useSelector<RootState, ITrezorState>(
     (state) => state.trezorWallet
@@ -83,7 +59,7 @@ const SwitchSignerDetail: React.FC<SwitchSignerDetailType> = ({ onClose }) => {
       }
       const network = 'mainnet';
       const provider = ethers.getDefaultProvider(network, {
-        etherscan: import.meta.env.VITE_ETHERSCAN_API,
+        etherscan: import.meta.env.VITE_ETHERSCAN_API_KEY,
       });
 
       const updateAccounts = await Promise.all(
@@ -99,7 +75,6 @@ const SwitchSignerDetail: React.FC<SwitchSignerDetailType> = ({ onClose }) => {
           return fullAccount;
         })
       );
-      console.log('test', updateAccounts);
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       setTrezorAccountsWithBalance(updateAccounts);

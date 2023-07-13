@@ -11,6 +11,7 @@ export type NetworksState = {
   localhost: NetworkState;
   ethereum: NetworkState;
   sepolia: NetworkState;
+  goerli: NetworkState;
 };
 
 const initialState: NetworkState = {

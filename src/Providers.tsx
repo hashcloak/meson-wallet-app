@@ -13,7 +13,7 @@ const { provider, webSocketProvider } = configureChains(
   [mainnet],
   [
     infuraProvider({
-      apiKey: String(import.meta.env.VITE_INFURA_API),
+      apiKey: String(import.meta.env.VITE_INFURA_API_KEY),
     }),
   ]
 );

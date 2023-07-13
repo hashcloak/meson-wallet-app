@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { Contract } from 'ethers';
 
 export type Owner = {
   ownerAddress: string;
@@ -9,16 +10,16 @@ export type Owner = {
 
 export type MesonWalletState = {
   walletName?: string;
-  address?: string;
   owners?: Owner[];
   confirmation?: number;
+  contract?: Contract | unknown;
 };
 
 const initialState: MesonWalletState = {
   walletName: '',
-  address: '',
   owners: [],
-  confirmation: 0,
+  confirmation: 1,
+  contract: undefined,
 };
 
 export const MesonWalletSlice = createSlice({
@@ -28,8 +29,11 @@ export const MesonWalletSlice = createSlice({
     setMesonWalletName: (state, action: PayloadAction<MesonWalletState>) => {
       state.walletName = action.payload.walletName;
     },
-    setMesonAddress: (state, action: PayloadAction<MesonWalletState>) => {
-      state.address = action.payload.address;
+    setMesonWalletContract: (
+      state,
+      action: PayloadAction<{ contract: Contract }>
+    ) => {
+      state.contract = action.payload.contract;
     },
     setOwners: (state, action: PayloadAction<MesonWalletState>) => {
       state.owners = action.payload.owners;
@@ -46,7 +50,7 @@ export const MesonWalletSlice = createSlice({
 
 export const {
   setMesonWalletName,
-  setMesonAddress,
+  setMesonWalletContract,
   setOwners,
   resetMesonWallet,
 } = MesonWalletSlice.actions;

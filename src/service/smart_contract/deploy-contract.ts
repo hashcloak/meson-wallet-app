@@ -9,6 +9,10 @@ import * as json from './SmartWalletLogic.json';
 import { NetworkState } from '~/features/network';
 
 const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY;
+const INFURA_API_KEY = import.meta.env.VITE_INFURA_API_KEY;
+const ALCHEMY_API_KEY = import.meta.env.VITE_ALCHEMY_API_KEY;
+const ETHERSCAN_API_KEY = import.meta.env.VITE_ETHERSCAN_API_KEY;
+const METAMASK_PRIVATE_KEY = import.meta.env.VITE_METAMASK_PRIVATE_KEY;
 
 export async function deploy(
   signer: string,
@@ -16,12 +20,23 @@ export async function deploy(
 ): Promise<ethers.Contract> {
   const abi = json.abi;
   const binary: BytesLike = json.bytecode.object;
-  console.log(selectedNetwork.url);
 
-  const provider = ethers.getDefaultProvider(selectedNetwork.url);
-  const singerAddress =
-    selectedNetwork.network === 'localhost' ? PRIVATE_KEY : signer;
-  const wallet: Signer = new ethers.Wallet(singerAddress, provider);
+  let provider, privateKey;
+  if (selectedNetwork.network !== 'localhost') {
+    provider = ethers.getDefaultProvider(selectedNetwork.network, {
+      infura: INFURA_API_KEY,
+      alchemy: ALCHEMY_API_KEY,
+      etherscan: ETHERSCAN_API_KEY,
+    });
+    // privateKey = ethers.utils.computeAddress(signer)
+    privateKey = METAMASK_PRIVATE_KEY;
+  } else {
+    provider = ethers.getDefaultProvider(selectedNetwork.url);
+    privateKey = PRIVATE_KEY;
+  }
+  const wallet: Signer = new ethers.Wallet(privateKey, provider);
+  console.log('wallet', wallet);
+
   const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
 
   try {

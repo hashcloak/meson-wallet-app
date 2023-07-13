@@ -14,9 +14,9 @@ export const getBalance = async (
 ): Promise<FullAccountType[]> => {
   const network = 'mainnet';
   const provider = ethers.getDefaultProvider(network, {
-    alchemy: import.meta.env.VITE_ALCHEMY_API as string,
-    infura: import.meta.env.VITE_INFURA_API as string,
-    etherscan: import.meta.env.VITE_ETHERSCAN_API as string,
+    alchemy: import.meta.env.VITE_ALCHEMY_API_KEY as string,
+    infura: import.meta.env.VITE_INFURA_API_KEY as string,
+    etherscan: import.meta.env.VITE_ETHERSCAN_API_KEY as string,
   });
   try {
     const updateAccounts: FullAccountType[] = await Promise.all(
@@ -42,9 +42,9 @@ export const getBalance = async (
 export const getNetwork = async () => {
   const network = 'mainnet';
   const provider = ethers.getDefaultProvider(network, {
-    alchemy: import.meta.env.VITE_ALCHEMY_API as string,
-    infura: import.meta.env.VITE_INFURA_API as string,
-    etherscan: import.meta.env.VITE_ETHERSCAN_API as string,
+    alchemy: import.meta.env.VITE_ALCHEMY_API_KEY as string,
+    infura: import.meta.env.VITE_INFURA_API_KEY as string,
+    etherscan: import.meta.env.VITE_ETHERSCAN_API_KEY as string,
   });
   try {
     const chainId = await provider.getNetwork();

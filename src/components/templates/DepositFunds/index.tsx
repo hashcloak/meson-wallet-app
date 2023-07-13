@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Contract } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { UnitInput } from '~/components/atoms/Input';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
+import { setMesonWalletContract } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
@@ -15,7 +18,9 @@ import { deploy } from '~/service/smart_contract/deploy-contract';
 const DepositFund: React.FC = () => {
   const register = 'depositAmount';
   const navigate = useNavigate();
-  const { signerWalletAddress } = useSelector<RootState, SignerState>(
+  const dispatch = useDispatch();
+
+  const { publicKey } = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
   const selectedNetwork = useSelector<RootState, NetworkState>(
@@ -48,12 +53,10 @@ const DepositFund: React.FC = () => {
 
     // Create wallet with/without funds
     try {
-      if (signerWalletAddress != null) {
-        console.log(selectedNetwork);
+      if (publicKey != null) {
+        const contract: Contract = await deploy(publicKey, selectedNetwork);
 
-        const wallet = await deploy(signerWalletAddress, selectedNetwork);
-        console.log(wallet);
-
+        dispatch(setMesonWalletContract({ contract }));
         // Success
         navigate('/dashboard');
       }
@@ -63,6 +66,7 @@ const DepositFund: React.FC = () => {
 
     // Fail
   };
+
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
