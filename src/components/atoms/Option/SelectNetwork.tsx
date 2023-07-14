@@ -4,10 +4,15 @@ import { NetworksState } from '~/features/network';
 type Props = {
   networks: NetworksState;
   handleChange?: (value: keyof NetworksState) => void;
+  currentNetwork?: keyof NetworksState;
 };
 
-const SelectNetwork: React.FC<Props> = ({ networks, handleChange }) => {
-  const [currentVal, setCurrentVal] = useState<string>('');
+const SelectNetwork: React.FC<Props> = ({
+  networks,
+  handleChange,
+  currentNetwork,
+}) => {
+  const [currentVal, setCurrentVal] = useState<string>(currentNetwork ?? '');
 
   return (
     <div className='flex justify-center w-full'>

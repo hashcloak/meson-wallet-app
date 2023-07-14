@@ -17,7 +17,7 @@ import {
   NotificationBtn,
 } from '~/components/organisms/Notification';
 import SwitchSignerModal from '~/components/organisms/SwitchSignerModal';
-import { NetworksState, setNetwork } from '~/features/network';
+import { NetworkState, NetworksState, setNetwork } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 // eslint-disable-next-line import/extensions
@@ -28,9 +28,14 @@ const Topbar: FC = () => {
     RootState,
     SignerState
   >((state) => state.signerWallet);
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const networks = JSON.parse(JSON.stringify(networksJson))
     .default as NetworksState;
+
   const [isOpen, setIsOpen] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
 
@@ -90,6 +95,7 @@ const Topbar: FC = () => {
           <SelectNetwork
             networks={networks}
             handleChange={handleNetworkSelect}
+            currentNetwork={network}
           />
         </div>
       </div>
