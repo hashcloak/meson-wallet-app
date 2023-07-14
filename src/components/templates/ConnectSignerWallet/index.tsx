@@ -13,17 +13,9 @@ import SignerWallets from '~/components/molecules/SignerWallets';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
 import { setMesonWalletName } from '~/features/mesonWallet';
-import { NetworkState, NetworksState, setNetwork } from '~/features/network';
-// eslint-disable-next-line import/extensions
-import * as networksJson from '~/utils/networkList.json';
 
 const ConnectSignerWallet: React.FC = () => {
-  const networks = JSON.parse(JSON.stringify(networksJson))
-    .default as NetworksState;
   const [userInput, setUserInput] = useState('');
-  const [selectedNetwork, setSelectedNetwork] = useState<NetworkState>(
-    networks.localhost
-  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,17 +33,11 @@ const ConnectSignerWallet: React.FC = () => {
 
   const onSubmit = (data: { walletName: string }) => {
     dispatch(setMesonWalletName(data));
-    dispatch(setNetwork(selectedNetwork));
     navigate('/create-new/step2');
     methods.reset();
   };
 
   const onError = (errors: any, e: any) => console.log(errors, e);
-
-  const handleNetworkSelect = (currentVal: keyof NetworksState) => {
-    setSelectedNetwork(networks[currentVal]);
-  };
-
   const handleWalletName = (e: ChangeEvent<HTMLInputElement>): void => {
     setUserInput(e.target.value);
   };
@@ -86,10 +72,7 @@ const ConnectSignerWallet: React.FC = () => {
                   </div>
                   <Spacer size={24} axis={'vertical'} />
                   <div className='w-1/3'>
-                    <SelectNetwork
-                      networks={networks}
-                      handleChange={handleNetworkSelect}
-                    />
+                    <SelectNetwork />
                   </div>
                 </div>
               </StepContentLayout>

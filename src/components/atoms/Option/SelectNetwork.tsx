@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
-import { NetworksState } from '~/features/network';
+/* eslint-disable import/extensions */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NetworkState, NetworksState, setNetwork } from '~/features/network';
+import { RootState } from '~/features/reducers';
+import * as networksJson from '~/utils/networkList.json';
 
-type Props = {
-  networks: NetworksState;
-  handleChange?: (value: keyof NetworksState) => void;
-  currentNetwork?: keyof NetworksState;
-};
+const SelectNetwork: React.FC = () => {
+  const networks = JSON.parse(JSON.stringify(networksJson))
+    .default as NetworksState;
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
 
-const SelectNetwork: React.FC<Props> = ({
-  networks,
-  handleChange,
-  currentNetwork,
-}) => {
-  const [currentVal, setCurrentVal] = useState<string>(currentNetwork ?? '');
+  const dispatch = useDispatch();
+
+  const handleNetworkSelect = (currentVal: keyof NetworksState) => {
+    dispatch(setNetwork(networks[currentVal]));
+  };
 
   return (
     <div className='flex justify-center w-full'>
@@ -40,10 +45,10 @@ const SelectNetwork: React.FC<Props> = ({
           `}
           aria-label='Default select example'
           onChange={(e) => {
-            setCurrentVal(e.target.value);
-            handleChange?.(e.target.value as keyof NetworksState);
+            handleNetworkSelect(e.target.value as keyof NetworksState);
           }}
-          defaultValue={currentVal}
+          defaultValue={network}
+          value={network}
         >
           {Object.keys(networks).map((networkName) => (
             <option value={networkName} key={networkName}>

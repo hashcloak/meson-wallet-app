@@ -28,14 +28,13 @@ export async function deploy(
       alchemy: ALCHEMY_API_KEY,
       etherscan: ETHERSCAN_API_KEY,
     });
-    // privateKey = ethers.utils.computeAddress(signer)
-    privateKey = METAMASK_PRIVATE_KEY;
+    privateKey = ethers.utils.computeAddress(signer);
+    // privateKey = METAMASK_PRIVATE_KEY;
   } else {
     provider = ethers.getDefaultProvider(selectedNetwork.url);
     privateKey = PRIVATE_KEY;
   }
   const wallet: Signer = new ethers.Wallet(privateKey, provider);
-  console.log('wallet', wallet);
 
   const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
 
@@ -43,7 +42,6 @@ export async function deploy(
     const walletAddress = await wallet.getAddress();
 
     const contract = await contractFactory.deploy(walletAddress);
-    console.log('contract', contract);
 
     await contract.deployed();
 
