@@ -34,14 +34,20 @@ export async function deploy(
     provider = ethers.getDefaultProvider(selectedNetwork.url);
     privateKey = PRIVATE_KEY;
   }
-  const wallet: Signer = new ethers.Wallet(privateKey, provider);
-
+  // const wallet: Signer = new ethers.Wallet(privateKey, provider);
+  // const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
+  const gasPrice = (await provider.getGasPrice()).toString();
+  const wallet: Signer = ethers.Wallet.createRandom().connect(provider);
   const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
 
   try {
     const walletAddress = await wallet.getAddress();
+    const overrides = {
+      gasLimit: gasPrice,
+    };
 
-    const contract = await contractFactory.deploy(walletAddress);
+    const contract = await contractFactory.deploy(walletAddress, overrides);
+    console.log(contract);
 
     await contract.deployed();
 
@@ -52,6 +58,8 @@ export async function deploy(
 
     return contract;
   } catch (error) {
+    console.log(error);
+
     throw new Error('Deploy failed');
   }
 }

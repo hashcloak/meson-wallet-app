@@ -1,10 +1,12 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SelectSignerModal from '~/components/organisms/SelectSignerModal';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
 import { resetLoading, setLoading } from '~/features/loading';
+import { NetworkState } from '~/features/network';
+import { RootState } from '~/features/reducers';
 import { trezorActions } from '~/features/trezorWallet';
 import { FullAccountType, getFullTrezorAccounts } from '~/service';
 
@@ -23,6 +25,9 @@ const TrezorButton: FC = () => {
       logoName: 'WalletConnect',
     },
   };
+  const network = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -35,8 +40,9 @@ const TrezorButton: FC = () => {
     setIsOpen(true);
 
     try {
-      const trezorFullAccounts: FullAccountType[] =
-        await getFullTrezorAccounts();
+      const trezorFullAccounts: FullAccountType[] = await getFullTrezorAccounts(
+        network
+      );
       dispatch(trezorActions.setTrezorAccounts(trezorFullAccounts));
       dispatch(resetLoading({ message: '' }));
     } catch (error) {

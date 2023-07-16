@@ -5,6 +5,7 @@ export type NetworkState = {
   network: string;
   chainId: number;
   url: string;
+  shortcut?: string;
 };
 
 export type NetworksState = {
@@ -28,6 +29,9 @@ export const NetworkSlice = createSlice({
       state.network = action.payload.network;
       state.chainId = action.payload.chainId;
       state.url = action.payload.url;
+      if (action.payload.url !== undefined) {
+        state.shortcut = action.payload.shortcut;
+      }
     },
     resetNetwork: (state) => {
       state.network = 'mainnet';
