@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Contract } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
@@ -9,6 +8,7 @@ import { Button } from '~/components/atoms/Button';
 import { UnitInput } from '~/components/atoms/Input';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
+import { setError } from '~/features/error';
 import { setMesonWalletContract } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
@@ -54,14 +54,16 @@ const DepositFund: React.FC = () => {
     // Create wallet with/without funds
     try {
       if (publicKey != null) {
-        const contract: Contract = await deploy(publicKey, selectedNetwork);
-
-        dispatch(setMesonWalletContract({ contract }));
-        // Success
-        navigate('/dashboard');
+        const contract = await deploy(publicKey, selectedNetwork);
+        if (contract !== undefined) {
+          dispatch(setMesonWalletContract({ contract }));
+          navigate('/dashboard');
+        }
       }
     } catch (error) {
-      throw new Error('Deploy failed');
+      if (error instanceof Error) {
+        dispatch(setError({ error: error.message }));
+      }
     }
 
     // Fail

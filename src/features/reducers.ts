@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { ErrorSlice } from './error';
 import { LedgerSlice } from './ledgerWallet';
 import { LoadingSlice } from './loading';
 import { MesonWalletSlice } from './mesonWallet';
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   loading: LoadingSlice.reducer,
   network: NetworkSlice.reducer,
   mesonWallet: MesonWalletSlice.reducer,
+  error: ErrorSlice.reducer,
 });
 
 export default reducers;

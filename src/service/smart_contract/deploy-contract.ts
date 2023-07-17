@@ -17,7 +17,7 @@ const METAMASK_PRIVATE_KEY = import.meta.env.VITE_METAMASK_PRIVATE_KEY;
 export async function deploy(
   signer: string,
   selectedNetwork: NetworkState
-): Promise<ethers.Contract> {
+): Promise<ethers.Contract | undefined> {
   const abi = json.abi;
   const binary: BytesLike = json.bytecode.object;
 
@@ -47,7 +47,6 @@ export async function deploy(
     };
 
     const contract = await contractFactory.deploy(walletAddress, overrides);
-    console.log(contract);
 
     await contract.deployed();
 
@@ -58,8 +57,8 @@ export async function deploy(
 
     return contract;
   } catch (error) {
-    console.log(error);
-
-    throw new Error('Deploy failed');
+    if (error instanceof Error) {
+      throw new Error(error.message ?? error);
+    }
   }
 }

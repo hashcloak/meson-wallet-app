@@ -1,20 +1,46 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ErrorState, resetError } from '~/features/error';
+import { RootState } from '~/features/reducers';
 
-type Props = {
-  variant: 'success' | 'warning';
-  message: string;
-  onClose: () => void;
-};
+const Alert: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAnimated, setIsAnimated] = useState(false);
+  const { error, isError } = useSelector<RootState, ErrorState>(
+    (state) => state.error
+  );
+  const dispatch = useDispatch();
 
-const Alert: React.FC<Props> = ({ variant, message, onClose }) => {
+  useEffect(() => {
+    if (isError && error !== null) {
+      setIsOpen(true);
+      setIsAnimated(true);
+      setTimeout(() => {
+        setIsAnimated(false);
+        reset();
+      }, 10000);
+    }
+  }, [error]);
+
+  const reset = () => {
+    setTimeout(() => {
+      dispatch(resetError());
+      setIsOpen(false);
+    }, 11000);
+  };
+
   return (
     <div
-      className={`alert border-solid border-2 bg-bgWhite py-6 px-8 max-w-sm rounded-2xl ${
-        variant === 'success' ? 'border-main' : 'border-light'
-      }`}
+      className={`alert border-solid border-2 bg-bgWhite py-6 px-8 max-w-sm rounded-2xl absolute bottom-4 right-4 ${
+        !isError ? 'border-main' : 'border-light'
+      }
+      ${isOpen ? 'block' : 'hidden'}
+      ${isAnimated ? 'animate-slide-in-right' : 'animate-slide-out-right'}
+      `}
     >
       <div className='flex flex-row items-start p-0 m-0 '>
-        {variant && variant === 'success' ? (
+        {!isError && !error !== null ? (
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
@@ -36,9 +62,14 @@ const Alert: React.FC<Props> = ({ variant, message, onClose }) => {
           </svg>
         )}
 
-        <p className='text-lg text-textGray mt-0 pt-0 w-64'>{message}</p>
+        <p className='text-lg text-textGray mt-0 pt-0 w-64'>{String(error)}</p>
 
-        <button onClick={onClose}>
+        <button
+          onClick={() => {
+            setIsAnimated(false);
+            reset();
+          }}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
