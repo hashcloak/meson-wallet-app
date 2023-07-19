@@ -12,6 +12,7 @@ import { InputControl } from '~/components/atoms/Input';
 import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
+import { setError } from '~/features/error';
 import { ILedgerState } from '~/features/ledgerWallet';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
@@ -48,7 +49,9 @@ const SelectLedgerSignerDetail: React.FC<SelectLedgerSignerDetailType> = ({
       dispatch(resetLoading({ message: '' }));
     } catch (error) {
       dispatch(resetLoading({ message: t('walletConnect.networkError') }));
-      throw new Error('Something went wrong. Please retry');
+      if (error instanceof Error) {
+        dispatch(setError({ error: error.message }));
+      }
     }
   };
 

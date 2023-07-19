@@ -115,8 +115,8 @@ export const getFullTrezorAccounts = async (
     );
 
     return trezorFullAccounts;
-  } catch {
-    throw new Error('Something went wrong. Please retry.');
+  } catch (error) {
+    throw new Error('Connection failed. Please retry.');
   }
 };
 

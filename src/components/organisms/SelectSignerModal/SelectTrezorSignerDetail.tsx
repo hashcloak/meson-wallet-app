@@ -11,6 +11,7 @@ import { InputControl } from '~/components/atoms/Input';
 import Spinner from '~/components/atoms/Spinner';
 import Spacer from '~/utils/Spacer';
 import Pagination from './Pagination';
+import { setError } from '~/features/error';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, SignerWalletSlice } from '~/features/signerWallet';
@@ -43,7 +44,9 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
       dispatch(resetLoading({ message: '' }));
     } catch (error) {
       dispatch(resetLoading({ message: t('walletConnect.networkError') }));
-      throw new Error('Something went wrong. Please retry');
+      if (error instanceof Error) {
+        dispatch(setError({ error: error.message }));
+      }
     }
   };
 

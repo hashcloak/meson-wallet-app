@@ -27,19 +27,37 @@ export type Props = {
   type: LogoTypes;
   size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | '5xl';
   interact?: boolean;
+  isConnected?: boolean;
 };
 
-export const Logo: React.FC<Props> = ({ type, size, interact = false }) => {
+export const Logo: React.FC<Props> = ({
+  type,
+  size,
+  interact = false,
+  isConnected = false,
+}) => {
   const logos = {
     EthLogo: <EthLogo iconSize={size} />,
     DaiLogo: <DaiLogo iconSize={size} />,
     UsdcLogo: <UsdcLogo iconSize={size} />,
     BnbLogo: <BnbLogo iconSize={size} />,
-    TrezorLogo: <TrezorLogo iconSize={size} interact={interact} />,
+    TrezorLogo: (
+      <TrezorLogo
+        iconSize={size}
+        interact={interact}
+        isConnected={isConnected}
+      />
+    ),
     WalletConnectLogo: (
       <WalletConnectLogo iconSize={size} interact={interact} />
     ),
-    LedgerLogo: <LedgerLogo iconSize={size} interact={interact} />,
+    LedgerLogo: (
+      <LedgerLogo
+        iconSize={size}
+        interact={interact}
+        isConnected={isConnected}
+      />
+    ),
     MetamaskLogo: <MetamaskLogo iconSize={size} />,
   };
 

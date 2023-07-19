@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import SelectSignerModal from '~/components/organisms/SelectSignerModal';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
+import { setError } from '~/features/error';
 import { resetLoading, setLoading } from '~/features/loading';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
 import { trezorActions } from '~/features/trezorWallet';
 import { FullAccountType, getFullTrezorAccounts } from '~/service';
 
@@ -28,6 +30,9 @@ const TrezorButton: FC = () => {
   const network = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
+  const { wallet } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -48,7 +53,9 @@ const TrezorButton: FC = () => {
     } catch (error) {
       setIsOpen(false);
       dispatch(resetLoading({ message: t('walletConnect.error') }));
-      throw new Error('Something went wrong, please retry');
+      if (error instanceof Error) {
+        dispatch(setError({ error: error.message }));
+      }
     }
   };
 
@@ -56,15 +63,22 @@ const TrezorButton: FC = () => {
     <>
       <button
         type='button'
-        className='flex flex-row items-center w-48 h-12 px-6 py-2 rounded-xl bg-bgGrayMid hover:bg-dark group'
+        className={`flex flex-row items-center w-48 h-12 px-6 py-2 rounded-xl ${
+          wallet === 'Trezor' ? 'bg-dark' : 'bg-bgGrayMid'
+        } hover:bg-dark group`}
         onClick={async () => await handleClick()}
       >
         <Logo
           type={supportedSignerWallets.TREZOR.logoType as LogoTypes}
           size={'xl'}
           interact={true}
+          isConnected={wallet === 'Trezor'}
         />
-        <span className='text-sm text-textBlack group-hover:text-textWhite mx-4'>
+        <span
+          className={`text-sm ${
+            wallet === 'Trezor' ? 'text-textWhite' : 'text-textBlack'
+          } group-hover:text-textWhite mx-4`}
+        >
           {supportedSignerWallets.TREZOR.logoName}
         </span>
       </button>

@@ -1,11 +1,13 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SelectSignerModal from '~/components/organisms/SelectSignerModal';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
 import { ledgerActions } from '~/features/ledgerWallet';
 import { resetLoading, setLoading } from '~/features/loading';
+import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
 import { FullAccountType, getFullLedgerAccounts } from '~/service';
 
 const LedgerButton: FC = () => {
@@ -23,6 +25,9 @@ const LedgerButton: FC = () => {
       logoName: 'WalletConnect',
     },
   };
+  const { wallet } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
   const [isOpen, setIsOpen] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
   const dispatch = useDispatch();
@@ -49,15 +54,22 @@ const LedgerButton: FC = () => {
     <>
       <button
         type='button'
-        className='flex flex-row items-center w-48 h-12 px-6 py-2 rounded-xl bg-bgGrayMid hover:bg-dark group'
+        className={`flex flex-row items-center w-48 h-12 px-6 py-2 rounded-xl ${
+          wallet === 'Ledger' ? 'bg-dark text-textWhite' : 'bg-bgGrayMid'
+        } hover:bg-dark group`}
         onClick={async () => await handleClick()}
       >
         <Logo
           type={supportedSignerWallets.LEDGER.logoType as LogoTypes}
           size={'xl'}
           interact={true}
+          isConnected={wallet === 'Ledger'}
         />
-        <span className='text-sm text-textBlack group-hover:text-textWhite mx-4'>
+        <span
+          className={`text-sm ${
+            wallet === 'Ledger' ? 'text-textWhite' : 'text-textBlack'
+          } group-hover:text-textWhite mx-4`}
+        >
           {supportedSignerWallets.LEDGER.logoName}
         </span>
       </button>
