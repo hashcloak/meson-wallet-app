@@ -1,5 +1,10 @@
-import { ethers } from 'ethers';
-import TrezorConnect, { EthereumAddress, HDNodeResponse } from 'trezor-connect';
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { UnsignedTransaction, ethers, utils } from 'ethers';
+import TrezorConnect, {
+  EthereumAddress,
+  EthereumTransaction,
+  HDNodeResponse,
+} from 'trezor-connect';
 import { TrezorError } from '~/utils/Trezor';
 import { FullAccountType, getBalance } from './etherscan';
 import { NetworkState } from '~/features/network';
@@ -34,7 +39,7 @@ const getAccounts = async (
     email: 'my_email@example.com',
   });
 
-  const bundle: Array<{ path: string; showOnTrezor: boolean; coin: string }> =
+  const bundle: Array<{ path: string; showOnTrezor: boolean; coin?: string }> =
     [];
 
   if (network.shortcut !== undefined) {
@@ -43,6 +48,13 @@ const getAccounts = async (
         path: `${baseEthereumPath}${i}`,
         showOnTrezor: false,
         coin: network.shortcut,
+      });
+    }
+  } else if (network.network === 'sepolia' || network.network === 'localhost') {
+    for (let i = 0; i < 25; i++) {
+      bundle.push({
+        path: `${baseEthereumPath}${i}`,
+        showOnTrezor: false,
       });
     }
   } else {
@@ -136,5 +148,98 @@ export const getCustomTrezorAccount = async (
     return trezorCustomAccount;
   } catch (e: unknown) {
     throw new Error('Something went wrong. Please retry.');
+  }
+};
+
+// signMessage = async message => {
+//   return await new Promise(async (resolve, reject) => {
+//       const result = await TrezorConnect.ethereumSignMessage({
+//           path: this.path + '/0',
+//           message
+//       });
+
+//       if (result.success) {
+//           resolve(result.payload.signature);
+//       } else {
+//           console.error('Error:', result.payload.error); // error message
+//           reject(result.payload.error);
+//       }
+//   });
+// };
+
+export const signTxTrezor = async (
+  txParams: EthereumTransaction,
+  provider: ethers.providers.BaseProvider,
+  address: string,
+  path: string
+): Promise<string | undefined> => {
+  const unsignedTx = JSON.parse(
+    JSON.stringify(txParams)
+  ) as unknown as UnsignedTransaction;
+
+  if (txParams.value) {
+    txParams.value = utils.hexlify(txParams.value);
+    unsignedTx.value = txParams.value;
+  }
+  if (txParams.gasPrice) {
+    txParams.gasPrice = utils.hexlify(txParams.gasPrice);
+    // unsignedTx.gasPrice = txParams.gasPrice;
+  }
+  if (txParams.gasLimit) {
+    txParams.gasLimit = utils.hexlify(txParams.gasLimit);
+    // unsignedTx.gasLimit = txParams.gasLimit;
+  }
+
+  if (txParams.maxFeePerGas) {
+    txParams.maxFeePerGas = undefined;
+  }
+  if (txParams.maxPriorityFeePerGas) {
+    txParams.maxPriorityFeePerGas = undefined;
+  }
+  if (!txParams.maxFeePerGas && !txParams.maxPriorityFeePerGas) {
+    Object.assign(
+      txParams,
+      { maxFeePerGas: undefined },
+      { maxPriorityFeePerGas: undefined }
+    );
+  }
+
+  txParams.nonce = utils.hexlify(await provider.getTransactionCount(address));
+
+  try {
+    TrezorConnect.manifest({
+      appUrl: (import.meta.env.VITE_PUBLIC_APP_URL as string) ?? '',
+      email: 'my_email@example.com',
+    });
+
+    const result = await TrezorConnect.ethereumSignTransaction({
+      path,
+      transaction: txParams,
+    });
+    console.log('Result: ', result);
+
+    if (result.success) {
+      delete unsignedTx.maxFeePerGas;
+      delete unsignedTx.maxPriorityFeePerGas;
+      unsignedTx.gasLimit?.toString();
+      unsignedTx.gasPrice?.toString();
+
+      console.log('Result success: ', unsignedTx);
+
+      const sig = {
+        v: parseInt(result.payload.v.substring(2), 16),
+        r: result.payload.r,
+        s: result.payload.s,
+      };
+
+      const serializedTransaction = utils.serializeTransaction(unsignedTx, sig);
+
+      return serializedTransaction;
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error);
+      throw new Error(error.message ?? error);
+    }
   }
 };

@@ -20,7 +20,7 @@ const DepositFund: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { publicKey } = useSelector<RootState, SignerState>(
+  const signerWallet = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
   const selectedNetwork = useSelector<RootState, NetworkState>(
@@ -53,8 +53,8 @@ const DepositFund: React.FC = () => {
 
     // Create wallet with/without funds
     try {
-      if (publicKey != null) {
-        const contract = await deploy(publicKey, selectedNetwork);
+      if (signerWallet != null) {
+        const contract = await deploy(signerWallet, selectedNetwork);
         if (contract !== undefined) {
           dispatch(setMesonWalletContract({ contract }));
           navigate('/dashboard');
