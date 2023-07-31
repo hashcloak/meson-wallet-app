@@ -1,30 +1,40 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Contract } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { UnitInput } from '~/components/atoms/Input';
+import { Loader } from '~/components/atoms/Loader';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
 import { setError } from '~/features/error';
+import { LoadingState, resetLoading, setLoading } from '~/features/loading';
+// import { setMesonWalletContract } from '~/features/mesonWallet';
 import { setMesonWalletContract } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
+import { setToast } from '~/features/toast';
 import { deploy } from '~/service/smart_contract/deploy-contract';
 
 const DepositFund: React.FC = () => {
   const register = 'depositAmount';
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const signerWallet = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
   const selectedNetwork = useSelector<RootState, NetworkState>(
     (state) => state.network
+  );
+  const { isLoading } = useSelector<RootState, LoadingState>(
+    (state) => state.loading
   );
 
   // TODO: Need to add validation method for the input amount
@@ -54,15 +64,27 @@ const DepositFund: React.FC = () => {
     // Create wallet with/without funds
     try {
       if (signerWallet != null) {
-        const contract = await deploy(signerWallet, selectedNetwork);
+        dispatch(setLoading());
+        const contract: Contract | undefined = await deploy(
+          signerWallet,
+          selectedNetwork
+        );
+
         if (contract !== undefined) {
+          setIsSuccess(true);
+          dispatch(setToast({ message: 'Successfully deployed' }));
           dispatch(setMesonWalletContract({ contract }));
-          navigate('/dashboard');
+
+          setTimeout(() => {
+            navigate('/dashboard');
+            dispatch(resetLoading({ message: '' }));
+          }, 5000);
         }
       }
     } catch (error) {
       if (error instanceof Error) {
         dispatch(setError({ error: error.message }));
+        dispatch(resetLoading({ message: '' }));
       }
     }
 
@@ -119,13 +141,15 @@ const DepositFund: React.FC = () => {
                   btnVariant={'text'}
                   btnSize={'lg'}
                   btnType={'button'}
+                  disabled={!!isLoading}
                   handleClick={() => navigate(-1)}
                 >
                   Back
                 </Button>
                 {/* TODO:Button validation needs to be updated based on signer wallet connection */}
                 <Button
-                  btnVariant={'primary'}
+                  btnVariant={!isLoading ? 'primary' : 'disable'}
+                  disabled={!!isLoading}
                   btnSize={'lg'}
                   btnType={'submit'}
                 >
@@ -136,6 +160,7 @@ const DepositFund: React.FC = () => {
           </form>
         </FormProvider>
       </div>
+      <Loader isSuccess={isSuccess} isLoading={isLoading} />
     </div>
   );
 };

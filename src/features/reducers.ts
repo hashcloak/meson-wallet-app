@@ -5,6 +5,7 @@ import { LoadingSlice } from './loading';
 import { MesonWalletSlice } from './mesonWallet';
 import { NetworkSlice } from './network';
 import { SignerWalletSlice } from './signerWallet';
+import { ToastSlice } from './toast';
 import { TrezorSlice } from './trezorWallet';
 
 const reducers = combineReducers({
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   network: NetworkSlice.reducer,
   mesonWallet: MesonWalletSlice.reducer,
   error: ErrorSlice.reducer,
+  toast: ToastSlice.reducer,
 });
 
 export default reducers;

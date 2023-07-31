@@ -13,13 +13,16 @@ export const Default: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const onClose = () => {
+  const onLoading = () => {
     setIsLoading(!isLoading);
   };
 
   useEffect(() => {
     setTimeout(() => {
       setIsSuccess(!isSuccess);
+      setTimeout(() => {
+        setIsLoading(!isLoading);
+      }, 3000);
     }, 8000);
   }, [isLoading]);
 
@@ -29,16 +32,12 @@ export const Default: React.FC = () => {
         btnVariant={'text'}
         btnSize={'md'}
         btnType={'button'}
-        handleClick={onClose}
+        handleClick={onLoading}
       >
         Submit
       </Button>
       <div className='flex flex-row flex-wrap w-full'>
-        {!isSuccess ? (
-          <Loader isLoading={isLoading} />
-        ) : (
-          <LoaderSuccess isLoading={isLoading} />
-        )}
+        <Loader isLoading={isLoading} isSuccess />
       </div>
     </div>
   );

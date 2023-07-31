@@ -3,12 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ErrorState, resetError } from '~/features/error';
 import { RootState } from '~/features/reducers';
+import { ToastState, resetToast } from '~/features/toast';
 
 const Alert: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimated, setIsAnimated] = useState(false);
   const { error, isError } = useSelector<RootState, ErrorState>(
     (state) => state.error
+  );
+  const { message, hasMessage } = useSelector<RootState, ToastState>(
+    (state) => state.toast
   );
   const dispatch = useDispatch();
 
@@ -23,9 +27,21 @@ const Alert: React.FC = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (hasMessage && message !== null) {
+      setIsOpen(true);
+      setIsAnimated(true);
+      setTimeout(() => {
+        setIsAnimated(false);
+        reset();
+      }, 10000);
+    }
+  }, [message]);
+
   const reset = () => {
     setTimeout(() => {
       dispatch(resetError());
+      dispatch(resetToast());
       setIsOpen(false);
     }, 11000);
   };
@@ -83,9 +99,19 @@ const Alert: React.FC = () => {
           </button>
         </div>
         <p className='text-sm text-textGray mt-0 pt-0 w-full'>
-          {String(error).length > 200
-            ? String(error).slice(0, 200 - 1) + ' ...'
-            : String(error)}
+          {error ? (
+            <>
+              {String(error).length > 200
+                ? String(error).slice(0, 200 - 1) + ' ...'
+                : String(error)}
+            </>
+          ) : (
+            <>
+              {String(message).length > 200
+                ? String(message).slice(0, 200 - 1) + ' ...'
+                : String(message)}
+            </>
+          )}
         </p>
       </div>
     </div>
