@@ -57,7 +57,13 @@ export const sendTx = async (
     if (signedTx !== undefined) {
       console.log('Sending...');
 
-      return await provider.sendTransaction(signedTx);
+      // return await provider.sendTransaction(signedTx);
+      const sent = await provider.sendTransaction(signedTx);
+      const add = await contractFactory.signer.getAddress();
+      const balance = await provider.getBalance(add);
+      console.log('deposited balance: ', ethers.utils.formatUnits(balance));
+
+      return sent;
     }
   } catch (error) {
     if (error instanceof Error) {

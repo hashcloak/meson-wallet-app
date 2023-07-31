@@ -18,7 +18,8 @@ const METAMASK_PRIVATE_KEY = import.meta.env.VITE_METAMASK_PRIVATE_KEY;
 
 export async function deploy(
   signerWallet: SignerState,
-  selectedNetwork: NetworkState
+  selectedNetwork: NetworkState,
+  deposit: number
 ): Promise<ethers.Contract | undefined> {
   const abi = json.abi;
   const binary: BytesLike = json.bytecode.object;
@@ -40,13 +41,20 @@ export async function deploy(
   const mesonWalletAddress = await mesonWallet.getAddress();
   const gasPrice = await provider.getGasPrice();
   const gasLimit = 21000;
+  console.log('deposit: ', deposit);
+
+  const value =
+    deposit > 0
+      ? ethers.utils.parseEther((deposit + 1).toString())
+      : ethers.utils.parseEther('1');
 
   console.log('contract factory: ', contractFactory);
   console.log('meson wallet Address: ', mesonWalletAddress);
+  console.log('value: ', value);
 
   const txParams = {
     to: mesonWalletAddress,
-    value: ethers.utils.parseEther('1'),
+    value: value,
     data: '0x',
     nonce: '0x0',
     chainId: selectedNetwork.chainId,
@@ -77,18 +85,16 @@ export async function deploy(
       gasPrice: gasPrice,
       // gasLimit: 300000,
     };
+
     const contract = await contractFactory.deploy(
       mesonWalletAddress,
       overrides
     );
 
     await contract.deployed();
-    console.log('Deployed');
 
     const contractAddress = contract.address;
     await contract.initialize(contractAddress);
-
-    console.log('End');
 
     return contract;
   } catch (error) {

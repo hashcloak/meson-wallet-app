@@ -13,7 +13,6 @@ import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
 import { setError } from '~/features/error';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
-// import { setMesonWalletContract } from '~/features/mesonWallet';
 import { setMesonWalletContract } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
@@ -59,22 +58,21 @@ const DepositFund: React.FC = () => {
   });
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-
     // Create wallet with/without funds
     try {
       if (signerWallet != null) {
         dispatch(setLoading());
         const contract: Contract | undefined = await deploy(
           signerWallet,
-          selectedNetwork
+          selectedNetwork,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          data.depositAmount as number
         );
 
         if (contract !== undefined) {
           setIsSuccess(true);
           dispatch(setToast({ message: 'Successfully deployed' }));
           dispatch(setMesonWalletContract({ contract }));
-
           setTimeout(() => {
             navigate('/dashboard');
             dispatch(resetLoading({ message: '' }));
