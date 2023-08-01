@@ -26,33 +26,29 @@ const Sidebar: React.FC<Props> = ({
           currentStep={currentStep as number}
         />
       ) : (
-        <>
-          <div>
-            <div className='flex flex-col'>
-              <Link to={'/dashboard'}>
-                <SidebarIconText type={'Home'} text={'Home'} />
-              </Link>
-              <Link to='/transactions'>
-                <SidebarIconText type={'Transactions'} text={'Transactions'} />
-              </Link>
-              <Link to='/contacts'>
-                <SidebarIconText type={'Contacts'} text={'Contacts'} />
-              </Link>
-              <Link to='/settings'>
-                <SidebarIconText type={'Settings'} text={'Settings'} />
-              </Link>
-              <SidebarIconText type={'Help'} text={'Help'} />
-            </div>
-            <Spacer size={24} axis={'vertical'} />
+        <div className='flex flex-col justify-between h-full'>
+          <div className='flex flex-col'>
+            <Link to={'/dashboard'}>
+              <SidebarIconText type={'Home'} text={'Home'} />
+            </Link>
+            <Link to='/transactions'>
+              <SidebarIconText type={'Transactions'} text={'Transactions'} />
+            </Link>
+            <Link to='/contacts'>
+              <SidebarIconText type={'Contacts'} text={'Contacts'} />
+            </Link>
+            <Link to='/settings'>
+              <SidebarIconText type={'Settings'} text={'Settings'} />
+            </Link>
+            <SidebarIconText type={'Help'} text={'Help'} />
             <NewTx />
           </div>
           <div>
-            {/* <Drawer /> */}
             <SidebarIconText type={'AddCircle'} text={'Add new'} />
             <Spacer size={16} axis={'vertical'} />
             <Footer />
           </div>
-        </>
+        </div>
       )}
     </div>
   );
