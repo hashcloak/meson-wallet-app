@@ -45,7 +45,7 @@ const RecentTxs: React.FC = () => {
   ];
 
   return (
-    <div className='flex flex-col w-full'>
+    <div className='flex flex-col w-full min-w-[46rem]'>
       <div className='flex flex-row justify-between'>
         <span className='text-textWhite text-2xl font-bold'>
           Recent Transactions
@@ -55,7 +55,7 @@ const RecentTxs: React.FC = () => {
         </a>
       </div>
 
-      <div className='max-w-[50rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
+      <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
         <BasicTabs tabList={tabList} />
       </div>
     </div>

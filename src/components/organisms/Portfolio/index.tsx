@@ -6,7 +6,7 @@ import Spacer from '~/utils/Spacer';
 // TODO: This needs to be dynamically change based on the props
 const Portfolio: React.FC = () => {
   return (
-    <div className='flex flex-col w-full'>
+    <div className='flex flex-col w-full min-w-[32.5rem]'>
       <span className='text-textWhite text-2xl font-bold'>Portfolio</span>
 
       <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
