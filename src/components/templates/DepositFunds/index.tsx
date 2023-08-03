@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Contract } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
@@ -13,7 +12,7 @@ import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
 import { setError } from '~/features/error';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
-import { setMesonWalletContract } from '~/features/mesonWallet';
+import { setMesonWallet } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
@@ -62,17 +61,19 @@ const DepositFund: React.FC = () => {
     try {
       if (signerWallet != null) {
         dispatch(setLoading());
-        const contract: Contract | undefined = await deploy(
+        const mesonWallet:
+          | { address: string; smartContract: string }
+          | undefined = await deploy(
           signerWallet,
           selectedNetwork,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           data.depositAmount as number
         );
 
-        if (contract !== undefined) {
+        if (mesonWallet !== undefined) {
           setIsSuccess(true);
           dispatch(setToast({ message: 'Successfully deployed' }));
-          dispatch(setMesonWalletContract({ contract }));
+          dispatch(setMesonWallet({ mesonWallet }));
           setTimeout(() => {
             navigate('/dashboard');
             dispatch(resetLoading({ message: '' }));

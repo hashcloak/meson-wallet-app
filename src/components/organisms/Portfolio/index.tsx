@@ -1,10 +1,53 @@
+import { useEffect, useState } from 'react';
+import { ethers } from 'ethers';
+import { useSelector } from 'react-redux';
 import { Token } from '~/components/molecules/IconText';
 import { TokenTypes } from '~/components/molecules/IconText/Token';
 import { mockTokensVals } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
+import { getProvider } from '~/service';
 
 // TODO: This needs to be dynamically change based on the props
 const Portfolio: React.FC = () => {
+  const [tokens, setTokens] = useState(mockTokensVals);
+
+  const { mesonWallet } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        if (mesonWallet) {
+          const ethAddress = mesonWallet.address;
+          const provider: ethers.providers.BaseProvider =
+            getProvider('localhost');
+          const currentEthBalance = await provider.getBalance(ethAddress);
+
+          const updatedEthVal = {
+            type: 'EthLogo',
+            abbrev: 'ETH',
+            token: 'Ethereum',
+            amount: ethers.utils.formatUnits(currentEthBalance),
+          };
+          setTokens((prevState) =>
+            prevState.map((obj) => (obj.abbrev === 'ETH' ? updatedEthVal : obj))
+          );
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          console.log(`error: ${error}`);
+          throw new Error(error.message ?? error);
+        }
+      }
+    };
+
+    void load();
+  }, []);
+
   return (
     <div className='flex flex-col w-full min-w-[32.5rem]'>
       <span className='text-textWhite text-2xl font-bold'>Portfolio</span>
@@ -14,7 +57,7 @@ const Portfolio: React.FC = () => {
           <span className='text-3xl font-bold'>$ 100.00</span>
           <Spacer size={16} axis={'vertical'} />
           <div className='w-11/12'>
-            {mockTokensVals.map((token) => (
+            {tokens.map((token) => (
               <div className='grid grid-cols-3 w-full mb-2' key={token.token}>
                 <div className='col-span-1'>
                   <Token

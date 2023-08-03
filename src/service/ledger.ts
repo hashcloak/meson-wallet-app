@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri';
-import { FullAccountType, getBalance } from './etherscan';
+import { FullAccountType, getHardwareWalletBalance } from './etherscan';
 
 export type LedgerAccountType = {
   publicKey: string;
@@ -47,9 +47,8 @@ const getCustomAccount = async (
 export const getFullLedgerAccounts = async (): Promise<FullAccountType[]> => {
   try {
     const ledgerAccounts: LedgerAccountType[] = await getAccounts();
-    const ledgerFullAccounts: FullAccountType[] = await getBalance(
-      ledgerAccounts
-    );
+    const ledgerFullAccounts: FullAccountType[] =
+      await getHardwareWalletBalance(ledgerAccounts);
 
     return ledgerFullAccounts;
   } catch (e: unknown) {
@@ -64,9 +63,8 @@ export const getCustomLedgerAccount = async (
     const customAccount: LedgerAccountType = await getCustomAccount(
       accountNumber
     );
-    const ledgerCustomAccount: FullAccountType[] = await getBalance([
-      customAccount,
-    ]);
+    const ledgerCustomAccount: FullAccountType[] =
+      await getHardwareWalletBalance([customAccount]);
 
     return ledgerCustomAccount;
   } catch (e: unknown) {

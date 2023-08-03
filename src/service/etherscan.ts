@@ -9,7 +9,7 @@ export type FullAccountType = {
   publicKey?: string;
 };
 
-export const getBalance = async (
+export const getHardwareWalletBalance = async (
   accounts: EthereumAddress[] | LedgerAccountType[]
 ): Promise<FullAccountType[]> => {
   const network = 'mainnet';

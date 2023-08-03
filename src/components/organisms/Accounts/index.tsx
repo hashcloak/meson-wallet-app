@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Contract } from 'ethers';
 import { useSelector } from 'react-redux';
 import { EthAddress } from '~/utils/Ethereum';
 import Spacer from '~/utils/Spacer';
@@ -14,24 +13,24 @@ const Accounts: React.FC = () => {
     (state) => state.network
   );
 
-  const { walletName, contract, owners, confirmation } = useSelector<
+  const { walletName, mesonWallet, owners, confirmation } = useSelector<
     RootState,
     MesonWalletState
   >((state) => state.mesonWallet);
 
   return (
-    <div className='flex flex-col h-full'>
+    <div className='flex flex-col h-full '>
       <span className='text-textWhite text-2xl font-bold'>Accounts</span>
 
-      <div className='max-w-[44rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
+      <div className='xl:max-w-[44rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
         <div className='flex flex-col rounded-2xl p-4 bg-bgDarkLight'>
           <div>
-            <span className='text-xl font-bold'>Your wallet</span>
+            <span className='text-xl font-bold'>Your Meson wallet</span>
             <Spacer size={8} axis={'vertical'} />
 
             <div className='ml-4'>
               <EthAddress
-                ethAddress={(contract as Contract).address}
+                ethAddress={mesonWallet ? mesonWallet.address : ''}
                 size={4.5}
                 length={'full'}
                 walletName={walletName}

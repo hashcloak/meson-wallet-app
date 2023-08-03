@@ -6,7 +6,7 @@ import TrezorConnect, {
   HDNodeResponse,
 } from 'trezor-connect';
 import { TrezorError } from '~/utils/Trezor';
-import { FullAccountType, getBalance } from './etherscan';
+import { FullAccountType, getHardwareWalletBalance } from './etherscan';
 import { NetworkState } from '~/features/network';
 
 const baseEthereumPath = "m/44'/60'/0'/0/";
@@ -122,9 +122,8 @@ export const getFullTrezorAccounts = async (
       }
     );
 
-    const trezorFullAccounts: FullAccountType[] = await getBalance(
-      newTrezorAccounts
-    );
+    const trezorFullAccounts: FullAccountType[] =
+      await getHardwareWalletBalance(newTrezorAccounts);
 
     return trezorFullAccounts;
   } catch (error) {
@@ -141,9 +140,8 @@ export const getCustomTrezorAccount = async (
     const address = ethers.utils.computeAddress(pk);
     const newTrezorAccount = { ...trezorAccount, publicKey: pk, address };
 
-    const trezorCustomAccount: FullAccountType[] = await getBalance([
-      newTrezorAccount,
-    ]);
+    const trezorCustomAccount: FullAccountType[] =
+      await getHardwareWalletBalance([newTrezorAccount]);
 
     return trezorCustomAccount;
   } catch (e: unknown) {

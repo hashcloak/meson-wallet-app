@@ -17,6 +17,7 @@ import {
   NotificationBtn,
 } from '~/components/organisms/Notification';
 import SwitchSignerModal from '~/components/organisms/SwitchSignerModal';
+import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 
@@ -25,6 +26,10 @@ const Topbar: FC = () => {
     RootState,
     SignerState
   >((state) => state.signerWallet);
+
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
 
   const [isOpen, setIsOpen] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
@@ -62,7 +67,7 @@ const Topbar: FC = () => {
               isConnected={isConnected}
               ethAddress={signerWalletAddress || ''}
               signerWallet={wallet ?? 'Unsupported'}
-              network='Ethereum'
+              network={network.charAt(0).toUpperCase() + network.slice(1)}
             />
           }
           popupContent={
@@ -70,7 +75,7 @@ const Topbar: FC = () => {
               isConnected={isConnected}
               ethAddress={signerWalletAddress || ''}
               signerWallet={wallet ?? 'Unsupported'}
-              network='Ethereum'
+              network={network.charAt(0).toUpperCase() + network.slice(1)}
               handleIsOpen={handleIsOpen}
             />
           }
