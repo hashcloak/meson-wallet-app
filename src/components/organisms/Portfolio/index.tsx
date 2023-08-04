@@ -7,15 +7,20 @@ import { mockTokensVals } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { RootState } from '~/features/reducers';
+import { useAssetPrice } from '~/hooks/useAssetPrice';
 import { getProvider } from '~/service';
+import { trimCurrency, trimEth } from '~/utils/trimDecimal';
 
 // TODO: This needs to be dynamically change based on the props
 const Portfolio: React.FC = () => {
   const [tokens, setTokens] = useState(mockTokensVals);
+  const [totalAsset, setTotalAsset] = useState(0);
 
   const { mesonWallet } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
+
+  const { conversionRate } = useAssetPrice();
 
   useEffect(() => {
     const load = async () => {
@@ -25,13 +30,16 @@ const Portfolio: React.FC = () => {
           const provider: ethers.providers.BaseProvider =
             getProvider('localhost');
           const currentEthBalance = await provider.getBalance(ethAddress);
+          const eth = ethers.utils.formatUnits(currentEthBalance);
 
           const updatedEthVal = {
             type: 'EthLogo',
             abbrev: 'ETH',
             token: 'Ethereum',
-            amount: ethers.utils.formatUnits(currentEthBalance),
+            amount: trimEth(eth),
+            fiatPrice: trimCurrency((Number(eth) * conversionRate).toString()),
           };
+
           setTokens((prevState) =>
             prevState.map((obj) => (obj.abbrev === 'ETH' ? updatedEthVal : obj))
           );
@@ -42,11 +50,19 @@ const Portfolio: React.FC = () => {
           console.log(`error: ${error}`);
           throw new Error(error.message ?? error);
         }
+      } finally {
+        let currentAsset = 0;
+        tokens.forEach((token) => {
+          if (token.fiatPrice) {
+            currentAsset = currentAsset + Number(token.fiatPrice);
+          }
+        });
+        setTotalAsset(currentAsset);
       }
     };
 
     void load();
-  }, []);
+  }, [conversionRate]);
 
   return (
     <div className='flex flex-col w-full min-w-[32.5rem]'>
@@ -54,7 +70,7 @@ const Portfolio: React.FC = () => {
 
       <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
         <div className='flex flex-col items-center w-full'>
-          <span className='text-3xl font-bold'>$ 100.00</span>
+          <span className='text-3xl font-bold'>$ {totalAsset}</span>
           <Spacer size={16} axis={'vertical'} />
           <div className='w-11/12'>
             {tokens.map((token) => (
@@ -73,7 +89,9 @@ const Portfolio: React.FC = () => {
                     <Spacer size={8} axis={'horizontal'} />
                     <span>{token.abbrev}</span>
                   </div>
-                  <span className='text-textGrayLight text-sm'>≈ $ 100.00</span>
+                  <span className='text-textGrayLight text-sm'>
+                    ≈ $ {token.fiatPrice ? token.fiatPrice : 0}
+                  </span>
                 </div>
               </div>
             ))}

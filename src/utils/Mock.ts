@@ -100,19 +100,33 @@ export const mockTokens = [
 ];
 
 export const mockTokensVals = [
-  { type: 'EthLogo', abbrev: 'ETH', token: 'Ethereum', amount: '0.080' },
+  {
+    type: 'EthLogo',
+    abbrev: 'ETH',
+    token: 'Ethereum',
+    amount: '0.0000',
+    fiatPrice: 0,
+  },
   {
     type: 'DaiLogo',
     abbrev: 'DAI',
     token: 'Dai Stablecoin',
     amount: '0.00000',
+    fiatPrice: 0,
   },
-  { type: 'UsdcLogo', abbrev: 'USDC', token: 'USD Coin', amount: '0.00000' },
+  {
+    type: 'UsdcLogo',
+    abbrev: 'USDC',
+    token: 'USD Coin',
+    amount: '0.00000',
+    fiatPrice: 0,
+  },
   {
     type: 'BnbLogo',
     abbrev: 'BNB',
     token: 'BNB Smart Chain',
     amount: '0.00000',
+    fiatPrice: 0,
   },
 ];
 
