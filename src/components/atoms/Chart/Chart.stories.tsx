@@ -6,21 +6,6 @@ export default {
 };
 
 export const Default: React.FC = (): React.ReactElement => {
-  const lineData = [
-    { name: '22 Mar', Amount: 100 },
-    { name: '22 Apr', Amount: 2400 },
-    { name: '22 May', Amount: 500 },
-    { name: '22 Jun', Amount: 100 },
-    { name: '22 Jul', Amount: 500 },
-    { name: '22 Aug', Amount: 2400 },
-    { name: '22 Sep', Amount: 1600 },
-    { name: '22 Oct', Amount: 500 },
-    { name: '22 Nov', Amount: 2400 },
-    { name: '22 Dec', Amount: 1600 },
-    { name: '22 Jan', Amount: 100 },
-    { name: '22 Feb', Amount: 100 },
-  ];
-
   const barData = [
     { name: '22 Mar', 'Queued Txs': 100, 'Historied Txs': 1600 },
     { name: '22 Apr', 'Queued Txs': 2400, 'Historied Txs': 1600 },
@@ -36,10 +21,16 @@ export const Default: React.FC = (): React.ReactElement => {
     { name: '22 Aug', 'Queued Txs': 100, 'Historied Txs': 100 },
   ];
 
+  const dashboardData = [
+    { name: '22 Mar', Received: 100, Sent: 1600 },
+    { name: '22 Apr', Received: 2400, Sent: 0 },
+    { name: '22 May', Received: 500, Sent: 0 },
+  ];
+
   return (
     <div className='flex flex-row w-screen flex-wrap'>
-      <Chart data={lineData} />
-      <Chart data={barData} isBar={true} />
+      <Chart data={dashboardData} isDashboard={true} />
+      <Chart data={barData} />
     </div>
   );
 };
