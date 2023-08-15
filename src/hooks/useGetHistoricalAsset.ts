@@ -27,11 +27,10 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
   useEffect(() => {
     const load = async () => {
       if (mesonWallet?.address === undefined) return;
-      dispatch(setLoading());
       try {
         // const historicalTxs = await getHistoricalTxs(mesonWallet?.address);
         const historicalTxs = await getHistoricalTxs(
-          '0x220866b1a2219f40e72f5c628b65d54268ca3a9d'
+          '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F'
         );
 
         if (historicalTxs.length > 0) {
@@ -46,6 +45,7 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
         }
       }
     };
+    dispatch(setLoading());
     void load();
     dispatch(setHistoricalTxs({ historicalTxs: txs }));
   }, [mesonWallet]);
@@ -68,12 +68,10 @@ const useGetHistoricalAssets = (
   // const { mesonWallet } = useSelector<RootState, MesonWalletState>(
   //   (state) => state.mesonWallet
   // );
-  const mesonWallet = { address: '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F' };
+  const mesonWallet = { address: '0xcDd37Ada79F589c15bD4f8fD2083dc88E34A2af2' };
 
   useEffect(() => {
     const load = () => {
-      console.log('loading assets...');
-
       if (mesonWallet?.address !== undefined) {
         const txInThisYear = sortByYear(historicalTxs, mesonWallet.address);
         const txIn6Months = sortByLastFewMonths(
@@ -105,10 +103,9 @@ const useGetHistoricalAssets = (
 
     if (historicalTxs.length > 0) {
       void load();
-      dispatch(resetLoading({ message: '' }));
-      dispatch(resetLoading({ message: '' }));
     }
   }, [historicalTxs]);
+  dispatch(resetLoading({ message: '' }));
 
   return historicalAssets;
 };
