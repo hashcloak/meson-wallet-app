@@ -1,13 +1,13 @@
 import { ContractFactory, Transaction, ethers } from 'ethers';
 import { EthereumTransaction } from 'trezor-connect';
+import { getProvider } from './getProvider';
 import { signTxTrezor } from './trezor';
 import { SignerState } from '~/features/signerWallet';
 
 const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY as string;
-const LOCALHOST = import.meta.env.VITE_LOCALHOST as string;
 
 const signTxLocally = async (txParams: ethers.providers.TransactionRequest) => {
-  const senderProvider = ethers.getDefaultProvider(LOCALHOST);
+  const senderProvider = getProvider('localhost');
   const senderWallet = new ethers.Wallet(PRIVATE_KEY, senderProvider);
 
   try {
@@ -59,8 +59,11 @@ export const sendTx = async (
 
       // return await provider.sendTransaction(signedTx);
       const sent = await provider.sendTransaction(signedTx);
+      const transactionReceipt = await sent.wait(1);
       const add = await contractFactory.signer.getAddress();
       const balance = await provider.getBalance(add);
+
+      console.log('transactionReceipt: ', transactionReceipt);
       console.log('deposited balance: ', ethers.utils.formatUnits(balance));
 
       return sent;

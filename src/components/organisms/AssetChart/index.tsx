@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Chart from '~/components/atoms/Chart';
 import { BasicTabs } from '~/components/molecules/Tabs';
-import {
-  useGetHistoricalAssets,
-  useGetHistoricalTxs,
-} from '~/hooks/useGetHistoricalAsset';
+import { useGetHistoricalAssets, useGetHistoricalTxs } from '~/hooks';
 
 // import { sortByMonth, sortByWeek, sortByYear } from '~/utils/sortTxs';
 

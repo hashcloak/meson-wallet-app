@@ -7,6 +7,7 @@ const UPDATE_INTERVAL_TIMEOUT = 180000; // 3 minutes
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useAssetPrice = () => {
   const [state, setState] = useState({ conversionRate: 0, conversionDate: 0 });
+  const [isFetching, setIsFetching] = useState(false);
   const updateInterval = useRef<ReturnType<typeof setTimeout>>();
 
   const updateAssetPrice = async () => {
@@ -47,6 +48,7 @@ export const useAssetPrice = () => {
 
   useEffect(() => {
     const load = async () => {
+      setIsFetching(true);
       try {
         await startUpdate();
       } catch (error) {
@@ -55,6 +57,8 @@ export const useAssetPrice = () => {
           console.log(`error: ${error}`);
           throw new Error(error.message ?? error);
         }
+      } finally {
+        setIsFetching(false);
       }
     };
 
@@ -63,5 +67,5 @@ export const useAssetPrice = () => {
     return stopUpdate;
   }, []);
 
-  return state;
+  return { state, isFetching };
 };

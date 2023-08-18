@@ -2,9 +2,13 @@ import { ethers } from 'ethers';
 import { trimEth } from './trimDecimal';
 import { HistoricalTxType } from '~/features/historicalTxs';
 
-type ReturnType = Array<{ Date: string; Received: number; Sent: number }>;
+export type SortTxsReturnType = Array<{
+  Date: string;
+  Received: number;
+  Sent: number;
+}>;
 
-const MONTHS = [
+export const MONTHS = [
   'Jan',
   'Feb',
   'Mar',
@@ -23,7 +27,7 @@ const MONTHS = [
 export const sortByYear = (
   txs: HistoricalTxType[],
   walletAddress: string
-): ReturnType => {
+): SortTxsReturnType => {
   const txsInThisYear = txs
     .filter((tx) => {
       const unixTime = Number(tx.timeStamp) * 1000;
@@ -41,7 +45,7 @@ export const sortByLastFewMonths = (
   txs: HistoricalTxType[],
   walletAddress: string,
   monthRange: number
-): ReturnType => {
+): SortTxsReturnType => {
   const today = new Date();
   const thisYear = today.getFullYear();
   const isThisMonth = today.getMonth() + 1;
@@ -70,7 +74,7 @@ export const sortByLastFewMonths = (
 export const sortByWeek = (
   txs: HistoricalTxType[],
   walletAddress: string
-): ReturnType => {
+): SortTxsReturnType => {
   const today = new Date();
   const dayOfWeek = today.getDay();
   const numDay = today.getDate();
@@ -98,11 +102,11 @@ export const sortByWeek = (
 const formatTxArray = (
   txs: HistoricalTxType[],
   walletAddress: string
-): ReturnType => {
+): SortTxsReturnType => {
   console.log(txs);
 
   if (txs.length > 0) {
-    const txsForAssetChart = txs.map((tx, index) => {
+    const txsForAssetChart = txs.map((tx) => {
       const unixTime = Number(tx.timeStamp) * 1000;
       const month = MONTHS[new Date(unixTime).getMonth()];
       const txDate = `${new Date(unixTime).getDate()} ${month}`;
@@ -115,12 +119,12 @@ const formatTxArray = (
       let sent = 0;
 
       if (
-        index !== 0 &&
+        // index !== 0 &&
         tx.from.toLowerCase() === walletAddress.toLowerCase()
       ) {
         sent = value + gasUsed * gasPrice;
       } else if (
-        index !== 0 &&
+        // index !== 0 &&
         tx.to.toLowerCase() === walletAddress.toLowerCase()
       ) {
         received = value;
@@ -132,10 +136,47 @@ const formatTxArray = (
         Sent: Number(trimEth(String(sent))),
       };
     });
-    console.log(txsForAssetChart);
+
+    const newArrayOfObjects = groupBySum(
+      txsForAssetChart,
+      ['Date'],
+      ['Received', 'Sent']
+    );
+    console.log('newArrayOfObjects', newArrayOfObjects);
 
     return txsForAssetChart;
   } else {
     return [];
   }
+};
+
+export const groupBySum = <T, K extends keyof T, S extends keyof T>(
+  arr: T[],
+  groupByKeys: K[],
+  sumKeys: S[]
+): Array<Pick<T, K | S>> => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return [
+    ...arr
+      .reduce((accu, curr) => {
+        const keyArr = groupByKeys.map((key) => curr[key]);
+        const key = keyArr.join('-');
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const groupedSum: any =
+          // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+          accu.get(key) ||
+          Object.assign(
+            {},
+            Object.fromEntries(groupByKeys.map((key) => [key, curr[key]])),
+            Object.fromEntries(sumKeys.map((key) => [key, 0]))
+          );
+        for (const key of sumKeys) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          (groupedSum[key] as number) += curr[key] as number;
+        }
+
+        return accu.set(key, groupedSum);
+      }, new Map())
+      .values(),
+  ];
 };

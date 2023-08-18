@@ -31,8 +31,8 @@ export async function deploy(
 
   const value =
     deposit > 0
-      ? ethers.utils.parseEther((deposit + 1).toString())
-      : ethers.utils.parseEther('1');
+      ? ethers.utils.parseEther(deposit.toString())
+      : ethers.utils.parseEther('0');
 
   console.log('contract factory: ', contractFactory);
   console.log('meson wallet Address: ', mesonWalletAddress);
