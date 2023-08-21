@@ -1,6 +1,7 @@
 import { BlockWithTransactions } from '@ethersproject/abstract-provider';
 import { ethers } from 'ethers';
 import { getProvider } from './getProvider';
+import { HistoricalTxType } from '~/features/historicalTxs';
 import { MONTHS, SortTxsReturnType, groupBySum } from '~/utils/sortTxs';
 import { trimEth } from '~/utils/trimDecimal';
 
@@ -13,17 +14,19 @@ export type CustomTransactionResponseType = Array<{
 export const getLocalHistoricalTxs = async (
   address: string | undefined,
   network: string
-): Promise<CustomTransactionResponseType | []> => {
+): Promise<HistoricalTxType[] | []> => {
   if (address === undefined) return [];
   const provider = getProvider(network);
-  const transactionCount = 25;
+  const transactionCount = 100;
 
   const blocks: BlockWithTransactions[] = [];
   const txs: CustomTransactionResponseType = [];
 
-  for (let index = 0; index < transactionCount; index++) {
+  for (let index = 0; index <= transactionCount; index++) {
     const block = await provider.getBlockWithTransactions(index);
-    if (block !== null) blocks.push(block);
+    if (block !== null && block.transactions.length > 0) {
+      blocks.push(block);
+    }
   }
 
   blocks.forEach((block) => {
@@ -41,12 +44,45 @@ export const getLocalHistoricalTxs = async (
       });
     }
   });
+  const filteredTxs: HistoricalTxType[] = txs
+    .filter((tx) => {
+      return (
+        tx.transactions.from.toLowerCase() === address.toLowerCase() ||
+        tx.transactions.to?.toLocaleLowerCase() === address.toLowerCase()
+      );
+    })
+    .map((tx) => {
+      return {
+        blockHash: tx.transactions.blockHash ?? '',
+        blockNumber: String(tx.transactions.blockNumber) ?? '',
+        confirmations: String(tx.transactions.confirmations) ?? '',
+        contractAddress: '',
+        cumulativeGasUsed: '',
+        from: tx.transactions.from || '',
+        functionName: '',
+        gas: '',
+        gasPrice: String(tx.transactions.gasPrice),
+        gasUsed: tx.gasUsed,
+        hash: '',
+        input: '',
+        isError: '',
+        methodId: '',
+        nonce: String(tx.transactions.nonce),
+        timeStamp: String(tx.transactions.timestamp),
+        to: tx.transactions.to ?? '',
+        transactionIndex: '',
+        txreceipt_status: '',
+        value: String(tx.transactions.value),
+      };
+    });
 
-  return txs;
+  console.log('filteredTxs: ', filteredTxs);
+
+  return filteredTxs;
 };
 
 export const localSortByWeek = (
-  txs: CustomTransactionResponseType,
+  txs: HistoricalTxType[],
   walletAddress: string
 ): SortTxsReturnType => {
   const today = new Date();
@@ -74,7 +110,7 @@ export const localSortByWeek = (
 };
 
 const localFormatTxArray = (
-  txs: CustomTransactionResponseType,
+  txs: HistoricalTxType[],
   walletAddress: string
 ): SortTxsReturnType => {
   if (txs.length > 0) {
@@ -83,20 +119,20 @@ const localFormatTxArray = (
       const month = MONTHS[new Date(unixTime).getMonth()];
       const txDate = `${new Date(unixTime).getDate()} ${month}`;
 
-      const value = Number(ethers.utils.formatUnits(tx.transactions.value));
+      const value = Number(ethers.utils.formatUnits(tx.value));
       const gasUsed = Number(ethers.utils.formatUnits(tx.gasUsed, 'gwei'));
       const gasPrice = Number(
-        ethers.utils.formatUnits(tx.transactions.gasPrice ?? '0', 'gwei')
+        ethers.utils.formatUnits(tx.gasPrice ?? '0', 'gwei')
       );
 
       let received = 0;
       let sent = 0;
 
-      if (tx.transactions.from.toLowerCase() === walletAddress.toLowerCase()) {
+      if (tx.from.toLowerCase() === walletAddress.toLowerCase()) {
         sent = value + gasUsed * gasPrice;
       } else if (
-        tx.transactions.to != null &&
-        tx.transactions.to.toLowerCase() === walletAddress.toLowerCase()
+        tx.to != null &&
+        tx.to.toLowerCase() === walletAddress.toLowerCase()
       ) {
         received = value;
       }
