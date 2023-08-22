@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import { BasicTabs } from '~/components/molecules/Tabs';
 import { mockTransactions } from '~/utils/Mock';
 import { TableRowShort } from '../TableRow';
+import { HistoricalTxType, HistoricalTxsState } from '~/features/historicalTxs';
+import { RootState } from '~/features/reducers';
 
 export const RecentQueue: React.FC = () => {
   return (
@@ -20,14 +23,16 @@ export const RecentQueue: React.FC = () => {
   );
 };
 
-export const RecentHistory: React.FC = () => {
+type HistoryProps = {
+  txs: HistoricalTxType[];
+};
+
+export const RecentHistory: React.FC<HistoryProps> = ({ txs }) => {
   return (
     <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
       <div className='box-border grid grid-cols-1 gap-2'>
-        {mockTransactions.length ? (
-          mockTransactions.map((tx) => (
-            <TableRowShort tx={tx} key={tx.timestamp} />
-          ))
+        {txs.length ? (
+          txs.map((tx) => <TableRowShort tx={tx} key={tx.blockHash} />)
         ) : (
           <div className='w-full h-full flex justify-center items-center'>
             <span className='text-textGrayLight'>No queued transaction</span>
@@ -39,9 +44,19 @@ export const RecentHistory: React.FC = () => {
 };
 
 const RecentTxs: React.FC = () => {
+  const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
+    (state) => state.historicalTxs
+  );
+  // const { network } = useSelector<RootState, NetworkState>(
+  //   (state) => state.network
+  // );
+
+  const recent5Txs = historicalTxs.slice(0, 5);
+  // const pendingTxs = getPendingTxs(network)
+
   const tabList: Array<{ [key: string]: JSX.Element }> = [
-    { Queue: <RecentQueue /> },
-    { History: <RecentHistory /> },
+    // { Queue: <RecentQueue /> },
+    { History: <RecentHistory txs={recent5Txs} /> },
   ];
 
   return (

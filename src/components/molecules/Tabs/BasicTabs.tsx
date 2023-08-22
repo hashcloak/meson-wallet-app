@@ -30,7 +30,7 @@ const BasicTabs: React.FC<Props> = ({ tabList }) => {
                   selected ? 'bg-dark' : 'hover:bg-dark'
                 )
               }
-              key={idx}
+              key={`${Object.keys(item)[idx]}-${idx}`}
             >
               {Object.keys(item)}
             </Tab>

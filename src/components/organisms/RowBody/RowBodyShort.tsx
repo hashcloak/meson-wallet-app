@@ -29,11 +29,12 @@ const RowBodyShort: React.FC<RowBodyType> = ({
             {amount} {token?.toUpperCase()}
           </span>
         </div>
-        {to != null ? (
+        {status === 'Sent' ? (
           <span className='text-textGrayLight text-xs'>To: {to}</span>
-        ) : (
+        ) : null}
+        {status === 'Received' ? (
           <span className='text-textGrayLight text-xs'>From: {from}</span>
-        )}
+        ) : null}
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>

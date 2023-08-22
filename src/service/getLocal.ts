@@ -68,15 +68,13 @@ export const getLocalHistoricalTxs = async (
         isError: '',
         methodId: '',
         nonce: String(tx.transactions.nonce),
-        timeStamp: String(tx.transactions.timestamp),
+        timeStamp: String(tx.timeStamp),
         to: tx.transactions.to ?? '',
         transactionIndex: '',
         txreceipt_status: '',
         value: String(tx.transactions.value),
       };
     });
-
-  console.log('filteredTxs: ', filteredTxs);
 
   return filteredTxs;
 };

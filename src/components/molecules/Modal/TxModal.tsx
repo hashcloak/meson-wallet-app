@@ -5,14 +5,19 @@ import { Icon } from '~/components/atoms/Icon';
 import { RowBodyLong, RowBodyType } from '~/components/organisms/RowBody';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
+import { HistoricalTxType } from '~/features/historicalTxs';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   tx?: RowBodyType;
+  rowTx: HistoricalTxType;
 };
 
-export const TxContents: React.FC = () => {
+export const TxContents: React.FC<{
+  tx: RowBodyType;
+  rowTx: HistoricalTxType;
+}> = ({ tx, rowTx }) => {
   return (
     <>
       <div className='flex flex-row justify-between w-full'>
@@ -20,11 +25,15 @@ export const TxContents: React.FC = () => {
         <div className='flex flex-col'>
           <div>
             <span className='text-textWhite'>
-              Send <span className='font-bold'>0.00062 ETH</span> to:
+              {tx.status}{' '}
+              <span className='font-bold'>
+                {tx.amount} {tx.token?.toUpperCase()}
+              </span>{' '}
+              {tx.status === 'Sent' ? 'to:' : 'from:'}
             </span>
             <div className='flex flex-row items-center pl-6 mt-2'>
               <EthAddress
-                ethAddress='0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'
+                ethAddress={tx.status === 'Sent' ? tx.to : tx.from}
                 size={4.5}
                 length='full'
               />
@@ -44,19 +53,17 @@ export const TxContents: React.FC = () => {
                 <span>baseGas</span>
                 <span>gasPrice</span>
                 <span>gasToken</span>
-                <span>gasToken</span>
                 <span>Signature 1</span>
               </div>
               <div className='text-sm flex flex-col'>
-                <span>0x7bbe9EEc7a61Ac4E655ffEFed478d5F833181422</span>
-                <span>Jul 11. 2022 - 4:40:40 PM</span>
+                <span>{rowTx.hash}</span>
+                <span>{tx.timestamp}</span>
                 <span>n/a</span>
                 <Spacer size={16} axis={'vertical'} />
                 <span>0 (call)</span>
-                <span>42101</span>
+                <span>{Number(rowTx.gasUsed) * Number(rowTx.gasPrice)}</span>
                 <span>0</span>
-                <span>0</span>
-                <span>0x00000000...00000000</span>
+                <span>{rowTx.gasPrice}</span>
                 <span>0x00000000...00000000</span>
                 <span>65 bytes</span>
               </div>
@@ -136,8 +143,8 @@ export const TxContents: React.FC = () => {
   );
 };
 
-const TxModal: React.FC<Props> = ({ isOpen, onClose, tx }) => {
-  if (tx !== undefined) {
+const TxModal: React.FC<Props> = ({ isOpen, onClose, tx, rowTx }) => {
+  if (tx !== undefined && rowTx !== undefined) {
     return (
       <>
         <Dialog
@@ -166,7 +173,7 @@ const TxModal: React.FC<Props> = ({ isOpen, onClose, tx }) => {
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
-                <TxContents />
+                <TxContents tx={tx} rowTx={rowTx} />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>
