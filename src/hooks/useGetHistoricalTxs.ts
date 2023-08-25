@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HistoricalTxType, setHistoricalTxs } from '~/features/historicalTxs';
 import { setLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
+import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { getHistoricalTxs } from '~/service';
 
@@ -21,6 +22,9 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
   const dispatch = useDispatch();
   const { mesonWallet } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
+  );
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
   );
 
   useEffect(() => {
@@ -46,9 +50,10 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
     };
     dispatch(setLoading());
 
-    void load();
-
-    dispatch(setHistoricalTxs({ historicalTxs: txs }));
+    if (network !== 'localhost') {
+      void load();
+      dispatch(setHistoricalTxs({ historicalTxs: txs }));
+    }
   }, [mesonWallet]);
 
   return txs;

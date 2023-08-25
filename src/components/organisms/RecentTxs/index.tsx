@@ -5,14 +5,16 @@ import { TableRowShort } from '../TableRow';
 import { HistoricalTxType, HistoricalTxsState } from '~/features/historicalTxs';
 import { RootState } from '~/features/reducers';
 
-export const RecentQueue: React.FC = () => {
+type HistoryProps = {
+  txs: HistoricalTxType[];
+};
+
+export const RecentQueue: React.FC<HistoryProps> = ({ txs }) => {
   return (
     <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
       <div className='box-border grid grid-cols-1 gap-2'>
         {mockTransactions.length ? (
-          mockTransactions.map((tx) => (
-            <TableRowShort tx={tx} key={tx.timestamp} />
-          ))
+          txs.map((tx) => <TableRowShort tx={tx} key={tx.blockHash} />)
         ) : (
           <div className='w-full h-full flex justify-center items-center'>
             <span className='text-textGrayLight'>No queued transaction</span>
@@ -21,10 +23,6 @@ export const RecentQueue: React.FC = () => {
       </div>
     </div>
   );
-};
-
-type HistoryProps = {
-  txs: HistoricalTxType[];
 };
 
 export const RecentHistory: React.FC<HistoryProps> = ({ txs }) => {

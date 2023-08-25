@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { useSelector } from 'react-redux';
 import TxModal from '~/components/molecules/Modal/TxModal';
 import RowBodyShort from '../RowBody/RowBodyShort';
@@ -36,7 +36,8 @@ const TableRowShort: React.FC<Props> = ({ tx }) => {
   };
 
   useEffect(() => {
-    const value = Number(ethers.utils.formatUnits(tx.value));
+    const wei = BigNumber.from(tx.value);
+    const value = Number(ethers.utils.formatUnits(wei));
     // const gasUsed = Number(ethers.utils.formatUnits(tx.gasUsed, 'gwei'));
     // const gasPrice = Number(ethers.utils.formatUnits(tx.gasPrice, 'gwei'));
 

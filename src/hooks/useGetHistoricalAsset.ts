@@ -85,7 +85,7 @@ export const useGetHistoricalAssets = (
     };
 
     if (historicalTxs.length > 0 && network !== 'localhost') void load();
-    if (historicalTxs.length > 0 && network === 'localhost') void localLoad();
+    if (network === 'localhost') void localLoad();
     //   if (historicalTxs.length > 0 && network === 'localhost') void load();
   }, [historicalTxs]);
   dispatch(resetLoading({ message: '' }));
