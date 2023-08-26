@@ -11,15 +11,39 @@ const AssetChart: React.FC = () => {
   const historicalAssets = useGetHistoricalAssets(latestHistoricalTxs);
 
   const tabList: Array<{ [key: string]: JSX.Element }> = [
-    { '1 wk': <Chart isDashboard={true} data={historicalAssets.week} /> },
-    { '1 mo': <Chart isDashboard={true} data={historicalAssets.month} /> },
     {
-      '3 mo': <Chart isDashboard={true} data={historicalAssets.threeMonths} />,
+      '1 wk': (
+        <Chart isDashboard={true} data={historicalAssets.week} key='1wk' />
+      ),
     },
     {
-      '1/2 yr': <Chart isDashboard={true} data={historicalAssets.sixMonths} />,
+      '1 mo': (
+        <Chart isDashboard={true} data={historicalAssets.month} key='1mo' />
+      ),
     },
-    { '1 yr': <Chart isDashboard={true} data={historicalAssets.year} /> },
+    {
+      '3 mo': (
+        <Chart
+          isDashboard={true}
+          data={historicalAssets.threeMonths}
+          key='3mo'
+        />
+      ),
+    },
+    {
+      '1/2 yr': (
+        <Chart
+          isDashboard={true}
+          data={historicalAssets.sixMonths}
+          key='1/2yr'
+        />
+      ),
+    },
+    {
+      '1 yr': (
+        <Chart isDashboard={true} data={historicalAssets.year} key='1yr' />
+      ),
+    },
   ];
 
   return (

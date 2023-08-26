@@ -57,6 +57,7 @@ export const useGetHistoricalAssets = (
           month: txInMonth,
           week: txInThisWeek,
         });
+        dispatch(resetLoading({ message: '' }));
       }
     };
 
@@ -81,6 +82,8 @@ export const useGetHistoricalAssets = (
           month: txInThisWeek,
           week: txInThisWeek,
         });
+
+        dispatch(resetLoading({ message: '' }));
       }
     };
 
@@ -88,7 +91,6 @@ export const useGetHistoricalAssets = (
     if (network === 'localhost') void localLoad();
     //   if (historicalTxs.length > 0 && network === 'localhost') void load();
   }, [historicalTxs]);
-  dispatch(resetLoading({ message: '' }));
 
   return historicalAssets;
 };

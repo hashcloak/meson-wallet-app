@@ -54,7 +54,7 @@ const RecentTxs: React.FC = () => {
 
   const tabList: Array<{ [key: string]: JSX.Element }> = [
     // { Queue: <RecentQueue /> },
-    { History: <RecentHistory txs={recent5Txs} /> },
+    { History: <RecentHistory txs={recent5Txs} key='recentHistory' /> },
   ];
 
   return (
