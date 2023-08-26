@@ -47,7 +47,7 @@ const SelectNetwork: React.FC = () => {
           onChange={(e) => {
             handleNetworkSelect(e.target.value as keyof NetworksState);
           }}
-          defaultValue={network}
+          // defaultValue={network && network ? network : "localhost"}
           value={network}
         >
           {Object.keys(networks).map((networkName) => (
