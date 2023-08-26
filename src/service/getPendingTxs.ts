@@ -15,6 +15,8 @@ export const getPendingTxs = (network: string) => {
     return tx;
   });
 
+  return [];
+
   // Listen for new blocks, and retrieve all transactions in each block
   // provider.on("block", async (blockNumber:number) => {
   //  const block = await provider.getBlock(blockNumber);

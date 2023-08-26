@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 import { BasicTabs } from '~/components/molecules/Tabs';
-import { mockTransactions } from '~/utils/Mock';
 import { TableRowShort } from '../TableRow';
 import { HistoricalTxType, HistoricalTxsState } from '~/features/historicalTxs';
+import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
+import { getPendingTxs } from '~/service/getPendingTxs';
 
 type HistoryProps = {
   txs: HistoricalTxType[];
@@ -12,8 +13,8 @@ type HistoryProps = {
 export const RecentQueue: React.FC<HistoryProps> = ({ txs }) => {
   return (
     <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
-      <div className='box-border grid grid-cols-1 gap-2'>
-        {mockTransactions.length ? (
+      <div className='box-border grid grid-cols-1 gap-2 h-full'>
+        {txs.length ? (
           txs.map((tx) => <TableRowShort tx={tx} key={tx.blockHash} />)
         ) : (
           <div className='w-full h-full flex justify-center items-center'>
@@ -45,15 +46,15 @@ const RecentTxs: React.FC = () => {
   const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
     (state) => state.historicalTxs
   );
-  // const { network } = useSelector<RootState, NetworkState>(
-  //   (state) => state.network
-  // );
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
 
   const recent5Txs = historicalTxs.slice(0, 5);
-  // const pendingTxs = getPendingTxs(network)
+  const pendingTxs = getPendingTxs(network);
 
   const tabList: Array<{ [key: string]: JSX.Element }> = [
-    // { Queue: <RecentQueue /> },
+    { Queue: <RecentQueue txs={pendingTxs} key='recentQueue' /> },
     { History: <RecentHistory txs={recent5Txs} key='recentHistory' /> },
   ];
 
