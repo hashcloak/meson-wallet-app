@@ -3,7 +3,7 @@ import TxsOverview from '../TxsOverview';
 
 const TxsContents: React.FC = () => {
   const tabList: Array<{ [key: string]: JSX.Element }> = [
-    { Overview: <TxsOverview /> },
+    { Overview: <TxsOverview key='overview' /> },
     // { Queue: <QueueTable /> },
     // { History: <HistoryTable /> },
   ];

@@ -1,11 +1,21 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Chart from '~/components/atoms/Chart';
 import Stat from '~/components/atoms/Stat';
 import { BasicTabs } from '~/components/molecules/Tabs';
+import { HistoricalTxsState } from '~/features/historicalTxs';
+import { RootState } from '~/features/reducers';
+import { useCountTxs } from '~/hooks/useCountTx';
 
 const TransactionAmount: React.FC = () => {
   const [queueCount, setQueueCount] = useState(0);
   const [historiedCount, setHistoriedCount] = useState(0);
+  const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
+    (state) => state.historicalTxs
+  );
+  console.log(historicalTxs);
+  const yearTotal = useCountTxs();
+  console.log(yearTotal);
 
   const week = [
     { name: 'Sun', 'Queued Txs': 1, 'Historied Txs': 5 },
