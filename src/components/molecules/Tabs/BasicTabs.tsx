@@ -36,7 +36,7 @@ const BasicTabs: React.FC<Props> = ({ tabList }) => {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className='flex flex-col h-full box-border overflow-clip'>
+        <Tab.Panels className='flex flex-col h-full box-border'>
           {Object.values(tabList[selectedIndex])}
         </Tab.Panels>
       </Tab.Group>

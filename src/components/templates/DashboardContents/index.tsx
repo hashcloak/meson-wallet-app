@@ -6,7 +6,7 @@ import Spacer from '~/utils/Spacer';
 
 const DashboardContents: React.FC = () => {
   return (
-    <div className='flex flex-col  items-center w-full box-border'>
+    <div className='flex flex-col items-center w-full box-border'>
       <div className='flex xl:flex-row gap-4 xl:gap-0 flex-col w-full h-full box-border xl:justify-between min-w-[46rem] overflow-scroll'>
         <AssetChart />
         <Spacer size={16} axis={'horizontal'} />

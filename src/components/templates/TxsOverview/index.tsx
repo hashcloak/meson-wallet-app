@@ -7,14 +7,14 @@ import Spacer from '~/utils/Spacer';
 
 const TxsOverview: React.FC = () => {
   return (
-    <div className='flex flex-col justify-center items-center w-full h-full box-border'>
-      <div className='flex flex-row w-full h-full box-border'>
+    <div className='flex flex-col items-center w-full box-border'>
+      <div className='flex xl:flex-row gap-4 xl:gap-0 flex-col w-full h-full box-border xl:justify-between min-w-[46rem]'>
         <RecentQueues />
         <Spacer size={16} axis={'horizontal'} />
         <TransactionAmount />
       </div>
       <Spacer size={16} axis={'vertical'} />
-      <div className='flex flex-row w-full h-full box-border'>
+      <div className='flex xl:flex-row gap-4 xl:gap-0 flex-col w-full h-full box-border xl:justify-between min-w-[46rem]'>
         <Timeline txs={transactions} />
       </div>
     </div>
