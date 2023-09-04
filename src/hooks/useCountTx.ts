@@ -1,21 +1,35 @@
 import { useEffect, useState } from 'react';
-import { mockHistoricalTxs } from '~/utils/Mock';
+import { HistoricalTxType } from '~/features/historicalTxs';
+import { getPendingTxs } from '~/service/getPendingTxs';
 import { MONTHS, WEEK, getLast12Months, getLast30Days } from '~/utils/sortTxs';
 
-const useCountTxs = (): void => {
-  const [countForYear, setCountForYear] = useState<
-    Array<{ [key: string]: number }>
-  >([{}]);
-  const [countForMonth, setCountForMonth] = useState<
-    Array<{ [key: string]: number }>
-  >([{}]);
-  const [countForWeek, setCountForWeek] = useState<
-    Array<{ [key: string]: number }>
-  >([{}]);
+type DataOfTransactionType = {
+  name?: string;
+  'Queued Txs'?: number;
+  'Historied Txs'?: number;
+};
+export type DataOfTransactionsType = DataOfTransactionType[];
 
+type ReturnType = {
+  year: DataOfTransactionsType;
+  month: DataOfTransactionsType;
+  week: DataOfTransactionsType;
+  totalHistoriedTxs: number;
+};
+
+const useCountTxs = (historicalTxs: HistoricalTxType[]): ReturnType => {
+  const [countForYear, setCountForYear] = useState<DataOfTransactionsType>([
+    {},
+  ]);
+  const [countForMonth, setCountForMonth] = useState<DataOfTransactionsType>([
+    {},
+  ]);
+  const [countForWeek, setCountForWeek] = useState<DataOfTransactionsType>([
+    {},
+  ]);
   useEffect(() => {
     const twelveMonths = getLast12Months();
-    const txsInYear = mockHistoricalTxs
+    const txsInYear = historicalTxs
       .filter((tx) => {
         const today = new Date();
         const unixTime = Number(tx.timeStamp) * 1000;
@@ -41,7 +55,7 @@ const useCountTxs = (): void => {
 
   useEffect(() => {
     const last30Days = getLast30Days();
-    const txsInMonth = mockHistoricalTxs
+    const txsInMonth = historicalTxs
       .filter((tx) => {
         const today = new Date();
         const unixTime = Number(tx.timeStamp) * 1000;
@@ -61,14 +75,16 @@ const useCountTxs = (): void => {
     const countedLast7Days = formatArrays(last30Days, txsInMonth).slice(-7);
 
     const today = new Date().getDay();
-    const convertedLast7Days: Array<{ [key: string]: number }> = [];
+    const convertedLast7Days: DataOfTransactionsType = [];
     let dayCounter = today + 1;
     countedLast7Days.forEach((day) => {
-      const newDayOfWeek: { [key: string]: number } = {};
+      const newDayOfWeek: DataOfTransactionType = {};
       if (dayCounter > 6) {
         dayCounter = 0;
       }
-      newDayOfWeek[WEEK[dayCounter]] = Object.values(day)[0];
+      newDayOfWeek.name = WEEK[dayCounter];
+      newDayOfWeek['Historied Txs'] = Number(Object.values(day)[0]);
+      newDayOfWeek['Queued Txs'] = 0;
       convertedLast7Days.push(newDayOfWeek);
       dayCounter++;
     });
@@ -77,17 +93,22 @@ const useCountTxs = (): void => {
     setCountForWeek(convertedLast7Days);
   }, []);
 
-  console.log(countForYear);
-  console.log(countForMonth);
-  console.log(countForWeek);
+  getPendingTxs('localhost');
+
+  return {
+    year: countForYear,
+    month: countForMonth,
+    week: countForWeek,
+    totalHistoriedTxs: historicalTxs.length,
+  };
 };
 
 const formatArrays = (
   baseArray: Array<{ [key: string]: number }>,
   txArray: string[]
-): Array<{ [key: string]: number }> => {
+): DataOfTransactionsType => {
   let counter = 0;
-  const newBaseArray = [] as Array<{ [key: string]: number }>;
+  const newBaseArray = [] as DataOfTransactionsType;
 
   baseArray.forEach((date) => {
     const key = Object.keys(date)[0];
@@ -96,8 +117,12 @@ const formatArrays = (
         counter++;
       }
     });
-    const newElement: { [key: string]: number } = {};
-    newElement[key] = counter;
+
+    const newElement: DataOfTransactionType = {};
+    newElement.name = key;
+    newElement['Queued Txs'] = 0;
+    newElement['Historied Txs'] = counter;
+
     newBaseArray.push(newElement);
     counter = 0;
   });

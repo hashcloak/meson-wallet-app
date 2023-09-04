@@ -11,13 +11,13 @@ import {
 import Spinner from '../Spinner';
 import { LoadingState } from '~/features/loading';
 import { RootState } from '~/features/reducers';
+import { DataOfTransactionsType } from '~/hooks/useCountTx';
 
 type Props = {
   data:
     | Array<{ Date: string; Received: number }>
     | Array<{ Date: string; Sent: number }>
-    | Array<{ Date: string; 'Queued Txs': number }>
-    | Array<{ Date: string; 'Historied Txs': number }>;
+    | DataOfTransactionsType;
   isDashboard?: boolean;
 };
 
@@ -84,7 +84,7 @@ const Chart: React.FC<Props> = ({ data, isDashboard = false }) => {
               <CartesianGrid strokeDasharray='3 3' />
               <XAxis dataKey='name' tick={{ fill: 'white' }} />
               <YAxis tick={{ fill: 'white' }} />
-              <Tooltip />
+              <Tooltip contentStyle={divStyle} labelStyle={pStyle} />
               <Legend />
               <Bar dataKey='Queued Txs' fill='#38C6F4' />
               <Bar dataKey='Historied Txs' fill='#FF9169' />
