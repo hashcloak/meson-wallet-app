@@ -55,24 +55,24 @@ const ConnectSignerWallet: React.FC = () => {
               <StepContentLayout>
                 <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
                   <span>
+                    Select network on which the Meson wallet was created
+                  </span>
+                  <Spacer size={24} axis={'vertical'} />
+                  <span>
                     In order to select the network to create your Meson Wallet,
                     your wallet need to be connected.{' '}
                     <CustomLink url={''} size={'base'}>
                       Why do you need to connect a signer wallet?
                     </CustomLink>
                   </span>
-                  <Spacer size={24} axis={'vertical'} />
-                  <span>
-                    Select network on which the Meson wallet was created
-                  </span>
                 </div>
                 <div className='flex flex-col'>
-                  <div className='flex flex-wrap gap-2 '>
-                    <SignerWallets />
-                  </div>
-                  <Spacer size={24} axis={'vertical'} />
                   <div className='w-1/3'>
                     <SelectNetwork />
+                  </div>
+                  <Spacer size={24} axis={'vertical'} />
+                  <div className='flex flex-wrap gap-2 '>
+                    <SignerWallets />
                   </div>
                 </div>
               </StepContentLayout>

@@ -20,6 +20,7 @@ export const signerWallets: Array<{ [k in LogoTypes]?: string }> = [
   { TrezorLogo: 'Trezor' },
   { WalletConnectLogo: 'WalletConnect' },
   { LedgerLogo: 'Ledger' },
+  { HardhatLogo: 'Hardhat' },
 ];
 
 // TODO: This needs to be dynamically change based on the props

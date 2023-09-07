@@ -5,7 +5,7 @@ import Spacer from '~/utils/Spacer';
 
 const NoSignerWallet: React.FC = () => {
   return (
-    <div className='w-[31rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
+    <div className='w-[22rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
       <span className='text-textWhite text-xl font-bold'>
         Connect a signer wallet
       </span>
@@ -36,7 +36,7 @@ const NoSignerWallet: React.FC = () => {
               Available Wallets
             </span>
             <Spacer size={8} axis={'vertical'} />
-            <div className='grid grid-cols-2 gap-2'>
+            <div className='grid grid-cols-1 gap-2'>
               <SignerWallets />
             </div>
           </div>

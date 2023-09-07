@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import LedgerButton from '~/components/atoms/Button/LedgerButton';
-import TrezorButton from '~/components/atoms/Button/TrezorButton';
-// import WalletConnectButton from '~/components/atoms/Button/WalletConnectButton';
+import {
+  HardhatButton,
+  LedgerButton,
+  TrezorButton,
+} from '~/components/atoms/Button';
 import { LoadingState } from '~/features/loading';
+import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
+import { useDisconnectWC } from '~/hooks/wagumi/useDisconnectWC';
 
 const SignerWallets: React.FC = () => {
   const { message } = useSelector<RootState, LoadingState>(
@@ -15,12 +19,22 @@ const SignerWallets: React.FC = () => {
   const { signerWalletAddress } = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+
+  const { disconnectWC } = useDisconnectWC();
+
+  useEffect(() => {
+    void disconnectWC();
+  }, [network]);
 
   return (
-    <div>
-      <div className='flex flex-row gap-4'>
+    <>
+      <div className='flex flex-wrap gap-4'>
         <TrezorButton />
         <LedgerButton />
+        <HardhatButton />
         {/* <WalletConnectButton /> */}
       </div>
 
@@ -38,7 +52,7 @@ const SignerWallets: React.FC = () => {
           Connected!
         </span>
       )}
-    </div>
+    </>
   );
 };
 

@@ -63,7 +63,7 @@ const TrezorButton: FC = () => {
     <>
       <button
         type='button'
-        className={`flex flex-row items-center w-48 h-12 px-6 py-2 rounded-xl ${
+        className={`flex flex-row items-center w-[11.5rem] mx-auto h-12 px-6 py-2 rounded-xl ${
           wallet === 'Trezor' ? 'bg-dark' : 'bg-bgGrayMid'
         } hover:bg-dark group`}
         onClick={async () => await handleClick()}

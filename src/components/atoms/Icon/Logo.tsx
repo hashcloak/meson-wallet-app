@@ -3,6 +3,7 @@ import React from 'react';
 import BnbLogo from './images/BnbLogo';
 import DaiLogo from './images/DaiLogo';
 import EthLogo from './images/EthLogo';
+import HardhatLogo from './images/HardhatLogo';
 import LedgerLogo from './images/LedgerLogo';
 import MetamaskLogo from './images/MetamaskLogo';
 import TrezorLogo from './images/TrezorLogo';
@@ -18,6 +19,7 @@ const icons = {
   WalletConnectLogo,
   LedgerLogo,
   MetamaskLogo,
+  HardhatLogo,
 };
 
 export type LogoType = typeof icons;
@@ -51,6 +53,7 @@ export const Logo: React.FC<Props> = ({
     WalletConnectLogo: (
       <WalletConnectLogo iconSize={size} interact={interact} />
     ),
+    HardhatLogo: <HardhatLogo iconSize={size} />,
     LedgerLogo: (
       <LedgerLogo
         iconSize={size}

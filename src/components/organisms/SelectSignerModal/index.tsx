@@ -1,4 +1,5 @@
 import { Dialog } from '@headlessui/react';
+import SelectHardhatSignerDetail from './SelectHardhatSignerDetail';
 import SelectLedgerSignerDetail from './SelectLedgerSignerDetail';
 import SelectTrezorSignerDetail from './SelectTrezorSignerDetail';
 
@@ -11,7 +12,7 @@ export type NewOwnerType = {
 const SelectSignerModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-  wallet?: 'trezor' | 'ledger';
+  wallet?: 'trezor' | 'ledger' | 'hardhat';
 }> = ({ isOpen, onClose, wallet }) => {
   return (
     <>
@@ -40,6 +41,9 @@ const SelectSignerModal: React.FC<{
                 )}
                 {wallet === 'ledger' && (
                   <SelectLedgerSignerDetail onClose={onClose} />
+                )}
+                {wallet === 'hardhat' && (
+                  <SelectHardhatSignerDetail onClose={onClose} />
                 )}
 
                 {/* Description */}

@@ -5,6 +5,7 @@ export const SignerWallets = {
   Trezor: 'Trezor',
   Ledger: 'Ledger',
   WalletConnect: 'WalletConnect',
+  Hardhat: 'Hardhat',
 } as const;
 
 export type SupportedSignerWallet =
