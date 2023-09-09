@@ -4,11 +4,17 @@ import { getProvider } from './getProvider';
 import { signTxTrezor } from './trezor';
 import { SignerState } from '~/features/signerWallet';
 
-const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY as string;
+// const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY as string;
 
-const signTxLocally = async (txParams: ethers.providers.TransactionRequest) => {
+const signTxLocally = async (
+  txParams: ethers.providers.TransactionRequest,
+  signerWallet: SignerState
+) => {
   const senderProvider = getProvider('localhost');
-  const senderWallet = new ethers.Wallet(PRIVATE_KEY, senderProvider);
+  const senderWallet = new ethers.Wallet(
+    signerWallet.publicKey,
+    senderProvider
+  );
 
   try {
     const balance = await senderProvider.getBalance(
@@ -43,7 +49,8 @@ export const sendTx = async (
     let signedTx;
     if (network === 'localhost') {
       signedTx = await signTxLocally(
-        txParams as ethers.providers.TransactionRequest
+        txParams as ethers.providers.TransactionRequest,
+        signerWallet
       );
     } else if (signerWallet.wallet === 'Trezor') {
       signedTx = await signTxTrezor(

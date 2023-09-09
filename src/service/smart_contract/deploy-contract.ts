@@ -22,21 +22,34 @@ export async function deploy(
   const binary: BytesLike = json.bytecode.object;
   const provider = getProvider(selectedNetwork.network);
 
-  const mesonWallet: Signer = ethers.Wallet.createRandom().connect(provider);
+  const mesonWallet = ethers.Wallet.createRandom().connect(provider);
+
   const contractFactory = new ethers.ContractFactory(abi, binary, mesonWallet);
   const mesonWalletAddress = await mesonWallet.getAddress();
   const gasPrice = await provider.getGasPrice();
   const gasLimit = 21000;
-  console.log('deposit: ', deposit);
+
+  const iFace = new ethers.utils.Interface(abi);
+  const deploymentData = iFace.encodeDeploy([mesonWalletAddress]);
+  const estimatedGas = await mesonWallet.estimateGas({ data: deploymentData });
+  const transactionFee = gasPrice.mul(estimatedGas);
 
   const value =
     deposit > 0
-      ? ethers.utils.parseEther(deposit.toString())
-      : ethers.utils.parseEther('0');
+      ? ethers.utils.parseEther((deposit + 0.0017).toString())
+      : ethers.utils.parseEther('0.0017');
 
+  console.log('deposit: ', deposit);
   console.log('contract factory: ', contractFactory);
   console.log('meson wallet Address: ', mesonWalletAddress);
   console.log('value: ', value);
+  console.log(
+    'estimatedGas: ' + ethers.utils.formatUnits(estimatedGas, 'ether')
+  );
+  console.log(
+    'transactionFee in ether: ' +
+      ethers.utils.formatUnits(transactionFee, 'ether')
+  );
 
   const txParams = {
     to: mesonWalletAddress,

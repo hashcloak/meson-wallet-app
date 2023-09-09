@@ -31,7 +31,7 @@ const EthAddress: React.FC<Props> = ({
   return (
     <div className='flex flex-row items-center'>
       <Blockies
-        seed={address}
+        seed={ethAddress}
         scale={size}
         className='identicon rounded-full'
       />

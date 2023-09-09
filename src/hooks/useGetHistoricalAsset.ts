@@ -67,8 +67,13 @@ export const useGetHistoricalAssets = (
           mesonWallet.address,
           network
         );
+        const filteredTxs = localHistoricalTxs.filter((tx) => tx.to !== '');
 
-        dispatch(setHistoricalTxs({ historicalTxs: localHistoricalTxs }));
+        dispatch(
+          setHistoricalTxs({
+            historicalTxs: filteredTxs,
+          })
+        );
 
         const txInThisWeek = localSortByWeek(
           localHistoricalTxs as HistoricalTxType[],
