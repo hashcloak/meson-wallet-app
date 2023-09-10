@@ -2,20 +2,26 @@ import { Logo } from '~/components/atoms/Icon';
 import { LogoTypes } from '~/components/atoms/Icon/Logo';
 import Spacer from '~/utils/Spacer';
 import { TxStatus } from '../../molecules/IconText';
-import { RowBodyType } from '.';
+import { TxType } from '~/hooks/useConvertTx';
 import { unixTimeConverter } from '~/utils/unixTimeConverter';
 
-const RowBodyLong: React.FC<RowBodyType> = ({
-  amount,
-  token,
-  to,
-  from,
-  timestamp,
-  status,
-  numOfConfirmation,
-  isSuccess,
-}) => {
-  const { date, time } = unixTimeConverter(timestamp);
+type Props = {
+  tx: TxType;
+};
+
+const RowBodyLong: React.FC<Props> = ({ tx }) => {
+  const {
+    status,
+    token,
+    value,
+    timeStamp,
+    to,
+    from,
+    isError,
+    numOfConfirmation,
+  } = tx;
+
+  const { date, time } = unixTimeConverter(timeStamp);
 
   const address = () => {
     if (to != null) {
@@ -37,10 +43,10 @@ const RowBodyLong: React.FC<RowBodyType> = ({
 
         <div className='flex flex-col justify-items-start'>
           <div className='flex flex-row items-center'>
-            <Logo type={`${token as string}Logo` as LogoTypes} size={'lg'} />
+            <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
             <Spacer size={8} axis={'horizontal'} />
             <span className='text-textWhite font-bold text-lg'>
-              {amount} {token?.toUpperCase()}
+              {value} {token?.toUpperCase()}
             </span>
           </div>
           <span className='text-textGrayLight text-xs'>{address()}</span>
@@ -52,7 +58,7 @@ const RowBodyLong: React.FC<RowBodyType> = ({
           <span className='text-textWhite text-sm'>{date}</span>
           <span className='text-textGrayLight text-xs'>{time}</span>
         </div>
-        {numOfConfirmation != null && !(isSuccess ?? false) ? (
+        {numOfConfirmation != null && !(!isError ?? false) ? (
           <>
             <div className='flex flex-col items-start'>
               <span className='text-textGrayLight text-xs'>
@@ -65,7 +71,7 @@ const RowBodyLong: React.FC<RowBodyType> = ({
             </div>{' '}
           </>
         ) : (
-          <span className='text-textWhite text-sm'>{isSuccess}</span>
+          <span className='text-textWhite text-sm'>{!isError}</span>
         )}
       </div>
     </div>

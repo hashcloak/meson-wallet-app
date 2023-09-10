@@ -2,20 +2,25 @@ import { Logo } from '~/components/atoms/Icon';
 import { LogoTypes } from '~/components/atoms/Icon/Logo';
 import { TxStatus } from '~/components/molecules/IconText';
 import Spacer from '~/utils/Spacer';
-import { RowBodyType } from '.';
+import { TxType } from '~/hooks/useConvertTx';
 import { unixTimeConverter } from '~/utils/unixTimeConverter';
 
-const RowBodyShort: React.FC<RowBodyType> = ({
-  amount,
-  token,
-  to,
-  from,
-  timestamp,
-  status,
-  numOfConfirmation,
-  isSuccess,
-}) => {
-  const { date, time } = unixTimeConverter(timestamp);
+type Props = {
+  tx: TxType;
+};
+
+const RowBodyShort: React.FC<Props> = ({ tx }) => {
+  const {
+    status,
+    token,
+    value,
+    timeStamp,
+    to,
+    from,
+    isError,
+    numOfConfirmation,
+  } = tx;
+  const { date, time } = unixTimeConverter(Number(timeStamp));
 
   return (
     <div className='flex flex-row justify-between items-center w-full'>
@@ -23,10 +28,10 @@ const RowBodyShort: React.FC<RowBodyType> = ({
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col justify-start w-full h-full'>
         <div className='flex flex-row items-center'>
-          <Logo type={`${token as string}Logo` as LogoTypes} size={'lg'} />
+          <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
           <Spacer size={8} axis={'horizontal'} />
           <span className='text-textWhite font-bold text-lg'>
-            {amount} {token?.toUpperCase()}
+            {value} {token?.toUpperCase()}
           </span>
         </div>
         {status === 'Sent' ? (
@@ -43,7 +48,7 @@ const RowBodyShort: React.FC<RowBodyType> = ({
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>
-        {numOfConfirmation != null && !(isSuccess ?? false) ? (
+        {numOfConfirmation != null && !(!isError ?? false) ? (
           <>
             <span className='text-textWhite text-sm'>Needs confirmation</span>
             <span className='text-textGrayLight text-xs'>
@@ -51,7 +56,7 @@ const RowBodyShort: React.FC<RowBodyType> = ({
             </span>
           </>
         ) : (
-          <span className='text-textWhite text-sm'>{isSuccess}</span>
+          <span className='text-textWhite text-sm'>{!isError}</span>
         )}
       </div>
     </div>

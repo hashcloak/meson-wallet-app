@@ -2,22 +2,20 @@ import React from 'react';
 import { Dialog } from '@headlessui/react';
 import { Button } from '~/components/atoms/Button';
 import { Icon } from '~/components/atoms/Icon';
-import { RowBodyLong, RowBodyType } from '~/components/organisms/RowBody';
+import { RowBodyLong } from '~/components/organisms/RowBody';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import { TxType } from '~/hooks/useConvertTx';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  tx?: RowBodyType;
-  rowTx: HistoricalTxType;
+  tx?: TxType;
 };
 
 export const TxContents: React.FC<{
-  tx: RowBodyType;
-  rowTx: HistoricalTxType;
-}> = ({ tx, rowTx }) => {
+  tx: TxType;
+}> = ({ tx }) => {
   return (
     <>
       <div className='flex flex-row justify-between w-full'>
@@ -27,7 +25,7 @@ export const TxContents: React.FC<{
             <span className='text-textWhite'>
               {tx.status}{' '}
               <span className='font-bold'>
-                {tx.amount} {tx.token?.toUpperCase()}
+                {tx.value} {tx.token?.toUpperCase()}
               </span>{' '}
               {tx.status === 'Sent' ? 'to:' : 'from:'}
             </span>
@@ -56,14 +54,14 @@ export const TxContents: React.FC<{
                 <span>Signature 1</span>
               </div>
               <div className='text-sm flex flex-col'>
-                <span>{rowTx.hash}</span>
-                <span>{tx.timestamp}</span>
+                <span>{tx.hash}</span>
+                <span>{tx.timeStamp}</span>
                 <span>n/a</span>
                 <Spacer size={16} axis={'vertical'} />
                 <span>0 (call)</span>
-                <span>{Number(rowTx.gasUsed) * Number(rowTx.gasPrice)}</span>
+                <span>{Number(tx.gasUsed) * Number(tx.gasPrice)}</span>
                 <span>0</span>
-                <span>{rowTx.gasPrice}</span>
+                <span>{tx.gasPrice}</span>
                 <span>0x00000000...00000000</span>
                 <span>65 bytes</span>
               </div>
@@ -143,8 +141,8 @@ export const TxContents: React.FC<{
   );
 };
 
-const TxModal: React.FC<Props> = ({ isOpen, onClose, tx, rowTx }) => {
-  if (tx !== undefined && rowTx !== undefined) {
+const TxModal: React.FC<Props> = ({ isOpen, onClose, tx }) => {
+  if (tx !== undefined) {
     return (
       <>
         <Dialog
@@ -159,21 +157,12 @@ const TxModal: React.FC<Props> = ({ isOpen, onClose, tx, rowTx }) => {
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl mx-auto'>
               <div className='flex items-center justify-between rounded-t-2xl px-4 h-16 bg-bgDarkLight whitespace-nowrap'>
-                <RowBodyLong
-                  timestamp={tx.timestamp}
-                  status={tx.status}
-                  to={tx.to}
-                  from={tx.from}
-                  token={tx.token}
-                  amount={tx.amount}
-                  isSuccess={tx.isSuccess}
-                  numOfConfirmation={tx.numOfConfirmation}
-                />
+                <RowBodyLong tx={tx} />
               </div>
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
-                <TxContents tx={tx} rowTx={rowTx} />
+                <TxContents tx={tx} />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>

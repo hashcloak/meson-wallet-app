@@ -1,4 +1,5 @@
 // import { StatusTypes } from '~/components/molecules/IconText/TxStatus';
+import { StatusType } from '~/components/molecules/IconText/TxStatus';
 import RowBodyLong from './RowBodyLong';
 import RowBodyShort from './RowBodyShort';
 
@@ -10,9 +11,7 @@ export type RowBodyType = {
   to: string;
   from: string;
   timestamp: number;
-  // TODO:
-  // status: StatusTypes;
-  status: 'Sent' | 'Received';
+  status: StatusType;
   numOfConfirmation?: number;
   isSuccess?: boolean;
 };

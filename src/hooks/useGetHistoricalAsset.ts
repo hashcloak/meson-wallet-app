@@ -68,7 +68,6 @@ export const useGetHistoricalAssets = (
           network
         );
         const filteredTxs = localHistoricalTxs.filter((tx) => tx.to !== '');
-
         dispatch(
           setHistoricalTxs({
             historicalTxs: filteredTxs,
