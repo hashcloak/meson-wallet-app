@@ -6,6 +6,7 @@ import { RowBodyLong } from '~/components/organisms/RowBody';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
 import { TxType } from '~/hooks/useConvertTx';
+import { unixTimeConverter } from '~/utils/unixTimeConverter';
 
 type Props = {
   isOpen: boolean;
@@ -16,6 +17,8 @@ type Props = {
 export const TxContents: React.FC<{
   tx: TxType;
 }> = ({ tx }) => {
+  const { date, time } = unixTimeConverter(tx.timeStamp);
+
   return (
     <>
       <div className='flex flex-row justify-between w-full'>
@@ -47,21 +50,21 @@ export const TxContents: React.FC<{
                 <span>Executed</span>
                 <Spacer size={16} axis={'vertical'} />
                 <span>Operation</span>
-                <span>TxGas</span>
-                <span>baseGas</span>
-                <span>gasPrice</span>
-                <span>gasToken</span>
+                <span>Tx Gas</span>
+                <span>BaseGas</span>
+                <span>Gas Price</span>
+                <span>Gas Token</span>
                 <span>Signature 1</span>
               </div>
               <div className='text-sm flex flex-col'>
-                <span>{tx.hash}</span>
-                <span>{tx.timeStamp}</span>
-                <span>n/a</span>
+                <span>{tx.hash ? tx.hash : 'n/a'}</span>
+                <span>{`${date}, ${time}`}</span>
+                <span>{`${date}, ${time}`}</span>
                 <Spacer size={16} axis={'vertical'} />
                 <span>0 (call)</span>
-                <span>{Number(tx.gasUsed) * Number(tx.gasPrice)}</span>
-                <span>0</span>
-                <span>{tx.gasPrice}</span>
+                <span>{tx.gasUsed} wei</span>
+                <span>{tx.gas} wei</span>
+                <span>{tx.gasPrice} wei</span>
                 <span>0x00000000...00000000</span>
                 <span>65 bytes</span>
               </div>
