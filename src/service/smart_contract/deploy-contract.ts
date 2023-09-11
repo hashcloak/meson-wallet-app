@@ -10,6 +10,7 @@ import { NetworkState } from '~/features/network';
 import { SignerState } from '~/features/signerWallet';
 import { sendTx } from '../sendTx';
 import { getProvider } from '../getProvider';
+import { signTxLocally } from './signTx';
 
 const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY;
 
@@ -27,30 +28,26 @@ export async function deploy(
   const contractFactory = new ethers.ContractFactory(abi, binary, mesonWallet);
   const mesonWalletAddress = await mesonWallet.getAddress();
   const gasPrice = await provider.getGasPrice();
-  const gasLimit = 21000;
-
-  const iFace = new ethers.utils.Interface(abi);
-  const deploymentData = iFace.encodeDeploy([mesonWalletAddress]);
-  const estimatedGas = await mesonWallet.estimateGas({ data: deploymentData });
-  const transactionFee = gasPrice.mul(estimatedGas);
-
   const value =
     deposit > 0
-      ? ethers.utils.parseEther((deposit + 0.0017).toString())
-      : ethers.utils.parseEther('0.0017');
+      ? ethers.utils.parseEther(deposit.toString())
+      : ethers.utils.parseEther('0');
 
-  console.log('deposit: ', deposit);
-  console.log('contract factory: ', contractFactory);
-  console.log('meson wallet Address: ', mesonWalletAddress);
-  console.log('value: ', value);
-  console.log(
-    'estimatedGas: ' + ethers.utils.formatUnits(estimatedGas, 'ether')
-  );
-  console.log(
-    'transactionFee in ether: ' +
-      ethers.utils.formatUnits(transactionFee, 'ether')
-  );
+  const iFace = new ethers.utils.Interface(abi);
+  const deploymentData = iFace.encodeDeploy([mesonWalletAddress]) as BytesLike;
 
+  // Deployment params
+  const deploymentParams = {
+    to: '',
+    value: ethers.utils.parseEther('0'),
+    data: deploymentData,
+    nonce: '0x0',
+    chainId: selectedNetwork.chainId,
+    gasPrice: gasPrice,
+    gasLimit: 80000,
+  };
+
+  // tx params
   const txParams = {
     to: mesonWalletAddress,
     value: value,
@@ -58,48 +55,37 @@ export async function deploy(
     nonce: '0x0',
     chainId: selectedNetwork.chainId,
     gasPrice: Number(ethers.utils.formatUnits(gasPrice, 'wei')),
-    gasLimit: gasLimit,
+    gasLimit: 21000,
     // gasLimit: 8000000,
     // gasPrice: 20000000000,
   };
 
-  const gas =
-    Number(ethers.utils.formatEther(txParams.gasPrice)) *
-    Number(ethers.utils.formatEther(txParams.gasLimit));
-  console.log('expected gas: ', gas);
-
   try {
-    // Transfer funds to the created wallet
-    await sendTx(
-      txParams,
-      contractFactory,
-      signerWallet!,
-      selectedNetwork.network
-    );
-
-    console.log('Tx was sent');
     console.log('Deploying...');
-
-    const overrides = {
-      gasPrice: gasPrice,
-      // gasLimit: 300000,
-    };
-
-    const contract = await contractFactory.deploy(
-      mesonWalletAddress,
-      overrides
+    const signedDeplpymentTx = await signTxLocally(
+      deploymentParams,
+      signerWallet
     );
 
-    await contract.deployed();
+    const contract = await provider.sendTransaction(signedDeplpymentTx!);
+    const transactionReceipt = await contract.wait(1);
+    console.log('contract was deployed:', contract);
+    console.log('transactionReceipt:', transactionReceipt);
 
-    const contractAddress = contract.address;
-    await contract.initialize(contractAddress);
-
-    // return contract;
+    // Transfer funds to the created wallet
+    if (Number(txParams.value) > 0) {
+      await sendTx(
+        txParams,
+        contractFactory,
+        signerWallet!,
+        selectedNetwork.network
+      );
+      console.log('Tx was sent');
+    }
 
     return {
       address: mesonWalletAddress,
-      smartContract: contract.address,
+      smartContract: transactionReceipt.contractAddress,
     };
   } catch (error) {
     if (error instanceof Error) {
@@ -109,3 +95,7 @@ export async function deploy(
     }
   }
 }
+
+// 1 - Create a transaction payload for the contract deployment but don't send it.
+// 2 - Forward this payload to the hardware wallet to be signed.
+// 3- Once signed, broadcast the signed transaction to the network

@@ -1,40 +1,10 @@
 import { ContractFactory, Transaction, ethers } from 'ethers';
 import { EthereumTransaction } from 'trezor-connect';
-import { getProvider } from './getProvider';
+import { signTxLocally } from './smart_contract/signTx';
 import { signTxTrezor } from './trezor';
 import { SignerState } from '~/features/signerWallet';
 
 // const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY as string;
-
-const signTxLocally = async (
-  txParams: ethers.providers.TransactionRequest,
-  signerWallet: SignerState
-) => {
-  const senderProvider = getProvider('localhost');
-  const senderWallet = new ethers.Wallet(
-    signerWallet.publicKey,
-    senderProvider
-  );
-
-  try {
-    const balance = await senderProvider.getBalance(
-      await senderWallet.getAddress()
-    );
-    console.log('Sender balance: ', ethers.utils.formatUnits(balance));
-
-    txParams.nonce = await senderWallet.getTransactionCount();
-
-    const signedTx = await senderWallet.signTransaction(txParams);
-    console.log('Transaction signed: ', signedTx);
-
-    return signedTx;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error);
-      throw new Error(error.message ?? error);
-    }
-  }
-};
 
 export const sendTx = async (
   txParams: ethers.utils.Deferrable<ethers.providers.TransactionRequest>,
