@@ -1,14 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
-import Spinner from '~/components/atoms/Spinner';
 import { EthAddress } from '~/utils/Ethereum';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
-import { useGetEstimatedTxCost } from '~/hooks';
 
 type Props = {
   isCreateNew?: boolean;
@@ -25,8 +23,6 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
-
-  const { estimatedTxCost, isFetching } = useGetEstimatedTxCost();
 
   const titleCase = (text: string): string =>
     text[0].toUpperCase() + text.slice(1).toLowerCase();
@@ -109,15 +105,8 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
                     </span>
                     <span>
                       ・The creation will cost approximately{' '}
-                      {isFetching ? (
-                        <span>
-                          <Spinner />
-                        </span>
-                      ) : (
-                        <span className='font-bold'>{estimatedTxCost}</span>
-                      )}{' '}
-                      ETH, thus make sure your connected wallet has enough
-                      token.{' '}
+                      <span className='font-bold'>53370 GWEI</span>, thus make
+                      sure your connected wallet has enough token.{' '}
                     </span>
                     <span>
                       (The exact amount will be determined by your wallet.){' '}

@@ -34,7 +34,6 @@ export const sendTx = async (
     if (signedTx !== undefined) {
       console.log('Sending...');
 
-      // return await provider.sendTransaction(signedTx);
       const sent = await provider.sendTransaction(signedTx);
       const transactionReceipt = await sent.wait(1);
       const add = await contractFactory.signer.getAddress();

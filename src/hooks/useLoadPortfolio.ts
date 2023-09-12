@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { useSelector } from 'react-redux';
 import { mockTokensVals } from '~/utils/Mock';
-import { useAssetPrice } from './useAssetPrice';
+import { useGetFiatPrice } from './useGetFiatPrice';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
@@ -26,7 +26,7 @@ type ReturnValue = {
 export const useLoadPortfolio = (): ReturnValue => {
   const {
     state: { conversionRate },
-  } = useAssetPrice();
+  } = useGetFiatPrice();
   const [isLoading, setIsLoading] = useState(true);
   const [tokens, setTokens] = useState(mockTokensVals);
   const [totalAsset, setTotalAsset] = useState(0);

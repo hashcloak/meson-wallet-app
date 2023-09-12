@@ -5,7 +5,7 @@ import { getPriceFeed } from '~/service';
 const UPDATE_INTERVAL_TIMEOUT = 180000; // 3 minutes
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useAssetPrice = () => {
+export const useGetFiatPrice = () => {
   const [state, setState] = useState({ conversionRate: 0, conversionDate: 0 });
   const [isFetching, setIsFetching] = useState(false);
   const updateInterval = useRef<ReturnType<typeof setTimeout>>();

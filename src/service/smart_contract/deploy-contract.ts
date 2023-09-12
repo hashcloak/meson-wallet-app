@@ -36,6 +36,12 @@ export async function deploy(
   const iFace = new ethers.utils.Interface(abi);
   const deploymentData = iFace.encodeDeploy([mesonWalletAddress]) as BytesLike;
 
+  const estimatedGas = await mesonWallet.estimateGas({ data: deploymentData });
+  const transactionFee = gasPrice.mul(estimatedGas);
+  // console.log('fee a',transactionFee)
+  // console.log('gas',Number(ethers.utils.formatUnits(gasPrice, 'wei')))
+  // console.log('fee eth',Number(ethers.utils.formatUnits(transactionFee, 'wei')))
+
   // Deployment params
   const deploymentParams = {
     to: '',

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { UnitInput } from '~/components/atoms/Input';
-import { Loader } from '~/components/atoms/Loader';
+import { Loader, TextLoader } from '~/components/atoms/Loader';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
 import { setError } from '~/features/error';
@@ -17,7 +17,9 @@ import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { setToast } from '~/features/toast';
+import { useGetFiatPrice } from '~/hooks';
 import { deploy } from '~/service/smart_contract/deploy-contract';
+import { trimCurrency } from '~/utils/trimDecimal';
 
 const DepositFund: React.FC = () => {
   const register = 'depositAmount';
@@ -34,6 +36,8 @@ const DepositFund: React.FC = () => {
   const { isLoading } = useSelector<RootState, LoadingState>(
     (state) => state.loading
   );
+  const [input, setInput] = useState<number>(0);
+  const [usd, setUsd] = useState<string>('0');
 
   // TODO: Need to add validation method for the input amount
   const schema = z.object({
@@ -55,6 +59,19 @@ const DepositFund: React.FC = () => {
     },
     resolver: zodResolver(schema),
   });
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput(Number(e.target.value));
+  };
+
+  const {
+    state: { conversionRate },
+    isFetching,
+  } = useGetFiatPrice();
+
+  useEffect(() => {
+    setUsd(trimCurrency(Number(input) * conversionRate));
+  }, [input]);
 
   useEffect(() => {
     dispatch(resetLoading({ message: '' }));
@@ -131,8 +148,13 @@ const DepositFund: React.FC = () => {
                       type='text'
                       unit='ETH'
                       placeholder={'Optional'}
+                      handleChange={handleInput}
                     >
-                      <span className='text-textGrayLight'>≈ 000.00 USD</span>
+                      {isFetching ? (
+                        <TextLoader />
+                      ) : (
+                        <span className='text-textGrayLight'>≈ {usd} USD</span>
+                      )}
                     </UnitInput>
                   </div>
                 </div>

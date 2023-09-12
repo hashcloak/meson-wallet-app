@@ -1,3 +1,4 @@
+import { TextLoader } from '~/components/atoms/Loader';
 import Spinner from '~/components/atoms/Spinner';
 import { Token } from '~/components/molecules/IconText';
 import { TokenTypes } from '~/components/molecules/IconText/Token';
@@ -42,14 +43,18 @@ const Portfolio: React.FC = () => {
                     <Spacer size={8} axis={'horizontal'} />
                     <span>{token.abbrev}</span>
                   </div>
-                  <span className='text-textGrayLight text-sm'>
-                    ≈ ${' '}
-                    {token.fiatPrice
-                      ? Number(token.fiatPrice).toLocaleString(undefined, {
-                          maximumFractionDigits: 20,
-                        })
-                      : 0}
-                  </span>
+                  {isLoading ? (
+                    <TextLoader />
+                  ) : (
+                    <span className='text-textGrayLight text-sm'>
+                      ≈ ${' '}
+                      {token.fiatPrice
+                        ? Number(token.fiatPrice).toLocaleString(undefined, {
+                            maximumFractionDigits: 20,
+                          })
+                        : 0}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { ErrorMessage } from '@hookform/error-message';
 import { useFormContext } from 'react-hook-form';
 import { InputProps } from './InputControl';
@@ -10,19 +10,15 @@ const UnitInput: React.FC<InputProps> = ({
   type,
   unit,
   children,
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  },
 }) => {
-  const [input, setInput] = useState<number>(0);
-
   const {
     register,
     formState: { errors },
   } = useFormContext();
   const { name } = register(registeredName);
-
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(Number(e.target.value));
-    console.log(input);
-  };
 
   return (
     <>
@@ -36,7 +32,7 @@ const UnitInput: React.FC<InputProps> = ({
           placeholder={placeholder}
           type={type}
           className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
-          onChange={(e) => handleInput(e)}
+          onChange={(e) => handleChange(e)}
         />
         <span className='ml-[-4rem] text-textBlack'>{unit}</span>
       </div>
