@@ -65,9 +65,12 @@ export const useGetHistoricalAssets = (
       if (mesonWallet?.address !== undefined) {
         const localHistoricalTxs = await getLocalHistoricalTxs(
           mesonWallet.address,
+          mesonWallet.smartContract,
           network
         );
-        const filteredTxs = localHistoricalTxs.filter((tx) => tx.to !== '');
+        const filteredTxs = localHistoricalTxs.filter(
+          (tx) => tx.contractAddress !== '' || tx.to !== ''
+        );
         dispatch(
           setHistoricalTxs({
             historicalTxs: filteredTxs,

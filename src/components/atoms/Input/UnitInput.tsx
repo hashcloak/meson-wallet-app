@@ -37,7 +37,7 @@ const UnitInput: React.FC<InputProps> = ({
         <span className='ml-[-4rem] text-textBlack'>{unit}</span>
       </div>
 
-      <div className='text-sm text-textBlack'>{children}</div>
+      <div className='text-sm text-textBlack mt-[0.25rem]'>{children}</div>
       <ErrorMessage
         errors={errors}
         name={registeredName}

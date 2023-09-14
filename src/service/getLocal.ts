@@ -5,14 +5,19 @@ import { HistoricalTxType } from '~/features/historicalTxs';
 import { MONTHS, SortTxsReturnType, groupBySum } from '~/utils/sortTxs';
 import { trimEth } from '~/utils/trimDecimal';
 
+interface TransactionResponse extends ethers.providers.TransactionResponse {
+  creates?: string;
+}
+
 export type CustomTransactionResponseType = Array<{
-  transactions: ethers.providers.TransactionResponse;
+  transactions: TransactionResponse;
   timeStamp: string;
   gasUsed: string;
 }>;
 
 export const getLocalHistoricalTxs = async (
-  address: string | undefined,
+  address: string,
+  contract: string,
   network: string
 ): Promise<HistoricalTxType[] | []> => {
   if (address === undefined) return [];
@@ -46,24 +51,29 @@ export const getLocalHistoricalTxs = async (
   });
   const filteredTxs: HistoricalTxType[] = txs
     .filter((tx) => {
-      return (
-        tx.transactions.from.toLowerCase() === address.toLowerCase() ||
-        tx.transactions.to?.toLocaleLowerCase() === address.toLowerCase()
-      );
+      const { creates, from, to } = tx.transactions;
+      if (creates !== undefined) {
+        return creates.toLowerCase() === contract.toLowerCase();
+      } else {
+        return (
+          from.toLowerCase() === address.toLowerCase() ||
+          to?.toLocaleLowerCase() === address.toLowerCase()
+        );
+      }
     })
     .map((tx) => {
       return {
         blockHash: tx.transactions.blockHash ?? '',
         blockNumber: String(tx.transactions.blockNumber) ?? '',
         confirmations: String(tx.transactions.confirmations) ?? '',
-        contractAddress: '',
+        contractAddress: tx.transactions.creates ?? '',
         cumulativeGasUsed: '',
         from: tx.transactions.from || '',
         functionName: '',
         gas: '',
         gasPrice: String(tx.transactions.gasPrice),
         gasUsed: tx.gasUsed,
-        hash: '',
+        hash: tx.transactions.hash ?? '',
         input: '',
         isError: '',
         methodId: '',
