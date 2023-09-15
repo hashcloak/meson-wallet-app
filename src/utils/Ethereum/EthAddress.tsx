@@ -46,15 +46,15 @@ const EthAddress: React.FC<Props> = ({
           <span className='text-textWhite text-base font-normal'>
             {address}
           </span>
+          {icons ? (
+            <div className='flex flex-row ml-4'>
+              <CopyToClipboardBtn textToCopy={ethAddress} />
+              <Spacer size={8} axis={'horizontal'} />
+              <ViewOn address={ethAddress} />
+            </div>
+          ) : null}
         </div>
       </div>
-      {icons ? (
-        <div className='flex flex-row ml-4 items-center'>
-          <CopyToClipboardBtn textToCopy={ethAddress} />
-          <Spacer size={8} axis={'horizontal'} />
-          <ViewOn address={ethAddress} />
-        </div>
-      ) : null}
     </div>
   );
 };

@@ -24,33 +24,35 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
   const { date, time } = unixTimeConverter(timeStamp);
 
   const address = () => {
-    if (to != null) {
-      return `To: ${to}`;
-    } else if (from != null) {
+    if (status === 'Received') {
       return `From: ${from}`;
     } else {
-      return null;
+      return `To: ${to}`;
     }
   };
 
   return (
-    <div className='grid grid-cols-2 gap-32 w-full'>
+    <div className='grid grid-cols-2 gap-32 min-w-[52rem] max-w-[79.875rem]'>
       <div className='grid grid-cols-2 items-center'>
         <div className='flex flex-row items-center'>
           <TxStatus type={status} size={'xl'} color={'white'} />
           <span className='text-textWhite font-bold text-base'>{status}</span>
         </div>
 
-        <div className='flex flex-col justify-items-start'>
-          <div className='flex flex-row items-center'>
-            <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
-            <Spacer size={8} axis={'horizontal'} />
-            <span className='text-textWhite font-bold text-lg'>
-              {value} {token?.toUpperCase()}
-            </span>
+        {status === 'AccountCreated' ||
+        status === 'OwnerChange' ||
+        status === 'OnChainRejection' ? null : (
+          <div className='flex flex-col justify-items-start'>
+            <div className='flex flex-row items-center'>
+              <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
+              <Spacer size={8} axis={'horizontal'} />
+              <span className='text-textWhite font-bold text-lg'>
+                {value} {token?.toUpperCase()}
+              </span>
+            </div>
+            <span className='text-textGrayLight text-xs'>{address()}</span>
           </div>
-          <span className='text-textGrayLight text-xs'>{address()}</span>
-        </div>
+        )}
       </div>
 
       <div className='grid grid-cols-3 items-center'>

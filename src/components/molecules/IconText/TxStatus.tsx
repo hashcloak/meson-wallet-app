@@ -1,5 +1,6 @@
 import React from 'react';
 import { IconColors } from '~/components/atoms/Icon/Icon';
+import AccountCreated from '~/components/atoms/Icon/images/AccountCreated';
 import Conflict from '~/components/atoms/Icon/images/Conflict';
 import OnChainRejection from '~/components/atoms/Icon/images/OnChainRejection';
 import OwnerChange from '~/components/atoms/Icon/images/OwnerChange';
@@ -25,6 +26,7 @@ const statuses = {
   Received: 'Received',
   OwnerChange: 'Owner change',
   OnChainRejection: 'On-chain rejection',
+  AccountCreated: 'Meson account created',
   Conflict: 'Some transactions conflict as they use the same nonce.',
 };
 
@@ -47,6 +49,7 @@ const TxStatus: React.FC<Props> = ({ type, size, color, status }) => {
     Conflict: <Conflict iconSize={size} color={color} />,
     OwnerChange: <OwnerChange iconSize={size} color={color} />,
     OnChainRejection: <OnChainRejection iconSize={size} color={color} />,
+    AccountCreated: <AccountCreated iconSize={size} color={color} />,
   };
 
   return (

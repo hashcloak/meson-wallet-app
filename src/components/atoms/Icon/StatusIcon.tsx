@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AccountCreated from './images/AccountCreated';
 import Conflict from './images/Conflict';
 import OnChainRejection from './images/OnChainRejection';
 import OwnerChange from './images/OwnerChange';
@@ -16,6 +17,7 @@ const statusIcons = {
   OwnerChange,
   OnChainRejection,
   Warning,
+  AccountCreated,
 };
 
 export type StatusIconType = typeof statusIcons;
@@ -38,6 +40,7 @@ export const StatusIcon: React.FC<Props> = ({ type, size, color }) => {
     OwnerChange: <OwnerChange iconSize={size} color={color} />,
     OnChainRejection: <OnChainRejection iconSize={size} color={color} />,
     Warning: <Warning iconSize={size} color={color} />,
+    AccountCreated: <AccountCreated iconSize={size} color={color} />,
   };
 
   return statusIcons[type];

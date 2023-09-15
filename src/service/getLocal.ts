@@ -6,7 +6,7 @@ import { MONTHS, SortTxsReturnType, groupBySum } from '~/utils/sortTxs';
 import { trimEth } from '~/utils/trimDecimal';
 
 interface TransactionResponse extends ethers.providers.TransactionResponse {
-  creates?: string;
+  creates?: string | null;
 }
 
 export type CustomTransactionResponseType = Array<{
@@ -49,10 +49,12 @@ export const getLocalHistoricalTxs = async (
       });
     }
   });
+
   const filteredTxs: HistoricalTxType[] = txs
     .filter((tx) => {
       const { creates, from, to } = tx.transactions;
-      if (creates !== undefined) {
+
+      if (creates !== null && creates !== undefined) {
         return creates.toLowerCase() === contract.toLowerCase();
       } else {
         return (

@@ -24,7 +24,7 @@ export interface TxType
 export const useConvertTx = (tx: HistoricalTxType): TxType => {
   const [convertedTx, setConvertedTx] = useState<TxType>({
     ...tx,
-    status: 'Send',
+    status,
     token: '',
     numOfConfirmation: 0,
     gas: 0,
@@ -39,8 +39,14 @@ export const useConvertTx = (tx: HistoricalTxType): TxType => {
   useEffect(() => {
     const clonedTx = JSON.parse(JSON.stringify(tx)) as HistoricalTxType;
 
-    const status: StatusTypes =
-      mesonWallet && mesonWallet.address === clonedTx.to ? 'Received' : 'Sent';
+    let status: StatusTypes = 'Send';
+    if (clonedTx.contractAddress !== '') {
+      status = 'AccountCreated';
+    } else if (mesonWallet && mesonWallet.address === clonedTx.to) {
+      status = 'Received';
+    } else if (mesonWallet && mesonWallet.address !== clonedTx.to) {
+      status = 'Sent';
+    }
 
     const wei = BigNumber.from(clonedTx.value);
     const convertedValue = ethers.utils.formatUnits(wei);

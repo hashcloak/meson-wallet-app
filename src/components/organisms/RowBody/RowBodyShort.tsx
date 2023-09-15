@@ -27,19 +27,27 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
       <TxStatus type={status} size={'xl'} color={'white'} />
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col justify-start w-full h-full'>
-        <div className='flex flex-row items-center'>
-          <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
-          <Spacer size={8} axis={'horizontal'} />
-          <span className='text-textWhite font-bold text-lg'>
-            {value} {token?.toUpperCase()}
-          </span>
-        </div>
-        {status === 'Sent' ? (
-          <span className='text-textGrayLight text-xs'>To: {to}</span>
-        ) : null}
-        {status === 'Received' ? (
-          <span className='text-textGrayLight text-xs'>From: {from}</span>
-        ) : null}
+        {status === 'AccountCreated' ||
+        status === 'OwnerChange' ||
+        status === 'OnChainRejection' ? (
+          <span className='min-w-[20.5rem] font-bold text-lg'>{status}</span>
+        ) : (
+          <>
+            <div className='flex flex-row items-center'>
+              <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
+              <Spacer size={8} axis={'horizontal'} />
+              <span className='text-textWhite font-bold text-lg'>
+                {value} {token?.toUpperCase()}
+              </span>
+            </div>
+            {status === 'Sent' ? (
+              <span className='text-textGrayLight text-xs'>To: {to}</span>
+            ) : null}
+            {status === 'Received' ? (
+              <span className='text-textGrayLight text-xs'>From: {from}</span>
+            ) : null}
+          </>
+        )}
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>

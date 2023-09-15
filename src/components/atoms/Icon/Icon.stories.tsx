@@ -173,6 +173,7 @@ export const StatusIcons = (): React.ReactElement => {
     'OwnerChange',
     'OnChainRejection',
     'Warning',
+    'AccountCreated',
   ];
 
   return (
