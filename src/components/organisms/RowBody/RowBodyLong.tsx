@@ -32,7 +32,7 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
   };
 
   return (
-    <div className='grid grid-cols-2 gap-32 min-w-[52rem] max-w-[79.875rem]'>
+    <div className='flex flex-row gap-32 min-w-[52rem] max-w-[79.875rem]'>
       <div className='grid grid-cols-2 items-center'>
         <div className='flex flex-row items-center'>
           <TxStatus type={status} size={'xl'} color={'white'} />
@@ -55,27 +55,31 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
         )}
       </div>
 
-      <div className='grid grid-cols-3 items-center'>
-        <div className='flex flex-col items-start'>
+      {numOfConfirmation != null && !(!isError ?? false) ? (
+        <div className='grid grid-cols-3 items-center'>
+          <div className='flex flex-col items-start'>
+            <span className='text-textWhite text-sm'>{date}</span>
+            <span className='text-textGrayLight text-xs'>{time}</span>
+          </div>
+          <div className='flex flex-col items-start'>
+            <span className='text-textGrayLight text-xs'>
+              {numOfConfirmation} out of 2
+            </span>
+          </div>
+          <div className='flex flex-col items-start '>
+            {numOfConfirmation != null ? (
+              <span className='text-textWhite text-sm'>Needs confirmation</span>
+            ) : (
+              <span className='text-textWhite text-sm'>{!isError}</span>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className='flex flex-col items-start justify-center'>
           <span className='text-textWhite text-sm'>{date}</span>
           <span className='text-textGrayLight text-xs'>{time}</span>
         </div>
-        {numOfConfirmation != null && !(!isError ?? false) ? (
-          <>
-            <div className='flex flex-col items-start'>
-              <span className='text-textGrayLight text-xs'>
-                {' '}
-                {numOfConfirmation} out of 2
-              </span>
-            </div>
-            <div className='flex flex-col items-start '>
-              <span className='text-textWhite text-sm'>Needs confirmation</span>
-            </div>{' '}
-          </>
-        ) : (
-          <span className='text-textWhite text-sm'>{!isError}</span>
-        )}
-      </div>
+      )}
     </div>
   );
 };

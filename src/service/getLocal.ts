@@ -88,7 +88,7 @@ export const getLocalHistoricalTxs = async (
       };
     });
 
-  return filteredTxs;
+  return filteredTxs.sort((x, y) => Number(y.timeStamp) - Number(x.timeStamp));
 };
 
 export const localSortByWeek = (
