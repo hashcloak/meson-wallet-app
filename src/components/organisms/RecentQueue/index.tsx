@@ -24,7 +24,7 @@ const RecentQueues: React.FC = () => {
         {mockTransactions.length > 5 ? mockTransactions.length : '5'} Txs
       </span>
 
-      <div className='max-w-[50rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
+      <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
         {queuedTxs.length ? (
           queuedTxs.map((tx, index) => <TableRowShort tx={tx} key={index} />)
         ) : (

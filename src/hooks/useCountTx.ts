@@ -27,6 +27,8 @@ const useCountTxs = (historicalTxs: HistoricalTxType[]): ReturnType => {
   const [countForWeek, setCountForWeek] = useState<DataOfTransactionsType>([
     {},
   ]);
+
+  // Count for 12 months
   useEffect(() => {
     const twelveMonths = getLast12Months();
     const txsInYear = historicalTxs
@@ -53,8 +55,10 @@ const useCountTxs = (historicalTxs: HistoricalTxType[]): ReturnType => {
     setCountForYear(countedArray);
   }, []);
 
+  // Count for 30 days and 7 days
   useEffect(() => {
     const last30Days = getLast30Days();
+
     const txsInMonth = historicalTxs
       .filter((tx) => {
         const today = new Date();
@@ -64,9 +68,10 @@ const useCountTxs = (historicalTxs: HistoricalTxType[]): ReturnType => {
         return inMonth <= unixTime;
       })
       .map((tx) => {
-        const dateOfTransaction = new Date(Number(tx.timeStamp) * 1000);
+        const unixTime = Number(tx.timeStamp) * 1000;
+        const dateOfTransaction = new Date(unixTime);
         const processedMonth = MONTHS[dateOfTransaction.getMonth()];
-        const processedDay = dateOfTransaction.getDay();
+        const processedDay = dateOfTransaction.getDate();
 
         return `${processedMonth} ${processedDay}`;
       });
@@ -83,8 +88,9 @@ const useCountTxs = (historicalTxs: HistoricalTxType[]): ReturnType => {
         dayCounter = 0;
       }
       newDayOfWeek.name = WEEK[dayCounter];
-      newDayOfWeek['Historied Txs'] = Number(Object.values(day)[0]);
+      newDayOfWeek['Historied Txs'] = Number(Object.values(day)[2]);
       newDayOfWeek['Queued Txs'] = 0;
+
       convertedLast7Days.push(newDayOfWeek);
       dayCounter++;
     });

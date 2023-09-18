@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BasicTabs } from '~/components/molecules/Tabs';
 import { TableRowShort } from '../TableRow';
@@ -13,7 +14,11 @@ type HistoryProps = {
 export const RecentQueue: React.FC<HistoryProps> = ({ txs }) => {
   return (
     <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
-      <div className='box-border grid grid-cols-1 gap-2 h-full'>
+      <div
+        className={`box-border grid grid-cols-1 gap-2 ${
+          txs.length ? '' : 'h-full'
+        }`}
+      >
         {txs.length ? (
           txs.map((tx) => <TableRowShort tx={tx} key={tx.blockHash} />)
         ) : (
@@ -29,7 +34,11 @@ export const RecentQueue: React.FC<HistoryProps> = ({ txs }) => {
 export const RecentHistory: React.FC<HistoryProps> = ({ txs }) => {
   return (
     <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
-      <div className='box-border grid grid-cols-1 gap-2'>
+      <div
+        className={`box-border grid grid-cols-1 gap-2 ${
+          txs.length ? '' : 'h-full'
+        }`}
+      >
         {txs.length ? (
           txs.map((tx) => <TableRowShort tx={tx} key={tx.blockHash} />)
         ) : (
@@ -64,9 +73,9 @@ const RecentTxs: React.FC = () => {
         <span className='text-textWhite text-2xl font-bold'>
           Recent Transactions
         </span>
-        <a href='https://google.com' className='text-textLink text-sm'>
+        <Link to={'/transactions'} className='text-textLink text-sm'>
           more
-        </a>
+        </Link>
       </div>
 
       <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
