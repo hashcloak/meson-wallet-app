@@ -26,7 +26,7 @@ const statuses = {
   Received: 'Received',
   OwnerChange: 'Owner change',
   OnChainRejection: 'On-chain rejection',
-  AccountCreated: 'Meson account created',
+  AccountCreated: 'Account created',
   Conflict: 'Some transactions conflict as they use the same nonce.',
 };
 

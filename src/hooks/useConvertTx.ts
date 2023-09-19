@@ -55,7 +55,7 @@ export const useConvertTx = (tx: HistoricalTxType): TxType => {
     const newTx = {
       ...clonedTx,
       status,
-      token: 'Eth',
+      token: status === 'Received' || status === 'Sent' ? 'Eth' : '',
       numOfConfirmation: 0,
       gas:
         clonedTx.gas !== ''

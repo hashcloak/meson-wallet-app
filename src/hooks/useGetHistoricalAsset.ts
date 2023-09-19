@@ -71,6 +71,8 @@ export const useGetHistoricalAssets = (
         const filteredTxs = localHistoricalTxs.filter(
           (tx) => tx.contractAddress !== '' || tx.to !== ''
         );
+        console.log(filteredTxs);
+
         dispatch(
           setHistoricalTxs({
             historicalTxs: filteredTxs,
