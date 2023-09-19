@@ -2,13 +2,19 @@
 import { useState } from 'react';
 import TxModal from '~/components/molecules/Modal/TxModal';
 import RowBodyLong from '../RowBody/RowBodyLong';
-import { TableRowType } from '.';
+import { HistoricalTxType } from '~/features/historicalTxs';
+import { useConvertTx } from '~/hooks/useConvertTx';
 
-const TableRowLong: React.FC<TableRowType> = ({ tx }) => {
+type Props = {
+  tx: HistoricalTxType;
+};
+
+const TableRowLong: React.FC<Props> = ({ tx }) => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => {
     setIsOpen(!isOpen);
   };
+  const convertedTx = useConvertTx(tx);
 
   return (
     <>
@@ -18,18 +24,9 @@ const TableRowLong: React.FC<TableRowType> = ({ tx }) => {
         role='button'
         tabIndex={0}
       >
-        <RowBodyLong
-          timestamp={tx.timestamp}
-          status={tx.status}
-          to={tx.to}
-          from={tx.from}
-          token={tx.token}
-          amount={tx.amount}
-          isSuccess={tx.isSuccess}
-          numOfConfirmation={tx.numOfConfirmation}
-        />
+        <RowBodyLong tx={convertedTx} />
       </div>
-      <TxModal isOpen={isOpen} onClose={onClose} tx={tx} />
+      <TxModal isOpen={isOpen} onClose={onClose} tx={convertedTx} />
     </>
   );
 };

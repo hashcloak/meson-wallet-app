@@ -1,7 +1,13 @@
-import { mockTransactions } from '~/utils/Mock';
+import { useSelector } from 'react-redux';
 import { TableRowLong } from '../TableRow';
+import { HistoricalTxsState } from '~/features/historicalTxs';
+import { RootState } from '~/features/reducers';
 
 const HistoryTable: React.FC = () => {
+  const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
+    (state) => state.historicalTxs
+  );
+
   return (
     <div className='flex flex-col w-full h-full'>
       <span className='text-textWhite text-2xl font-bold'>History</span>
@@ -18,10 +24,8 @@ const HistoryTable: React.FC = () => {
           </div>
         </div>
         <div className='box-border grid grid-cols-1 gap-2'>
-          {mockTransactions.length ? (
-            mockTransactions.map((tx) => (
-              <TableRowLong tx={tx} key={tx.timestamp} />
-            ))
+          {historicalTxs.length ? (
+            historicalTxs.map((tx) => <TableRowLong tx={tx} key={tx.hash} />)
           ) : (
             <div className='w-full h-full flex justify-center items-center'>
               <span className='text-textGrayLight'>

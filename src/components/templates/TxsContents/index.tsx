@@ -1,11 +1,12 @@
 import { BasicTabs } from '~/components/molecules/Tabs';
+import HistoryTable from '~/components/organisms/HistoryTable';
 import TxsOverview from '../TxsOverview';
 
 const TxsContents: React.FC = () => {
   const tabList: Array<{ [key: string]: JSX.Element }> = [
     { Overview: <TxsOverview key='overview' /> },
     // { Queue: <QueueTable /> },
-    // { History: <HistoryTable /> },
+    { History: <HistoryTable /> },
   ];
 
   return (

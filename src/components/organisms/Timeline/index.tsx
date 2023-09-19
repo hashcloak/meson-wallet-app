@@ -9,7 +9,6 @@ const Timeline: React.FC = () => {
   );
 
   const recent10Txs = historicalTxs.slice(0, 10);
-  console.log(recent10Txs);
 
   return (
     <div className='flex flex-col w-full h-full'>

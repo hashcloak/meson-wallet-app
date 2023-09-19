@@ -1,7 +1,6 @@
 import RecentQueues from '~/components/organisms/RecentQueue';
 import Timeline from '~/components/organisms/Timeline';
 // eslint-disable-next-line import/extensions
-import { transactions } from '~/components/organisms/Timeline/Timeline.stories';
 import TransactionAmount from '~/components/organisms/TransactionAmount';
 import Spacer from '~/utils/Spacer';
 
@@ -15,7 +14,7 @@ const TxsOverview: React.FC = () => {
       </div>
       <Spacer size={16} axis={'vertical'} />
       <div className='flex xl:flex-row gap-4 xl:gap-0 flex-col w-full h-full box-border xl:justify-between min-w-[46rem]'>
-        <Timeline txs={transactions} />
+        <Timeline />
       </div>
     </div>
   );
