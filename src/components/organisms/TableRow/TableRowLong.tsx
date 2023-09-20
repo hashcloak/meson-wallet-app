@@ -19,7 +19,7 @@ const TableRowLong: React.FC<Props> = ({ tx }) => {
   return (
     <>
       <div
-        className='flex items-center justify-between rounded-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap mb-2 w-full'
+        className='flex items-center justify-between rounded-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap mb-2 w-full min-w-[86.5rem]'
         onClick={() => setIsOpen(!isOpen)}
         role='button'
         tabIndex={0}

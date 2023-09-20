@@ -39,20 +39,22 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
           <span className='text-textWhite font-bold text-base'>{status}</span>
         </div>
 
-        {status === 'AccountCreated' ||
-        status === 'OwnerChange' ||
-        status === 'OnChainRejection' ? null : (
-          <div className='flex flex-col justify-items-start'>
-            <div className='flex flex-row items-center'>
-              <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
-              <Spacer size={8} axis={'horizontal'} />
-              <span className='text-textWhite font-bold text-lg'>
-                {value} {token?.toUpperCase()}
-              </span>
-            </div>
-            <span className='text-textGrayLight text-xs'>{address()}</span>
-          </div>
-        )}
+        <div className='flex flex-col justify-items-start w-[21rem]'>
+          {status === 'AccountCreated' ||
+          status === 'OwnerChange' ||
+          status === 'OnChainRejection' ? null : (
+            <>
+              <div className='flex flex-row items-center'>
+                <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
+                <Spacer size={8} axis={'horizontal'} />
+                <span className='text-textWhite font-bold text-lg'>
+                  {value} {token?.toUpperCase()}
+                </span>
+              </div>
+              <span className='text-textGrayLight text-xs'>{address()}</span>
+            </>
+          )}
+        </div>
       </div>
 
       {numOfConfirmation != null && !(!isError ?? false) ? (
