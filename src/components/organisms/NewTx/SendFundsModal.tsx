@@ -1,7 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ethers } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { z } from 'zod';
 
 import Button from '~/components/atoms/Button/Button';
@@ -9,6 +11,7 @@ import { Icon } from '~/components/atoms/Icon/Icon';
 import { Logo, LogoTypes } from '~/components/atoms/Icon/Logo';
 import { SidebarIcon } from '~/components/atoms/Icon/SidebarIcon';
 import { InputControl, UnitInput } from '~/components/atoms/Input';
+import { TextLoader } from '~/components/atoms/Loader';
 import OptionControl from '~/components/atoms/Option/OptionControl';
 
 import EthAddress from '~/utils/Ethereum/EthAddress';
@@ -16,6 +19,12 @@ import { mockTokens } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
 import SwitchSignerModal from '../SwitchSignerModal';
 import { AdvancedParametersModal } from './AdvancedParametersModal';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { NetworkState } from '~/features/network';
+import { RootState } from '~/features/reducers';
+import { useGetFiatPrice } from '~/hooks';
+import { getProvider } from '~/service';
+import { trimCurrency } from '~/utils/trimDecimal';
 
 type SubmitDataType = {
   recipientAddress: string;
@@ -27,7 +36,6 @@ type Props = {
   isOpen: boolean | undefined;
   onClose: () => void;
   onPageChange?: () => void;
-  address?: string;
 };
 
 type SendFundsTxInputProps = {
@@ -35,7 +43,9 @@ type SendFundsTxInputProps = {
   onClose: () => void;
   onPageChange: () => void;
   onSendingData: (data: SubmitDataType) => void;
-  address?: string;
+  address: string;
+  walletName: string;
+  balance: number | string;
 };
 
 type SendFundsTxDetailsProps = {
@@ -43,15 +53,21 @@ type SendFundsTxDetailsProps = {
   onClose: () => void;
   onPageChange: () => void;
   sendingData: SubmitDataType | null;
+  address: string;
+  walletName: string;
+  balance: number | string;
+  network: string;
+  nonce: number;
 };
 
 export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   onClose,
   onPageChange,
   onSendingData,
-  address = '',
+  address,
+  walletName,
+  balance,
 }) => {
-  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7';
   const [selectToken, setSelectToken] = useState('Eth');
 
   const schema = z.object({
@@ -91,9 +107,6 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
       (token) => token.value === e.target.value
     );
     const selectedTokenId = currentToken[0].id;
-    console.log(
-      selectedTokenId.charAt(0).toUpperCase() + selectedTokenId.slice(1)
-    );
     setSelectToken(
       selectedTokenId.charAt(0).toUpperCase() + selectedTokenId.slice(1)
     );
@@ -108,16 +121,16 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
         <span className='text-left text-xl'>Sending from</span>
         <div className='rounded-2xl bg-bgDarkLight p-4'>
           <EthAddress
-            ethAddress={ethAddress}
+            ethAddress={address}
             size={4.5}
             length={'full'}
-            walletName={'My wallet'}
+            walletName={walletName}
           />
           <Spacer size={8} axis={'vertical'} />
           <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
               <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
-              <span>0.080</span>
+              <span>{balance}</span>
               <span className='ml-2'>ETH</span>
             </div>
             <button
@@ -201,15 +214,30 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   onClose,
   onPageChange,
   sendingData,
+  address,
+  walletName,
+  network,
+  balance,
+  nonce,
 }) => {
-  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7';
   const [selectToken, setSelectToken] = useState('Eth');
   const [isOpenAdvancedParamsModal, setIsOpenAdvancedParamsModal] =
     useState(false);
+  const [gas, setGas] = useState('');
+  const [usd, setUsd] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onCloseAdvancedParamsModal = () => {
     setIsOpenAdvancedParamsModal(!isOpenAdvancedParamsModal);
   };
+  const {
+    state: { conversionRate },
+    isFetching,
+  } = useGetFiatPrice();
+
+  useEffect(() => {
+    setUsd(trimCurrency(Number(sendingData?.sendingAmount) * conversionRate));
+  }, [conversionRate]);
 
   useEffect(() => {
     const handleSelectToken = () => {
@@ -223,22 +251,36 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
     handleSelectToken();
   });
 
+  useEffect(() => {
+    const load = async () => {
+      setIsLoading(true);
+      const provider = getProvider(network);
+      const estimateGas = await provider.estimateGas({
+        to: sendingData?.recipientAddress,
+        value: ethers.utils.parseEther(String(sendingData?.sendingAmount)),
+      });
+      setGas(ethers.utils.formatEther(estimateGas));
+    };
+    void load();
+    setIsLoading(false);
+  });
+
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
       <div>
         <span className='text-left text-xl'>Sending from</span>
         <div className='rounded-2xl bg-bgDarkLight p-4'>
           <EthAddress
-            ethAddress={ethAddress}
+            ethAddress={address}
             size={4.5}
             length={'full'}
-            walletName={'My wallet'}
+            walletName={walletName}
           />
 
           <Spacer size={8} axis={'vertical'} />
           <div className='flex flex-row items-center'>
             <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
-            <span>0.080</span>
+            <span>{balance}</span>
             <span className='ml-2'>ETH</span>
           </div>
         </div>
@@ -266,7 +308,12 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
                 {selectToken.toUpperCase()}
               </span>
             </div>
-            <span className='text-sm text-textGrayLight'>≈ 10.00 USD</span>
+
+            {isFetching ? (
+              <TextLoader />
+            ) : (
+              <span className='text-textGrayLight'>≈ {usd} USD</span>
+            )}
           </div>
         </div>
       </div>
@@ -303,11 +350,11 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
           <div className='flex flex-col w-full'>
             <div className='flex flex-row justify-between w-full'>
               <span>Nonce</span>
-              <span>33</span>
+              <span>{nonce}</span>
             </div>
             <div className='flex flex-row justify-between w-full'>
               <span>TxGas</span>
-              <span>43634</span>
+              {isLoading ? <TextLoader /> : <span>{gas} ETH</span>}
             </div>
           </div>
         </div>
@@ -336,9 +383,10 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   );
 };
 
-const SendFundsModal: React.FC<Props> = ({ isOpen, onClose, address }) => {
+const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [pageChange, setPageChange] = useState(false);
   const [sendingData, setSendingData] = useState<SubmitDataType | null>(null);
+  const [nonce, setNonce] = useState(0);
 
   const handlePageChange = () => {
     setPageChange(!pageChange);
@@ -347,6 +395,27 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose, address }) => {
   const handleSendingData = (data: SubmitDataType) => {
     setSendingData(data);
   };
+
+  const { walletName, mesonWallet, balance } = useSelector<
+    RootState,
+    MesonWalletState
+  >((state) => state.mesonWallet);
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+
+  useEffect(() => {
+    const load = async () => {
+      if (mesonWallet !== undefined) {
+        const provider = getProvider(network);
+        const currentNonce = await provider.getTransactionCount(
+          mesonWallet.address
+        );
+        setNonce(currentNonce);
+      }
+    };
+    void load();
+  }, []);
 
   return (
     <>
@@ -380,7 +449,13 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose, address }) => {
                     onClose={onClose}
                     onPageChange={handlePageChange}
                     onSendingData={handleSendingData}
-                    address={address}
+                    address={
+                      mesonWallet?.address !== undefined
+                        ? mesonWallet.address
+                        : ''
+                    }
+                    walletName={walletName !== undefined ? walletName : ''}
+                    balance={balance !== undefined ? balance.eth : 0}
                   />
                 ) : (
                   <SendFundsTxDetails
@@ -388,6 +463,15 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose, address }) => {
                     onClose={onClose}
                     onPageChange={handlePageChange}
                     sendingData={sendingData}
+                    address={
+                      mesonWallet?.address !== undefined
+                        ? mesonWallet.address
+                        : ''
+                    }
+                    walletName={walletName !== undefined ? walletName : ''}
+                    balance={balance !== undefined ? balance.eth : 0}
+                    nonce={nonce}
+                    network={network}
                   />
                 )}
                 {/* Description */}

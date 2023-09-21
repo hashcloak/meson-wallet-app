@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { mockTokensVals } from '~/utils/Mock';
 import { useGetFiatPrice } from './useGetFiatPrice';
-import { MesonWalletState } from '~/features/mesonWallet';
+import { MesonWalletState, setBalance } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { getProvider } from '~/service';
@@ -37,6 +37,7 @@ export const useLoadPortfolio = (): ReturnValue => {
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const load = async () => {
@@ -48,6 +49,9 @@ export const useLoadPortfolio = (): ReturnValue => {
             mesonWallet?.address
           );
           const eth = ethers.utils.formatUnits(currentEthBalance);
+          const balance = { eth };
+
+          dispatch(setBalance({ balance }));
 
           const updatedEthVal = {
             type: 'EthLogo',
