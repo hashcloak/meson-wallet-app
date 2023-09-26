@@ -22,8 +22,11 @@ import { AdvancedParametersModal } from './AdvancedParametersModal';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
 import { useGetFiatPrice } from '~/hooks';
 import { getProvider } from '~/service';
+import { refreshBalance } from '~/service/refreshBalance';
+import { sendTx } from '~/service/sendTx';
 import { trimCurrency } from '~/utils/trimDecimal';
 
 type SubmitDataType = {
@@ -86,15 +89,14 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
 
   const methods = useForm({
     defaultValues: {
-      recipientAddress: address,
+      recipientAddress: '',
       selectedToken: mockTokens[0].value,
-      sendingAmount: 0,
+      sendingAmount: undefined,
     },
     resolver: zodResolver(schema),
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     onSendingData(data);
     onPageChange?.();
@@ -114,6 +116,8 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
+  const [inputAddress, setInputAddress] = useState('');
+  const [inputAmount, setInputAmount] = useState(0);
 
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
@@ -158,6 +162,9 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
                 placeholder='0xfF0000000000000000000000000000000000*'
                 type='text'
                 registeredName={'recipientAddress'}
+                handleChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  setInputAddress(e.target.value);
+                }}
               />
 
               <Spacer size={8} axis={'vertical'} />
@@ -184,6 +191,9 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
                 type='text'
                 registeredName={'sendingAmount'}
                 unit={selectToken.toUpperCase()}
+                handleChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  setInputAmount(Number(e.target.value));
+                }}
               />
             </div>
 
@@ -199,7 +209,16 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
               >
                 <span className='text-lg'>Cancel</span>
               </Button>
-              <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
+              <Button
+                btnVariant={
+                  inputAmount > 0 && inputAddress.length === 42
+                    ? 'primary'
+                    : 'disable'
+                }
+                btnSize={'lg'}
+                btnType={'submit'}
+                disabled={!(inputAmount > 0 && inputAddress.length === 42)}
+              >
                 Review
               </Button>
             </div>
@@ -226,10 +245,12 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   const [gas, setGas] = useState('');
   const [usd, setUsd] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const onCloseAdvancedParamsModal = () => {
     setIsOpenAdvancedParamsModal(!isOpenAdvancedParamsModal);
   };
+
   const {
     state: { conversionRate },
     isFetching,
@@ -249,7 +270,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
       setSelectToken(selectedTokenId);
     };
     handleSelectToken();
-  });
+  }, []);
 
   useEffect(() => {
     const load = async () => {
@@ -259,11 +280,62 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
         to: sendingData?.recipientAddress,
         value: ethers.utils.parseEther(String(sendingData?.sendingAmount)),
       });
+
       setGas(ethers.utils.formatEther(estimateGas));
     };
     void load();
     setIsLoading(false);
-  });
+  }, []);
+
+  const { chainId } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+  const signerWallet = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
+  const { mesonWallet } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+
+  const handleSend = async () => {
+    setIsProcessing(true);
+    try {
+      if (sendingData !== null) {
+        const provider = getProvider(network);
+        const gasPrice = await provider.getGasPrice();
+
+        const txParams = {
+          to: sendingData.recipientAddress,
+          value: ethers.utils.parseEther(sendingData.sendingAmount.toString()),
+          data: '0x',
+          chainId,
+          gasPrice,
+          nonce,
+          gasLimit: 21000,
+        };
+
+        await sendTx(
+          txParams,
+          signerWallet,
+          network,
+          mesonWallet?.encryptedWallet
+        );
+        console.log('Tx was sent');
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        console.log(`error: ${error}`);
+
+        throw new Error(error.message ?? error);
+      }
+    } finally {
+      refreshBalance(network, address, String(balance));
+      setIsProcessing(false);
+      onPageChange();
+      onClose();
+    }
+  };
 
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
@@ -362,18 +434,22 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
         <Spacer size={32} axis={'vertical'} />
         <div className='flex flex-row justify-around'>
           <Button
-            btnVariant={'text'}
+            btnVariant={!isProcessing || !isFetching ? 'text' : 'disable'}
             btnSize={'lg'}
             btnType={'button'}
             handleClick={() => onPageChange?.()}
+            disabled={isProcessing || isFetching}
           >
             <span className='text-lg'>Back</span>
           </Button>
           <Button
-            btnVariant={'primary'}
+            btnVariant={!isProcessing || !isFetching ? 'primary' : 'disable'}
             btnSize={'lg'}
             btnType={'submit'}
-            handleClick={onClose}
+            disabled={isProcessing || isFetching}
+            handleClick={async () => {
+              await handleSend();
+            }}
           >
             Send
           </Button>
@@ -422,7 +498,11 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
       {isOpen === true && (
         <Dialog
           open={isOpen}
-          onClose={onClose}
+          onClose={() => {
+            if (pageChange) setPageChange(false);
+            setSendingData(null);
+            onClose();
+          }}
           className='fixed z-10 inset-0 overflow-y-auto'
           static
         >
@@ -441,41 +521,37 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 )}
               </span>
 
-              <Dialog.Description className='py-6'>
-                {/* Description */}
-                {!pageChange ? (
-                  <SendFundsTxInput
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    onPageChange={handlePageChange}
-                    onSendingData={handleSendingData}
-                    address={
-                      mesonWallet?.address !== undefined
-                        ? mesonWallet.address
-                        : ''
-                    }
-                    walletName={walletName !== undefined ? walletName : ''}
-                    balance={balance !== undefined ? balance.eth : 0}
-                  />
-                ) : (
-                  <SendFundsTxDetails
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    onPageChange={handlePageChange}
-                    sendingData={sendingData}
-                    address={
-                      mesonWallet?.address !== undefined
-                        ? mesonWallet.address
-                        : ''
-                    }
-                    walletName={walletName !== undefined ? walletName : ''}
-                    balance={balance !== undefined ? balance.eth : 0}
-                    nonce={nonce}
-                    network={network}
-                  />
-                )}
-                {/* Description */}
-              </Dialog.Description>
+              {!pageChange ? (
+                <SendFundsTxInput
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  onPageChange={handlePageChange}
+                  onSendingData={handleSendingData}
+                  address={
+                    mesonWallet?.address !== undefined
+                      ? mesonWallet.address
+                      : ''
+                  }
+                  walletName={walletName !== undefined ? walletName : ''}
+                  balance={balance !== undefined ? balance.eth : 0}
+                />
+              ) : (
+                <SendFundsTxDetails
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  onPageChange={handlePageChange}
+                  sendingData={sendingData}
+                  address={
+                    mesonWallet?.address !== undefined
+                      ? mesonWallet.address
+                      : ''
+                  }
+                  walletName={walletName !== undefined ? walletName : ''}
+                  balance={balance !== undefined ? balance.eth : 0}
+                  nonce={nonce}
+                  network={network}
+                />
+              )}
             </Dialog.Panel>
           </div>
         </Dialog>

@@ -23,21 +23,17 @@ const LoaderFailed: React.FC<Props> = ({ isLoading }) => {
             aria-hidden='true'
           />
           <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl w-[30rem] h-[20rem] mx-auto py-6 px-8'>
-            <Dialog.Description>
-              <div className='rounded-2xl p-4 flex flex-col items-center'>
-                <Icon type={'Info'} size={'w-40'} color={'light'} />
-                <Spacer size={16} axis={'vertical'} />
-                <div className='flex flex-col items-center'>
-                  <span className='text-2xl	text-textWhite font-bold'>
-                    Wallet creation was failed
-                  </span>
-                  <Spacer size={8} axis={'vertical'} />
-                  <span className='text-base text-textWhite'>
-                    Please retry.
-                  </span>
-                </div>
+            <div className='rounded-2xl p-4 flex flex-col items-center'>
+              <Icon type={'Info'} size={'w-40'} color={'light'} />
+              <Spacer size={16} axis={'vertical'} />
+              <div className='flex flex-col items-center'>
+                <span className='text-2xl	text-textWhite font-bold'>
+                  Wallet creation was failed
+                </span>
+                <Spacer size={8} axis={'vertical'} />
+                <span className='text-base text-textWhite'>Please retry.</span>
               </div>
-            </Dialog.Description>
+            </div>
           </Dialog.Panel>
         </div>
       </Dialog>

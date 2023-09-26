@@ -61,7 +61,6 @@ const ContactRow: React.FC<Props> = ({ contact }) => {
       <SendFundsModal
         isOpen={isOpenSendFundsModal}
         onClose={handleSendFundsModal}
-        address={contact.address}
       />
       <EditContactModal
         isOpen={isOpenEditContactModal}

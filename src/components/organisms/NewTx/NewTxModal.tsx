@@ -1,9 +1,12 @@
 import { Dialog } from '@headlessui/react';
+import { useSelector } from 'react-redux';
 import Button from '~/components/atoms/Button/Button';
 import { StatusIcon } from '~/components/atoms/Icon';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
 import Portfolio from '../Portfolio';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 export type ModalProps = {
   isOpen?: boolean;
@@ -19,16 +22,20 @@ const NewTxDetails: React.FC<ModalProps> = ({
   handleReceiveFundsModal,
   handleSendFundsModal,
 }) => {
+  const { walletName, mesonWallet } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+
   return (
     <div className='flex flex-col text-textWhite'>
       <div className='py-4 px-8 rounded-2xl bg-bgDarkLight'>
         <Spacer size={8} axis={'vertical'} />
 
         <EthAddress
-          ethAddress={'0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'}
+          ethAddress={mesonWallet ? mesonWallet.address : ''}
           size={0}
           length={'full'}
-          walletName={'My wallet'}
+          walletName={walletName}
         />
 
         <Spacer size={16} axis={'vertical'} />
@@ -96,19 +103,14 @@ const NewTxModal: React.FC<ModalProps> = ({
                 New transaction
               </span>
 
-              <Dialog.Description className='p-6'>
-                {/* Description */}
-                <NewTxDetails
-                  isOpen={isOpen}
-                  onCloseNewTxModal={onCloseNewTxModal}
-                  isOpenReceiveFundsModal={isOpenReceiveFundsModal}
-                  handleReceiveFundsModal={handleReceiveFundsModal}
-                  isOpenSendFundsModal={isOpenSendFundsModal}
-                  handleSendFundsModal={handleSendFundsModal}
-                />
-
-                {/* Description */}
-              </Dialog.Description>
+              <NewTxDetails
+                isOpen={isOpen}
+                onCloseNewTxModal={onCloseNewTxModal}
+                isOpenReceiveFundsModal={isOpenReceiveFundsModal}
+                handleReceiveFundsModal={handleReceiveFundsModal}
+                isOpenSendFundsModal={isOpenSendFundsModal}
+                handleSendFundsModal={handleSendFundsModal}
+              />
             </Dialog.Panel>
           </div>
         </Dialog>

@@ -55,7 +55,7 @@ const DepositFund: React.FC = () => {
 
   const methods = useForm({
     defaultValues: {
-      depositAmount: 0,
+      depositAmount: undefined,
     },
     resolver: zodResolver(schema),
   });
@@ -83,7 +83,7 @@ const DepositFund: React.FC = () => {
       if (signerWallet != null) {
         dispatch(setLoading());
         const mesonWallet:
-          | { address: string; smartContract: string }
+          | { address: string; smartContract: string; encryptedWallet: string }
           | undefined = await deploy(
           signerWallet,
           selectedNetwork,

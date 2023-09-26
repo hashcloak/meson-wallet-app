@@ -1,5 +1,4 @@
 import { TextLoader } from '~/components/atoms/Loader';
-import Spinner from '~/components/atoms/Spinner';
 import { Token } from '~/components/molecules/IconText';
 import { TokenTypes } from '~/components/molecules/IconText/Token';
 import Spacer from '~/utils/Spacer';
@@ -20,7 +19,7 @@ const Portfolio: React.FC<Props> = ({ background = 'bg-bgDarkMid' }) => {
       >
         <div className='flex flex-col items-center w-full'>
           {isLoading ? (
-            <Spinner />
+            <TextLoader />
           ) : (
             <span className='text-3xl font-bold'>
               ${' '}

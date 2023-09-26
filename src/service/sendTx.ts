@@ -1,5 +1,6 @@
-import { ContractFactory, Transaction, ethers } from 'ethers';
+import { Transaction, ethers } from 'ethers';
 import { EthereumTransaction } from 'trezor-connect';
+import { getProvider } from './getProvider';
 import { signTxLocally } from './smart_contract/signTx';
 import { signTxTrezor } from './trezor';
 import { SignerState } from '~/features/signerWallet';
@@ -8,12 +9,11 @@ import { SignerState } from '~/features/signerWallet';
 
 export const sendTx = async (
   txParams: ethers.utils.Deferrable<ethers.providers.TransactionRequest>,
-  contractFactory: ContractFactory,
   signerWallet: SignerState,
-  network = 'localhost'
+  network = 'localhost',
+  encryptedWallet?: string
 ): Promise<Transaction | undefined> => {
-  const provider = contractFactory.signer
-    .provider as ethers.providers.BaseProvider;
+  const provider = getProvider(network);
 
   try {
     let signedTx;
@@ -31,13 +31,36 @@ export const sendTx = async (
       );
     }
 
-    if (signedTx !== undefined) {
+    if (encryptedWallet !== undefined) {
+      console.log('Decrypting meson wallet...');
+
+      const decryptedWallet = await ethers.Wallet.fromEncryptedJson(
+        encryptedWallet,
+        'password'
+      );
+      const wallet = decryptedWallet.connect(provider);
+
+      txParams.nonce = await provider.getTransactionCount(
+        decryptedWallet.address
+      );
+      console.log('decrypted', wallet, txParams);
+
+      const sent = await wallet.sendTransaction(txParams);
+
+      const transactionReceipt = await sent.wait(1);
+      const balance = await wallet.getBalance();
+      console.log('transactionReceipt', transactionReceipt);
+      console.log('balance', balance);
+    }
+
+    if (signedTx !== undefined && encryptedWallet === undefined) {
       console.log('Sending...');
 
       const sent = await provider.sendTransaction(signedTx);
       const transactionReceipt = await sent.wait(1);
-      const add = await contractFactory.signer.getAddress();
-      const balance = await provider.getBalance(add);
+      const balance = await provider.getBalance(
+        signerWallet.signerWalletAddress
+      );
 
       console.log('transactionReceipt: ', transactionReceipt);
       console.log('deposited balance: ', ethers.utils.formatUnits(balance));

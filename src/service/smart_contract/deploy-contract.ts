@@ -18,14 +18,18 @@ export async function deploy(
   signerWallet: SignerState,
   selectedNetwork: NetworkState,
   deposit: number
-): Promise<{ address: string; smartContract: string } | undefined> {
+): Promise<
+  | { address: string; smartContract: string; encryptedWallet: string }
+  | undefined
+> {
   const abi = json.abi;
   const binary: BytesLike = json.bytecode.object;
   const provider = getProvider(selectedNetwork.network);
 
   const mesonWallet = ethers.Wallet.createRandom().connect(provider);
+  const encryptedWallet = await mesonWallet.encrypt('password');
 
-  const contractFactory = new ethers.ContractFactory(abi, binary, mesonWallet);
+  // const contractFactory = new ethers.ContractFactory(abi, binary, mesonWallet);
   const mesonWalletAddress = await mesonWallet.getAddress();
   const gasPrice = await provider.getGasPrice();
   const value =
@@ -37,10 +41,6 @@ export async function deploy(
   const deploymentData = iFace.encodeDeploy([mesonWalletAddress]) as BytesLike;
 
   const estimatedGas = await mesonWallet.estimateGas({ data: deploymentData });
-  const transactionFee = gasPrice.mul(estimatedGas);
-  // console.log('fee a',transactionFee)
-  // console.log('gas',Number(ethers.utils.formatUnits(gasPrice, 'wei')))
-  // console.log('fee eth',Number(ethers.utils.formatUnits(transactionFee, 'wei')))
 
   // Deployment params
   const deploymentParams = {
@@ -80,18 +80,15 @@ export async function deploy(
 
     // Transfer funds to the created wallet
     if (Number(txParams.value) > 0) {
-      await sendTx(
-        txParams,
-        contractFactory,
-        signerWallet!,
-        selectedNetwork.network
-      );
-      console.log('Tx was sent');
+      await sendTx(txParams, signerWallet!, selectedNetwork.network);
     }
+
+    localStorage.setItem('mesonWallett', JSON.stringify(mesonWallet));
 
     return {
       address: mesonWalletAddress,
       smartContract: transactionReceipt.contractAddress,
+      encryptedWallet,
     };
   } catch (error) {
     if (error instanceof Error) {

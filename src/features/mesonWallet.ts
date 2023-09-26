@@ -11,7 +11,11 @@ export type MesonWalletState = {
   walletName?: string;
   owners?: Owner[];
   confirmation?: number;
-  mesonWallet?: { address: string; smartContract: string };
+  mesonWallet?: {
+    address: string;
+    smartContract: string;
+    encryptedWallet: string;
+  };
   balance?: {
     eth: string;
   };
@@ -37,7 +41,11 @@ export const MesonWalletSlice = createSlice({
     setMesonWallet: (
       state,
       action: PayloadAction<{
-        mesonWallet: { address: string; smartContract: string };
+        mesonWallet: {
+          address: string;
+          smartContract: string;
+          encryptedWallet: string;
+        };
       }>
     ) => {
       state.mesonWallet = action.payload.mesonWallet;
