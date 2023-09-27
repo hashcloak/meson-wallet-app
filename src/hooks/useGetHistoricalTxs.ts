@@ -1,11 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { HistoricalTxType, setHistoricalTxs } from '~/features/historicalTxs';
+import {
+  HistoricalTxType,
+  HistoricalTxsState,
+  setHistoricalTxs,
+} from '~/features/historicalTxs';
 import { setLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
-import { getHistoricalTxs } from '~/service';
+import {
+  getHistoricalTxs,
+  getLocalHistoricalTxs,
+  getProvider,
+} from '~/service';
 
 type txs = Array<{ Date: string; Received: number; Sent: number }>;
 export type HistoricalAssetsType = {
@@ -18,7 +26,9 @@ export type HistoricalAssetsType = {
 
 const useGetHistoricalTxs = (): HistoricalTxType[] => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [txs, setTxs] = useState<HistoricalTxType[]>([]);
+  // const [txs, setTxs] = useState<HistoricalTxType[]>([]);
+  const prevTxsRef = useRef<HistoricalTxType[]>([]);
+
   const dispatch = useDispatch();
   const { mesonWallet } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
@@ -26,37 +36,88 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
+  const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
+    (state) => state.historicalTxs
+  );
+  const provider = getProvider(network);
+
+  const fetchTxs = useCallback(async () => {
+    dispatch(setLoading());
+
+    if (network !== 'localhost') {
+      await load();
+    } else {
+      await localLoad();
+    }
+
+    if (historicalTxs !== prevTxsRef.current) {
+      dispatch(setHistoricalTxs({ historicalTxs: prevTxsRef.current }));
+      prevTxsRef.current = historicalTxs;
+    }
+  }, []);
 
   useEffect(() => {
-    const load = async () => {
-      if (mesonWallet?.address === undefined) return;
-      try {
-        // const historicalTxs = await getHistoricalTxs(mesonWallet?.address);
-        const historicalTxs = await getHistoricalTxs(
-          '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F'
-        );
+    void fetchTxs();
+  }, [fetchTxs]);
 
-        if (historicalTxs.length > 0) {
-          setTxs(historicalTxs);
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          console.log(`error: ${error}`);
+  useEffect(() => {
+    provider.on('block', fetchTxs);
 
-          throw new Error(error.message ?? error);
-        }
-      }
+    return () => {
+      provider.off('block', fetchTxs);
     };
+  }, [fetchTxs]);
+
+  const load = async () => {
+    if (mesonWallet?.address === undefined) return;
+    try {
+      // const historicalTxs = await getHistoricalTxs(mesonWallet?.address);
+      const historicalTxs = await getHistoricalTxs(
+        '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F'
+      );
+
+      if (historicalTxs.length > 0) {
+        prevTxsRef.current = historicalTxs;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        console.log(`error: ${error}`);
+
+        throw new Error(error.message ?? error);
+      }
+    }
+  };
+
+  const localLoad = async () => {
+    if (mesonWallet?.address !== undefined) {
+      const localHistoricalTxs = await getLocalHistoricalTxs(
+        mesonWallet.address,
+        mesonWallet.smartContract,
+        network
+      );
+      const filteredTxs = localHistoricalTxs.filter(
+        (tx) => tx.contractAddress !== '' || tx.to !== ''
+      );
+
+      if (filteredTxs.length > 0) {
+        prevTxsRef.current = filteredTxs;
+      }
+    }
+  };
+
+  useEffect(() => {
     dispatch(setLoading());
 
     if (network !== 'localhost') {
       void load();
-      dispatch(setHistoricalTxs({ historicalTxs: txs }));
+    } else {
+      void localLoad();
     }
+    dispatch(setHistoricalTxs({ historicalTxs: prevTxsRef.current }));
   }, [mesonWallet]);
 
-  return txs;
+  return prevTxsRef.current;
 };
 
 export { useGetHistoricalTxs };

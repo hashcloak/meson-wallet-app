@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HistoricalAssetsType } from './useGetHistoricalTxs';
-import { HistoricalTxType, setHistoricalTxs } from '~/features/historicalTxs';
+import { HistoricalTxType } from '~/features/historicalTxs';
 import { resetLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
-import { getLocalHistoricalTxs, localSortByWeek } from '~/service';
+import { localSortByWeek } from '~/service';
 import { sortByLastFewMonths, sortByWeek, sortByYear } from '~/utils/sortTxs';
 
 export const useGetHistoricalAssets = (
@@ -61,26 +61,10 @@ export const useGetHistoricalAssets = (
       }
     };
 
-    const localLoad = async () => {
+    const localLoad = () => {
       if (mesonWallet?.address !== undefined) {
-        const localHistoricalTxs = await getLocalHistoricalTxs(
-          mesonWallet.address,
-          mesonWallet.smartContract,
-          network
-        );
-        const filteredTxs = localHistoricalTxs.filter(
-          (tx) => tx.contractAddress !== '' || tx.to !== ''
-        );
-        console.log(filteredTxs);
-
-        dispatch(
-          setHistoricalTxs({
-            historicalTxs: filteredTxs,
-          })
-        );
-
         const txInThisWeek = localSortByWeek(
-          localHistoricalTxs as HistoricalTxType[],
+          historicalTxs,
           mesonWallet.address
         );
 

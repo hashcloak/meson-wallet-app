@@ -31,7 +31,8 @@ export const useLoadPortfolio = (): ReturnValue => {
   const [tokens, setTokens] = useState(mockTokensVals);
   const [totalAsset, setTotalAsset] = useState(0);
   const [currentEth, setCurrentEth] = useState('0');
-  const prevBalanceRef = useRef('0');
+  const prevEthBalanceRef = useRef('0');
+  const prevTotalAssetRef = useRef(0);
 
   const dispatch = useDispatch();
 
@@ -51,8 +52,8 @@ export const useLoadPortfolio = (): ReturnValue => {
 
       // Optimization: check that user balance has actually changed before
       // updating state and triggering the consuming component re-render
-      if (value !== prevBalanceRef.current) {
-        prevBalanceRef.current = value;
+      if (value !== prevEthBalanceRef.current) {
+        prevEthBalanceRef.current = value;
         setCurrentEth(value);
         updateTokens(value);
       }
@@ -122,8 +123,11 @@ export const useLoadPortfolio = (): ReturnValue => {
         currentAsset = currentAsset + Number(token.fiatPrice);
       }
     });
-    setTotalAsset(currentAsset);
-    setIsLoading(false);
+    if (currentAsset !== prevTotalAssetRef.current) {
+      prevTotalAssetRef.current = currentAsset;
+      setTotalAsset(currentAsset);
+      setIsLoading(false);
+    }
   }, [tokens, currentEth]);
 
   return { isLoading, tokens, totalAsset };
