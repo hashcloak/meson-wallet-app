@@ -25,7 +25,6 @@ import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { useGetFiatPrice } from '~/hooks';
 import { getProvider } from '~/service';
-import { refreshBalance } from '~/service/refreshBalance';
 import { sendTx } from '~/service/sendTx';
 import { trimCurrency } from '~/utils/trimDecimal';
 
@@ -330,7 +329,6 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
         throw new Error(error.message ?? error);
       }
     } finally {
-      refreshBalance(network, address, String(balance));
       setIsProcessing(false);
       onPageChange();
       onClose();
@@ -434,19 +432,19 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
         <Spacer size={32} axis={'vertical'} />
         <div className='flex flex-row justify-around'>
           <Button
-            btnVariant={!isProcessing || !isFetching ? 'text' : 'disable'}
+            btnVariant={!isProcessing ? 'text' : 'disable'}
             btnSize={'lg'}
             btnType={'button'}
             handleClick={() => onPageChange?.()}
-            disabled={isProcessing || isFetching}
+            disabled={isProcessing}
           >
             <span className='text-lg'>Back</span>
           </Button>
           <Button
-            btnVariant={!isProcessing || !isFetching ? 'primary' : 'disable'}
+            btnVariant={!isProcessing ? 'primary' : 'disable'}
             btnSize={'lg'}
             btnType={'submit'}
-            disabled={isProcessing || isFetching}
+            disabled={isProcessing}
             handleClick={async () => {
               await handleSend();
             }}

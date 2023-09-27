@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ethers } from 'ethers';
 import { useDispatch, useSelector } from 'react-redux';
 import { mockTokensVals } from '~/utils/Mock';
@@ -30,6 +30,10 @@ export const useLoadPortfolio = (): ReturnValue => {
   const [isLoading, setIsLoading] = useState(true);
   const [tokens, setTokens] = useState(mockTokensVals);
   const [totalAsset, setTotalAsset] = useState(0);
+  const [currentEth, setCurrentEth] = useState('0');
+  const prevBalanceRef = useRef('0');
+
+  const dispatch = useDispatch();
 
   const { mesonWallet } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
@@ -37,33 +41,67 @@ export const useLoadPortfolio = (): ReturnValue => {
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
-  const dispatch = useDispatch();
+  const provider: ethers.providers.BaseProvider = getProvider(network);
+
+  const fetchCurrentEthBalance = useCallback(async () => {
+    if (mesonWallet !== undefined) {
+      const rawBalance = await provider.getBalance(mesonWallet?.address);
+      // Format ETH balance and parse it to JS number
+      const value = parseFloat(ethers.utils.formatEther(rawBalance)).toString();
+
+      // Optimization: check that user balance has actually changed before
+      // updating state and triggering the consuming component re-render
+      if (value !== prevBalanceRef.current) {
+        prevBalanceRef.current = value;
+        setCurrentEth(value);
+        updateTokens(value);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    void fetchCurrentEthBalance();
+  }, [fetchCurrentEthBalance]);
+
+  useEffect(() => {
+    // Fetch user balance on each block
+    provider.on('block', fetchCurrentEthBalance);
+
+    // Cleanup function is used to unsubscribe from 'block' event and prevent
+    // a possible memory leak in your application.
+    return () => {
+      provider.off('block', fetchCurrentEthBalance);
+    };
+  }, [fetchCurrentEthBalance]);
+
+  const updateTokens = (eth: string) => {
+    const balance = { eth };
+    dispatch(setBalance({ balance }));
+
+    const updatedEthVal = {
+      type: 'EthLogo',
+      abbrev: 'ETH',
+      token: 'Ethereum',
+      amount: trimEth(eth),
+      fiatPrice: trimCurrency((Number(eth) * conversionRate).toString()),
+    };
+
+    setTokens((prevState) =>
+      prevState.map((obj) => (obj.abbrev === 'ETH' ? updatedEthVal : obj))
+    );
+  };
 
   useEffect(() => {
     const load = async () => {
       try {
         setIsLoading(true);
         if (mesonWallet?.address != null) {
-          const provider: ethers.providers.BaseProvider = getProvider(network);
           const currentEthBalance = await provider.getBalance(
             mesonWallet?.address
           );
           const eth = ethers.utils.formatUnits(currentEthBalance);
-          const balance = { eth };
-
-          dispatch(setBalance({ balance }));
-
-          const updatedEthVal = {
-            type: 'EthLogo',
-            abbrev: 'ETH',
-            token: 'Ethereum',
-            amount: trimEth(eth),
-            fiatPrice: trimCurrency((Number(eth) * conversionRate).toString()),
-          };
-
-          setTokens((prevState) =>
-            prevState.map((obj) => (obj.abbrev === 'ETH' ? updatedEthVal : obj))
-          );
+          setCurrentEth(eth);
+          updateTokens(eth);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -86,7 +124,7 @@ export const useLoadPortfolio = (): ReturnValue => {
     });
     setTotalAsset(currentAsset);
     setIsLoading(false);
-  }, [tokens]);
+  }, [tokens, currentEth]);
 
   return { isLoading, tokens, totalAsset };
 };
