@@ -44,34 +44,34 @@ export type HistoricalTxType = {
 };
 
 export type HistoricalTxsState = {
-  historicalTxs: HistoricalTxType[];
+  historicalTxs: HistoricalTxType[] | [];
 };
 
-const historicalTx: HistoricalTxType = {
-  blockHash: '',
-  blockNumber: '',
-  confirmations: '',
-  contractAddress: '',
-  cumulativeGasUsed: '',
-  from: '',
-  functionName: '',
-  gas: '',
-  gasPrice: '',
-  gasUsed: '',
-  hash: '',
-  input: '',
-  isError: '',
-  methodId: '',
-  nonce: '',
-  timeStamp: '',
-  to: '',
-  transactionIndex: '',
-  txreceipt_status: '',
-  value: '',
-};
+// const historicalTx: HistoricalTxType = {
+//   blockHash: '',
+//   blockNumber: '',
+//   confirmations: '',
+//   contractAddress: '',
+//   cumulativeGasUsed: '',
+//   from: '',
+//   functionName: '',
+//   gas: '',
+//   gasPrice: '',
+//   gasUsed: '',
+//   hash: '',
+//   input: '',
+//   isError: '',
+//   methodId: '',
+//   nonce: '',
+//   timeStamp: '',
+//   to: '',
+//   transactionIndex: '',
+//   txreceipt_status: '',
+//   value: '',
+// };
 
 const initialState: HistoricalTxsState = {
-  historicalTxs: [historicalTx],
+  historicalTxs: [],
 };
 
 export const HistoricalTxsSlice = createSlice({

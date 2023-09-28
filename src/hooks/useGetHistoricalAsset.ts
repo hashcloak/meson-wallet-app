@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HistoricalAssetsType } from './useGetHistoricalTxs';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import { HistoricalTxsState } from '~/features/historicalTxs';
 import { resetLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
@@ -9,9 +9,7 @@ import { RootState } from '~/features/reducers';
 import { localSortByWeek } from '~/service';
 import { sortByLastFewMonths, sortByWeek, sortByYear } from '~/utils/sortTxs';
 
-export const useGetHistoricalAssets = (
-  historicalTxs: HistoricalTxType[]
-): HistoricalAssetsType => {
+export const useGetHistoricalAssets = (): HistoricalAssetsType => {
   const [historicalAssets, setHistoricalAssets] = useState({
     year: [{ Date: '', Received: 0, Sent: 0 }],
     sixMonths: [{ Date: '', Received: 0, Sent: 0 }],
@@ -21,13 +19,16 @@ export const useGetHistoricalAssets = (
   });
   const dispatch = useDispatch();
 
+  const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
+    (state) => state.historicalTxs
+  );
+
   const { mesonWallet } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
-  // const mesonWallet = { address: '0xe5cB067E90D5Cd1F8052B83562Ae670bA4A211a8' };
 
   useEffect(() => {
     const load = () => {
@@ -57,7 +58,6 @@ export const useGetHistoricalAssets = (
           month: txInMonth,
           week: txInThisWeek,
         });
-        dispatch(resetLoading({ message: '' }));
       }
     };
 
@@ -75,13 +75,13 @@ export const useGetHistoricalAssets = (
           month: txInThisWeek,
           week: txInThisWeek,
         });
-
-        dispatch(resetLoading({ message: '' }));
       }
     };
 
     if (historicalTxs.length > 0 && network !== 'localhost') void load();
     if (network === 'localhost') void localLoad();
+    dispatch(resetLoading({ message: '' }));
+
     //   if (historicalTxs.length > 0 && network === 'localhost') void load();
   }, [historicalTxs]);
 

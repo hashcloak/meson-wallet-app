@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import Chart from '~/components/atoms/Chart';
 import { BasicTabs } from '~/components/molecules/Tabs';
-import { useGetHistoricalAssets, useGetHistoricalTxs } from '~/hooks';
+import { useGetHistoricalAssets } from '~/hooks';
 
 // import { sortByMonth, sortByWeek, sortByYear } from '~/utils/sortTxs';
 
 // TODO: Check where to fetch the data and consider if props needs to be passed from the parent
 const AssetChart: React.FC = () => {
-  const latestHistoricalTxs = useGetHistoricalTxs();
-  const historicalAssets = useGetHistoricalAssets(latestHistoricalTxs);
+  const historicalAssets = useGetHistoricalAssets();
 
   const tabList: Array<{ [key: string]: JSX.Element }> = [
     {
