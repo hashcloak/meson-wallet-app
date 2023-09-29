@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { ConversionSlice } from './conversion';
 import { ErrorSlice } from './error';
 import { HistoricalTxsSlice } from './historicalTxs';
 import { LedgerSlice } from './ledgerWallet';
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   error: ErrorSlice.reducer,
   toast: ToastSlice.reducer,
   historicalTxs: HistoricalTxsSlice.reducer,
+  conversion: ConversionSlice.reducer,
 });
 
 export default reducers;
