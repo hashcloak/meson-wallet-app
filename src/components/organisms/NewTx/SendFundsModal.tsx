@@ -3,7 +3,7 @@ import { Dialog } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ethers } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 
 import Button from '~/components/atoms/Button/Button';
@@ -19,6 +19,7 @@ import { mockTokens } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
 import SwitchSignerModal from '../SwitchSignerModal';
 import { AdvancedParametersModal } from './AdvancedParametersModal';
+import { LoadingState, resetDisabling, setDisabling } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
@@ -295,9 +296,12 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   const { mesonWallet } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
+  const dispatch = useDispatch();
 
   const handleSend = async () => {
+    dispatch(setDisabling());
     setIsProcessing(true);
+
     try {
       if (sendingData !== null) {
         const provider = getProvider(network);
@@ -330,6 +334,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
       }
     } finally {
       setIsProcessing(false);
+      dispatch(resetDisabling());
       onPageChange();
       onClose();
     }
@@ -491,22 +496,33 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
     void load();
   }, []);
 
+  const { isDisabling } = useSelector<RootState, LoadingState>(
+    (state) => state.loading
+  );
+
+  const handleCursor =
+    isDisabling !== undefined && isDisabling
+      ? 'cursor-wait pointer-events-none'
+      : 'cursor-default	pointer-events-auto';
+
   return (
     <>
       {isOpen === true && (
         <Dialog
           open={isOpen}
           onClose={() => {
-            if (pageChange) setPageChange(false);
-            setSendingData(null);
-            onClose();
+            if (!(isDisabling !== undefined && isDisabling)) {
+              if (pageChange) setPageChange(false);
+              setSendingData(null);
+              onClose();
+            }
           }}
-          className='fixed z-10 inset-0 overflow-y-auto'
-          static
+          className={`fixed z-10 inset-0 overflow-y-auto ${handleCursor}`}
+          static={isDisabling !== undefined && isDisabling}
         >
           <div className='flex items-center justify-center min-h-screen'>
             <Dialog.Overlay
-              className='fixed inset-0 bg-neutral-900 opacity-30'
+              className={`fixed inset-0 bg-neutral-900 opacity-30 ${handleCursor}`}
               aria-hidden='true'
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>

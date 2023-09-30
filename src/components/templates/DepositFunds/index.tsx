@@ -11,7 +11,13 @@ import { Loader, TextLoader } from '~/components/atoms/Loader';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
 import Spacer from '~/utils/Spacer';
 import { setError } from '~/features/error';
-import { LoadingState, resetLoading, setLoading } from '~/features/loading';
+import {
+  LoadingState,
+  resetDisabling,
+  resetLoading,
+  setDisabling,
+  setLoading,
+} from '~/features/loading';
 import { setMesonWallet } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
@@ -78,6 +84,7 @@ const DepositFund: React.FC = () => {
   }, []);
 
   const onSubmit = async (data: any) => {
+    dispatch(setDisabling());
     // Create wallet with/without funds
     try {
       if (signerWallet != null) {
@@ -106,6 +113,8 @@ const DepositFund: React.FC = () => {
         dispatch(setError({ error: error.message }));
         dispatch(resetLoading({ message: '' }));
       }
+    } finally {
+      dispatch(resetDisabling());
     }
 
     // Fail

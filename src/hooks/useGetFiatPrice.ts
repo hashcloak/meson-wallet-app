@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { utils } from 'ethers';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConversionState, setConversion } from '~/features/conversion';
-import { MesonWalletState } from '~/features/mesonWallet';
 import { RootState } from '~/features/reducers';
 import { getPriceFeed } from '~/service';
 
@@ -49,6 +48,8 @@ export const useGetFiatPrice = () => {
 
         throw new Error(error.message ?? error);
       }
+    } finally {
+      setIsFetching(false);
     }
   }, []);
 
@@ -80,8 +81,6 @@ export const useGetFiatPrice = () => {
           console.log(`error: ${error}`);
           throw new Error(error.message ?? error);
         }
-      } finally {
-        setIsFetching(false);
       }
     };
 

@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { LoadingState } from '~/features/loading';
+import { RootState } from '~/features/reducers';
 
 type Props = {
   topbar?: JSX.Element;
@@ -7,8 +10,17 @@ type Props = {
 };
 
 const BaseLayout: React.FC<Props> = ({ topbar, sidebar, body }) => {
+  const { isDisabling } = useSelector<RootState, LoadingState>(
+    (state) => state.loading
+  );
+
+  const handleCursor =
+    isDisabling !== undefined && isDisabling
+      ? 'cursor-wait pointer-events-none'
+      : 'cursor-default	pointer-events-auto';
+
   return (
-    <div className='w-full h-full flex flex-col'>
+    <div className={`w-full h-full flex flex-col ${handleCursor}`}>
       <div className='w-full h-[3.5rem] bg-bgDarkLight box-border'>
         {topbar}
       </div>

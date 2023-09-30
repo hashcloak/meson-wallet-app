@@ -4,11 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export type LoadingState = {
   isLoading: boolean;
   message?: string;
+  isDisabling?: boolean;
 };
 
 const initialState: LoadingState = {
   message: '',
   isLoading: false,
+  isDisabling: false,
 };
 
 export const LoadingSlice = createSlice({
@@ -23,12 +25,24 @@ export const LoadingSlice = createSlice({
       state.isLoading = true;
       state.message = '';
     },
+    setDisabling: (state) => {
+      state.isDisabling = true;
+    },
     resetLoading: (state, action: PayloadAction<{ message: string }>) => {
       state.isLoading = false;
       state.message = action.payload.message;
     },
+    resetDisabling: (state) => {
+      state.isDisabling = false;
+    },
   },
 });
 
-export const { setLoading, resetLoading, setStandby } = LoadingSlice.actions;
+export const {
+  setLoading,
+  resetLoading,
+  setStandby,
+  setDisabling,
+  resetDisabling,
+} = LoadingSlice.actions;
 export default LoadingSlice.reducer;
