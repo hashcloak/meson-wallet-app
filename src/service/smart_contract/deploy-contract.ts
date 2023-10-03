@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { BytesLike, Signer, ethers } from 'ethers';
+import { BytesLike, ContractFactory, Signer, ethers } from 'ethers';
 import * as json from './SmartWalletLogic.json';
 import { NetworkState } from '~/features/network';
 import { SignerState } from '~/features/signerWallet';
@@ -83,7 +83,13 @@ export async function deploy(
       await sendTx(txParams, signerWallet!, selectedNetwork.network);
     }
 
-    localStorage.setItem('mesonWallett', JSON.stringify(mesonWallet));
+    // Deploy smart contract
+    const factory = new ethers.ContractFactory(abi, binary, mesonWallet);
+    const contractInstance = await factory.deploy(mesonWallet.address);
+
+    const contractInitialize = await contractInstance.functions.initialize(
+      mesonWallet.address
+    );
 
     return {
       address: mesonWalletAddress,

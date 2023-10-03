@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { LoadingState } from '~/features/loading';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoadingState, resetDisabling } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 
 type Props = {
@@ -13,11 +13,16 @@ const BaseLayout: React.FC<Props> = ({ topbar, sidebar, body }) => {
   const { isDisabling } = useSelector<RootState, LoadingState>(
     (state) => state.loading
   );
+  const dispatch = useDispatch();
 
   const handleCursor =
     isDisabling !== undefined && isDisabling
       ? 'cursor-wait pointer-events-none'
       : 'cursor-default	pointer-events-auto';
+
+  useEffect(() => {
+    dispatch(resetDisabling());
+  }, []);
 
   return (
     <div className={`w-full h-full flex flex-col ${handleCursor}`}>
