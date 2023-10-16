@@ -6,6 +6,7 @@ import { Icon } from '~/components/atoms/Icon';
 import { RowBodyLong } from '~/components/organisms/RowBody';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState } from '~/features/mesonWallet';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { TxType } from '~/hooks/useConvertTx';
@@ -23,6 +24,9 @@ export const TxContents: React.FC<{
   const { date, time } = unixTimeConverter(tx.timeStamp);
   const { signerWalletAddress } = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
+  );
+  const { confirmation, owners } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
   );
 
   let content;
@@ -152,76 +156,82 @@ export const TxContents: React.FC<{
         <Spacer size={48} axis={'horizontal'} />
 
         <div className='flex flex-col justify-start'>
-          {tx.status === 'AccountCreated' || tx.status === 'Received' ? null : (
-            <>
-              <div className='flex flex-row mb-2'>
-                <Icon type={'CheckCircle'} size={'lg'} color={'main'} />
-                <span className='text-main font-bold ml-2'>Created</span>
-              </div>
-              <div className='flex flex-col mb-2'>
-                <div className='flex flex-row'>
-                  <Icon type={'CheckCircle'} size={'lg'} color={'main'} />
+          {tx.status === 'AccountCreated' || tx.status === 'Received'
+            ? null
+            : owners?.map((owner) => (
+                <>
+                  <div className='flex flex-row mb-2' key={owner.ownerAddress}>
+                    <Icon type={'CheckCircle'} size={'lg'} color={'main'} />
+                    <span className='text-main font-bold ml-2'>Created</span>
+                  </div>
+                  <div className='flex flex-col mb-2'>
+                    <div className='flex flex-row'>
+                      <Icon type={'CheckCircle'} size={'lg'} color={'main'} />
 
-                  <span className='text-main font-bold ml-2'>
-                    Confirmed
-                    <span className='text-textWhite text-sm font-normal ml-2'>
-                      (1 of 2)
+                      <span className='text-main font-bold ml-2'>
+                        Confirmed
+                        <span className='text-textWhite text-sm font-normal ml-2'>
+                          ({tx.confirmations} of {confirmation})
+                        </span>
+                      </span>
+                    </div>
+                    <div className='flex flex-row items-center pl-6 mt-2'>
+                      <EthAddress
+                        ethAddress='0xD9Be7c81641BdfC2D82cAC5052455aD5313Ea5DF'
+                        size={4.5}
+                        length='full'
+                      />
+                    </div>
+                  </div>
+                  <div className='flex flex-col mb-2'>
+                    <div className='flex flex-row'>
+                      <Icon type={'Circle'} size={'lg'} color={'light'} />
+                      <span className='text-light font-bold ml-2'>
+                        Awaiting confirmations
+                        <span className='text-textWhite text-sm font-normal ml-2'>
+                          (1 of 2)
+                        </span>
+                      </span>
+                    </div>
+
+                    <div className='flex flex-row items-center pl-6 mt-2'>
+                      <EthAddress
+                        ethAddress='0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
+                        size={4.5}
+                        length='full'
+                      />
+                    </div>
+                  </div>
+                  <div className='flex flex-col mb-2'>
+                    <div className='flex flex-row'>
+                      <Icon type={'Circle'} size={'lg'} color={'white'} />
+                      <span className='text-textWhite font-bold ml-2'>
+                        Execution
+                      </span>
+                    </div>
+
+                    <span className='text-textWhite text-sm font-normal pl-6'>
+                      Can be executed once the threshold is reached
                     </span>
-                  </span>
-                </div>
-                <div className='flex flex-row items-center pl-6 mt-2'>
-                  <EthAddress
-                    ethAddress='0xD9Be7c81641BdfC2D82cAC5052455aD5313Ea5DF'
-                    size={4.5}
-                    length='full'
-                  />
-                </div>
-              </div>
-              <div className='flex flex-col mb-2'>
-                <div className='flex flex-row'>
-                  <Icon type={'Circle'} size={'lg'} color={'light'} />
-                  <span className='text-light font-bold ml-2'>
-                    Awaiting confirmations
-                    <span className='text-textWhite text-sm font-normal ml-2'>
-                      (1 of 2)
-                    </span>
-                  </span>
-                </div>
-
-                <div className='flex flex-row items-center pl-6 mt-2'>
-                  <EthAddress
-                    ethAddress='0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
-                    size={4.5}
-                    length='full'
-                  />
-                </div>
-              </div>
-              <div className='flex flex-col mb-2'>
-                <div className='flex flex-row'>
-                  <Icon type={'Circle'} size={'lg'} color={'white'} />
-                  <span className='text-textWhite font-bold ml-2'>
-                    Execution
-                  </span>
-                </div>
-
-                <span className='text-textWhite text-sm font-normal pl-6'>
-                  Can be executed once the threshold is reached
-                </span>
-              </div>
-              <div className='flex flex-row justify-around mt-6'>
-                <Button
-                  btnVariant={'primary'}
-                  btnSize={'md'}
-                  btnType={'button'}
-                >
-                  Confirm
-                </Button>
-                <Button btnVariant={'alert'} btnSize={'md'} btnType={'button'}>
-                  Reject
-                </Button>
-              </div>
-            </>
-          )}
+                  </div>
+                  <div className='flex flex-row justify-around mt-6'>
+                    <Button
+                      btnVariant={'primary'}
+                      btnSize={'md'}
+                      btnType={'button'}
+                    >
+                      Confirm
+                    </Button>
+                    <Button
+                      btnVariant={'alert'}
+                      btnSize={'md'}
+                      btnType={'button'}
+                    >
+                      Reject
+                    </Button>
+                  </div>
+                </>
+              ))}
         </div>
       </div>
     </>

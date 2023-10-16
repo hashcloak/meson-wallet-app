@@ -24,7 +24,7 @@ import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { setToast } from '~/features/toast';
 import { useGetFiatPrice } from '~/hooks';
-import { deploy } from '~/service/smart_contract/deploy-contract';
+import { deploy } from '~/service/smart_contract/deploy';
 import { trimCurrency } from '~/utils/trimDecimal';
 
 const DepositFund: React.FC = () => {
@@ -48,11 +48,11 @@ const DepositFund: React.FC = () => {
   // TODO: Need to add validation method for the input amount
   const schema = z.object({
     depositAmount: z.preprocess((value) => {
-      if (typeof value !== 'string') {
+      if (typeof value === 'string' && Number(value) > 0) {
         return Number(value);
       }
-      if (value.trim() === '') {
-        return NaN;
+      if (typeof value !== 'number') {
+        return 0;
       }
 
       return Number(value);
@@ -61,7 +61,7 @@ const DepositFund: React.FC = () => {
 
   const methods = useForm({
     defaultValues: {
-      depositAmount: undefined,
+      depositAmount: null,
     },
     resolver: zodResolver(schema),
   });
@@ -85,7 +85,6 @@ const DepositFund: React.FC = () => {
 
   const onSubmit = async (data: any) => {
     dispatch(setDisabling());
-    // Create wallet with/without funds
     try {
       if (signerWallet != null) {
         dispatch(setLoading());
@@ -95,7 +94,7 @@ const DepositFund: React.FC = () => {
           signerWallet,
           selectedNetwork,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          data.depositAmount as number
+          data.depositAmount === undefined ? 0 : (data.depositAmount as number)
         );
 
         if (mesonWallet !== undefined) {
