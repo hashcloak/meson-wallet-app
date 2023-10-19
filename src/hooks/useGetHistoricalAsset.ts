@@ -32,24 +32,30 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
 
   useEffect(() => {
     const load = () => {
-      if (mesonWallet?.address !== undefined) {
-        const txInThisYear = sortByYear(historicalTxs, mesonWallet.address);
+      if (mesonWallet?.mesonWalletAddress !== undefined) {
+        const txInThisYear = sortByYear(
+          historicalTxs,
+          mesonWallet.mesonWalletAddress
+        );
         const txIn6Months = sortByLastFewMonths(
           historicalTxs,
-          mesonWallet.address,
+          mesonWallet.mesonWalletAddress,
           6
         );
         const txIn3Months = sortByLastFewMonths(
           historicalTxs,
-          mesonWallet.address,
+          mesonWallet.mesonWalletAddress,
           3
         );
         const txInMonth = sortByLastFewMonths(
           historicalTxs,
-          mesonWallet.address,
+          mesonWallet.mesonWalletAddress,
           0
         );
-        const txInThisWeek = sortByWeek(historicalTxs, mesonWallet.address);
+        const txInThisWeek = sortByWeek(
+          historicalTxs,
+          mesonWallet.mesonWalletAddress
+        );
 
         setHistoricalAssets({
           year: txInThisYear,
@@ -62,10 +68,10 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
     };
 
     const localLoad = () => {
-      if (mesonWallet?.address !== undefined) {
+      if (mesonWallet?.mesonWalletAddress !== undefined) {
         const txInThisWeek = localSortByWeek(
           historicalTxs,
-          mesonWallet.address
+          mesonWallet.mesonWalletAddress
         );
 
         setHistoricalAssets({

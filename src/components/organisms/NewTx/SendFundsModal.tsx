@@ -488,7 +488,7 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
       if (mesonWallet !== undefined) {
         const provider = getProvider(network);
         const currentNonce = await provider.getTransactionCount(
-          mesonWallet.address
+          mesonWallet.mesonWalletAddress
         );
         setNonce(currentNonce);
       }
@@ -542,8 +542,8 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   onPageChange={handlePageChange}
                   onSendingData={handleSendingData}
                   address={
-                    mesonWallet?.address !== undefined
-                      ? mesonWallet.address
+                    mesonWallet?.mesonWalletAddress !== undefined
+                      ? mesonWallet.mesonWalletAddress
                       : ''
                   }
                   walletName={walletName !== undefined ? walletName : ''}
@@ -556,8 +556,8 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   onPageChange={handlePageChange}
                   sendingData={sendingData}
                   address={
-                    mesonWallet?.address !== undefined
-                      ? mesonWallet.address
+                    mesonWallet?.mesonWalletAddress !== undefined
+                      ? mesonWallet.mesonWalletAddress
                       : ''
                   }
                   walletName={walletName !== undefined ? walletName : ''}

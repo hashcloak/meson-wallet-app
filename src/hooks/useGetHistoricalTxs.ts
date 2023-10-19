@@ -69,9 +69,9 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
   }, [fetchTxs]);
 
   const load = async () => {
-    if (mesonWallet?.address === undefined) return;
+    if (mesonWallet?.mesonWalletAddress === undefined) return;
     try {
-      // const historicalTxs = await getHistoricalTxs(mesonWallet?.address);
+      // const historicalTxs = await getHistoricalTxs(mesonWallet?.mesonWalletAddress);
       const historicalTxs = await getHistoricalTxs(
         '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F'
       );
@@ -90,9 +90,9 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
   };
 
   const localLoad = async () => {
-    if (mesonWallet?.address !== undefined) {
+    if (mesonWallet?.mesonWalletAddress !== undefined) {
       const localHistoricalTxs = await getLocalHistoricalTxs(
-        mesonWallet.address,
+        mesonWallet.mesonWalletAddress,
         mesonWallet.smartContract,
         network
       );

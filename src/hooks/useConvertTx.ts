@@ -42,9 +42,9 @@ export const useConvertTx = (tx: HistoricalTxType): TxType => {
     let status: StatusTypes = 'Send';
     if (clonedTx.contractAddress !== '') {
       status = 'AccountCreated';
-    } else if (mesonWallet && mesonWallet.address === clonedTx.to) {
+    } else if (mesonWallet && mesonWallet.mesonWalletAddress === clonedTx.to) {
       status = 'Received';
-    } else if (mesonWallet && mesonWallet.address !== clonedTx.to) {
+    } else if (mesonWallet && mesonWallet.mesonWalletAddress !== clonedTx.to) {
       status = 'Sent';
     }
 

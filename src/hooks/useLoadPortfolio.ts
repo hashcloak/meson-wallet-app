@@ -46,7 +46,9 @@ export const useLoadPortfolio = (): ReturnValue => {
 
   const fetchCurrentEthBalance = useCallback(async () => {
     if (mesonWallet !== undefined) {
-      const rawBalance = await provider.getBalance(mesonWallet?.address);
+      const rawBalance = await provider.getBalance(
+        mesonWallet?.mesonWalletAddress
+      );
       // Format ETH balance and parse it to JS number
       const value = parseFloat(ethers.utils.formatEther(rawBalance)).toString();
 
@@ -96,9 +98,9 @@ export const useLoadPortfolio = (): ReturnValue => {
     const load = async () => {
       try {
         setIsLoading(true);
-        if (mesonWallet?.address != null) {
+        if (mesonWallet?.mesonWalletAddress != null) {
           const currentEthBalance = await provider.getBalance(
-            mesonWallet?.address
+            mesonWallet?.mesonWalletAddress
           );
           const eth = ethers.utils.formatUnits(currentEthBalance);
           setCurrentEth(eth);
