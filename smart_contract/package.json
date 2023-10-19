@@ -26,5 +26,8 @@
     "hardhat-gas-reporter": "^1.0.9",
     "solidity-coverage": "^0.8.4",
     "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "hardhat-vite": "^1.0.0"
   }
 }

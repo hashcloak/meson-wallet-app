@@ -51,7 +51,7 @@ const DepositFund: React.FC = () => {
       if (typeof value === 'string' && Number(value) > 0) {
         return Number(value);
       }
-      if (typeof value !== 'number') {
+      if (typeof value !== 'number' || Number.isNaN(value)) {
         return 0;
       }
 
@@ -89,7 +89,12 @@ const DepositFund: React.FC = () => {
       if (signerWallet != null) {
         dispatch(setLoading());
         const mesonWallet:
-          | { address: string; smartContract: string; encryptedWallet: string }
+          | {
+              mesonWalletAddress: string;
+              smartContract: string;
+              encryptedWallet: string;
+              entryPoint: string;
+            }
           | undefined = await deploy(
           signerWallet,
           selectedNetwork,

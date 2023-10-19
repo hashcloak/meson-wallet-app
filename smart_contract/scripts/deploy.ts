@@ -1,6 +1,6 @@
 import { ethers } from 'hardhat';
 
-async function main() {
+export async function main() {
   const currentTimestampInSeconds = Math.round(Date.now() / 1000);
   const unlockTime = currentTimestampInSeconds + 60;
 
