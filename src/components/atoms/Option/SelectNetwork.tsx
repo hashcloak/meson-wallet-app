@@ -9,7 +9,7 @@ import * as networksJson from '~/utils/networkList.json';
 const SelectNetwork: React.FC = () => {
   const networks = JSON.parse(JSON.stringify(networksJson))
     .default as NetworksState;
-  const { network } = useSelector<RootState, NetworkState>(
+  const network = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
 
@@ -48,7 +48,7 @@ const SelectNetwork: React.FC = () => {
             handleNetworkSelect(e.target.value as keyof NetworksState);
           }}
           // defaultValue={network && network ? network : "localhost"}
-          value={network}
+          value={network.network}
         >
           {Object.keys(networks).map((networkName) => (
             <option value={networkName} key={networkName}>

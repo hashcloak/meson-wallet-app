@@ -18,7 +18,12 @@ export default defineConfig({
       '~': resolve(__dirname, 'src'),
     },
   },
+  define: {
+    'process.env': {},
+    global: {},
+  },
   test: {
     globals: true,
+    environment: 'jsdom',
   },
 } as VitestConfigExport);

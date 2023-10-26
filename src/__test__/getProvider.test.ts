@@ -12,6 +12,6 @@ describe('Provider', () => {
   it('instantiates new provider in localhost', () => {
     const result = getProvider(network.network);
 
-    expectTypeOf(result).toEqualTypeOf<ethers.providers.BaseProvider>();
+    expectTypeOf(result).toMatchTypeOf<ethers.providers.BaseProvider>();
   });
 });

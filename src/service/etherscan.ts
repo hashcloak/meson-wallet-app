@@ -1,5 +1,6 @@
 import { ethers } from 'ethers';
 import { EthereumAddress } from 'trezor-connect';
+import { getProvider } from './getProvider';
 import { LedgerAccountType } from './ledger';
 import { HistoricalTxType } from '~/features/historicalTxs';
 
@@ -13,19 +14,16 @@ export type FullAccountType = {
 const ETHERSCAN_API_KEY = import.meta.env.VITE_ETHERSCAN_API_KEY as string;
 
 export const getHardwareWalletBalance = async (
-  accounts: EthereumAddress[] | LedgerAccountType[]
+  accounts: EthereumAddress[] | LedgerAccountType[],
+  network = 'mainnet'
 ): Promise<FullAccountType[]> => {
-  const network = 'mainnet';
-  const provider = ethers.getDefaultProvider(network, {
-    alchemy: import.meta.env.VITE_ALCHEMY_API_KEY as string,
-    infura: import.meta.env.VITE_INFURA_API_KEY as string,
-    etherscan: import.meta.env.VITE_ETHERSCAN_API_KEY as string,
-  });
+  const provider = getProvider(network);
   try {
     const updateAccounts: FullAccountType[] = await Promise.all(
       accounts.map(async (account: EthereumAddress | LedgerAccountType) => {
         const balance = await provider.getBalance(account.address);
         const balanceInEth = ethers.utils.formatEther(balance);
+
         const fullAccount = {
           ...account,
           balance: balanceInEth,

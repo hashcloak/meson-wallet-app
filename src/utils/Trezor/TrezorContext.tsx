@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { createContext, useContext } from 'react';
 import { EthereumAddress } from 'trezor-connect';
 

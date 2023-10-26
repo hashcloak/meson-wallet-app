@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import TrezorConnect from '@trezor/connect-web';
 import { UnsignedTransaction, ethers, utils } from 'ethers';
-import TrezorConnect, {
+import {
   EthereumAddress,
   EthereumTransaction,
   HDNodeResponse,
@@ -10,6 +11,7 @@ import { FullAccountType, getHardwareWalletBalance } from './etherscan';
 import { NetworkState } from '~/features/network';
 
 const baseEthereumPath = "m/44'/60'/0'/0/";
+const baseTestnetPath = "m/44'/1'/0'/0/";
 
 // export const get50Accounts = async (): Promise<EthereumAddress[]> => {
 //   TrezorConnect.manifest({
@@ -34,36 +36,43 @@ const baseEthereumPath = "m/44'/60'/0'/0/";
 const getAccounts = async (
   network: NetworkState
 ): Promise<HDNodeResponse[]> => {
-  TrezorConnect.manifest({
-    appUrl: (import.meta.env.VITE_PUBLIC_APP_URL as string) ?? '',
-    email: 'my_email@example.com',
+  void TrezorConnect.init({
+    lazyLoad: true,
+    manifest: {
+      appUrl: (import.meta.env.VITE_PUBLIC_APP_URL as string) ?? '',
+      email: 'my_email@example.com',
+    },
   });
 
   const bundle: Array<{ path: string; showOnTrezor: boolean; coin?: string }> =
     [];
 
-  if (network.shortcut !== undefined) {
-    for (let i = 0; i < 25; i++) {
-      bundle.push({
-        path: `${baseEthereumPath}${i}`,
-        showOnTrezor: false,
-        coin: network.shortcut,
-      });
-    }
-  } else if (network.network === 'sepolia' || network.network === 'localhost') {
-    for (let i = 0; i < 25; i++) {
-      bundle.push({
-        path: `${baseEthereumPath}${i}`,
-        showOnTrezor: false,
-      });
-    }
-  } else {
-    // TODO: Display the error message on the screen
-    throw new TrezorError({
-      errorKey: TrezorError.ErrorKeys.CONNECT_TREZOR_DEVICE,
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      message: `Trezor does not support ${network.shortcut}`,
-    });
+  switch (network.network) {
+    case 'sepolia':
+      for (let i = 0; i < 25; i++) {
+        bundle.push({
+          path: `${baseTestnetPath}${i}`,
+          showOnTrezor: false,
+          coin: 'SepoliaETH',
+        });
+      }
+      break;
+    case 'localhost':
+      for (let i = 0; i < 25; i++) {
+        bundle.push({
+          path: `${baseEthereumPath}${i}`,
+          showOnTrezor: false,
+        });
+      }
+      break;
+    default:
+      for (let i = 0; i < 25; i++) {
+        bundle.push({
+          path: `${baseEthereumPath}${i}`,
+          showOnTrezor: false,
+          coin: network.shortcut,
+        });
+      }
   }
 
   const response = await TrezorConnect.getPublicKey({ bundle });
@@ -82,9 +91,12 @@ const getAccounts = async (
 const getCustomAccount = async (
   customPath: string
 ): Promise<HDNodeResponse> => {
-  TrezorConnect.manifest({
-    appUrl: (import.meta.env.VITE_PUBLIC_APP_URL as string) ?? '',
-    email: 'my_email@example.com',
+  void TrezorConnect.init({
+    lazyLoad: true,
+    manifest: {
+      appUrl: (import.meta.env.VITE_PUBLIC_APP_URL as string) ?? '',
+      email: 'my_email@example.com',
+    },
   });
 
   // const response = await TrezorConnect.ethereumGetAddress({
@@ -110,6 +122,7 @@ const getCustomAccount = async (
 export const getFullTrezorAccounts = async (
   network: NetworkState
 ): Promise<FullAccountType[]> => {
+  console.log('getting trezor accounts');
   try {
     const trezorAccounts: HDNodeResponse[] = await getAccounts(network);
 
@@ -123,7 +136,7 @@ export const getFullTrezorAccounts = async (
     );
 
     const trezorFullAccounts: FullAccountType[] =
-      await getHardwareWalletBalance(newTrezorAccounts);
+      await getHardwareWalletBalance(newTrezorAccounts, network.network);
 
     return trezorFullAccounts;
   } catch (error) {
@@ -214,7 +227,6 @@ export const signTxTrezor = async (
       path,
       transaction: txParams,
     });
-    console.log('Result: ', result);
 
     if (result.success) {
       delete unsignedTx.maxFeePerGas;
