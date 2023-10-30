@@ -256,15 +256,16 @@ export class TrezorSigner extends Signer implements TypedDataSigner {
       tx.nonce !== undefined
         ? parseInt(JSON.stringify(tx.nonce).toString())
         : await this.provider?.getTransactionCount(this._reqAddress);
-    const gasPrice = await this.provider?.getGasPrice();
+    // const gasPrice = await this.provider?.estimateGas({ data: tx.data });
 
     const unsignedTx: UnsignedTransaction = {
-      to: tx.to,
+      to: tx.to === undefined ? '' : tx.to,
       nonce,
       gasLimit: tx.gasLimit,
-      gasPrice: Number(ethers.utils.formatUnits(gasPrice ?? '0x', 'wei')),
+      // gasPrice:Number(ethers.utils.formatUnits(gasPrice ?? '0x', 'wei')),
+      gasPrice: Number(500000000),
       data: tx.data,
-      value: tx.value,
+      value: tx.value === undefined ? ethers.utils.parseEther('0') : tx.value,
       chainId: tx.chainId,
     };
 
@@ -279,11 +280,11 @@ export class TrezorSigner extends Signer implements TypedDataSigner {
       path: this._path ?? this._derivePath,
       transaction: {
         to: (tx.to !== undefined || '').toString(),
-        value: utils.hexlify(tx.value ?? 0),
-        gasPrice: utils.hexlify(tx.gasPrice ?? 0),
-        gasLimit: utils.hexlify(tx.gasLimit ?? 0),
-        nonce: utils.hexlify(tx.nonce as number),
-        data: utils.hexlify(tx.data ?? '0x'),
+        value: utils.hexlify(unsignedTx.value ?? 0),
+        gasPrice: utils.hexlify(unsignedTx.gasPrice ?? 0),
+        gasLimit: utils.hexlify(unsignedTx.gasLimit ?? 0),
+        nonce: utils.hexlify(unsignedTx.nonce as number),
+        data: utils.hexlify(unsignedTx.data ?? '0x'),
         chainId: tx.chainId as number,
       },
     };
@@ -309,7 +310,6 @@ export class TrezorSigner extends Signer implements TypedDataSigner {
       delete unsignedTx.maxPriorityFeePerGas;
       unsignedTx.gasLimit?.toString();
       unsignedTx.gasPrice?.toString();
-      console.log('Result success: ', unsignedTx);
 
       const sig = {
         v: parseInt(result.payload.v.substring(2), 16),
