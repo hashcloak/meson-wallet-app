@@ -9,6 +9,11 @@
     "url": "https://sepolia.infura.io/v3/",
     "chainId": 11155111
   },
+  "goerli": {
+    "network": "goerli",
+    "url": "https://goerli.infura.io/v3/",
+    "chainId": 5
+  },
   "mainnet": {
     "network": "ethereum",
     "shortcut": "ETH",

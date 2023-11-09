@@ -12,6 +12,7 @@ import { sendTx } from '../sendTx';
 import { getProvider } from '../getProvider';
 import { deployEntryPoint } from './deploy-entryPoint';
 import { TrezorSigner } from '~/utils/Trezor';
+import { LedgerSigner } from '@ethersproject/hardware-wallets';
 
 const ENCRYPT_PASS = import.meta.env.VITE_ENCRYPT_PASS;
 
@@ -54,7 +55,11 @@ export async function deploy(
         ) as ethers.Signer;
         break;
       case 'Ledger':
-        console.log('Ledger');
+        senderWallet = new LedgerSigner(
+          provider,
+          'default',
+          "m/44'/60'/0'/0/0"
+        );
         break;
       default:
         senderWallet = new ethers.Wallet(signerWallet.publicKey, provider);

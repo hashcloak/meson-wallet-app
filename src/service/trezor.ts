@@ -57,6 +57,15 @@ const getAccounts = async (
         });
       }
       break;
+    case 'goerli':
+      for (let i = 0; i < 25; i++) {
+        bundle.push({
+          path: `${baseTestnetPath}${i}`,
+          showOnTrezor: false,
+          coin: 'tGOR',
+        });
+      }
+      break;
     case 'localhost':
       for (let i = 0; i < 25; i++) {
         bundle.push({

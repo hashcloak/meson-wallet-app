@@ -44,11 +44,13 @@ const getCustomAccount = async (
   }
 };
 
-export const getFullLedgerAccounts = async (): Promise<FullAccountType[]> => {
+export const getFullLedgerAccounts = async (
+  network: string
+): Promise<FullAccountType[]> => {
   try {
     const ledgerAccounts: LedgerAccountType[] = await getAccounts();
     const ledgerFullAccounts: FullAccountType[] =
-      await getHardwareWalletBalance(ledgerAccounts);
+      await getHardwareWalletBalance(ledgerAccounts, network);
 
     return ledgerFullAccounts;
   } catch (e: unknown) {
@@ -69,5 +71,37 @@ export const getCustomLedgerAccount = async (
     return ledgerCustomAccount;
   } catch (e: unknown) {
     throw new Error('Something went wrong. Please retry.');
+  }
+};
+
+export const signLedgerTx = async (
+  tx: {
+    to: string;
+    value: number;
+    data: string;
+    nonce: number | undefined;
+    chainId: number;
+    gasPrice: number;
+  },
+  path: string,
+  priorityFeePerGas: unknown,
+  maxFeePerGas: unknown
+): Promise<any> => {
+  try {
+    const response: any = await invoke('sign_tx', {
+      to: tx.to,
+      path,
+      eth_amount: tx.value,
+      nonce: tx.nonce,
+      max_priority_fee_per_gas: priorityFeePerGas,
+      max_fee_per_gas: maxFeePerGas,
+      gas: tx.gasPrice,
+      chain_id: tx.chainId,
+      hex_data: tx.data,
+    });
+
+    console.log(response);
+  } catch (error) {
+    throw new Error('Please connect your Ledger hardware wallet');
   }
 };
