@@ -422,35 +422,94 @@
     "absolutePath": "contracts/AccountFactory.sol",
     "id": 133,
     "exportedSymbols": {
-      "AccountFactory": [132],
-      "Address": [55556],
-      "BaseAccount": [3791],
-      "Create2": [55659],
-      "ECDSA": [56255],
-      "ERC1967Proxy": [54507],
-      "ERC1967Upgrade": [54825],
-      "IAccount": [7054],
-      "IAggregator": [7088],
-      "IBeacon": [54887],
-      "IERC1822Proxiable": [54470],
-      "IEntryPoint": [7294],
-      "INonceManager": [7313],
-      "IStakeManager": [7454],
-      "Initializable": [55056],
-      "Math": [57120],
-      "Proxy": [54877],
-      "SmartWalletLogic": [483],
-      "SmartWalletProxy": [536],
-      "StorageSlot": [55719],
-      "Strings": [55894],
-      "UUPSUpgradeable": [55172],
-      "UserOperation": [7482],
-      "UserOperationLib": [7652],
-      "ValidationData": [6245],
-      "_intersectTimeRange": [6389],
-      "_packValidationData": [6426, 6464],
-      "_parseValidationData": [6304],
-      "calldataKeccak": [6474]
+      "AccountFactory": [
+        132
+      ],
+      "Address": [
+        55556
+      ],
+      "BaseAccount": [
+        3791
+      ],
+      "Create2": [
+        55659
+      ],
+      "ECDSA": [
+        56255
+      ],
+      "ERC1967Proxy": [
+        54507
+      ],
+      "ERC1967Upgrade": [
+        54825
+      ],
+      "IAccount": [
+        7054
+      ],
+      "IAggregator": [
+        7088
+      ],
+      "IBeacon": [
+        54887
+      ],
+      "IERC1822Proxiable": [
+        54470
+      ],
+      "IEntryPoint": [
+        7294
+      ],
+      "INonceManager": [
+        7313
+      ],
+      "IStakeManager": [
+        7454
+      ],
+      "Initializable": [
+        55056
+      ],
+      "Math": [
+        57120
+      ],
+      "Proxy": [
+        54877
+      ],
+      "SmartWalletLogic": [
+        483
+      ],
+      "SmartWalletProxy": [
+        536
+      ],
+      "StorageSlot": [
+        55719
+      ],
+      "Strings": [
+        55894
+      ],
+      "UUPSUpgradeable": [
+        55172
+      ],
+      "UserOperation": [
+        7482
+      ],
+      "UserOperationLib": [
+        7652
+      ],
+      "ValidationData": [
+        6245
+      ],
+      "_intersectTimeRange": [
+        6389
+      ],
+      "_packValidationData": [
+        6426,
+        6464
+      ],
+      "_parseValidationData": [
+        6304
+      ],
+      "calldataKeccak": [
+        6474
+      ]
     },
     "nodeType": "SourceUnit",
     "src": "36:2428:0",
@@ -460,7 +519,12 @@
         "nodeType": "PragmaDirective",
         "src": "36:24:0",
         "nodes": [],
-        "literals": ["solidity", "^", "0.8", ".12"]
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".12"
+        ]
       },
       {
         "id": 2,
@@ -542,7 +606,9 @@
               "pathNode": {
                 "id": 7,
                 "name": "SmartWalletLogic",
-                "nameLocations": ["636:16:0"],
+                "nameLocations": [
+                  "636:16:0"
+                ],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 483,
                 "src": "636:16:0"
@@ -627,7 +693,9 @@
                           "pathNode": {
                             "id": 16,
                             "name": "SmartWalletLogic",
-                            "nameLocations": ["773:16:0"],
+                            "nameLocations": [
+                              "773:16:0"
+                            ],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 483,
                             "src": "773:16:0"
@@ -698,7 +766,9 @@
                     "pathNode": {
                       "id": 10,
                       "name": "IEntryPoint",
-                      "nameLocations": ["710:11:0"],
+                      "nameLocations": [
+                        "710:11:0"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7294,
                       "src": "710:11:0"
@@ -738,7 +808,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [36],
+                  "assignments": [
+                    36
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -839,7 +911,9 @@
                   "src": "1308:38:0"
                 },
                 {
-                  "assignments": [43],
+                  "assignments": [
+                    43
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -1310,7 +1384,9 @@
                                     "pathNode": {
                                       "id": 64,
                                       "name": "SmartWalletProxy",
-                                      "nameLocations": ["1553:16:0"],
+                                      "nameLocations": [
+                                        "1553:16:0"
+                                      ],
                                       "nodeType": "IdentifierPath",
                                       "referencedDeclaration": 536,
                                       "src": "1553:16:0"
@@ -1328,7 +1404,9 @@
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
-                                "names": ["salt"],
+                                "names": [
+                                  "salt"
+                                ],
                                 "nodeType": "FunctionCallOptions",
                                 "options": [
                                   {
@@ -1601,7 +1679,9 @@
                     "pathNode": {
                       "id": 31,
                       "name": "SmartWalletLogic",
-                      "nameLocations": ["1276:16:0"],
+                      "nameLocations": [
+                        "1276:16:0"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 483,
                       "src": "1276:16:0"
@@ -2256,7 +2336,10 @@
         "abstract": false,
         "baseContracts": [],
         "canonicalName": "AccountFactory",
-        "contractDependencies": [483, 536],
+        "contractDependencies": [
+          483,
+          536
+        ],
         "contractKind": "contract",
         "documentation": {
           "id": 6,
@@ -2265,7 +2348,9 @@
           "text": " A UserOperations \"initCode\" holds the address of the factory, and a method call (to createAccount, in this sample factory).\n The factory's createAccount returns the target account address even if it is already installed.\n This way, the entryPoint.getSenderAddress() can be called either before or after the account is created."
         },
         "fullyImplemented": true,
-        "linearizedBaseContracts": [132],
+        "linearizedBaseContracts": [
+          132
+        ],
         "name": "AccountFactory",
         "nameLocation": "615:14:0",
         "scope": 133,

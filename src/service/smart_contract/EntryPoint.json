@@ -2926,25 +2926,64 @@
     "absolutePath": "contracts/core/EntryPoint.sol",
     "id": 6236,
     "exportedSymbols": {
-      "EntryPoint": [6235],
-      "Exec": [11754],
-      "IAccount": [7054],
-      "IAggregator": [7088],
-      "IEntryPoint": [7294],
-      "INonceManager": [7313],
-      "IPaymaster": [7348],
-      "IStakeManager": [7454],
-      "NonceManager": [6565],
-      "ReentrancyGuard": [55226],
-      "SenderCreator": [6612],
-      "StakeManager": [7037],
-      "UserOperation": [7482],
-      "UserOperationLib": [7652],
-      "ValidationData": [6245],
-      "_intersectTimeRange": [6389],
-      "_packValidationData": [6426, 6464],
-      "_parseValidationData": [6304],
-      "calldataKeccak": [6474]
+      "EntryPoint": [
+        6235
+      ],
+      "Exec": [
+        11754
+      ],
+      "IAccount": [
+        7054
+      ],
+      "IAggregator": [
+        7088
+      ],
+      "IEntryPoint": [
+        7294
+      ],
+      "INonceManager": [
+        7313
+      ],
+      "IPaymaster": [
+        7348
+      ],
+      "IStakeManager": [
+        7454
+      ],
+      "NonceManager": [
+        6565
+      ],
+      "ReentrancyGuard": [
+        55226
+      ],
+      "SenderCreator": [
+        6612
+      ],
+      "StakeManager": [
+        7037
+      ],
+      "UserOperation": [
+        7482
+      ],
+      "UserOperationLib": [
+        7652
+      ],
+      "ValidationData": [
+        6245
+      ],
+      "_intersectTimeRange": [
+        6389
+      ],
+      "_packValidationData": [
+        6426,
+        6464
+      ],
+      "_parseValidationData": [
+        6304
+      ],
+      "calldataKeccak": [
+        6474
+      ]
     },
     "nodeType": "SourceUnit",
     "src": "163:31622:15",
@@ -2954,7 +2993,12 @@
         "nodeType": "PragmaDirective",
         "src": "163:24:15",
         "nodes": [],
-        "literals": ["solidity", "^", "0.8", ".12"]
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".12"
+        ]
       },
       {
         "id": 4014,
@@ -3087,7 +3131,9 @@
             "libraryName": {
               "id": 4031,
               "name": "UserOperationLib",
-              "nameLocations": ["713:16:15"],
+              "nameLocations": [
+                "713:16:15"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 7652,
               "src": "713:16:15"
@@ -3098,7 +3144,9 @@
               "pathNode": {
                 "id": 4032,
                 "name": "UserOperation",
-                "nameLocations": ["734:13:15"],
+                "nameLocations": [
+                  "734:13:15"
+                ],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 7482,
                 "src": "734:13:15"
@@ -3133,7 +3181,9 @@
               "pathNode": {
                 "id": 4035,
                 "name": "SenderCreator",
-                "nameLocations": ["754:13:15"],
+                "nameLocations": [
+                  "754:13:15"
+                ],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 6612,
                 "src": "754:13:15"
@@ -3166,7 +3216,9 @@
                   "pathNode": {
                     "id": 4037,
                     "name": "SenderCreator",
-                    "nameLocations": ["806:13:15"],
+                    "nameLocations": [
+                      "806:13:15"
+                    ],
                     "nodeType": "IdentifierPath",
                     "referencedDeclaration": 6612,
                     "src": "806:13:15"
@@ -3562,7 +3614,10 @@
                       "id": 4065,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "1669:7:15",
                       "typeDescriptions": {
@@ -3591,7 +3646,10 @@
                   "src": "1669:62:15"
                 },
                 {
-                  "assignments": [4076, null],
+                  "assignments": [
+                    4076,
+                    null
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -3687,7 +3745,9 @@
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
-                      "names": ["value"],
+                      "names": [
+                        "value"
+                      ],
                       "nodeType": "FunctionCallOptions",
                       "options": [
                         {
@@ -3774,7 +3834,10 @@
                       "id": 4084,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "1805:7:15",
                       "typeDescriptions": {
@@ -3900,7 +3963,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [4105],
+                  "assignments": [
+                    4105
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -3966,7 +4031,9 @@
                   "src": "2315:26:15"
                 },
                 {
-                  "assignments": [4110],
+                  "assignments": [
+                    4110
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -4164,7 +4231,9 @@
                         "src": "2601:811:15",
                         "statements": [
                           {
-                            "assignments": [4133],
+                            "assignments": [
+                              4133
+                            ],
                             "declarations": [
                               {
                                 "constant": false,
@@ -4413,7 +4482,9 @@
                             }
                           },
                           {
-                            "assignments": [4147],
+                            "assignments": [
+                              4147
+                            ],
                             "declarations": [
                               {
                                 "constant": false,
@@ -4920,7 +4991,9 @@
                     "pathNode": {
                       "id": 4094,
                       "name": "UserOperation",
-                      "nameLocations": ["2199:13:15"],
+                      "nameLocations": [
+                        "2199:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "2199:13:15"
@@ -4955,7 +5028,9 @@
                     "pathNode": {
                       "id": 4097,
                       "name": "UserOpInfo",
-                      "nameLocations": ["2238:10:15"],
+                      "nameLocations": [
+                        "2238:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4687,
                       "src": "2238:10:15"
@@ -5023,7 +5098,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [4185],
+                  "assignments": [
+                    4185
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -5085,7 +5162,9 @@
                   "src": "3928:27:15"
                 },
                 {
-                  "assignments": [4193],
+                  "assignments": [
+                    4193
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -5109,7 +5188,9 @@
                           "pathNode": {
                             "id": 4190,
                             "name": "UserOpInfo",
-                            "nameLocations": ["3965:10:15"],
+                            "nameLocations": [
+                              "3965:10:15"
+                            ],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 4687,
                             "src": "3965:10:15"
@@ -5173,7 +5254,9 @@
                           "pathNode": {
                             "id": 4194,
                             "name": "UserOpInfo",
-                            "nameLocations": ["3999:10:15"],
+                            "nameLocations": [
+                              "3999:10:15"
+                            ],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 4687,
                             "src": "3999:10:15"
@@ -5225,7 +5308,9 @@
                         "src": "4091:444:15",
                         "statements": [
                           {
-                            "assignments": [4213],
+                            "assignments": [
+                              4213
+                            ],
                             "declarations": [
                               {
                                 "constant": false,
@@ -5248,7 +5333,9 @@
                                   "pathNode": {
                                     "id": 4211,
                                     "name": "UserOpInfo",
-                                    "nameLocations": ["4109:10:15"],
+                                    "nameLocations": [
+                                      "4109:10:15"
+                                    ],
                                     "nodeType": "IdentifierPath",
                                     "referencedDeclaration": 4687,
                                     "src": "4109:10:15"
@@ -5305,7 +5392,10 @@
                             "src": "4109:37:15"
                           },
                           {
-                            "assignments": [4219, 4221],
+                            "assignments": [
+                              4219,
+                              4221
+                            ],
                             "declarations": [
                               {
                                 "constant": false,
@@ -5669,7 +5759,9 @@
                       },
                       "id": 4241,
                       "initializationExpression": {
-                        "assignments": [4202],
+                        "assignments": [
+                          4202
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -5755,7 +5847,9 @@
                       "src": "4054:481:15"
                     },
                     {
-                      "assignments": [4243],
+                      "assignments": [
+                        4243
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -6055,7 +6149,9 @@
                       },
                       "id": 4272,
                       "initializationExpression": {
-                        "assignments": [4250],
+                        "assignments": [
+                          4250
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -6214,7 +6310,9 @@
                 }
               ]
             },
-            "baseFunctions": [7229],
+            "baseFunctions": [
+              7229
+            ],
             "documentation": {
               "id": 4173,
               "nodeType": "StructuredDocumentation",
@@ -6231,7 +6329,9 @@
                 "modifierName": {
                   "id": 4181,
                   "name": "nonReentrant",
-                  "nameLocations": ["3905:12:15"],
+                  "nameLocations": [
+                    "3905:12:15"
+                  ],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 55202,
                   "src": "3905:12:15"
@@ -6268,7 +6368,9 @@
                       "pathNode": {
                         "id": 4174,
                         "name": "UserOperation",
-                        "nameLocations": ["3826:13:15"],
+                        "nameLocations": [
+                          "3826:13:15"
+                        ],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 7482,
                         "src": "3826:13:15"
@@ -6344,7 +6446,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [4293],
+                  "assignments": [
+                    4293
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -6406,7 +6510,9 @@
                   "src": "5239:41:15"
                 },
                 {
-                  "assignments": [4298],
+                  "assignments": [
+                    4298
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -6463,7 +6569,9 @@
                     "src": "5358:723:15",
                     "statements": [
                       {
-                        "assignments": [4313],
+                        "assignments": [
+                          4313
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -6486,7 +6594,9 @@
                               "pathNode": {
                                 "id": 4311,
                                 "name": "UserOpsPerAggregator",
-                                "nameLocations": ["5372:20:15"],
+                                "nameLocations": [
+                                  "5372:20:15"
+                                ],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 7219,
                                 "src": "5372:20:15"
@@ -6543,7 +6653,9 @@
                         "src": "5372:55:15"
                       },
                       {
-                        "assignments": [4322],
+                        "assignments": [
+                          4322
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -6567,7 +6679,9 @@
                                 "pathNode": {
                                   "id": 4319,
                                   "name": "UserOperation",
-                                  "nameLocations": ["5441:13:15"],
+                                  "nameLocations": [
+                                    "5441:13:15"
+                                  ],
                                   "nodeType": "IdentifierPath",
                                   "referencedDeclaration": 7482,
                                   "src": "5441:13:15"
@@ -6623,7 +6737,9 @@
                         "src": "5441:42:15"
                       },
                       {
-                        "assignments": [4328],
+                        "assignments": [
+                          4328
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -6646,7 +6762,9 @@
                               "pathNode": {
                                 "id": 4326,
                                 "name": "IAggregator",
-                                "nameLocations": ["5497:11:15"],
+                                "nameLocations": [
+                                  "5497:11:15"
+                                ],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 7088,
                                 "src": "5497:11:15"
@@ -6863,7 +6981,10 @@
                             "id": 4332,
                             "name": "require",
                             "nodeType": "Identifier",
-                            "overloadedDeclarations": [-18, -18],
+                            "overloadedDeclarations": [
+                              -18,
+                              -18
+                            ],
                             "referencedDeclaration": -18,
                             "src": "5615:7:15",
                             "typeDescriptions": {
@@ -7371,7 +7492,9 @@
                   },
                   "id": 4380,
                   "initializationExpression": {
-                    "assignments": [4302],
+                    "assignments": [
+                      4302
+                    ],
                     "declarations": [
                       {
                         "constant": false,
@@ -7457,7 +7580,9 @@
                   "src": "5320:761:15"
                 },
                 {
-                  "assignments": [4385],
+                  "assignments": [
+                    4385
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -7481,7 +7606,9 @@
                           "pathNode": {
                             "id": 4382,
                             "name": "UserOpInfo",
-                            "nameLocations": ["6091:10:15"],
+                            "nameLocations": [
+                              "6091:10:15"
+                            ],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 4687,
                             "src": "6091:10:15"
@@ -7545,7 +7672,9 @@
                           "pathNode": {
                             "id": 4386,
                             "name": "UserOpInfo",
-                            "nameLocations": ["6125:10:15"],
+                            "nameLocations": [
+                              "6125:10:15"
+                            ],
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 4687,
                             "src": "6125:10:15"
@@ -7622,7 +7751,9 @@
                   "src": "6158:22:15"
                 },
                 {
-                  "assignments": [4397],
+                  "assignments": [
+                    4397
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -7679,7 +7810,9 @@
                     "src": "6258:787:15",
                     "statements": [
                       {
-                        "assignments": [4412],
+                        "assignments": [
+                          4412
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -7702,7 +7835,9 @@
                               "pathNode": {
                                 "id": 4410,
                                 "name": "UserOpsPerAggregator",
-                                "nameLocations": ["6272:20:15"],
+                                "nameLocations": [
+                                  "6272:20:15"
+                                ],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 7219,
                                 "src": "6272:20:15"
@@ -7759,7 +7894,9 @@
                         "src": "6272:55:15"
                       },
                       {
-                        "assignments": [4421],
+                        "assignments": [
+                          4421
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -7783,7 +7920,9 @@
                                 "pathNode": {
                                   "id": 4418,
                                   "name": "UserOperation",
-                                  "nameLocations": ["6341:13:15"],
+                                  "nameLocations": [
+                                    "6341:13:15"
+                                  ],
                                   "nodeType": "IdentifierPath",
                                   "referencedDeclaration": 7482,
                                   "src": "6341:13:15"
@@ -7839,7 +7978,9 @@
                         "src": "6341:42:15"
                       },
                       {
-                        "assignments": [4427],
+                        "assignments": [
+                          4427
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -7862,7 +8003,9 @@
                               "pathNode": {
                                 "id": 4425,
                                 "name": "IAggregator",
-                                "nameLocations": ["6397:11:15"],
+                                "nameLocations": [
+                                  "6397:11:15"
+                                ],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 7088,
                                 "src": "6397:11:15"
@@ -7910,7 +8053,9 @@
                         "src": "6397:39:15"
                       },
                       {
-                        "assignments": [4432],
+                        "assignments": [
+                          4432
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -7978,7 +8123,9 @@
                           "src": "6529:506:15",
                           "statements": [
                             {
-                              "assignments": [4448],
+                              "assignments": [
+                                4448
+                              ],
                               "declarations": [
                                 {
                                   "constant": false,
@@ -8001,7 +8148,9 @@
                                     "pathNode": {
                                       "id": 4446,
                                       "name": "UserOpInfo",
-                                      "nameLocations": ["6547:10:15"],
+                                      "nameLocations": [
+                                        "6547:10:15"
+                                      ],
                                       "nodeType": "IdentifierPath",
                                       "referencedDeclaration": 4687,
                                       "src": "6547:10:15"
@@ -8058,7 +8207,10 @@
                               "src": "6547:43:15"
                             },
                             {
-                              "assignments": [4454, 4456],
+                              "assignments": [
+                                4454,
+                                4456
+                              ],
                               "declarations": [
                                 {
                                   "constant": false,
@@ -8450,7 +8602,9 @@
                         },
                         "id": 4479,
                         "initializationExpression": {
-                          "assignments": [4437],
+                          "assignments": [
+                            4437
+                          ],
                           "declarations": [
                             {
                               "constant": false,
@@ -8581,7 +8735,9 @@
                   },
                   "id": 4481,
                   "initializationExpression": {
-                    "assignments": [4401],
+                    "assignments": [
+                      4401
+                    ],
                     "declarations": [
                       {
                         "constant": false,
@@ -8667,7 +8823,9 @@
                   "src": "6220:825:15"
                 },
                 {
-                  "assignments": [4483],
+                  "assignments": [
+                    4483
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -8771,7 +8929,9 @@
                     "src": "7145:420:15",
                     "statements": [
                       {
-                        "assignments": [4502],
+                        "assignments": [
+                          4502
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -8794,7 +8954,9 @@
                               "pathNode": {
                                 "id": 4500,
                                 "name": "UserOpsPerAggregator",
-                                "nameLocations": ["7159:20:15"],
+                                "nameLocations": [
+                                  "7159:20:15"
+                                ],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 7219,
                                 "src": "7159:20:15"
@@ -8966,7 +9128,9 @@
                         "src": "7228:56:15"
                       },
                       {
-                        "assignments": [4519],
+                        "assignments": [
+                          4519
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -8990,7 +9154,9 @@
                                 "pathNode": {
                                   "id": 4516,
                                   "name": "UserOperation",
-                                  "nameLocations": ["7298:13:15"],
+                                  "nameLocations": [
+                                    "7298:13:15"
+                                  ],
                                   "nodeType": "IdentifierPath",
                                   "referencedDeclaration": 7482,
                                   "src": "7298:13:15"
@@ -9046,7 +9212,9 @@
                         "src": "7298:42:15"
                       },
                       {
-                        "assignments": [4524],
+                        "assignments": [
+                          4524
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -9353,7 +9521,9 @@
                         },
                         "id": 4554,
                         "initializationExpression": {
-                          "assignments": [4529],
+                          "assignments": [
+                            4529
+                          ],
                           "declarations": [
                             {
                               "constant": false,
@@ -9484,7 +9654,9 @@
                   },
                   "id": 4556,
                   "initializationExpression": {
-                    "assignments": [4491],
+                    "assignments": [
+                      4491
+                    ],
                     "declarations": [
                       {
                         "constant": false,
@@ -9744,7 +9916,9 @@
                 }
               ]
             },
-            "baseFunctions": [7239],
+            "baseFunctions": [
+              7239
+            ],
             "documentation": {
               "id": 4281,
               "nodeType": "StructuredDocumentation",
@@ -9761,7 +9935,9 @@
                 "modifierName": {
                   "id": 4289,
                   "name": "nonReentrant",
-                  "nameLocations": ["5216:12:15"],
+                  "nameLocations": [
+                    "5216:12:15"
+                  ],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 55202,
                   "src": "5216:12:15"
@@ -9798,7 +9974,9 @@
                       "pathNode": {
                         "id": 4282,
                         "name": "UserOpsPerAggregator",
-                        "nameLocations": ["5117:20:15"],
+                        "nameLocations": [
+                          "5117:20:15"
+                        ],
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 7219,
                         "src": "5117:20:15"
@@ -9874,7 +10052,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [4584],
+                  "assignments": [
+                    4584
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -9897,7 +10077,9 @@
                         "pathNode": {
                           "id": 4582,
                           "name": "UserOpInfo",
-                          "nameLocations": ["7866:10:15"],
+                          "nameLocations": [
+                            "7866:10:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 4687,
                           "src": "7866:10:15"
@@ -9971,7 +10153,10 @@
                   "src": "7900:30:15"
                 },
                 {
-                  "assignments": [4591, 4593],
+                  "assignments": [
+                    4591,
+                    4593
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -10118,7 +10303,9 @@
                   "src": "7940:128:15"
                 },
                 {
-                  "assignments": [4602],
+                  "assignments": [
+                    4602
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -10141,7 +10328,9 @@
                         "pathNode": {
                           "id": 4600,
                           "name": "ValidationData",
-                          "nameLocations": ["8078:14:15"],
+                          "nameLocations": [
+                            "8078:14:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 6245,
                           "src": "8078:14:15"
@@ -10262,7 +10451,9 @@
                   "src": "8212:14:15"
                 },
                 {
-                  "assignments": [4612],
+                  "assignments": [
+                    4612
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -10418,7 +10609,9 @@
                   "src": "8290:14:15"
                 },
                 {
-                  "assignments": [4623],
+                  "assignments": [
+                    4623
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -10453,7 +10646,9 @@
                   "src": "8314:18:15"
                 },
                 {
-                  "assignments": [4626],
+                  "assignments": [
+                    4626
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -10897,7 +11092,9 @@
                 }
               ]
             },
-            "baseFunctions": [7293],
+            "baseFunctions": [
+              7293
+            ],
             "documentation": {
               "id": 4571,
               "nodeType": "StructuredDocumentation",
@@ -10941,7 +11138,9 @@
                     "pathNode": {
                       "id": 4572,
                       "name": "UserOperation",
-                      "nameLocations": ["7743:13:15"],
+                      "nameLocations": [
+                        "7743:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "7743:13:15"
@@ -11283,7 +11482,9 @@
                   "pathNode": {
                     "id": 4676,
                     "name": "MemoryUserOp",
-                    "nameLocations": ["9152:12:15"],
+                    "nameLocations": [
+                      "9152:12:15"
+                    ],
                     "nodeType": "IdentifierPath",
                     "referencedDeclaration": 4675,
                     "src": "9152:12:15"
@@ -11423,7 +11624,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [4701],
+                  "assignments": [
+                    4701
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -11624,7 +11827,10 @@
                       "id": 4705,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "9672:7:15",
                       "typeDescriptions": {
@@ -11653,7 +11859,9 @@
                   "src": "9672:63:15"
                 },
                 {
-                  "assignments": [4718],
+                  "assignments": [
+                    4718
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -11676,7 +11884,9 @@
                         "pathNode": {
                           "id": 4716,
                           "name": "MemoryUserOp",
-                          "nameLocations": ["9745:12:15"],
+                          "nameLocations": [
+                            "9745:12:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 4675,
                           "src": "9745:12:15"
@@ -11724,7 +11934,9 @@
                   "src": "9745:44:15"
                 },
                 {
-                  "assignments": [4723],
+                  "assignments": [
+                    4723
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -12024,7 +12236,9 @@
                   ]
                 },
                 {
-                  "assignments": [4744],
+                  "assignments": [
+                    4744
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -12047,7 +12261,10 @@
                         "pathNode": {
                           "id": 4742,
                           "name": "IPaymaster.PostOpMode",
-                          "nameLocations": ["10215:10:15", "10226:10:15"],
+                          "nameLocations": [
+                            "10215:10:15",
+                            "10226:10:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 7321,
                           "src": "10215:21:15"
@@ -12181,7 +12398,9 @@
                     "src": "10312:559:15",
                     "statements": [
                       {
-                        "assignments": [4754],
+                        "assignments": [
+                          4754
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -12385,7 +12604,9 @@
                           "src": "10421:440:15",
                           "statements": [
                             {
-                              "assignments": [4767],
+                              "assignments": [
+                                4767
+                              ],
                               "declarations": [
                                 {
                                   "constant": false,
@@ -12794,7 +13015,9 @@
                   "src": "10881:290:15",
                   "statements": [
                     {
-                      "assignments": [4800],
+                      "assignments": [
+                        4800
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -13126,7 +13349,9 @@
                     "pathNode": {
                       "id": 4691,
                       "name": "UserOpInfo",
-                      "nameLocations": ["9522:10:15"],
+                      "nameLocations": [
+                        "9522:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4687,
                       "src": "9522:10:15"
@@ -13456,7 +13681,9 @@
                 }
               ]
             },
-            "baseFunctions": [7248],
+            "baseFunctions": [
+              7248
+            ],
             "documentation": {
               "id": 4820,
               "nodeType": "StructuredDocumentation",
@@ -13494,7 +13721,9 @@
                     "pathNode": {
                       "id": 4821,
                       "name": "UserOperation",
-                      "nameLocations": ["11417:13:15"],
+                      "nameLocations": [
+                        "11417:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "11417:13:15"
@@ -14087,7 +14316,9 @@
                   "src": "12129:58:15"
                 },
                 {
-                  "assignments": [4904],
+                  "assignments": [
+                    4904
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -14429,7 +14660,10 @@
                             "id": 4912,
                             "name": "require",
                             "nodeType": "Identifier",
-                            "overloadedDeclarations": [-18, -18],
+                            "overloadedDeclarations": [
+                              -18,
+                              -18
+                            ],
                             "referencedDeclaration": -18,
                             "src": "12311:7:15",
                             "typeDescriptions": {
@@ -14676,7 +14910,9 @@
                     "pathNode": {
                       "id": 4846,
                       "name": "UserOperation",
-                      "nameLocations": ["11718:13:15"],
+                      "nameLocations": [
+                        "11718:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "11718:13:15"
@@ -14711,7 +14947,9 @@
                     "pathNode": {
                       "id": 4849,
                       "name": "MemoryUserOp",
-                      "nameLocations": ["11757:12:15"],
+                      "nameLocations": [
+                        "11757:12:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4675,
                       "src": "11757:12:15"
@@ -14751,7 +14989,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [4956],
+                  "assignments": [
+                    4956
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -14774,7 +15014,9 @@
                         "pathNode": {
                           "id": 4954,
                           "name": "UserOpInfo",
-                          "nameLocations": ["13066:10:15"],
+                          "nameLocations": [
+                            "13066:10:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 4687,
                           "src": "13066:10:15"
@@ -14848,7 +15090,10 @@
                   "src": "13104:34:15"
                 },
                 {
-                  "assignments": [4963, 4965],
+                  "assignments": [
+                    4963,
+                    4965
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -14995,7 +15240,9 @@
                   "src": "13148:135:15"
                 },
                 {
-                  "assignments": [4974],
+                  "assignments": [
+                    4974
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -15018,7 +15265,9 @@
                         "pathNode": {
                           "id": 4972,
                           "name": "StakeInfo",
-                          "nameLocations": ["13293:9:15"],
+                          "nameLocations": [
+                            "13293:9:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 7406,
                           "src": "13293:9:15"
@@ -15119,7 +15368,9 @@
                   "src": "13293:97:15"
                 },
                 {
-                  "assignments": [4983],
+                  "assignments": [
+                    4983
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -15142,7 +15393,9 @@
                         "pathNode": {
                           "id": 4981,
                           "name": "StakeInfo",
-                          "nameLocations": ["13400:9:15"],
+                          "nameLocations": [
+                            "13400:9:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 7406,
                           "src": "13400:9:15"
@@ -15243,7 +15496,9 @@
                   "src": "13400:69:15"
                 },
                 {
-                  "assignments": [4992],
+                  "assignments": [
+                    4992
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -15266,7 +15521,9 @@
                         "pathNode": {
                           "id": 4990,
                           "name": "StakeInfo",
-                          "nameLocations": ["13479:9:15"],
+                          "nameLocations": [
+                            "13479:9:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 7406,
                           "src": "13479:9:15"
@@ -15291,7 +15548,9 @@
                   "src": "13517:249:15",
                   "statements": [
                     {
-                      "assignments": [4995],
+                      "assignments": [
+                        4995
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -15354,7 +15613,9 @@
                       "src": "13531:41:15"
                     },
                     {
-                      "assignments": [5000],
+                      "assignments": [
+                        5000
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -15754,7 +16015,9 @@
                   ]
                 },
                 {
-                  "assignments": [5030],
+                  "assignments": [
+                    5030
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -15777,7 +16040,9 @@
                         "pathNode": {
                           "id": 5028,
                           "name": "ValidationData",
-                          "nameLocations": ["13776:14:15"],
+                          "nameLocations": [
+                            "13776:14:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 6245,
                           "src": "13776:14:15"
@@ -15862,7 +16127,9 @@
                   "src": "13776:123:15"
                 },
                 {
-                  "assignments": [5037],
+                  "assignments": [
+                    5037
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -15926,7 +16193,9 @@
                   "src": "13909:36:15"
                 },
                 {
-                  "assignments": [5042],
+                  "assignments": [
+                    5042
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -16052,7 +16321,9 @@
                   "src": "13955:41:15"
                 },
                 {
-                  "assignments": [5052],
+                  "assignments": [
+                    5052
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -16075,7 +16346,9 @@
                         "pathNode": {
                           "id": 5050,
                           "name": "ReturnInfo",
-                          "nameLocations": ["14006:10:15"],
+                          "nameLocations": [
+                            "14006:10:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 7269,
                           "src": "14006:10:15"
@@ -16550,7 +16823,9 @@
                     "src": "14333:387:15",
                     "statements": [
                       {
-                        "assignments": [5084],
+                        "assignments": [
+                          5084
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -16573,7 +16848,9 @@
                               "pathNode": {
                                 "id": 5082,
                                 "name": "AggregatorStakeInfo",
-                                "nameLocations": ["14347:19:15"],
+                                "nameLocations": [
+                                  "14347:19:15"
+                                ],
                                 "nodeType": "IdentifierPath",
                                 "referencedDeclaration": 7276,
                                 "src": "14347:19:15"
@@ -16919,7 +17196,9 @@
                 }
               ]
             },
-            "baseFunctions": [7255],
+            "baseFunctions": [
+              7255
+            ],
             "documentation": {
               "id": 4948,
               "nodeType": "StructuredDocumentation",
@@ -16957,7 +17236,9 @@
                     "pathNode": {
                       "id": 4949,
                       "name": "UserOperation",
-                      "nameLocations": ["13016:13:15"],
+                      "nameLocations": [
+                        "13016:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "13016:13:15"
@@ -17002,7 +17283,9 @@
                   "src": "15005:505:15",
                   "statements": [
                     {
-                      "assignments": [5119],
+                      "assignments": [
+                        5119
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -17189,7 +17472,9 @@
                       "src": "15209:53:15"
                     },
                     {
-                      "assignments": [5132],
+                      "assignments": [
+                        5132
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -17496,7 +17781,9 @@
                     "pathNode": {
                       "id": 5111,
                       "name": "MemoryUserOp",
-                      "nameLocations": ["14913:12:15"],
+                      "nameLocations": [
+                        "14913:12:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4675,
                       "src": "14913:12:15"
@@ -17634,7 +17921,9 @@
                     "src": "15743:904:15",
                     "statements": [
                       {
-                        "assignments": [5168],
+                        "assignments": [
+                          5168
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -17869,7 +18158,9 @@
                         }
                       },
                       {
-                        "assignments": [5185],
+                        "assignments": [
+                          5185
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -17962,7 +18253,9 @@
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
-                            "names": ["gas"],
+                            "names": [
+                              "gas"
+                            ],
                             "nodeType": "FunctionCallOptions",
                             "options": [
                               {
@@ -18482,7 +18775,9 @@
                         }
                       },
                       {
-                        "assignments": [5228],
+                        "assignments": [
+                          5228
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -18876,7 +19171,9 @@
                     "pathNode": {
                       "id": 5156,
                       "name": "UserOpInfo",
-                      "nameLocations": ["15634:10:15"],
+                      "nameLocations": [
+                        "15634:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4687,
                       "src": "15634:10:15"
@@ -18943,7 +19240,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [5260],
+                  "assignments": [
+                    5260
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -19099,7 +19398,9 @@
                 }
               ]
             },
-            "baseFunctions": [7282],
+            "baseFunctions": [
+              7282
+            ],
             "documentation": {
               "id": 5254,
               "nodeType": "StructuredDocumentation",
@@ -19603,7 +19904,9 @@
                     "pathNode": {
                       "id": 5272,
                       "name": "UserOperation",
-                      "nameLocations": ["17224:13:15"],
+                      "nameLocations": [
+                        "17224:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "17224:13:15"
@@ -19836,7 +20139,10 @@
                             "id": 5329,
                             "name": "revert",
                             "nodeType": "Identifier",
-                            "overloadedDeclarations": [-19, -19],
+                            "overloadedDeclarations": [
+                              -19,
+                              -19
+                            ],
                             "referencedDeclaration": -19,
                             "src": "18158:6:15",
                             "typeDescriptions": {
@@ -19938,7 +20244,9 @@
                     "src": "18248:273:15",
                     "statements": [
                       {
-                        "assignments": [5340],
+                        "assignments": [
+                          5340
+                        ],
                         "declarations": [
                           {
                             "constant": false,
@@ -20235,7 +20543,10 @@
                                   "id": 5357,
                                   "name": "revert",
                                   "nodeType": "Identifier",
-                                  "overloadedDeclarations": [-19, -19],
+                                  "overloadedDeclarations": [
+                                    -19,
+                                    -19
+                                  ],
                                   "referencedDeclaration": -19,
                                   "src": "18459:6:15",
                                   "typeDescriptions": {
@@ -20299,7 +20610,10 @@
                       "id": 5365,
                       "name": "revert",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-19, -19],
+                      "overloadedDeclarations": [
+                        -19,
+                        -19
+                      ],
                       "referencedDeclaration": -19,
                       "src": "18555:6:15",
                       "typeDescriptions": {
@@ -20458,7 +20772,9 @@
                   "src": "19097:1635:15",
                   "statements": [
                     {
-                      "assignments": [5389],
+                      "assignments": [
+                        5389
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -20524,7 +20840,9 @@
                       "src": "19121:26:15"
                     },
                     {
-                      "assignments": [5395],
+                      "assignments": [
+                        5395
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -20547,7 +20865,9 @@
                             "pathNode": {
                               "id": 5393,
                               "name": "MemoryUserOp",
-                              "nameLocations": ["19161:12:15"],
+                              "nameLocations": [
+                                "19161:12:15"
+                              ],
                               "nodeType": "IdentifierPath",
                               "referencedDeclaration": 4675,
                               "src": "19161:12:15"
@@ -20595,7 +20915,9 @@
                       "src": "19161:44:15"
                     },
                     {
-                      "assignments": [5400],
+                      "assignments": [
+                        5400
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -20761,7 +21083,9 @@
                       "src": "19264:51:15"
                     },
                     {
-                      "assignments": [5412],
+                      "assignments": [
+                        5412
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -20861,7 +21185,9 @@
                       "src": "19380:14:15"
                     },
                     {
-                      "assignments": [5420],
+                      "assignments": [
+                        5420
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -21012,7 +21338,9 @@
                         "src": "19482:193:15",
                         "statements": [
                           {
-                            "assignments": [5430],
+                            "assignments": [
+                              5430
+                            ],
                             "declarations": [
                               {
                                 "constant": false,
@@ -21773,7 +22101,9 @@
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
-                          "names": ["gas"],
+                          "names": [
+                            "gas"
+                          ],
                           "nodeType": "FunctionCallOptions",
                           "options": [
                             {
@@ -21932,7 +22262,9 @@
                         "src": "20304:349:15",
                         "statements": [
                           {
-                            "assignments": [5500],
+                            "assignments": [
+                              5500
+                            ],
                             "declarations": [
                               {
                                 "constant": false,
@@ -21955,7 +22287,9 @@
                                   "pathNode": {
                                     "id": 5498,
                                     "name": "DepositInfo",
-                                    "nameLocations": ["20322:11:15"],
+                                    "nameLocations": [
+                                      "20322:11:15"
+                                    ],
                                     "nodeType": "IdentifierPath",
                                     "referencedDeclaration": 7401,
                                     "src": "20322:11:15"
@@ -22012,7 +22346,9 @@
                             "src": "20322:49:15"
                           },
                           {
-                            "assignments": [5506],
+                            "assignments": [
+                              5506
+                            ],
                             "declarations": [
                               {
                                 "constant": false,
@@ -22498,7 +22834,9 @@
                     "pathNode": {
                       "id": 5374,
                       "name": "UserOperation",
-                      "nameLocations": ["18848:13:15"],
+                      "nameLocations": [
+                        "18848:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "18848:13:15"
@@ -22533,7 +22871,9 @@
                     "pathNode": {
                       "id": 5377,
                       "name": "UserOpInfo",
-                      "nameLocations": ["18883:10:15"],
+                      "nameLocations": [
+                        "18883:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4687,
                       "src": "18883:10:15"
@@ -22660,7 +23000,9 @@
                   "src": "21293:1466:15",
                   "statements": [
                     {
-                      "assignments": [5564],
+                      "assignments": [
+                        5564
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -22683,7 +23025,9 @@
                             "pathNode": {
                               "id": 5562,
                               "name": "MemoryUserOp",
-                              "nameLocations": ["21317:12:15"],
+                              "nameLocations": [
+                                "21317:12:15"
+                              ],
                               "nodeType": "IdentifierPath",
                               "referencedDeclaration": 4675,
                               "src": "21317:12:15"
@@ -22731,7 +23075,9 @@
                       "src": "21317:44:15"
                     },
                     {
-                      "assignments": [5569],
+                      "assignments": [
+                        5569
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -22869,7 +23215,10 @@
                           "id": 5573,
                           "name": "require",
                           "nodeType": "Identifier",
-                          "overloadedDeclarations": [-18, -18],
+                          "overloadedDeclarations": [
+                            -18,
+                            -18
+                          ],
                           "referencedDeclaration": -18,
                           "src": "21448:7:15",
                           "typeDescriptions": {
@@ -22898,7 +23247,9 @@
                       "src": "21448:147:15"
                     },
                     {
-                      "assignments": [5581],
+                      "assignments": [
+                        5581
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -22975,7 +23326,9 @@
                       "src": "21609:87:15"
                     },
                     {
-                      "assignments": [5587],
+                      "assignments": [
+                        5587
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -23039,7 +23392,9 @@
                       "src": "21711:37:15"
                     },
                     {
-                      "assignments": [5593],
+                      "assignments": [
+                        5593
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -23062,7 +23417,9 @@
                             "pathNode": {
                               "id": 5591,
                               "name": "DepositInfo",
-                              "nameLocations": ["21762:11:15"],
+                              "nameLocations": [
+                                "21762:11:15"
+                              ],
                               "nodeType": "IdentifierPath",
                               "referencedDeclaration": 7401,
                               "src": "21762:11:15"
@@ -23119,7 +23476,9 @@
                       "src": "21762:55:15"
                     },
                     {
-                      "assignments": [5599],
+                      "assignments": [
+                        5599
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -24044,7 +24403,9 @@
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
-                          "names": ["gas"],
+                          "names": [
+                            "gas"
+                          ],
                           "nodeType": "FunctionCallOptions",
                           "options": [
                             {
@@ -24153,7 +24514,9 @@
                     "pathNode": {
                       "id": 5546,
                       "name": "UserOperation",
-                      "nameLocations": ["21068:13:15"],
+                      "nameLocations": [
+                        "21068:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "21068:13:15"
@@ -24188,7 +24551,9 @@
                     "pathNode": {
                       "id": 5549,
                       "name": "UserOpInfo",
-                      "nameLocations": ["21103:10:15"],
+                      "nameLocations": [
+                        "21103:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4687,
                       "src": "21103:10:15"
@@ -24337,7 +24702,10 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [5688, 5690],
+                  "assignments": [
+                    5688,
+                    5690
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -24675,7 +25043,9 @@
                   }
                 },
                 {
-                  "assignments": [5714],
+                  "assignments": [
+                    5714
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -25402,7 +25772,9 @@
                   }
                 },
                 {
-                  "assignments": [5769],
+                  "assignments": [
+                    5769
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -25425,7 +25797,9 @@
                         "pathNode": {
                           "id": 5767,
                           "name": "ValidationData",
-                          "nameLocations": ["24247:14:15"],
+                          "nameLocations": [
+                            "24247:14:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 6245,
                           "src": "24247:14:15"
@@ -25867,7 +26241,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [5811],
+                  "assignments": [
+                    5811
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -25933,7 +26309,9 @@
                   "src": "25129:26:15"
                 },
                 {
-                  "assignments": [5817],
+                  "assignments": [
+                    5817
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -25956,7 +26334,9 @@
                         "pathNode": {
                           "id": 5815,
                           "name": "MemoryUserOp",
-                          "nameLocations": ["25165:12:15"],
+                          "nameLocations": [
+                            "25165:12:15"
+                          ],
                           "nodeType": "IdentifierPath",
                           "referencedDeclaration": 4675,
                           "src": "25165:12:15"
@@ -26170,7 +26550,9 @@
                   "src": "25268:44:15"
                 },
                 {
-                  "assignments": [5835],
+                  "assignments": [
+                    5835
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -26552,7 +26934,10 @@
                       "id": 5851,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "25688:7:15",
                       "typeDescriptions": {
@@ -26581,7 +26966,9 @@
                   "src": "25688:70:15"
                 },
                 {
-                  "assignments": [5863],
+                  "assignments": [
+                    5863
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -26616,7 +27003,9 @@
                   "src": "25769:42:15"
                 },
                 {
-                  "assignments": [5866],
+                  "assignments": [
+                    5866
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -27090,7 +27479,9 @@
                   "src": "26430:14:15"
                 },
                 {
-                  "assignments": [5900],
+                  "assignments": [
+                    5900
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -27421,7 +27812,9 @@
                   "src": "26796:420:15",
                   "statements": [
                     {
-                      "assignments": [5924],
+                      "assignments": [
+                        5924
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -28036,7 +28429,9 @@
                     "pathNode": {
                       "id": 5798,
                       "name": "UserOperation",
-                      "nameLocations": ["24952:13:15"],
+                      "nameLocations": [
+                        "24952:13:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "24952:13:15"
@@ -28071,7 +28466,9 @@
                     "pathNode": {
                       "id": 5801,
                       "name": "UserOpInfo",
-                      "nameLocations": ["24991:10:15"],
+                      "nameLocations": [
+                        "24991:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4687,
                       "src": "24991:10:15"
@@ -28166,7 +28563,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [5988],
+                  "assignments": [
+                    5988
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -28237,7 +28636,9 @@
                   "src": "28133:2174:15",
                   "statements": [
                     {
-                      "assignments": [5993],
+                      "assignments": [
+                        5993
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -28273,7 +28674,9 @@
                       "src": "28157:21:15"
                     },
                     {
-                      "assignments": [5997],
+                      "assignments": [
+                        5997
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -28296,7 +28699,9 @@
                             "pathNode": {
                               "id": 5995,
                               "name": "MemoryUserOp",
-                              "nameLocations": ["28192:12:15"],
+                              "nameLocations": [
+                                "28192:12:15"
+                              ],
                               "nodeType": "IdentifierPath",
                               "referencedDeclaration": 4675,
                               "src": "28192:12:15"
@@ -28344,7 +28749,9 @@
                       "src": "28192:44:15"
                     },
                     {
-                      "assignments": [6002],
+                      "assignments": [
+                        6002
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -28428,7 +28835,9 @@
                       "src": "28250:45:15"
                     },
                     {
-                      "assignments": [6008],
+                      "assignments": [
+                        6008
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -29291,7 +29700,9 @@
                                             "isLValue": false,
                                             "isPure": false,
                                             "lValueRequested": false,
-                                            "names": ["gas"],
+                                            "names": [
+                                              "gas"
+                                            ],
                                             "nodeType": "FunctionCallOptions",
                                             "options": [
                                               {
@@ -29498,7 +29909,9 @@
                                             "isLValue": false,
                                             "isPure": false,
                                             "lValueRequested": false,
-                                            "names": ["gas"],
+                                            "names": [
+                                              "gas"
+                                            ],
                                             "nodeType": "FunctionCallOptions",
                                             "options": [
                                               {
@@ -29944,7 +30357,9 @@
                       }
                     },
                     {
-                      "assignments": [6123],
+                      "assignments": [
+                        6123
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -30107,7 +30522,9 @@
                       "src": "29919:40:15"
                     },
                     {
-                      "assignments": [6135],
+                      "assignments": [
+                        6135
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -30496,7 +30913,10 @@
                     "pathNode": {
                       "id": 5973,
                       "name": "IPaymaster.PostOpMode",
-                      "nameLocations": ["27923:10:15", "27934:10:15"],
+                      "nameLocations": [
+                        "27923:10:15",
+                        "27934:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7321,
                       "src": "27923:21:15"
@@ -30531,7 +30951,9 @@
                     "pathNode": {
                       "id": 5976,
                       "name": "UserOpInfo",
-                      "nameLocations": ["27959:10:15"],
+                      "nameLocations": [
+                        "27959:10:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4687,
                       "src": "27959:10:15"
@@ -30658,7 +31080,9 @@
                   "src": "30606:413:15",
                   "statements": [
                     {
-                      "assignments": [6168],
+                      "assignments": [
+                        6168
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -30721,7 +31145,9 @@
                       "src": "30630:43:15"
                     },
                     {
-                      "assignments": [6173],
+                      "assignments": [
+                        6173
+                      ],
                       "declarations": [
                         {
                           "constant": false,
@@ -31011,7 +31437,9 @@
                     "pathNode": {
                       "id": 6160,
                       "name": "MemoryUserOp",
-                      "nameLocations": ["30530:12:15"],
+                      "nameLocations": [
+                        "30530:12:15"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 4675,
                       "src": "30530:12:15"
@@ -31627,7 +32055,9 @@
             "baseName": {
               "id": 4023,
               "name": "IEntryPoint",
-              "nameLocations": ["632:11:15"],
+              "nameLocations": [
+                "632:11:15"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 7294,
               "src": "632:11:15"
@@ -31640,7 +32070,9 @@
             "baseName": {
               "id": 4025,
               "name": "StakeManager",
-              "nameLocations": ["649:12:15"],
+              "nameLocations": [
+                "649:12:15"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 7037,
               "src": "649:12:15"
@@ -31653,7 +32085,9 @@
             "baseName": {
               "id": 4027,
               "name": "NonceManager",
-              "nameLocations": ["667:12:15"],
+              "nameLocations": [
+                "667:12:15"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 6565,
               "src": "667:12:15"
@@ -31666,7 +32100,9 @@
             "baseName": {
               "id": 4029,
               "name": "ReentrancyGuard",
-              "nameLocations": ["685:15:15"],
+              "nameLocations": [
+                "685:15:15"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 55226,
               "src": "685:15:15"
@@ -31677,16 +32113,42 @@
           }
         ],
         "canonicalName": "EntryPoint",
-        "contractDependencies": [6612],
+        "contractDependencies": [
+          6612
+        ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "linearizedBaseContracts": [6235, 55226, 6565, 7037, 7294, 7313, 7454],
+        "linearizedBaseContracts": [
+          6235,
+          55226,
+          6565,
+          7037,
+          7294,
+          7313,
+          7454
+        ],
         "name": "EntryPoint",
         "nameLocation": "614:10:15",
         "scope": 6236,
-        "usedErrors": [7151, 7156, 7171, 7189, 7194, 7209],
+        "usedErrors": [
+          7151,
+          7156,
+          7171,
+          7189,
+          7194,
+          7209
+        ],
         "usedEvents": [
-          7114, 7125, 7136, 7139, 7144, 7357, 7365, 7374, 7381, 7389
+          7114,
+          7125,
+          7136,
+          7139,
+          7144,
+          7357,
+          7365,
+          7374,
+          7381,
+          7389
         ]
       }
     ],

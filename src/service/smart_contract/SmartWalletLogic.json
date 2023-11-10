@@ -1062,30 +1062,79 @@
     "absolutePath": "contracts/SmartWalletLogic.sol",
     "id": 484,
     "exportedSymbols": {
-      "Address": [55556],
-      "BaseAccount": [3791],
-      "ECDSA": [56255],
-      "ERC1967Upgrade": [54825],
-      "IAccount": [7054],
-      "IAggregator": [7088],
-      "IBeacon": [54887],
-      "IERC1822Proxiable": [54470],
-      "IEntryPoint": [7294],
-      "INonceManager": [7313],
-      "IStakeManager": [7454],
-      "Initializable": [55056],
-      "Math": [57120],
-      "SmartWalletLogic": [483],
-      "StorageSlot": [55719],
-      "Strings": [55894],
-      "UUPSUpgradeable": [55172],
-      "UserOperation": [7482],
-      "UserOperationLib": [7652],
-      "ValidationData": [6245],
-      "_intersectTimeRange": [6389],
-      "_packValidationData": [6426, 6464],
-      "_parseValidationData": [6304],
-      "calldataKeccak": [6474]
+      "Address": [
+        55556
+      ],
+      "BaseAccount": [
+        3791
+      ],
+      "ECDSA": [
+        56255
+      ],
+      "ERC1967Upgrade": [
+        54825
+      ],
+      "IAccount": [
+        7054
+      ],
+      "IAggregator": [
+        7088
+      ],
+      "IBeacon": [
+        54887
+      ],
+      "IERC1822Proxiable": [
+        54470
+      ],
+      "IEntryPoint": [
+        7294
+      ],
+      "INonceManager": [
+        7313
+      ],
+      "IStakeManager": [
+        7454
+      ],
+      "Initializable": [
+        55056
+      ],
+      "Math": [
+        57120
+      ],
+      "SmartWalletLogic": [
+        483
+      ],
+      "StorageSlot": [
+        55719
+      ],
+      "Strings": [
+        55894
+      ],
+      "UUPSUpgradeable": [
+        55172
+      ],
+      "UserOperation": [
+        7482
+      ],
+      "UserOperationLib": [
+        7652
+      ],
+      "ValidationData": [
+        6245
+      ],
+      "_intersectTimeRange": [
+        6389
+      ],
+      "_packValidationData": [
+        6426,
+        6464
+      ],
+      "_parseValidationData": [
+        6304
+      ],
+      "calldataKeccak": [
+        6474
+      ]
     },
     "nodeType": "SourceUnit",
     "src": "36:4116:2",
@@ -1095,7 +1144,12 @@
         "nodeType": "PragmaDirective",
         "src": "36:24:2",
         "nodes": [],
-        "literals": ["solidity", "^", "0.8", ".12"]
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".12"
+        ]
       },
       {
         "id": 157,
@@ -1163,7 +1217,9 @@
             "libraryName": {
               "id": 167,
               "name": "ECDSA",
-              "nameLocations": ["401:5:2"],
+              "nameLocations": [
+                "401:5:2"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 56255,
               "src": "401:5:2"
@@ -1259,7 +1315,9 @@
               "pathNode": {
                 "id": 174,
                 "name": "IEntryPoint",
-                "nameLocations": ["595:11:2"],
+                "nameLocations": [
+                  "595:11:2"
+                ],
                 "nodeType": "IdentifierPath",
                 "referencedDeclaration": 7294,
                 "src": "595:11:2"
@@ -1308,7 +1366,9 @@
                     "pathNode": {
                       "id": 177,
                       "name": "IEntryPoint",
-                      "nameLocations": ["681:11:2"],
+                      "nameLocations": [
+                        "681:11:2"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7294,
                       "src": "681:11:2"
@@ -1386,7 +1446,9 @@
                 }
               ]
             },
-            "baseFunctions": [3688],
+            "baseFunctions": [
+              3688
+            ],
             "functionSelector": "b0d691fe",
             "implemented": true,
             "kind": "function",
@@ -1430,7 +1492,9 @@
                     "pathNode": {
                       "id": 186,
                       "name": "IEntryPoint",
-                      "nameLocations": ["815:11:2"],
+                      "nameLocations": [
+                        "815:11:2"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7294,
                       "src": "815:11:2"
@@ -1487,7 +1551,9 @@
                     "pathNode": {
                       "id": 194,
                       "name": "IEntryPoint",
-                      "nameLocations": ["902:11:2"],
+                      "nameLocations": [
+                        "902:11:2"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7294,
                       "src": "902:11:2"
@@ -1654,7 +1720,9 @@
                     "pathNode": {
                       "id": 205,
                       "name": "IEntryPoint",
-                      "nameLocations": ["1023:11:2"],
+                      "nameLocations": [
+                        "1023:11:2"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7294,
                       "src": "1023:11:2"
@@ -1759,7 +1827,9 @@
                 "modifierName": {
                   "id": 219,
                   "name": "initializer",
-                  "nameLocations": ["1150:11:2"],
+                  "nameLocations": [
+                    "1150:11:2"
+                  ],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 54958,
                   "src": "1150:11:2"
@@ -2280,7 +2350,10 @@
                       "id": 252,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "1580:7:2",
                       "typeDescriptions": {
@@ -2404,7 +2477,9 @@
                                   "id": 277,
                                   "name": "entryPoint",
                                   "nodeType": "Identifier",
-                                  "overloadedDeclarations": [193],
+                                  "overloadedDeclarations": [
+                                    193
+                                  ],
                                   "referencedDeclaration": 193,
                                   "src": "1808:10:2",
                                   "typeDescriptions": {
@@ -2573,7 +2648,10 @@
                       "id": 272,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "1765:7:2",
                       "typeDescriptions": {
@@ -2637,7 +2715,9 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [302],
+                  "assignments": [
+                    302
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -2876,7 +2956,9 @@
                 }
               ]
             },
-            "baseFunctions": [3750],
+            "baseFunctions": [
+              3750
+            ],
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -2913,7 +2995,9 @@
                     "pathNode": {
                       "id": 291,
                       "name": "UserOperation",
-                      "nameLocations": ["1952:13:2"],
+                      "nameLocations": [
+                        "1952:13:2"
+                      ],
                       "nodeType": "IdentifierPath",
                       "referencedDeclaration": 7482,
                       "src": "1952:13:2"
@@ -3396,7 +3480,10 @@
                       "id": 353,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "2757:7:2",
                       "typeDescriptions": {
@@ -3631,7 +3718,9 @@
                   },
                   "id": 384,
                   "initializationExpression": {
-                    "assignments": [363],
+                    "assignments": [
+                      363
+                    ],
                     "declarations": [
                       {
                         "constant": false,
@@ -3833,7 +3922,10 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [396, 398],
+                  "assignments": [
+                    396,
+                    398
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -3951,7 +4043,9 @@
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
-                      "names": ["value"],
+                      "names": [
+                        "value"
+                      ],
                       "nodeType": "FunctionCallOptions",
                       "options": [
                         {
@@ -4306,7 +4400,9 @@
                           "id": 418,
                           "name": "entryPoint",
                           "nodeType": "Identifier",
-                          "overloadedDeclarations": [193],
+                          "overloadedDeclarations": [
+                            193
+                          ],
                           "referencedDeclaration": 193,
                           "src": "3362:10:2",
                           "typeDescriptions": {
@@ -4437,7 +4533,10 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [433, null],
+                  "assignments": [
+                    433,
+                    null
+                  ],
                   "declarations": [
                     {
                       "constant": false,
@@ -4511,7 +4610,9 @@
                                 "id": 436,
                                 "name": "entryPoint",
                                 "nodeType": "Identifier",
-                                "overloadedDeclarations": [193],
+                                "overloadedDeclarations": [
+                                  193
+                                ],
                                 "referencedDeclaration": 193,
                                 "src": "3559:10:2",
                                 "typeDescriptions": {
@@ -4597,7 +4698,9 @@
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
-                      "names": ["value"],
+                      "names": [
+                        "value"
+                      ],
                       "nodeType": "FunctionCallOptions",
                       "options": [
                         {
@@ -4679,7 +4782,10 @@
                       "id": 446,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [-18, -18],
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
                       "referencedDeclaration": -18,
                       "src": "3609:7:2",
                       "typeDescriptions": {
@@ -4795,7 +4901,9 @@
                           "id": 461,
                           "name": "entryPoint",
                           "nodeType": "Identifier",
-                          "overloadedDeclarations": [193],
+                          "overloadedDeclarations": [
+                            193
+                          ],
                           "referencedDeclaration": 193,
                           "src": "3905:10:2",
                           "typeDescriptions": {
@@ -4872,7 +4980,9 @@
                 "modifierName": {
                   "id": 458,
                   "name": "onlyOwner",
-                  "nameLocations": ["3885:9:2"],
+                  "nameLocations": [
+                    "3885:9:2"
+                  ],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 249,
                   "src": "3885:9:2"
@@ -5038,7 +5148,9 @@
                 }
               ]
             },
-            "baseFunctions": [55171],
+            "baseFunctions": [
+              55171
+            ],
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -5103,7 +5215,9 @@
             "baseName": {
               "id": 161,
               "name": "BaseAccount",
-              "nameLocations": ["345:11:2"],
+              "nameLocations": [
+                "345:11:2"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 3791,
               "src": "345:11:2"
@@ -5116,7 +5230,9 @@
             "baseName": {
               "id": 163,
               "name": "UUPSUpgradeable",
-              "nameLocations": ["358:15:2"],
+              "nameLocations": [
+                "358:15:2"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 55172,
               "src": "358:15:2"
@@ -5129,7 +5245,9 @@
             "baseName": {
               "id": 165,
               "name": "Initializable",
-              "nameLocations": ["375:13:2"],
+              "nameLocations": [
+                "375:13:2"
+              ],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 55056,
               "src": "375:13:2"
@@ -5144,13 +5262,26 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "linearizedBaseContracts": [
-          483, 55056, 55172, 54825, 54470, 3791, 7054
+          483,
+          55056,
+          55172,
+          54825,
+          54470,
+          3791,
+          7054
         ],
         "name": "SmartWalletLogic",
         "nameLocation": "325:16:2",
         "scope": 484,
         "usedErrors": [],
-        "usedEvents": [183, 200, 54526, 54672, 54737, 54902]
+        "usedEvents": [
+          183,
+          200,
+          54526,
+          54672,
+          54737,
+          54902
+        ]
       }
     ],
     "license": "GPL-3.0"
