@@ -1,24 +1,24 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, FormProvider } from 'react-hook-form'
-import * as z from 'zod'
-import InputControl from './InputControl'
-import UnitInput from './UnitInput'
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, FormProvider } from 'react-hook-form';
+import * as z from 'zod';
+import InputControl from './InputControl';
+import UnitInput from './UnitInput';
 
 export default {
   title: 'Components/Atmos/Input',
   component: { InputControl, UnitInput },
-}
+};
 
-export const Inputs = () => {
-  const register = 'walletName'
+export const Inputs: React.FC = () => {
+  const register = 'walletName';
 
   const schema = z.object({
     walletName: z.string().min(1, { message: 'Wallet name is required' }),
-  })
+  });
 
-  const methods = useForm({ resolver: zodResolver(schema) })
-  const onSubmit = (data: any) => console.log(data)
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e)
+  const methods = useForm({ resolver: zodResolver(schema) });
+  const onSubmit = (data: any) => console.log(data);
+  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
     <div className='flex flex-row w-screen flex-wrap'>
@@ -33,7 +33,7 @@ export const Inputs = () => {
             >
               <p>
                 By continuing you consent to{' '}
-                <a href='' className='text-textLink'>
+                <a href='https//google.com' className='text-textLink'>
                   the terms of use
                 </a>
                 and privacy policy.
@@ -44,19 +44,19 @@ export const Inputs = () => {
         </FormProvider>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export const UnitInputs = () => {
-  const register = 'depositAmount'
+export const UnitInputs: React.FC = () => {
+  const register = 'depositAmount';
 
   const schema = z.object({
     depositAmount: z.nan().or(z.number().int()),
-  })
+  });
 
-  const methods = useForm({ resolver: zodResolver(schema) })
-  const onSubmit = (data: any) => console.log(data)
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e)
+  const methods = useForm({ resolver: zodResolver(schema) });
+  const onSubmit = (data: any) => console.log(data);
+  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
     <div className='flex flex-row w-screen flex-wrap'>
@@ -72,7 +72,7 @@ export const UnitInputs = () => {
             >
               <p>
                 By continuing you consent to{' '}
-                <a href='' className='text-textLink'>
+                <a href='https://google.com' className='text-textLink'>
                   the terms of use
                 </a>
                 and privacy policy.
@@ -83,5 +83,5 @@ export const UnitInputs = () => {
         </FormProvider>
       </div>
     </div>
-  )
-}
+  );
+};

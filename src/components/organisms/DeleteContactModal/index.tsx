@@ -1,35 +1,39 @@
-import { Dialog } from '@headlessui/react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { Button } from '@/components/atoms/Button'
-import Spacer from '@/utils/Spacer'
+import { Dialog } from '@headlessui/react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Button } from '~/components/atoms/Button';
+import Spacer from '~/utils/Spacer';
 
 type Props = {
-  isOpen: boolean
-  onClose: () => void
-  name: string
-  address: string
-}
+  isOpen: boolean;
+  onClose: () => void;
+  name: string;
+  address: string;
+};
 
 type DeleteContactDetailsType = {
-  onClose: () => void
-  name: string
-  address: string
-}
+  onClose: () => void;
+  name: string;
+  address: string;
+};
 
-const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({ onClose, name, address }) => {
+const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({
+  onClose,
+  name,
+  address,
+}) => {
   const methods = useForm({
     defaultValues: {
       newName: name,
       newAddress: address,
     },
-  })
+  });
 
   const onSubmit = (data: any) => {
-    console.log(data)
-    onClose()
-  }
+    console.log(data);
+    onClose();
+  };
 
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e)
+  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
     <div className='flex flex-col text-textWhite'>
@@ -49,7 +53,12 @@ const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({ onClose, nam
 
           <Spacer size={32} axis={'vertical'} />
           <div className='flex flex-row justify-around'>
-            <Button btnVariant={'text'} btnSize={'lg'} btnType={'button'} handleClick={onClose}>
+            <Button
+              btnVariant={'text'}
+              btnSize={'lg'}
+              btnType={'button'}
+              handleClick={onClose}
+            >
               <span className='text-lg'>Close</span>
             </Button>
             <Button btnVariant={'alert'} btnSize={'lg'} btnType={'submit'}>
@@ -59,10 +68,15 @@ const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({ onClose, nam
         </form>
       </FormProvider>
     </div>
-  )
-}
+  );
+};
 
-const DeleteContactModal: React.FC<Props> = ({ isOpen, onClose, name, address }) => {
+const DeleteContactModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  name,
+  address,
+}) => {
   return (
     <>
       {isOpen && (
@@ -78,11 +92,17 @@ const DeleteContactModal: React.FC<Props> = ({ isOpen, onClose, name, address })
               aria-hidden='true'
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
-              <span className='text-textWhite text-2xl font-bold'>Delete contact</span>
+              <span className='text-textWhite text-2xl font-bold'>
+                Delete contact
+              </span>
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
-                <DeleteContactDetails onClose={onClose} name={name} address={address} />
+                <DeleteContactDetails
+                  onClose={onClose}
+                  name={name}
+                  address={address}
+                />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>
@@ -90,7 +110,7 @@ const DeleteContactModal: React.FC<Props> = ({ isOpen, onClose, name, address })
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default DeleteContactModal
+export default DeleteContactModal;

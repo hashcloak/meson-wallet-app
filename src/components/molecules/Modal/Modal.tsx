@@ -1,20 +1,27 @@
-import { Dialog } from '@headlessui/react'
-import React from 'react'
-import { Icon } from '@/components/atoms/Icon'
+import React from 'react';
+import { Dialog } from '@headlessui/react';
+import { Icon } from '~/components/atoms/Icon';
 
 type Props = {
-  isOpen: boolean
-  body: React.ReactElement
-  buttons?: React.ReactElement
-  onClose: () => void
-}
+  isOpen: boolean;
+  body: React.ReactElement;
+  buttons?: React.ReactElement;
+  onClose: () => void;
+};
 
 const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
   return (
     <>
-      <Dialog open={isOpen} onClose={onClose} className='fixed z-10 inset-0 overflow-y-auto'>
+      <Dialog
+        open={isOpen}
+        onClose={onClose}
+        className='fixed z-10 inset-0 overflow-y-auto'
+      >
         <div className='flex items-center justify-center min-h-screen'>
-          <Dialog.Overlay className='fixed inset-0 bg-neutral-900 opacity-30' aria-hidden='true' />
+          <Dialog.Overlay
+            className='fixed inset-0 bg-neutral-900 opacity-30'
+            aria-hidden='true'
+          />
           <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl max-w-4xl mx-auto py-6 px-8 '>
             <div className='flex flex-row justify-between w-full'>
               <Dialog.Title className='Description-lg font-medium leading-6 text-textWhite text-2xl'>
@@ -40,7 +47,7 @@ const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
         </div>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

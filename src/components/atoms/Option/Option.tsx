@@ -1,39 +1,50 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 export type Options = {
-  value: string | number
-  label: string | number | JSX.Element
-  bg?: string
-}
+  value: string | number;
+  label: string | number | JSX.Element;
+  bg?: string;
+};
 
 type Props = {
-  options: Options[]
-  size?: null | 'lg'
-  handleChange?: (value: string) => void
-  defaultValue?: string
-}
+  options: Options[];
+  size?: null | 'lg';
+  handleChange?: (value: string) => void;
+  defaultValue?: string;
+};
 
-const Option: React.FC<Props> = ({ options, size = null, handleChange, defaultValue }) => {
-  const [currentVal, setCurrentVal] = useState<string>('')
-  const [currentBg, setCurrentBg] = useState<string>('')
+const Option: React.FC<Props> = ({
+  options,
+  size = null,
+  handleChange,
+  defaultValue,
+}) => {
+  const [currentVal, setCurrentVal] = useState<string>('');
+  const [currentBg, setCurrentBg] = useState<string>('');
 
   useEffect(() => {
-    const defaultBg = 'bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4] text-textBlack appearance-none'
-    const selectedOption = options.find((option) => option.value === currentVal)
-    setCurrentBg(selectedOption?.bg !== undefined ? selectedOption?.bg : defaultBg)
-  }, [currentVal])
+    const defaultBg =
+      'bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4] text-textBlack appearance-none';
+    const selectedOption = options.find(
+      (option) => option.value === currentVal
+    );
+    setCurrentBg(
+      selectedOption?.bg !== undefined ? selectedOption?.bg : defaultBg
+    );
+  }, [currentVal]);
 
   const optionHeight = () => {
-    let height = 'h-6'
+    let height = 'h-6';
     switch (size) {
       case 'lg':
-        height = 'h-10'
-        break
+        height = 'h-10';
+        break;
       default:
-        break
+        break;
     }
-    return height
-  }
+
+    return height;
+  };
 
   return (
     <div className='flex justify-center w-full'>
@@ -59,21 +70,20 @@ const Option: React.FC<Props> = ({ options, size = null, handleChange, defaultVa
           `}
           aria-label='Default select example'
           onChange={(e) => {
-            setCurrentVal(e.target.value)
-            handleChange && handleChange(e.target.value)
+            setCurrentVal(e.target.value);
+            handleChange?.(e.target.value);
           }}
-          defaultValue={defaultValue || currentVal}
+          defaultValue={(defaultValue ?? '') || currentVal}
         >
-          {options &&
-            options.map((option, key) => (
-              <option value={option.value} key={key}>
-                {option.label}
-              </option>
-            ))}
+          {options?.map((option, key) => (
+            <option value={option.value} key={key}>
+              {option.label}
+            </option>
+          ))}
         </select>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Option
+export default Option;

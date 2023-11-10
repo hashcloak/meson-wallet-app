@@ -1,20 +1,21 @@
-import { Button } from '@/components/atoms/Button'
-import { Icon, StatusIcon } from '@/components/atoms/Icon'
-import { TxContents } from '@/components/molecules/Modal/TxModal'
-import { RowBodyLong } from '@/components/organisms/RowBody'
-import EthAddress from '@/utils/Ethereum/EthAddress'
-import { mockTransactions as tx } from '@/utils/Mock'
-import Spacer from '@/utils/Spacer'
+import { Button } from '~/components/atoms/Button';
+import { Icon, StatusIcon } from '~/components/atoms/Icon';
+import { TxContents } from '~/components/molecules/Modal/TxModal';
+import { RowBodyLong } from '~/components/organisms/RowBody';
+import EthAddress from '~/utils/Ethereum/EthAddress';
+import { mockTransactions as tx } from '~/utils/Mock';
+import Spacer from '~/utils/Spacer';
 
-export const TxOnChainRejection = () => {
+export const TxOnChainRejection: React.FC = () => {
   return (
     <div className='flex flex-row justify-between w-full p-4 border border-borderGray rounded-b-2xl'>
       {/* Left content */}
       <div className='flex flex-col'>
         <div className='bg-light rounded-lg p-2'>
           <span className='text-textBlack'>
-            This is an on-chain rejection that doesn&apos;t send any funds. Executing this on-chain
-            rejection will replace all currently awaiting transactions with nonce 1.
+            This is an on-chain rejection that doesn&apos;t send any funds.
+            Executing this on-chain rejection will replace all currently
+            awaiting transactions with nonce 1.
           </span>
         </div>
 
@@ -35,7 +36,9 @@ export const TxOnChainRejection = () => {
           <Spacer size={16} axis={'vertical'} />
           <div className='collapse'>
             <input type='checkbox' />
-            <div className='collapse-title text-textLink font-medium'>Click to see more</div>
+            <div className='collapse-title text-textLink font-medium'>
+              Click to see more
+            </div>
             <div className='collapse-content'>
               <table className='table-auto border-separate border-spacing-x-2	text-left text-sm'>
                 <tr>
@@ -91,7 +94,9 @@ export const TxOnChainRejection = () => {
 
             <span className='text-main font-bold ml-2'>
               Confirmed
-              <span className='text-textWhite text-sm font-normal ml-2'>(1 of 2)</span>
+              <span className='text-textWhite text-sm font-normal ml-2'>
+                (1 of 2)
+              </span>
             </span>
           </div>
           <div className='flex flex-row items-center pl-6 mt-2'>
@@ -108,7 +113,9 @@ export const TxOnChainRejection = () => {
             <Icon type={'Circle'} size={'lg'} color={'light'} />
             <span className='text-light font-bold ml-2'>
               Awaiting confirmations
-              <span className='text-textWhite text-sm font-normal ml-2'>(1 of 2)</span>
+              <span className='text-textWhite text-sm font-normal ml-2'>
+                (1 of 2)
+              </span>
             </span>
           </div>
 
@@ -139,15 +146,15 @@ export const TxOnChainRejection = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const TxConflict = () => {
+const TxConflict: React.FC = () => {
   return (
     <div className='rounded-2xl bg-bgDarkMid'>
       <div className='rounded-t-2xl bg-bgDarkLight h-16 flex items-center px-6'>
         <RowBodyLong
-          timestamp={tx[0].timestamp!}
+          timestamp={tx[0].timestamp}
           status={tx[0].status}
           token={tx[0].token}
           amount={tx[0].amount}
@@ -169,7 +176,7 @@ const TxConflict = () => {
         <div className='rounded-2xl'>
           <div className='rounded-t-2xl bg-bgDarkLight h-16 flex items-center px-6 border border-borderGray'>
             <RowBodyLong
-              timestamp={tx[0].timestamp!}
+              timestamp={tx[0].timestamp}
               status={tx[0].status}
               token={tx[0].token}
               amount={tx[0].amount}
@@ -183,7 +190,7 @@ const TxConflict = () => {
         <div className='rounded-2xl'>
           <div className='rounded-t-2xl bg-bgDarkLight h-16 flex items-center px-6 border border-borderGray'>
             <RowBodyLong
-              timestamp={tx[0].timestamp!}
+              timestamp={tx[0].timestamp}
               status={tx[0].status}
               token={tx[0].token}
               amount={tx[0].amount}
@@ -197,7 +204,7 @@ const TxConflict = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TxConflict
+export default TxConflict;

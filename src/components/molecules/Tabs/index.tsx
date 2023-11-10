@@ -1,4 +1,4 @@
-import BasicTabs from './BasicTabs'
-import VerticalTabs from './VerticalTabs'
+import BasicTabs from './BasicTabs';
+import VerticalTabs from './VerticalTabs';
 
-export { BasicTabs, VerticalTabs }
+export { BasicTabs, VerticalTabs };

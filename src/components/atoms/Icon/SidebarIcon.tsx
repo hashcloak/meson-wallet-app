@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import AddCircle from './images/AddCircle'
-import Contacts from './images/Contacts'
-import Help from './images/Help'
-import Home from './images/Home'
-import NewTx from './images/NewTx'
-import Settings from './images/Settings'
-import Transactions from './images/Transactions'
+import AddCircle from './images/AddCircle';
+import Contacts from './images/Contacts';
+import Help from './images/Help';
+import Home from './images/Home';
+import NewTx from './images/NewTx';
+import Settings from './images/Settings';
+import Transactions from './images/Transactions';
 
 const icons = {
   Home,
@@ -16,16 +16,24 @@ const icons = {
   Help,
   NewTx,
   AddCircle,
-}
+};
 
-export type SidebarIconType = typeof icons
-export type SidebarIconTypes = keyof SidebarIconType
+export type SidebarIconType = typeof icons;
+export type SidebarIconTypes = keyof SidebarIconType;
 
 export type Props = {
-  type: SidebarIconTypes
-  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-  color: any
-}
+  type: SidebarIconTypes;
+  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  color:
+    | 'main'
+    | 'none'
+    | 'dark'
+    | 'light'
+    | 'alert'
+    | 'black'
+    | 'white'
+    | 'gray';
+};
 
 export const SidebarIcon: React.FC<Props> = ({ type, size, color }) => {
   const icons = {
@@ -36,6 +44,7 @@ export const SidebarIcon: React.FC<Props> = ({ type, size, color }) => {
     Help: <Help iconSize={size} color={color} />,
     NewTx: <NewTx iconSize={size} color={color} />,
     AddCircle: <AddCircle iconSize={size} color={color} />,
-  }
-  return icons[type]
-}
+  };
+
+  return icons[type];
+};

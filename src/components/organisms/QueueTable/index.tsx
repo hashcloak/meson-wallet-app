@@ -1,8 +1,7 @@
-import { TableRowLong } from '../TableRow'
+import { mockTransactions } from '~/utils/Mock';
+import { TableRowLong } from '../TableRow';
 
-import { mockTransactions } from '@/utils/Mock'
-
-const QueueTable = () => {
+const QueueTable: React.FC = () => {
   return (
     <div className='flex flex-col w-full h-full'>
       <span className='text-textWhite text-2xl font-bold'>Queue</span>
@@ -19,8 +18,10 @@ const QueueTable = () => {
           </div>
         </div>
         <div className='box-border grid grid-cols-1 gap-2'>
-          {mockTransactions ? (
-            mockTransactions.map((tx) => <TableRowLong tx={tx} key={tx.timestamp} />)
+          {mockTransactions.length ? (
+            mockTransactions.map((tx) => (
+              <TableRowLong tx={tx} key={tx.timestamp} />
+            ))
           ) : (
             <div className='w-full h-full flex justify-center items-center'>
               <span className='text-textGrayLight'>No queued transaction</span>
@@ -29,7 +30,7 @@ const QueueTable = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default QueueTable
+export default QueueTable;

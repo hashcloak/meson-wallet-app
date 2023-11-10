@@ -1,12 +1,12 @@
-import EthAddress from './EthAddress'
-import Spacer from '@/utils/Spacer'
+import Spacer from '~/utils/Spacer';
+import EthAddress from './EthAddress';
 
 export default {
   title: 'Utils/Ethereum',
   component: EthAddress,
-}
+};
 
-export const EthAddresses = () => {
+export const EthAddresses: React.FC = () => {
   return (
     <div className='flex flex-col justify-between w-screen'>
       <EthAddress
@@ -53,5 +53,5 @@ export const EthAddresses = () => {
         icons={false}
       />
     </div>
-  )
-}
+  );
+};

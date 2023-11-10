@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import EditOwners from '.'
-import { mockOwners } from '@/utils/Mock'
+import { useState } from 'react';
+import { mockOwners } from '~/utils/Mock';
+import EditOwners from '.';
 
 export default {
   title: 'Components/Organisms/EditOwners',
   component: EditOwners,
-}
+};
 
-export const Default = (): React.ReactElement => {
-  const [isOpen, setIsOpen] = useState(true)
+export const Default: React.FC = (): React.ReactElement => {
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <EditOwners
       isOpen={isOpen}
       onClose={function (): void {
-        setIsOpen(!isOpen)
+        setIsOpen(!isOpen);
       }}
       owners={mockOwners}
     />
-  )
-}
+  );
+};

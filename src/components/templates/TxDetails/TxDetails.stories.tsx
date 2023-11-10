@@ -1,8 +1,8 @@
-import TxDetails from '.'
+import TxDetails from '.';
 
 export default {
   title: 'Components/Templates/TxDetails',
   component: TxDetails,
-}
+};
 
-export const Default = () => <TxDetails />
+export const Default: React.FC = () => <TxDetails />;

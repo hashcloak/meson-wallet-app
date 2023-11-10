@@ -1,12 +1,14 @@
-import CustomLink from '@/components/atoms/CustomLink'
-import { Icon } from '@/components/atoms/Icon'
-import SignerWallets from '@/components/molecules/SignerWallets'
-import Spacer from '@/utils/Spacer'
+import CustomLink from '~/components/atoms/CustomLink';
+import { Icon } from '~/components/atoms/Icon';
+import SignerWallets from '~/components/molecules/SignerWallets';
+import Spacer from '~/utils/Spacer';
 
-const NoSignerWallet = () => {
+const NoSignerWallet: React.FC = () => {
   return (
-    <div className='w-[31rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
-      <span className='text-textWhite text-xl font-bold'>Connect a signer wallet</span>
+    <div className='w-[22rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
+      <span className='text-textWhite text-xl font-bold'>
+        Connect a signer wallet
+      </span>
 
       <Spacer size={16} axis={'vertical'} />
 
@@ -18,8 +20,8 @@ const NoSignerWallet = () => {
 
           <div>
             <span className='text-base text-textWhite'>
-              In order to select the network to create your Meson Wallet, your wallet needs to be
-              connected.
+              In order to select the network to create your Meson Wallet, your
+              wallet needs to be connected.
             </span>
             <br />
             <CustomLink url={''} size={'base'}>
@@ -30,16 +32,18 @@ const NoSignerWallet = () => {
           <Spacer size={16} axis={'vertical'} />
 
           <div className='w-full'>
-            <span className='text-textWhite text-base font-bold'>Available Wallets</span>
+            <span className='text-textWhite text-base font-bold'>
+              Available Wallets
+            </span>
             <Spacer size={8} axis={'vertical'} />
-            <div className='grid grid-cols-2 gap-2'>
+            <div className='grid grid-cols-1 gap-2'>
               <SignerWallets />
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NoSignerWallet
+export default NoSignerWallet;

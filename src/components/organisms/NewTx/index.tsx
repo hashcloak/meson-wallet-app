@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react';
 
-import NewTxModal from './NewTxModal'
-import ReceiveFundsModal from './ReceiveFundsModal'
-import SendFundsModal from './SendFundsModal'
-import { SidebarIconText } from '@/components/molecules/IconText'
+import { SidebarIconText } from '~/components/molecules/IconText';
+import NewTxModal from './NewTxModal';
+import ReceiveFundsModal from './ReceiveFundsModal';
+import SendFundsModal from './SendFundsModal';
 
-const NewTx = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isOpenReceiveFundsModal, setIsOpenReceiveFundsModal] = useState(false)
-  const [isOpenSendFundsModal, setIsOpenSendFundsModal] = useState(false)
+const NewTx: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenReceiveFundsModal, setIsOpenReceiveFundsModal] = useState(false);
+  const [isOpenSendFundsModal, setIsOpenSendFundsModal] = useState(false);
 
   const onCloseNewTxModal = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
   const handleReceiveFundsModal = () => {
-    setIsOpenReceiveFundsModal(!isOpenReceiveFundsModal)
-  }
+    setIsOpenReceiveFundsModal(!isOpenReceiveFundsModal);
+  };
   const handleSendFundsModal = () => {
-    setIsOpenSendFundsModal(!isOpenSendFundsModal)
-  }
+    setIsOpenSendFundsModal(!isOpenSendFundsModal);
+  };
+
   return (
     <>
       <div
@@ -37,10 +39,16 @@ const NewTx = () => {
         isOpenSendFundsModal={isOpenSendFundsModal}
         handleSendFundsModal={handleSendFundsModal}
       />
-      <ReceiveFundsModal isOpen={isOpenReceiveFundsModal} onClose={handleReceiveFundsModal} />
-      <SendFundsModal isOpen={isOpenSendFundsModal} onClose={handleSendFundsModal} />
+      <ReceiveFundsModal
+        isOpen={isOpenReceiveFundsModal}
+        onClose={handleReceiveFundsModal}
+      />
+      <SendFundsModal
+        isOpen={isOpenSendFundsModal}
+        onClose={handleSendFundsModal}
+      />
     </>
-  )
-}
+  );
+};
 
-export default NewTx
+export default NewTx;

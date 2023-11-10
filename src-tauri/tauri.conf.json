@@ -1,18 +1,22 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build &amp;&amp; npm run export",
+    "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "devPath": "http://localhost:3000",
-    "distDir": "../out"
+    "devPath": "http://localhost:5173",
+    "distDir": "../dist"
   },
   "package": {
-    "productName": "meson-wallet",
+    "productName": "meson-components",
     "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": ["https://api.etherscan.io/*"]
+      }
     },
     "bundle": {
       "active": true,
@@ -56,10 +60,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 1050,
-        "resizable": false,
-        "title": "Meson wallet",
-        "width": 1680
+        "width": 1920,
+        "height": 1080,
+        "resizable": true,
+        "title": "Meson Wallet"
       }
     ]
   }

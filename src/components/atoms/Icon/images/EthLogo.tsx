@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
+const sizes = theme.icons.sizes;
 
 type Props = {
-  iconSize: keyof typeof sizes
-}
+  iconSize: keyof typeof sizes;
+};
 
 const EthLogo: React.FC<Props> = ({ iconSize }) => {
-  const px = sizes[iconSize]
+  const px = sizes[iconSize];
 
   return (
     <svg
@@ -23,7 +23,10 @@ const EthLogo: React.FC<Props> = ({ iconSize }) => {
       <g transform='matrix(1,0,0,1,-1259.52,-529.088)'>
         <g id='Ethereum'>
           <g id='Bottom'>
-            <g id='Purple2' transform='matrix(1.08181,0,0,-1.03277,-108.829,1366.48)'>
+            <g
+              id='Purple2'
+              transform='matrix(1.08181,0,0,-1.03277,-108.829,1366.48)'
+            >
               <path
                 d='M1394.74,693.463L1330.36,604.024L1330.36,654.238L1394.74,693.463Z'
                 style={{
@@ -33,7 +36,10 @@ const EthLogo: React.FC<Props> = ({ iconSize }) => {
                 }}
               />
             </g>
-            <g id='Yellow2' transform='matrix(-1.08181,0,0,-1.03277,2769.57,1366.48)'>
+            <g
+              id='Yellow2'
+              transform='matrix(-1.08181,0,0,-1.03277,2769.57,1366.48)'
+            >
               <path
                 d='M1394.74,693.463L1330.36,604.024L1330.36,654.238L1394.74,693.463Z'
                 style={{
@@ -65,7 +71,10 @@ const EthLogo: React.FC<Props> = ({ iconSize }) => {
                 }}
               />
             </g>
-            <g id='Yellow1' transform='matrix(-1.08181,0,0,1.03277,2769.57,-93.5314)'>
+            <g
+              id='Yellow1'
+              transform='matrix(-1.08181,0,0,1.03277,2769.57,-93.5314)'
+            >
               <path
                 d='M1394.74,709.855L1330.36,604.024L1330.36,679.865L1394.74,709.855Z'
                 style={{
@@ -75,7 +84,10 @@ const EthLogo: React.FC<Props> = ({ iconSize }) => {
                 }}
               />
             </g>
-            <g id='Green1' transform='matrix(1.08181,0,0,1.03277,-108.829,-93.5314)'>
+            <g
+              id='Green1'
+              transform='matrix(1.08181,0,0,1.03277,-108.829,-93.5314)'
+            >
               <path
                 d='M1394.74,709.855L1330.36,604.024L1330.36,679.865L1394.74,709.855Z'
                 style={{
@@ -89,7 +101,7 @@ const EthLogo: React.FC<Props> = ({ iconSize }) => {
         </g>
       </g>
     </svg>
-  )
-}
+  );
+};
 
-export default EthLogo
+export default EthLogo;

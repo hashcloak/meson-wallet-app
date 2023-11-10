@@ -1,24 +1,24 @@
-import { Tab } from '@headlessui/react'
-import { useState } from 'react'
-import { Icon } from '@/components/atoms/Icon'
+import { useState } from 'react';
+import { Tab } from '@headlessui/react';
+import { Icon } from '~/components/atoms/Icon';
 
 type Props = {
-  tabList: { [key: string]: JSX.Element }[]
-}
+  tabList: Array<{ [key: string]: JSX.Element }>;
+};
 
 const VerticalTabs: React.FC<Props> = ({ tabList }) => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0)
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   const classNames = (...classes: string[]) => {
-    return classes.filter(Boolean).join(' ')
-  }
+    return classes.filter(Boolean).join(' ');
+  };
 
   return (
     <div className='w-full h-full flex flex-col box-border'>
       <Tab.Group
         selectedIndex={selectedIndex}
         onChange={(index) => {
-          setSelectedIndex(index)
+          setSelectedIndex(index);
         }}
       >
         <div className='grid grid-cols-[20%_1fr] gap-6 h-full'>
@@ -29,7 +29,7 @@ const VerticalTabs: React.FC<Props> = ({ tabList }) => {
                   classNames(
                     'rounded-3xl h-12 w-full text-center text-xl font-medium text-textWhite',
                     'focus:outline-none focus:ring-2 mb-2',
-                    selected ? 'bg-dark' : 'hover:bg-dark',
+                    selected ? 'bg-dark' : 'hover:bg-dark'
                   )
                 }
                 key={idx}
@@ -47,7 +47,7 @@ const VerticalTabs: React.FC<Props> = ({ tabList }) => {
         </div>
       </Tab.Group>
     </div>
-  )
-}
+  );
+};
 
-export default VerticalTabs
+export default VerticalTabs;

@@ -1,8 +1,8 @@
-import SelectMesonWallet from '.'
+import SelectMesonWallet from '.';
 
 export default {
   title: 'Components/Templates/SelectMesonWallet',
   component: SelectMesonWallet,
-}
+};
 
-export const Default = () => <SelectMesonWallet />
+export const Default: React.FC = () => <SelectMesonWallet />;

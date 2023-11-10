@@ -1,24 +1,24 @@
 const copyTextToClipboard = (text: string): void => {
   const listener = (e: ClipboardEvent): void => {
-    e.preventDefault()
+    e.preventDefault();
     if (e.clipboardData) {
-      e.clipboardData.setData('text/plain', text)
+      e.clipboardData.setData('text/plain', text);
     }
-  }
+  };
 
-  const range = document.createRange()
+  const range = document.createRange();
 
-  const documentSelection = document.getSelection()
+  const documentSelection = document.getSelection();
   if (!documentSelection) {
-    return
+    return;
   }
 
-  range.selectNodeContents(document.body)
-  documentSelection.addRange(range)
-  document.addEventListener('copy', listener)
-  document.execCommand('copy')
-  document.removeEventListener('copy', listener)
-  documentSelection.removeAllRanges()
-}
+  range.selectNodeContents(document.body);
+  documentSelection.addRange(range);
+  document.addEventListener('copy', listener);
+  document.execCommand('copy');
+  document.removeEventListener('copy', listener);
+  documentSelection.removeAllRanges();
+};
 
-export default copyTextToClipboard
+export default copyTextToClipboard;

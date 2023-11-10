@@ -1,18 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  color: keyof typeof colors
-}
+  iconSize: keyof typeof sizes;
+  color: keyof typeof colors;
+};
 
 const CheckCircle: React.FC<Props> = ({ iconSize, color = 'main' }) => {
-  const px = sizes[iconSize]
-  const fill = colors[color]
+  const px = sizes[iconSize];
+  const fill = colors[color];
 
   return (
     <svg
@@ -26,7 +26,7 @@ const CheckCircle: React.FC<Props> = ({ iconSize, color = 'main' }) => {
       <path d='M0 0h24v24H0z' fill='none' />
       <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' />
     </svg>
-  )
-}
+  );
+};
 
-export default CheckCircle
+export default CheckCircle;

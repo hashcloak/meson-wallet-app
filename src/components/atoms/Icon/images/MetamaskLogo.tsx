@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
+const sizes = theme.icons.sizes;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  interact?: boolean
-}
+  iconSize: keyof typeof sizes;
+  interact?: boolean;
+};
 
 const MetamaskLogo: React.FC<Props> = ({ iconSize }) => {
-  const px = sizes[iconSize]
+  const px = sizes[iconSize];
 
   return (
     <svg
@@ -21,7 +21,11 @@ const MetamaskLogo: React.FC<Props> = ({ iconSize }) => {
       className='object-contain'
     >
       <g strokeLinecap='round' strokeLinejoin='round' strokeWidth='.25'>
-        <path d='m32.9582 1-13.1341 9.7183 2.4424-5.72731z' fill='#e17726' stroke='#e17726' />
+        <path
+          d='m32.9582 1-13.1341 9.7183 2.4424-5.72731z'
+          fill='#e17726'
+          stroke='#e17726'
+        />
         <g fill='#e27625' stroke='#e27625'>
           <path d='m2.66296 1 13.01714 9.809-2.3254-5.81802z' />
           <path d='m28.2295 23.5335-3.4947 5.3386 7.4829 2.0603 2.1436-7.2823z' />
@@ -41,10 +45,26 @@ const MetamaskLogo: React.FC<Props> = ({ iconSize }) => {
           fill='#d5bfb2'
           stroke='#d5bfb2'
         />
-        <path d='m15.1084 21.7842-3.7155-1.0884 2.6243-1.2051z' fill='#233447' stroke='#233447' />
-        <path d='m20.5126 21.7842 1.0913-2.2935 2.6372 1.2051z' fill='#233447' stroke='#233447' />
-        <path d='m10.8733 28.8721.6495-5.3386-4.13117.1167z' fill='#cc6228' stroke='#cc6228' />
-        <path d='m24.0982 23.5335.6366 5.3386 3.4946-5.2219z' fill='#cc6228' stroke='#cc6228' />
+        <path
+          d='m15.1084 21.7842-3.7155-1.0884 2.6243-1.2051z'
+          fill='#233447'
+          stroke='#233447'
+        />
+        <path
+          d='m20.5126 21.7842 1.0913-2.2935 2.6372 1.2051z'
+          fill='#233447'
+          stroke='#233447'
+        />
+        <path
+          d='m10.8733 28.8721.6495-5.3386-4.13117.1167z'
+          fill='#cc6228'
+          stroke='#cc6228'
+        />
+        <path
+          d='m24.0982 23.5335.6366 5.3386 3.4946-5.2219z'
+          fill='#cc6228'
+          stroke='#cc6228'
+        />
         <path
           d='m27.2291 17.6507-7.405.3369.6885 3.7966 1.0913-2.2935 2.6372 1.2051z'
           fill='#cc6228'
@@ -55,8 +75,16 @@ const MetamaskLogo: React.FC<Props> = ({ iconSize }) => {
           fill='#cc6228'
           stroke='#cc6228'
         />
-        <path d='m8.392 17.6507 3.1049 6.0513-.1039-3.0062z' fill='#e27525' stroke='#e27525' />
-        <path d='m24.2412 20.6958-.1169 3.0062 3.1049-6.0513z' fill='#e27525' stroke='#e27525' />
+        <path
+          d='m8.392 17.6507 3.1049 6.0513-.1039-3.0062z'
+          fill='#e27525'
+          stroke='#e27525'
+        />
+        <path
+          d='m24.2412 20.6958-.1169 3.0062 3.1049-6.0513z'
+          fill='#e27525'
+          stroke='#e27525'
+        />
         <path
           d='m15.797 17.9876-.6886 3.7967.8704 4.4833.1949-5.9087z'
           fill='#e27525'
@@ -114,7 +142,7 @@ const MetamaskLogo: React.FC<Props> = ({ iconSize }) => {
         />
       </g>
     </svg>
-  )
-}
+  );
+};
 
-export default MetamaskLogo
+export default MetamaskLogo;

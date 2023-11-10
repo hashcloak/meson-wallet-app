@@ -1,60 +1,85 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import Modal from './Modal'
-import TxModal from './TxModal'
-
-import { Button } from '@/components/atoms/Button'
-import { mockTransactions } from '@/utils/Mock'
+import { Button } from '~/components/atoms/Button';
+import { mockTransactions } from '~/utils/Mock';
+import Modal from './Modal';
+import TxModal from './TxModal';
 
 export default {
   title: 'Components/Molecules/Modals',
   component: { Modal, TxModal },
-}
+};
 
-export const Modals = () => {
-  const [isOpen, setIsOpen] = useState(false)
+export const Modals: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const onClose = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   const body = (
     <p>
-      You are removing a Meson Wallet ONLY from your interface. It does not delete the Meson wallet.
-      You can always add it back using the above Meson wallet’s address
+      You are removing a Meson Wallet ONLY from your interface. It does not
+      delete the Meson wallet. You can always add it back using the above Meson
+      wallet’s address
     </p>
-  )
+  );
   const buttons = (
     <>
-      <Button btnVariant={'text'} btnSize={'md'} btnType={'button'} handleClick={onClose}>
+      <Button
+        btnVariant={'text'}
+        btnSize={'md'}
+        btnType={'button'}
+        handleClick={onClose}
+      >
         Close
       </Button>
-      <Button btnVariant={'primary'} btnSize={'md'} btnType={'button'} handleClick={onClose}>
+      <Button
+        btnVariant={'primary'}
+        btnSize={'md'}
+        btnType={'button'}
+        handleClick={onClose}
+      >
         Submit
       </Button>
     </>
-  )
+  );
 
   return (
     <div className='flex flex-row w-screen flex-wrap'>
-      <Button btnVariant={'text'} btnSize={'md'} btnType={'button'} handleClick={onClose}>
+      <Button
+        btnVariant={'text'}
+        btnSize={'md'}
+        btnType={'button'}
+        handleClick={onClose}
+      >
         Modal
       </Button>
       <div className='flex flex-row flex-wrap w-full'>
-        <Modal isOpen={isOpen} body={body} buttons={buttons} onClose={onClose} />
+        <Modal
+          isOpen={isOpen}
+          body={body}
+          buttons={buttons}
+          onClose={onClose}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export const TxModals = () => {
-  const [isOpen, setIsOpen] = useState(false)
+export const TxModals: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const onClose = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className='flex flex-row w-screen flex-wrap'>
-      <Button btnVariant={'text'} btnSize={'md'} btnType={'button'} handleClick={onClose}>
+      <Button
+        btnVariant={'text'}
+        btnSize={'md'}
+        btnType={'button'}
+        handleClick={onClose}
+      >
         Modal
       </Button>
       <div className='flex flex-row flex-wrap w-full'>
@@ -74,5 +99,5 @@ export const TxModals = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,16 +1,18 @@
-import { useState } from 'react'
-import AddOwnerModal from '.'
+import { useState } from 'react';
+import AddOwnerModal from '.';
 
 export default {
   title: 'Components/Organisms/AddOwnerModal',
   component: AddOwnerModal,
-}
+};
 
-export const Default = (): React.ReactElement => {
-  const [isOpenAddOwnerModal, setIsOpenAddOwnerModal] = useState(true)
+export const Default: React.FC = (): React.ReactElement => {
+  const [isOpenAddOwnerModal, setIsOpenAddOwnerModal] = useState(true);
   const handleAddOwnerModal = () => {
-    setIsOpenAddOwnerModal(!isOpenAddOwnerModal)
-  }
+    setIsOpenAddOwnerModal(!isOpenAddOwnerModal);
+  };
 
-  return <AddOwnerModal isOpen={isOpenAddOwnerModal} onClose={handleAddOwnerModal} />
-}
+  return (
+    <AddOwnerModal isOpen={isOpenAddOwnerModal} onClose={handleAddOwnerModal} />
+  );
+};

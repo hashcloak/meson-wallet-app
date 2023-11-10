@@ -1,17 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
+const sizes = theme.icons.sizes;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  interact: boolean
-}
+  iconSize: keyof typeof sizes;
+  interact: boolean;
+};
 
 const WalletConnectLogo: React.FC<Props> = ({ iconSize, interact }) => {
-  const px = sizes[iconSize]
-  const hover = interact ? 'box-border fill-[#3396ff] group-hover:fill-[#fff]' : 'fill-bgWhite'
+  const px = sizes[iconSize];
+  const hover = interact
+    ? 'box-border fill-[#3396ff] group-hover:fill-[#fff]'
+    : 'fill-bgWhite';
 
   return (
     <>
@@ -28,7 +30,7 @@ const WalletConnectLogo: React.FC<Props> = ({ iconSize, interact }) => {
         />
       </svg>
     </>
-  )
-}
+  );
+};
 
-export default WalletConnectLogo
+export default WalletConnectLogo;

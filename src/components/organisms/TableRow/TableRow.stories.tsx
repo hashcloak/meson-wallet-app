@@ -1,17 +1,19 @@
-import { TableRowLong, TableRowShort } from '.'
-import { mockTransactions } from '@/utils/Mock'
+import { mockTransactions } from '~/utils/Mock';
+import { TableRowLong, TableRowShort } from '.';
 
 export default {
   title: 'Components/Organisms/TableRow',
   component: { TableRowLong, TableRowShort },
-}
+};
 
-export const Default = (): React.ReactElement => (
+export const Default: React.FC = (): React.ReactElement => (
   <div className='overflow-x-auto w-full bg-bgDarkMid rounded-2xl py-4 px-8'>
     {/* <TableHeader /> */}
     <div className='flex flex-row justify-between'>
       <span className='text-textWhite text-lg'>Queue</span>
-      <a className='text-textLink text-sm'>more</a>
+      <a href='https://google.com' className='text-textLink text-sm'>
+        more
+      </a>
     </div>
     <div className='grid grid-rows-3 gap-2'>
       {mockTransactions.map((tx) => (
@@ -24,4 +26,4 @@ export const Default = (): React.ReactElement => (
       ))}
     </div>
   </div>
-)
+);

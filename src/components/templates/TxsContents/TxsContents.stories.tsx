@@ -1,8 +1,8 @@
-import TxsContents from '.'
+import TxsContents from '.';
 
 export default {
   title: 'Components/Templates/TxsContents',
   component: TxsContents,
-}
+};
 
-export const Default = () => <TxsContents />
+export const Default: React.FC = () => <TxsContents />;

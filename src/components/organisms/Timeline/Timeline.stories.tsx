@@ -1,9 +1,9 @@
-import Timeline, { TransactionType } from '.'
+import Timeline, { TransactionType } from '.';
 
 export default {
   title: 'Components/Organisms/Timeline',
   component: 'Timeline',
-}
+};
 
 export const transactions: TransactionType[] = [
   {
@@ -78,6 +78,8 @@ export const transactions: TransactionType[] = [
     isSuccess: true,
     timestamp: 1674012686,
   },
-]
+];
 
-export const Default = (): React.ReactElement => <Timeline txs={transactions} />
+export const Default: React.FC = (): React.ReactElement => (
+  <Timeline txs={transactions} />
+);

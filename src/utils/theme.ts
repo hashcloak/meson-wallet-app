@@ -8,8 +8,10 @@ export const theme = {
       text: 'transition text-textLink hover:text-dark hover:border-none focus:outline-none hover:outline-none active:outline-none',
       border:
         'transition border border-bgWhite text-textWhite hover:border-none hover:bg-bgWhite hover:text-textBlack focus:outline-none hover:outline-none active:outline-none',
-      special: 'max-w-[25rem] w-full py-4 text-center bg-bgDarkMid hover:bg-dark',
-      disable: 'bg-bgGray text-textGray focus:outline-none hover:outline-none active:outline-none',
+      special:
+        'max-w-[25rem] w-full py-4 text-center bg-bgDarkMid hover:bg-dark',
+      disable:
+        'bg-bgGray text-textGray focus:outline-none hover:outline-none active:outline-none',
     },
     sizes: {
       sm: 'w-[5rem] h-[1.5rem] text-xs',
@@ -75,4 +77,4 @@ export const theme = {
       xxl: '48px',
     },
   },
-}
+};

@@ -1,7 +1,7 @@
-import Spacer from '@/utils/Spacer'
+import Spacer from '~/utils/Spacer';
 
 // TODO: This needs to be dynamically change based on the props
-const Notification = () => {
+const Notification: React.FC = () => {
   return (
     <div className='w-[30rem] h-[11rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
       <span className='text-textWhite text-xl font-bold'>Notifications</span>
@@ -20,7 +20,7 @@ const Notification = () => {
         <span className='text-lg text-textWhite'>No notifications</span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Notification
+export default Notification;

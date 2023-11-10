@@ -1,13 +1,13 @@
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
 type Props = {
-  btnVariant?: 'primary' | 'alert' | 'text' | 'disable' | 'border' | 'special'
-  btnSize?: 'sm' | 'md' | 'lg' | 'sp'
-  btnType?: 'button' | 'submit'
-  disabled?: boolean
-  handleClick?: () => void
-  children: React.ReactNode
-}
+  btnVariant?: 'primary' | 'alert' | 'text' | 'disable' | 'border' | 'special';
+  btnSize?: 'sm' | 'md' | 'lg' | 'sp';
+  btnType?: 'button' | 'submit';
+  disabled?: boolean;
+  handleClick?: () => void;
+  children: React.ReactNode;
+};
 
 const Button: React.FC<Props> = ({
   btnVariant = 'primary',
@@ -17,9 +17,7 @@ const Button: React.FC<Props> = ({
   handleClick = () => console.log('clicked'),
   children,
 }) => {
-  const { variants, sizes } = theme.buttons
-
-  const btnStyle = `flex justify-center items-center rounded-xl text-center font-bold	text-sm	 ${variants[btnVariant]} ${sizes[btnSize]}`
+  const { variants, sizes } = theme.buttons;
 
   return (
     <button
@@ -30,7 +28,7 @@ const Button: React.FC<Props> = ({
     >
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

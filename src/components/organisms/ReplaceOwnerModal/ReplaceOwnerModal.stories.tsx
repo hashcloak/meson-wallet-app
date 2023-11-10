@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import ReplaceOwnerModal from '.'
-import { mockOwners } from '@/utils/Mock'
+import { useState } from 'react';
+import { mockOwners } from '~/utils/Mock';
+import ReplaceOwnerModal from '.';
 
 export default {
   title: 'Components/Organisms/ReplaceOwnerModal',
   component: ReplaceOwnerModal,
-}
+};
 
-export const Default = (): React.ReactElement => {
-  const [isOpenReplaceOwnerModal, setIsOpenReplaceOwnerModal] = useState(true)
+export const Default: React.FC = (): React.ReactElement => {
+  const [isOpenReplaceOwnerModal, setIsOpenReplaceOwnerModal] = useState(true);
   const handleReplaceOwnerModal = () => {
-    setIsOpenReplaceOwnerModal(!isOpenReplaceOwnerModal)
-  }
+    setIsOpenReplaceOwnerModal(!isOpenReplaceOwnerModal);
+  };
 
   return (
     <ReplaceOwnerModal
@@ -20,5 +20,5 @@ export const Default = (): React.ReactElement => {
       name={mockOwners[0].address}
       address={mockOwners[0].address}
     />
-  )
-}
+  );
+};

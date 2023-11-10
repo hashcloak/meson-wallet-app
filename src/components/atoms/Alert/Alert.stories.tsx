@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import Alert from '.'
+import { useState } from 'react';
+import Alert from '.';
 
 export default {
   title: 'Components/Atmos/Alert',
   component: 'Alert',
-}
+};
 
-export const Default = (): React.ReactElement => {
-  const [isOpen, setIsOpen] = useState(false)
+export const Default: React.FC = (): React.ReactElement => {
+  const [isOpen, setIsOpen] = useState(false);
   const onClose = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className='flex flex-row flex-wrap w-full'>
@@ -29,5 +29,5 @@ export const Default = (): React.ReactElement => {
         />
       </div>
     </div>
-  )
-}
+  );
+};

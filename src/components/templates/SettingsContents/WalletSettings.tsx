@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { SidebarIcon } from '@/components/atoms/Icon'
-import EditOwners from '@/components/organisms/EditOwners'
-import { EthAddress } from '@/utils/Ethereum'
-import { mockOwners } from '@/utils/Mock'
-import Spacer from '@/utils/Spacer'
+import { useState } from 'react';
+import { SidebarIcon } from '~/components/atoms/Icon';
+import EditOwners from '~/components/organisms/EditOwners';
+import { EthAddress } from '~/utils/Ethereum';
+import { mockOwners } from '~/utils/Mock';
+import Spacer from '~/utils/Spacer';
 
-const WalletSettings = () => {
-  const [isOpenEditOwner, setIsOpenEditOwner] = useState(false)
-  const handleEditOwner = () => setIsOpenEditOwner(!isOpenEditOwner)
+const WalletSettings: React.FC = () => {
+  const [isOpenEditOwner, setIsOpenEditOwner] = useState(false);
+  const handleEditOwner = () => setIsOpenEditOwner(!isOpenEditOwner);
 
   return (
     <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
@@ -62,9 +62,13 @@ const WalletSettings = () => {
           <span>1 out of 2 owners </span>
         </div>
       </div>
-      <EditOwners isOpen={isOpenEditOwner} owners={mockOwners} onClose={handleEditOwner} />
+      <EditOwners
+        isOpen={isOpenEditOwner}
+        owners={mockOwners}
+        onClose={handleEditOwner}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default WalletSettings
+export default WalletSettings;

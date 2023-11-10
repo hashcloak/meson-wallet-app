@@ -1,33 +1,34 @@
-import React from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import OwnerConfirmation from '.'
-import { Button } from '@/components/atoms/Button'
-import Spacer from '@/utils/Spacer'
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Button } from '~/components/atoms/Button';
+import Spacer from '~/utils/Spacer';
+import OwnerConfirmation from '.';
 
 export default {
   title: 'Components/Molecules/OwnerConfirmation',
   component: OwnerConfirmation,
-}
+};
 
 const confirmation = [
   { value: '1', label: '1' },
   { value: '2', label: '2' },
   { value: '3', label: '3' },
   { value: '4', label: '4' },
-]
+];
 
-export const Default = (): React.ReactElement => {
+export const Default: React.FC = (): React.ReactElement => {
   const methods = useForm({
     defaultValues: {
       confirmation: '1',
     },
-  })
+  });
 
   const onSubmit = (data: any) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
 
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e)
+  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
@@ -43,5 +44,5 @@ export const Default = (): React.ReactElement => {
         </div>
       </form>
     </FormProvider>
-  )
-}
+  );
+};

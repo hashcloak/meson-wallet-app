@@ -1,8 +1,8 @@
-import DashboardContents from '.'
+import DashboardContents from '.';
 
 export default {
   title: 'Components/Templates/DashboardContents',
   component: DashboardContents,
-}
+};
 
-export const Default = () => <DashboardContents />
+export const Default: React.FC = () => <DashboardContents />;

@@ -1,7 +1,5 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
-import '../src/styles/globals.css'
-import * as nextImage from 'next/image'
+import '../src/index.css';
+import 'tailwindcss/tailwind.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -11,9 +9,4 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
-
-Object.defineProperty(nextImage, 'default', {
-  configurable: true,
-  value: (props) => <img {...props} />,
-})
+};

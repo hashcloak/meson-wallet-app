@@ -1,17 +1,18 @@
-import GeneralSettings from './GeneralSettings'
-import WalletSettings from './WalletSettings'
-import { VerticalTabs } from '@/components/molecules/Tabs'
+import { VerticalTabs } from '~/components/molecules/Tabs';
+import GeneralSettings from './GeneralSettings';
+import WalletSettings from './WalletSettings';
 
-const SettingsContents = () => {
-  const tabList: { [key: string]: JSX.Element }[] = [
+const SettingsContents: React.FC = () => {
+  const tabList: Array<{ [key: string]: JSX.Element }> = [
     { General: <GeneralSettings /> },
     { 'Wallet details': <WalletSettings /> },
-  ]
+  ];
+
   return (
     <>
       <VerticalTabs tabList={tabList} />
     </>
-  )
-}
+  );
+};
 
-export default SettingsContents
+export default SettingsContents;

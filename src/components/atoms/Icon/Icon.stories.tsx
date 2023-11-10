@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import { IconTypes } from './Icon'
-import { LogoTypes } from './Logo'
-import { SidebarIconTypes } from './SidebarIcon'
-import { StatusIconTypes } from './StatusIcon'
-import { Icon, SidebarIcon, Logo, StatusIcon } from '.'
+import { IconTypes } from './Icon';
+import { LogoTypes } from './Logo';
+import { SidebarIconTypes } from './SidebarIcon';
+import { StatusIconTypes } from './StatusIcon';
+import { Icon, SidebarIcon, Logo, StatusIcon } from '.';
 
 export default {
   title: 'Components/Atmos/Icon',
@@ -15,7 +15,7 @@ export default {
       control: { type: 'radio' },
     },
   },
-}
+};
 
 export const Icons = (): React.ReactElement => {
   const icons: IconTypes[] = [
@@ -41,7 +41,8 @@ export const Icons = (): React.ReactElement => {
     'FailCircle',
     'Avatar',
     'Visibility',
-  ]
+  ];
+
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <div className='flex flex-row justify-evenly flex-wrap'>
@@ -80,8 +81,8 @@ export const Icons = (): React.ReactElement => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const SidebarIcons = (): React.ReactElement => {
   const icons: SidebarIconTypes[] = [
@@ -92,7 +93,8 @@ export const SidebarIcons = (): React.ReactElement => {
     'Help',
     'NewTx',
     'AddCircle',
-  ]
+  ];
+
   return (
     <div className='flex flex-row w-screen flex-wrap'>
       <div className='flex flex-row justify-evenly flex-wrap'>
@@ -107,8 +109,8 @@ export const SidebarIcons = (): React.ReactElement => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const Logos = (): React.ReactElement => {
   const logos: LogoTypes[] = [
@@ -120,7 +122,7 @@ export const Logos = (): React.ReactElement => {
     'WalletConnectLogo',
     'LedgerLogo',
     'MetamaskLogo',
-  ]
+  ];
 
   return (
     <div className='flex flex-row w-screen flex-wrap'>
@@ -160,8 +162,8 @@ export const Logos = (): React.ReactElement => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const StatusIcons = (): React.ReactElement => {
   const statusIcons: StatusIconTypes[] = [
@@ -171,7 +173,8 @@ export const StatusIcons = (): React.ReactElement => {
     'OwnerChange',
     'OnChainRejection',
     'Warning',
-  ]
+    'AccountCreated',
+  ];
 
   return (
     <div className='flex flex-row justify-evenly flex-wrap'>
@@ -185,5 +188,5 @@ export const StatusIcons = (): React.ReactElement => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};

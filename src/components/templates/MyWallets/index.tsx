@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { Button } from '@/components/atoms/Button'
-import { Icon } from '@/components/atoms/Icon'
-import { SidebarIconText } from '@/components/molecules/IconText'
-import { EthAddress } from '@/utils/Ethereum'
-import Spacer from '@/utils/Spacer'
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+// import Link from 'next/link'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '~/components/atoms/Button';
+import { Icon } from '~/components/atoms/Icon';
+import { SidebarIconText } from '~/components/molecules/IconText';
+import { EthAddress } from '~/utils/Ethereum';
+import Spacer from '~/utils/Spacer';
 
-const MyWallets = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const handleOpen = () => setIsOpen((prevState) => !prevState)
-
+const MyWallets: React.FC = () => {
   return (
     <div className='drawer'>
       <input id='my-drawer' type='checkbox' className='drawer-toggle' />
@@ -94,15 +94,17 @@ const MyWallets = () => {
 
           {/* Buttons */}
           <div className='w-full flex flex-row justify-between'>
-            <Link href={'/createNew'}>
+            <Link to={'/createNew'}>
               <Button btnSize='md'>
                 <span className='flex flex-row justify-center items-center'>
                   <Icon type={'Edit'} size={'lg'} color={'white'} />
-                  <span className='text-base text-textWhite ml-2'>Create new</span>
+                  <span className='text-base text-textWhite ml-2'>
+                    Create new
+                  </span>
                 </span>
               </Button>
             </Link>
-            <Link href={'/addExisting'}>
+            <Link to={'/addExisting'}>
               <Button btnVariant='border' btnSize='md'>
                 <span className='flex flex-row justify-center items-center'>
                   <Icon type={'AddExist'} size={'lg'} color={'white'} />
@@ -122,7 +124,7 @@ const MyWallets = () => {
         </ul> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MyWallets
+export default MyWallets;

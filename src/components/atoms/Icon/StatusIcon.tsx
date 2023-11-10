@@ -1,13 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-import Conflict from './images/Conflict'
-import OnChainRejection from './images/OnChainRejection'
-import OwnerChange from './images/OwnerChange'
-import Receive from './images/Receive'
-import Send from './images/Send'
-import Warning from './images/Warning'
+import AccountCreated from './images/AccountCreated';
+import Conflict from './images/Conflict';
+import OnChainRejection from './images/OnChainRejection';
+import OwnerChange from './images/OwnerChange';
+import Receive from './images/Receive';
+import Send from './images/Send';
+import Warning from './images/Warning';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
 const statusIcons = {
   Send,
@@ -16,19 +17,20 @@ const statusIcons = {
   OwnerChange,
   OnChainRejection,
   Warning,
-}
+  AccountCreated,
+};
 
-export type StatusIconType = typeof statusIcons
-export type StatusIconTypes = keyof StatusIconType
+export type StatusIconType = typeof statusIcons;
+export type StatusIconTypes = keyof StatusIconType;
 
-export type IconColor = typeof theme.icons.colors
-export type IconColors = keyof IconColor
+export type IconColor = typeof theme.icons.colors;
+export type IconColors = keyof IconColor;
 
 export type Props = {
-  type: StatusIconTypes
-  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | '5xl'
-  color: IconColors
-}
+  type: StatusIconTypes;
+  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | '5xl';
+  color: IconColors;
+};
 
 export const StatusIcon: React.FC<Props> = ({ type, size, color }) => {
   const statusIcons = {
@@ -38,6 +40,8 @@ export const StatusIcon: React.FC<Props> = ({ type, size, color }) => {
     OwnerChange: <OwnerChange iconSize={size} color={color} />,
     OnChainRejection: <OnChainRejection iconSize={size} color={color} />,
     Warning: <Warning iconSize={size} color={color} />,
-  }
-  return statusIcons[type]
-}
+    AccountCreated: <AccountCreated iconSize={size} color={color} />,
+  };
+
+  return statusIcons[type];
+};

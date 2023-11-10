@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  color: keyof typeof colors
-}
+  iconSize: keyof typeof sizes;
+  color: keyof typeof colors;
+};
 
 const OwnerChange: React.FC<Props> = ({ iconSize, color }) => {
-  const px = sizes[iconSize]
+  const px = sizes[iconSize];
 
   return (
     <svg
@@ -39,11 +39,16 @@ const OwnerChange: React.FC<Props> = ({ iconSize, color }) => {
       </g>
       <defs>
         <clipPath id='clip0_10856_22357'>
-          <rect width='24' height='24' fill='white' transform='translate(4.5 4.375)' />
+          <rect
+            width='24'
+            height='24'
+            fill='white'
+            transform='translate(4.5 4.375)'
+          />
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
-export default OwnerChange
+export default OwnerChange;

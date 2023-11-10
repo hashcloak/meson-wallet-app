@@ -1,14 +1,16 @@
-import React, { FC } from 'react'
+/* eslint-disable @typescript-eslint/ban-types */
+import React, { FC } from 'react';
 
 type Props = {
-  size: number
-  axis: string
-  style?: {}
-}
+  size: number;
+  axis: string;
+  style?: {};
+};
 
 const Spacer: FC<Props> = ({ size, axis, style = {}, ...delegated }) => {
-  const width = axis === 'vertical' ? 1 : size
-  const height = axis === 'horizontal' ? 1 : size
+  const width = axis === 'vertical' ? 1 : size;
+  const height = axis === 'horizontal' ? 1 : size;
+
   return (
     <span
       style={{
@@ -21,6 +23,6 @@ const Spacer: FC<Props> = ({ size, axis, style = {}, ...delegated }) => {
       }}
       {...delegated}
     />
-  )
-}
-export default Spacer
+  );
+};
+export default Spacer;

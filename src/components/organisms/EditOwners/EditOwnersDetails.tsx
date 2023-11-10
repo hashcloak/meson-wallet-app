@@ -1,36 +1,25 @@
-import { useState } from 'react'
-import AddOwnerModal from '../AddOwnerModal'
-import ChangeThresholdModal from '../ChangeThresholdModal'
-import OwnerRow from './OwnerRow'
-import { OwnerType } from '.'
-import Button from '@/components/atoms/Button/Button'
-
-import Spacer from '@/utils/Spacer'
+import { useState } from 'react';
+import Button from '~/components/atoms/Button/Button';
+import Spacer from '~/utils/Spacer';
+import AddOwnerModal from '../AddOwnerModal';
+import ChangeThresholdModal from '../ChangeThresholdModal';
+import OwnerRow from './OwnerRow';
+import { OwnerType } from '.';
 
 const EditOwnersDetails: React.FC<{
-  owners: OwnerType[]
-  onClose: () => void
+  owners: OwnerType[];
+  onClose: () => void;
 }> = ({ owners, onClose }) => {
-  const [isOpenChangeThresholdModal, setIsOpenChangeThresholdModal] = useState(false)
-  const [isOpenAddOwnerModal, setIsOpenAddOwnerModal] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isOpenChangeThresholdModal, setIsOpenChangeThresholdModal] =
+    useState(false);
+  const [isOpenAddOwnerModal, setIsOpenAddOwnerModal] = useState(false);
 
   const handleChangeThresholdModal = () => {
-    setIsOpenChangeThresholdModal(!isOpenChangeThresholdModal)
-  }
+    setIsOpenChangeThresholdModal(!isOpenChangeThresholdModal);
+  };
   const handleAddOwnerModal = () => {
-    setIsOpenAddOwnerModal(!isOpenAddOwnerModal)
-  }
-
-  const handleLoading = () => {
-    console.log('loading starts', isLoading)
-    setIsLoading(!isLoading)
-
-    setTimeout(() => {
-      setIsLoading(!isLoading)
-      console.log('loading ends', isLoading)
-    }, 5000)
-  }
+    setIsOpenAddOwnerModal(!isOpenAddOwnerModal);
+  };
 
   return (
     <>
@@ -45,7 +34,12 @@ const EditOwnersDetails: React.FC<{
           <Spacer size={32} axis={'vertical'} />
 
           <div className='flex flex-row justify-around'>
-            <Button btnVariant={'text'} btnSize={'md'} btnType={'button'} handleClick={onClose}>
+            <Button
+              btnVariant={'text'}
+              btnSize={'md'}
+              btnType={'button'}
+              handleClick={onClose}
+            >
               <span className='text-lg'>Close</span>
             </Button>
             <Button
@@ -71,11 +65,14 @@ const EditOwnersDetails: React.FC<{
             isOpen={isOpenChangeThresholdModal}
             onClose={handleChangeThresholdModal}
           />
-          <AddOwnerModal isOpen={isOpenAddOwnerModal} onClose={handleAddOwnerModal} />
+          <AddOwnerModal
+            isOpen={isOpenAddOwnerModal}
+            onClose={handleAddOwnerModal}
+          />
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default EditOwnersDetails
+export default EditOwnersDetails;

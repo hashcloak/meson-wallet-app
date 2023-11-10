@@ -1,8 +1,8 @@
-import Chart from '@/components/atoms/Chart'
-import { BasicTabs } from '@/components/molecules/Tabs'
+import Chart from '~/components/atoms/Chart';
+import { BasicTabs } from '~/components/molecules/Tabs';
 
 // TODO: Check where to fetch the data and consider if props needs to be passed from the parent
-const TransactionChart = () => {
+const TransactionChart: React.FC = () => {
   const week = [
     { name: 'Sun', 'Queued Txs': 10, 'Historied Txs': 1 },
     { name: 'Mon', 'Queued Txs': 23, 'Historied Txs': 1 },
@@ -11,7 +11,7 @@ const TransactionChart = () => {
     { name: 'Thu', 'Queued Txs': 2, 'Historied Txs': 0 },
     { name: 'Fri', 'Queued Txs': 3, 'Historied Txs': 2 },
     { name: 'Sat ', 'Queued Txs': 0, 'Historied Txs': 0 },
-  ]
+  ];
 
   const month = [
     { name: '14 Jan', 'Queued Txs': 1, 'Historied Txs': 1 },
@@ -30,7 +30,7 @@ const TransactionChart = () => {
     { name: '9 Feb', 'Queued Txs': 16, 'Historied Txs': 11 },
     { name: '11 Feb', 'Queued Txs': 16, 'Historied Txs': 4 },
     { name: '13 Feb', 'Queued Txs': 1, 'Historied Txs': 5 },
-  ]
+  ];
 
   const year = [
     { name: '22 Mar', 'Queued Txs': 1, 'Historied Txs': 1 },
@@ -45,15 +45,15 @@ const TransactionChart = () => {
     { name: '22 Dec', 'Queued Txs': 16, 'Historied Txs': 33 },
     { name: '22 Jan', 'Queued Txs': 1, 'Historied Txs': 1 },
     { name: '22 Feb', 'Queued Txs': 1, 'Historied Txs': 20 },
-  ]
+  ];
 
-  const tabList: { [key: string]: JSX.Element }[] = [
+  const tabList: Array<{ [key: string]: JSX.Element }> = [
     { week: <Chart data={week} isBar={true} /> },
     { month: <Chart data={month} isBar={true} /> },
     { year: <Chart data={year} isBar={true} /> },
-  ]
+  ];
 
-  return <BasicTabs tabList={tabList} />
-}
+  return <BasicTabs tabList={tabList} />;
+};
 
-export default TransactionChart
+export default TransactionChart;

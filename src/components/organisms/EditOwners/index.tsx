@@ -1,21 +1,21 @@
-import { Dialog } from '@headlessui/react'
-import EditOwnersDetails from './EditOwnersDetails'
+import { Dialog } from '@headlessui/react';
+import EditOwnersDetails from './EditOwnersDetails';
 
 export type OwnerType = {
-  address: string
-  name: string
-}
+  address: string;
+  name: string;
+};
 
 type Props = {
-  isOpen: boolean | undefined
-  owners: OwnerType[]
-  onClose: () => void
-}
+  isOpen: boolean | undefined;
+  owners: OwnerType[];
+  onClose: () => void;
+};
 
 const EditOwners: React.FC<Props> = ({ isOpen, onClose, owners }) => {
   return (
     <>
-      {isOpen && (
+      {(isOpen ?? false) && (
         <Dialog
           open={isOpen}
           onClose={onClose}
@@ -28,7 +28,9 @@ const EditOwners: React.FC<Props> = ({ isOpen, onClose, owners }) => {
               aria-hidden='true'
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 '>
-              <span className='text-textWhite text-2xl font-bold'>Edit owners</span>
+              <span className='text-textWhite text-2xl font-bold'>
+                Edit owners
+              </span>
 
               <Dialog.Description className='py-6'>
                 {/* Description */}
@@ -40,7 +42,7 @@ const EditOwners: React.FC<Props> = ({ isOpen, onClose, owners }) => {
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default EditOwners
+export default EditOwners;

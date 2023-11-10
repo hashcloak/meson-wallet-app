@@ -1,18 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  color: keyof typeof colors
-}
+  iconSize: keyof typeof sizes;
+  color: keyof typeof colors;
+};
 
 const ArrowForward: React.FC<Props> = ({ iconSize, color }) => {
-  const px = sizes[iconSize]
-  const fill = colors[color]
+  const px = sizes[iconSize];
+  const fill = colors[color];
 
   return (
     <svg
@@ -31,7 +31,7 @@ const ArrowForward: React.FC<Props> = ({ iconSize, color }) => {
         <polygon points='6.23,20.23 8,22 18,12 8,2 6.23,3.77 14.46,12' />
       </g>
     </svg>
-  )
-}
+  );
+};
 
-export default ArrowForward
+export default ArrowForward;

@@ -1,14 +1,14 @@
-import React from 'react'
-import { SidebarIcon } from '@/components/atoms/Icon'
-import { SidebarIconTypes } from '@/components/atoms/Icon/SidebarIcon'
+import React from 'react';
+import { SidebarIcon } from '~/components/atoms/Icon';
+import { SidebarIconTypes } from '~/components/atoms/Icon/SidebarIcon';
 
 type Props = {
-  type: SidebarIconTypes
-  text: string
-}
-//TODO: Make it routes to each page
+  type: SidebarIconTypes;
+  text: string;
+};
+// TODO: Make it routes to each page
 const SidebarIconText: React.FC<Props> = ({ type, text }) => {
-  const newTxStyle = type === 'NewTx' ? '' : ''
+  const newTxStyle = type === 'NewTx' ? '' : '';
 
   return (
     <>
@@ -28,7 +28,7 @@ const SidebarIconText: React.FC<Props> = ({ type, text }) => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default SidebarIconText
+export default SidebarIconText;

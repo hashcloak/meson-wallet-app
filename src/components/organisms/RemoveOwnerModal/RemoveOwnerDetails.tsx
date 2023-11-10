@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react'
-import { OwnerType } from '../EditOwners'
-import { Button } from '@/components/atoms/Button'
-import EthAddress from '@/utils/Ethereum/EthAddress'
-import { mockOwners } from '@/utils/Mock'
-import Spacer from '@/utils/Spacer'
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+import { useEffect, useState } from 'react';
+import { Button } from '~/components/atoms/Button';
+import EthAddress from '~/utils/Ethereum/EthAddress';
+import { mockOwners } from '~/utils/Mock';
+import Spacer from '~/utils/Spacer';
+import { OwnerType } from '../EditOwners';
 
 type RemoveOwnerDetailsProps = {
-  confirmation: string
-  name: string
-  address: string
-  onClose: () => void
-  onPageChange: () => void
-}
+  confirmation: string;
+  name: string;
+  address: string;
+  onClose: () => void;
+  onPageChange: () => void;
+};
 
 const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
   onClose,
@@ -20,14 +21,14 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
   address,
   onPageChange,
 }) => {
-  const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([])
+  const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([]);
 
   useEffect(() => {
     const filterOwners = mockOwners.filter((owner) => {
-      return owner.address !== address
-    })
-    setFilteredOwners(filterOwners)
-  }, [])
+      return owner.address !== address;
+    });
+    setFilteredOwners(filterOwners);
+  }, []);
 
   return (
     <>
@@ -37,11 +38,15 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2'>
             <div className='flex flex-col mb-2'>
-              <span className='text-sm text-textGrayLight'>Name of the Meson Wallet</span>
+              <span className='text-sm text-textGrayLight'>
+                Name of the Meson Wallet
+              </span>
               <span className='text-lg text-textWhite'>Sample wallet</span>
             </div>
             <div className='flex flex-col mb-2'>
-              <span className='text-sm text-textGrayLight'>Address of the Meson Wallet</span>
+              <span className='text-sm text-textGrayLight'>
+                Address of the Meson Wallet
+              </span>
               <EthAddress
                 ethAddress={'0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'}
                 size={4.5}
@@ -49,11 +54,15 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
               />
             </div>
             <div className='flex flex-col mb-2'>
-              <span className='text-sm text-textGrayLight'>Selected network</span>
+              <span className='text-sm text-textGrayLight'>
+                Selected network
+              </span>
               <span className='text-lg text-textWhite'>Ethereum</span>
             </div>
             <div className='flex flex-col p-2 mb-2 bg-[#397F97] rounded-2xl h-[4rem]'>
-              <span className='text-sm text-textGrayLight'>Required confirmation</span>
+              <span className='text-sm text-textGrayLight'>
+                Required confirmation
+              </span>
               <span className='text-lg text-textWhite'>
                 {confirmation} out of {mockOwners.length} owners
               </span>
@@ -66,17 +75,16 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2 w-full'>
             {/* Owners */}
-            {filteredOwners &&
-              filteredOwners.map((owner: OwnerType) => (
-                <EthAddress
-                  ethAddress={owner.address}
-                  size={4.5}
-                  length={'full'}
-                  icons={true}
-                  walletName={owner.name}
-                  key={owner.address}
-                />
-              ))}
+            {filteredOwners?.map((owner: OwnerType) => (
+              <EthAddress
+                ethAddress={owner.address}
+                size={4.5}
+                length={'full'}
+                icons={true}
+                walletName={owner.name}
+                key={owner.address}
+              />
+            ))}
 
             <Spacer size={8} axis={'vertical'} />
 
@@ -98,7 +106,9 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
         tabIndex={0}
         className='collapse collapse-arrow border border-base-300 bg-base-100 rounded-box'
       >
-        <div className='collapse-title text-base font-bold bg-bgDarkLight'>Advanced parameters</div>
+        <div className='collapse-title text-base font-bold bg-bgDarkLight'>
+          Advanced parameters
+        </div>
         <div className='collapse-content flex flex-col w-full bg-bgDarkLight'>
           <div className='flex flex-row justify-around w-full'>
             <span>Nonce</span>
@@ -113,7 +123,12 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
       <Spacer size={32} axis={'vertical'} />
 
       <div className='flex flex-row justify-around'>
-        <Button btnVariant={'text'} btnSize={'lg'} btnType={'button'} handleClick={onPageChange}>
+        <Button
+          btnVariant={'text'}
+          btnSize={'lg'}
+          btnType={'button'}
+          handleClick={onPageChange}
+        >
           <span className='text-lg'>Back</span>
         </Button>
         <Button
@@ -126,6 +141,6 @@ const RemoveOwnerDetails: React.FC<RemoveOwnerDetailsProps> = ({
         </Button>
       </div>
     </>
-  )
-}
-export default RemoveOwnerDetails
+  );
+};
+export default RemoveOwnerDetails;

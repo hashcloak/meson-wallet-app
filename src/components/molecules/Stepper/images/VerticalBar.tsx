@@ -1,6 +1,6 @@
 type Props = {
-  isActive: boolean
-}
+  isActive: boolean;
+};
 
 const VerticalBar: React.FC<Props> = ({ isActive }) => {
   return (
@@ -12,10 +12,16 @@ const VerticalBar: React.FC<Props> = ({ isActive }) => {
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
       >
-        <line x1='36' y1='34' x2='36' stroke={isActive ? '#38C6F4' : '#E5E5E5'} strokeWidth='2' />
+        <line
+          x1='36'
+          y1='34'
+          x2='36'
+          stroke={isActive ? '#38C6F4' : '#E5E5E5'}
+          strokeWidth='2'
+        />
       </svg>
     </div>
-  )
-}
+  );
+};
 
-export default VerticalBar
+export default VerticalBar;

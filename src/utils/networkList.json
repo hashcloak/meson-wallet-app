@@ -1,0 +1,23 @@
+{
+  "localhost": {
+    "network": "localhost",
+    "url": "http://127.0.0.1:8545/",
+    "chainId": 31337
+  },
+  "sepolia": {
+    "network": "sepolia",
+    "url": "https://sepolia.infura.io/v3/",
+    "chainId": 11155111
+  },
+  "goerli": {
+    "network": "goerli",
+    "url": "https://goerli.infura.io/v3/",
+    "chainId": 5
+  },
+  "mainnet": {
+    "network": "ethereum",
+    "shortcut": "ETH",
+    "url": "https://mainnet.infura.io/v3/",
+    "chainId": 1
+  }
+}

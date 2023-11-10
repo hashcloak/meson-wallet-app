@@ -1,58 +1,64 @@
-import { EthAddress } from '@/utils/Ethereum'
-import Spacer from '@/utils/Spacer'
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { useSelector } from 'react-redux';
+import { EthAddress } from '~/utils/Ethereum';
+import Spacer from '~/utils/Spacer';
+import { MesonWalletState, Owner } from '~/features/mesonWallet';
+import { NetworkState } from '~/features/network';
+import { RootState } from '~/features/reducers';
 
 // TODO: This needs to be dynamically change based on the props
-const Accounts = () => {
-  const existingOwners = [
-    {
-      ownerName: '',
-      ethAddress: '0xc740145D4b8b95F44Cd9e00acEA006B02d505E2E',
-    },
-    {
-      ownerName: '',
-      ethAddress: '0x0A13A404B42aAb52E85Db8EA86d1F169D1F54F5d',
-    },
-  ]
+const Accounts: React.FC = () => {
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+
+  const { walletName, mesonWallet, owners, confirmation } = useSelector<
+    RootState,
+    MesonWalletState
+  >((state) => state.mesonWallet);
 
   return (
-    <div className='flex flex-col h-full'>
+    <div className='flex flex-col h-full '>
       <span className='text-textWhite text-2xl font-bold'>Accounts</span>
 
-      <div className='max-w-[44rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
+      <div className='xl:max-w-[44rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
         <div className='flex flex-col rounded-2xl p-4 bg-bgDarkLight'>
           <div>
-            <span className='text-xl font-bold'>Your wallet</span>
+            <span className='text-xl font-bold'>Your Meson wallet</span>
             <Spacer size={8} axis={'vertical'} />
 
             <div className='ml-4'>
               <EthAddress
-                ethAddress={'0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'}
+                ethAddress={mesonWallet ? mesonWallet.mesonWalletAddress : ''}
                 size={4.5}
                 length={'full'}
-                walletName={'My wallet'}
+                walletName={walletName}
               />
             </div>
           </div>
           <Spacer size={24} axis={'vertical'} />
           <div className='flex flex-col'>
             <span className='text-xl font-bold'>Selected network</span>
-            <span className='ml-4 text-base'>Ethereum</span>
+            <span className='ml-4 text-base'>
+              {`${network.charAt(0).toUpperCase()}` + `${network.slice(1)}`}
+            </span>
           </div>
         </div>
         <Spacer size={16} axis={'vertical'} />
         <div className='flex flex-col rounded-2xl p-4 bg-bgDarkLight'>
           <div>
-            <span className='text-xl font-bold'>Your wallet</span>
+            <span className='text-xl font-bold'>Owners</span>
             <Spacer size={8} axis={'vertical'} />
 
             <div className='ml-4'>
-              {existingOwners.map((owner) => (
-                <div key={owner.ethAddress} className='mb-2'>
+              {owners?.map((owner: Owner) => (
+                <div key={owner.ownerAddress} className='mb-2'>
                   <EthAddress
-                    ethAddress={owner.ethAddress}
+                    ethAddress={owner.ownerAddress}
                     size={4.5}
                     length={'full'}
-                    walletName={owner.ownerName}
+                    walletName={owner.name}
                   />
                 </div>
               ))}
@@ -61,12 +67,14 @@ const Accounts = () => {
           <Spacer size={24} axis={'vertical'} />
           <div className='flex flex-col'>
             <span className='text-xl font-bold'>Required confirmations</span>
-            <span className='ml-4 text-base'>1 out of 2 owners</span>
+            <span className='ml-4 text-base'>
+              {confirmation} out of {owners?.length} owners
+            </span>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Accounts
+export default Accounts;

@@ -1,18 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  color: keyof typeof colors
-}
+  iconSize: keyof typeof sizes;
+  color: keyof typeof colors;
+};
 
 const MesonCircle: React.FC<Props> = ({ iconSize, color }) => {
-  const px = sizes[iconSize]
-  const fill = colors[color]
+  const px = sizes[iconSize];
+  const fill = colors[color];
 
   return (
     <svg
@@ -24,10 +24,24 @@ const MesonCircle: React.FC<Props> = ({ iconSize, color }) => {
       className='object-contain'
     >
       <circle cx='18.1299' cy='16' r='15.5' stroke='#E5E5E5' />
-      <rect x='2.12988' y='2' width='31.2733' height='28' fill='url(#pattern0)' />
+      <rect
+        x='2.12988'
+        y='2'
+        width='31.2733'
+        height='28'
+        fill='url(#pattern0)'
+      />
       <defs>
-        <pattern id='pattern0' patternContentUnits='objectBoundingBox' width='1' height='1'>
-          <use xlinkHref='#image0_10135_28339' transform='scale(0.000333333 0.000372301)' />
+        <pattern
+          id='pattern0'
+          patternContentUnits='objectBoundingBox'
+          width='1'
+          height='1'
+        >
+          <use
+            xlinkHref='#image0_10135_28339'
+            transform='scale(0.000333333 0.000372301)'
+          />
         </pattern>
         <image
           id='image0_10135_28339'
@@ -37,7 +51,7 @@ const MesonCircle: React.FC<Props> = ({ iconSize, color }) => {
         />
       </defs>
     </svg>
-  )
-}
+  );
+};
 
-export default MesonCircle
+export default MesonCircle;

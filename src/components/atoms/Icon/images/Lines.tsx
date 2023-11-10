@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  color: keyof typeof colors
-}
+  iconSize: keyof typeof sizes;
+  color: keyof typeof colors;
+};
 
 const Lines: React.FC<Props> = ({ iconSize, color }) => {
-  const px = sizes[iconSize]
+  const px = sizes[iconSize];
 
   return (
     <svg
@@ -25,7 +25,7 @@ const Lines: React.FC<Props> = ({ iconSize, color }) => {
       <path d='M0 0h24v24H0z' fill='none' />
       <path d='M3 15h18v-2H3v2zm0 4h18v-2H3v2zm0-8h18V9H3v2zm0-6v2h18V5H3z' />
     </svg>
-  )
-}
+  );
+};
 
-export default Lines
+export default Lines;

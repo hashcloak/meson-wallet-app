@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 type Props = {
-  url: string
-  size: 'xs' | 'sm' | 'base' | 'md' | 'lg'
-  children: React.ReactNode
-}
+  url: string;
+  size: 'xs' | 'sm' | 'base' | 'md' | 'lg';
+  children: React.ReactNode;
+};
 const CustomLink: React.FC<Props> = ({ url, size, children }) => {
   return (
     <a
@@ -15,7 +15,7 @@ const CustomLink: React.FC<Props> = ({ url, size, children }) => {
     >
       {children}
     </a>
-  )
-}
+  );
+};
 
-export default CustomLink
+export default CustomLink;

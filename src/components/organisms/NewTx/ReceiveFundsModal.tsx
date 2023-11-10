@@ -1,24 +1,25 @@
-import { Dialog } from '@headlessui/react'
-import { useQRCode } from 'next-qrcode'
-import { useState } from 'react'
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
+import { useQRCode } from 'next-qrcode';
 
-import { Button } from '@/components/atoms/Button'
-import Switch from '@/components/atoms/Switch'
-import EthAddress from '@/utils/Ethereum/EthAddress'
-import Spacer from '@/utils/Spacer'
+import { Button } from '~/components/atoms/Button';
+import Switch from '~/components/atoms/Switch';
+import EthAddress from '~/utils/Ethereum/EthAddress';
+import Spacer from '~/utils/Spacer';
 
-const ReceiveTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
-  const [withPrefix, setWithPrefix] = useState(false)
-  const { SVG } = useQRCode()
-  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
-  const selectedNetwork = 'eth'
+const ReceiveTxDetails: React.FC<Props> = ({ onClose }) => {
+  const [withPrefix, setWithPrefix] = useState(false);
+  const { SVG } = useQRCode();
+  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7';
+  const selectedNetwork = 'eth';
 
   return (
     <div className='flex flex-col items-center text-textWhite rounded-2xl'>
       <div>
         <span>
-          This is the address of your Meson wallet. Deposit funds by scanning the QR code or copying
-          the address below. Only send ETH and assets to this address (e.g. ETH, ERC20, ERC721)!
+          This is the address of your Meson wallet. Deposit funds by scanning
+          the QR code or copying the address below. Only send ETH and assets to
+          this address (e.g. ETH, ERC20, ERC721)!
         </span>
       </div>
       <Spacer size={16} axis={'vertical'} />
@@ -49,31 +50,36 @@ const ReceiveTxDetails: React.FC<Props> = ({ isOpen, onClose }) => {
         />
       </div>
       <Spacer size={32} axis={'vertical'} />
-      <EthAddress ethAddress={ethAddress} size={4.5} length={'full'} walletName={'Myy wallet'} />
+      <EthAddress
+        ethAddress={ethAddress}
+        size={4.5}
+        length={'full'}
+        walletName={'Myy wallet'}
+      />
       <Spacer size={32} axis={'vertical'} />
       <Button
         btnVariant={'primary'}
         btnSize={'lg'}
         btnType={'button'}
         handleClick={() => {
-          onClose()
+          onClose();
         }}
       >
         <span className='text-lg'>Done</span>
       </Button>
     </div>
-  )
-}
+  );
+};
 
 type Props = {
-  isOpen: boolean | undefined
-  onClose: () => void
-}
+  isOpen: boolean | undefined;
+  onClose: () => void;
+};
 
 const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <>
-      {isOpen && (
+      {(isOpen ?? false) && (
         <Dialog
           open={isOpen}
           onClose={onClose}
@@ -86,7 +92,9 @@ const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
               aria-hidden='true'
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 w-[38rem]'>
-              <span className='text-textWhite text-2xl font-bold'>Receive Funds</span>
+              <span className='text-textWhite text-2xl font-bold'>
+                Receive Funds
+              </span>
 
               <Dialog.Description className='py-6'>
                 {/* Description */}
@@ -98,7 +106,7 @@ const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ReceiveFundsModal
+export default ReceiveFundsModal;

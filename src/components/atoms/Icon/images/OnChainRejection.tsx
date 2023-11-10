@@ -1,20 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  color: keyof typeof colors
-}
+  iconSize: keyof typeof sizes;
+  color: keyof typeof colors;
+};
 
 const OnChainRejection: React.FC<Props> = ({ iconSize, color }) => {
-  const px = sizes[iconSize]
+  const px = sizes[iconSize];
 
   return (
-    <svg width={px} height={px} viewBox='0 0 33 33' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg
+      width={px}
+      height={px}
+      viewBox='0 0 33 33'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+    >
       <circle cx='16.5' cy='16.375' r='16' fill={color} />
       <g clipPath='url(#clip0_10856_27728)'>
         <g clipPath='url(#clip1_10856_27728)'>
@@ -26,14 +32,24 @@ const OnChainRejection: React.FC<Props> = ({ iconSize, color }) => {
       </g>
       <defs>
         <clipPath id='clip0_10856_27728'>
-          <rect width='24' height='24' fill='white' transform='translate(4.5 4.375)' />
+          <rect
+            width='24'
+            height='24'
+            fill='white'
+            transform='translate(4.5 4.375)'
+          />
         </clipPath>
         <clipPath id='clip1_10856_27728'>
-          <rect width='24' height='24' fill='white' transform='translate(4.5 4.375)' />
+          <rect
+            width='24'
+            height='24'
+            fill='white'
+            transform='translate(4.5 4.375)'
+          />
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
-export default OnChainRejection
+export default OnChainRejection;

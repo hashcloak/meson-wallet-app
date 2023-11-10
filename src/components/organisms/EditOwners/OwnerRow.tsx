@@ -1,29 +1,35 @@
-import { useState } from 'react'
-import EditOwnerModal from '../EditOwnerModal'
-import RemoveOwnerModal from '../RemoveOwnerModal'
-import ReplaceOwnerModal from '../ReplaceOwnerModal'
-import { OwnerType } from '.'
-import { Icon } from '@/components/atoms/Icon'
-import EthAddress from '@/utils/Ethereum/EthAddress'
-import Spacer from '@/utils/Spacer'
+import { useState } from 'react';
+import { Icon } from '~/components/atoms/Icon';
+import EthAddress from '~/utils/Ethereum/EthAddress';
+import Spacer from '~/utils/Spacer';
+import EditOwnerModal from '../EditOwnerModal';
+import RemoveOwnerModal from '../RemoveOwnerModal';
+import ReplaceOwnerModal from '../ReplaceOwnerModal';
+import { OwnerType } from '.';
 
 const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
-  const [isOpenEditOwnerModal, setIsOpenEditOwnerModal] = useState(false)
-  const [isOpenReplaceOwnerModal, setIsOpenReplaceOwnerModal] = useState(false)
-  const [isOpenRemoveOwnerModal, setIsOpenRemoveOwnerModal] = useState(false)
+  const [isOpenEditOwnerModal, setIsOpenEditOwnerModal] = useState(false);
+  const [isOpenReplaceOwnerModal, setIsOpenReplaceOwnerModal] = useState(false);
+  const [isOpenRemoveOwnerModal, setIsOpenRemoveOwnerModal] = useState(false);
 
   const handleEditOwnerModal = (): void => {
-    setIsOpenEditOwnerModal(!isOpenEditOwnerModal)
-  }
+    setIsOpenEditOwnerModal(!isOpenEditOwnerModal);
+  };
   const handleReplaceOwnerModal = (): void => {
-    setIsOpenReplaceOwnerModal(!isOpenReplaceOwnerModal)
-  }
+    setIsOpenReplaceOwnerModal(!isOpenReplaceOwnerModal);
+  };
   const handleRemoveOwnerModal = (): void => {
-    setIsOpenRemoveOwnerModal(!isOpenRemoveOwnerModal)
-  }
+    setIsOpenRemoveOwnerModal(!isOpenRemoveOwnerModal);
+  };
+
   return (
     <div className='flex flex-row mb-2' key={owner.address}>
-      <EthAddress ethAddress={owner.address} size={4.5} length={'full'} walletName={owner.name} />
+      <EthAddress
+        ethAddress={owner.address}
+        size={4.5}
+        length={'full'}
+        walletName={owner.name}
+      />
       <Spacer size={40} axis={'horizontal'} />
       <div className='flex flex-row items-center'>
         <Spacer size={8} axis={'horizontal'} />
@@ -62,7 +68,7 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
         address={owner.address}
       />
     </div>
-  )
-}
+  );
+};
 
-export default OwnerRow
+export default OwnerRow;

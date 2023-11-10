@@ -1,20 +1,21 @@
-import { useState } from 'react'
-import { Button } from '@/components/atoms/Button'
-import CustomLink from '@/components/atoms/CustomLink'
-import { Option } from '@/components/atoms/Option'
-import Switch from '@/components/atoms/Switch'
-import RemoveWalletModal from '@/components/organisms/RemoveWalletModal'
-import { currencies } from '@/utils/Currencies'
-import Spacer from '@/utils/Spacer'
+import { useState } from 'react';
+import { Button } from '~/components/atoms/Button';
+import CustomLink from '~/components/atoms/CustomLink';
+import { Option } from '~/components/atoms/Option';
+import Switch from '~/components/atoms/Switch';
+import RemoveWalletModal from '~/components/organisms/RemoveWalletModal';
+import { currencies } from '~/utils/Currencies';
+import Spacer from '~/utils/Spacer';
 
-const GeneralSettings = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true)
-  const [currency, setCurrency] = useState('USD')
-  const [openRemoveWalletModal, setOpenRemoveWalletModal] = useState(false)
+const GeneralSettings: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [currency, setCurrency] = useState('USD');
+  const [openRemoveWalletModal, setOpenRemoveWalletModal] = useState(false);
 
-  const handleDarkMode = () => setIsDarkMode(isDarkMode)
-  const handleCurrency = (value: string) => setCurrency(value)
-  const handleRemoveWalletModal = () => setOpenRemoveWalletModal(!openRemoveWalletModal)
+  const handleDarkMode = () => setIsDarkMode(isDarkMode);
+  const handleCurrency = (value: string) => setCurrency(value);
+  const handleRemoveWalletModal = () =>
+    setOpenRemoveWalletModal(!openRemoveWalletModal);
 
   return (
     <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
@@ -61,7 +62,11 @@ const GeneralSettings = () => {
           <div className='flex flex-row items-center'>
             <span className='mr-2'>Flat currency: </span>
             <div className='w-1/6'>
-              <Option options={currencies} handleChange={handleCurrency} defaultValue={currency} />
+              <Option
+                options={currencies}
+                handleChange={handleCurrency}
+                defaultValue={currency}
+              />
             </div>
           </div>
         </div>
@@ -93,10 +98,13 @@ const GeneralSettings = () => {
         >
           Remove wallet
         </Button>
-        <RemoveWalletModal isOpen={openRemoveWalletModal} onClose={handleRemoveWalletModal} />
+        <RemoveWalletModal
+          isOpen={openRemoveWalletModal}
+          onClose={handleRemoveWalletModal}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default GeneralSettings
+export default GeneralSettings;

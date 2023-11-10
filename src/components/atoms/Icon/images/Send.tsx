@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize: keyof typeof sizes
-  color: keyof typeof colors
-}
+  iconSize: keyof typeof sizes;
+  color: keyof typeof colors;
+};
 
 const Send: React.FC<Props> = ({ iconSize, color }) => {
-  const px = sizes[iconSize]
+  const px = sizes[iconSize];
 
   return (
     <svg
@@ -40,7 +40,7 @@ const Send: React.FC<Props> = ({ iconSize, color }) => {
         </clipPath>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
-export default Send
+export default Send;

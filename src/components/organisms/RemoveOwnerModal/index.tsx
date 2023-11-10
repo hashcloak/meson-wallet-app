@@ -1,16 +1,21 @@
-import { Dialog } from '@headlessui/react'
-import { useState } from 'react'
-import { EditOwnerModalType as RemoveOwnerModalType } from '../EditOwnerModal'
-import RemoveOwnerDetails from './RemoveOwnerDetails'
-import RemoveOwnerInput from './RemoveOwnerInput'
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
+import { EditOwnerModalType as RemoveOwnerModalType } from '../EditOwnerModal';
+import RemoveOwnerDetails from './RemoveOwnerDetails';
+import RemoveOwnerInput from './RemoveOwnerInput';
 
-const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({ isOpen, onClose, name, address }) => {
-  const [pageChange, setPageChange] = useState(false)
-  const [newConfirmation, onNewConfirmation] = useState<string | null>(null)
+const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
+  isOpen,
+  onClose,
+  name,
+  address,
+}) => {
+  const [pageChange, setPageChange] = useState(false);
+  const [newConfirmation, onNewConfirmation] = useState<string>('');
 
   const handlePageChange = () => {
-    setPageChange(!pageChange)
-  }
+    setPageChange(!pageChange);
+  };
 
   return (
     <>
@@ -50,7 +55,7 @@ const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({ isOpen, onClose, nam
                 ) : (
                   <RemoveOwnerDetails
                     onClose={onClose}
-                    confirmation={newConfirmation!}
+                    confirmation={newConfirmation}
                     name={name}
                     address={address}
                     onPageChange={handlePageChange}
@@ -63,7 +68,7 @@ const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({ isOpen, onClose, nam
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default RemoveOwnerModal
+export default RemoveOwnerModal;

@@ -1,10 +1,8 @@
-import RegisterAccountInfo from '.'
-
-import Spacer from '@/utils/Spacer'
+import RegisterAccountInfo from '.';
 
 export default {
   title: 'Components/Templates/RegisterAccountInfo',
   component: RegisterAccountInfo,
-}
+};
 
-export const Default = () => <RegisterAccountInfo />
+export const Default: React.FC = () => <RegisterAccountInfo />;

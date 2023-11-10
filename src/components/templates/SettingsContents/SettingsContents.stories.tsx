@@ -1,8 +1,8 @@
-import SettingsContents from '.'
+import SettingsContents from '.';
 
 export default {
   title: 'Components/Templates/SettingsContents',
   component: SettingsContents,
-}
+};
 
-export const Default = () => <SettingsContents />
+export const Default: React.FC = () => <SettingsContents />;

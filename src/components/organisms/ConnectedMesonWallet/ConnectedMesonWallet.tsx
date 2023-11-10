@@ -1,16 +1,16 @@
-import Blockies from 'react-blockies'
-import { Button } from '@/components/atoms/Button'
-import { Option } from '@/components/atoms/Option'
-import CopyToClipboardBtn from '@/utils/CopyToClipboardBtn'
-import { mockNetworks } from '@/utils/Mock'
-import Spacer from '@/utils/Spacer'
-import ViewOn from '@/utils/ViewOn'
-import { trimAddress } from '@/utils/trimAddress'
+import Blockies from 'react-blockies';
+import { Button } from '~/components/atoms/Button';
+import { Option } from '~/components/atoms/Option';
+import CopyToClipboardBtn from '~/utils/CopyToClipboardBtn';
+import { mockNetworks } from '~/utils/Mock';
+import Spacer from '~/utils/Spacer';
+import ViewOn from '~/utils/ViewOn';
+import { trimAddress } from '~/utils/trimAddress';
 
 export type ConnectedMesonWalletProps = {
-  ethAddress?: string
-  isConnected: boolean
-}
+  ethAddress?: string;
+  isConnected: boolean;
+};
 
 const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
   ethAddress = '',
@@ -20,7 +20,9 @@ const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
     <>
       {isConnected && ethAddress.length ? (
         <div className='w-[22rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
-          <span className='text-textWhite text-xl font-bold'>Your Meson Wallet</span>
+          <span className='text-textWhite text-xl font-bold'>
+            Your Meson Wallet
+          </span>
           <Spacer size={16} axis={'vertical'} />
           <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgDarkLight'>
             <span className='text-textWhite'>Selected wallet</span>
@@ -28,10 +30,16 @@ const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
             <Spacer size={16} axis={'vertical'} />
 
             <div className='flex flex-col items-center'>
-              <Blockies seed={ethAddress} scale={6} className='identicon rounded-full' />
+              <Blockies
+                seed={ethAddress}
+                scale={6}
+                className='identicon rounded-full'
+              />
               <span className='text-sm'>My wallet</span>
               <div className='flex flex-row items-center'>
-                <span className='text-textWhite text-sm font-bold'>eth:&nbsp;</span>
+                <span className='text-textWhite text-sm font-bold'>
+                  eth:&nbsp;
+                </span>
                 <span className='text-textWhite text-base font-normal'>
                   {trimAddress(ethAddress)}
                 </span>
@@ -52,7 +60,7 @@ const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
               btnSize={'md'}
               btnType={'button'}
               handleClick={() => {
-                console.log('Switch wallet')
+                console.log('Switch wallet');
               }}
             >
               Switch wallet
@@ -62,7 +70,7 @@ const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
               btnSize={'md'}
               btnType={'button'}
               handleClick={() => {
-                console.log('Disconnect wallet')
+                console.log('Disconnect wallet');
               }}
             >
               Disconnect
@@ -71,7 +79,7 @@ const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
         </div>
       ) : null}
     </>
-  )
-}
+  );
+};
 
-export default ConnectedMesonWallet
+export default ConnectedMesonWallet;

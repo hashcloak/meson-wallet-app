@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
+const sizes = theme.icons.sizes;
 
 type Props = {
-  iconSize: keyof typeof sizes
-}
+  iconSize: keyof typeof sizes;
+};
 
 const BnbLogo: React.FC<Props> = ({ iconSize }) => {
-  const px = sizes[iconSize]
+  const px = sizes[iconSize];
 
   return (
     <svg
@@ -67,7 +67,7 @@ const BnbLogo: React.FC<Props> = ({ iconSize }) => {
         />
       </g>
     </svg>
-  )
-}
+  );
+};
 
-export default BnbLogo
+export default BnbLogo;

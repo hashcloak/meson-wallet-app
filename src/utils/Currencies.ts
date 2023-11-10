@@ -1238,4 +1238,4 @@ export const currencies = [
     name: 'Zambian kwacha',
     number: '967',
   },
-]
+];

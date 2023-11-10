@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react'
-import { NewOwnerType } from '../AddOwnerModal'
-import { OwnerType } from '../EditOwners'
-import { Button } from '@/components/atoms/Button'
-import EthAddress from '@/utils/Ethereum/EthAddress'
-import { mockOwners } from '@/utils/Mock'
-import Spacer from '@/utils/Spacer'
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+import { useEffect, useState } from 'react';
+import { Button } from '~/components/atoms/Button';
+import EthAddress from '~/utils/Ethereum/EthAddress';
+import { mockOwners } from '~/utils/Mock';
+import Spacer from '~/utils/Spacer';
+import { NewOwnerType } from '../AddOwnerModal';
+import { OwnerType } from '../EditOwners';
 
 type ReplaceOwnerDetailsProps = {
-  newOwner: NewOwnerType
-  name: string
-  address: string
-  onClose: () => void
-  onPageChange: () => void
-}
+  newOwner: NewOwnerType;
+  name: string;
+  address: string;
+  onClose: () => void;
+  onPageChange: () => void;
+};
 
 const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
   onClose,
@@ -21,31 +22,33 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
   address,
   onPageChange,
 }) => {
-  const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const filterOwners = mockOwners.filter((owner) => {
-      return owner.address !== address && owner.address !== newOwner.newOwnerAddress
-    })
-    setFilteredOwners(filterOwners)
-  }, [])
+      return (
+        owner.address !== address && owner.address !== newOwner.newOwnerAddress
+      );
+    });
+    setFilteredOwners(filterOwners);
+  }, []);
 
   const load = (): void => {
-    setIsLoading(!isLoading)
-    console.log('loading starts')
+    setIsLoading(!isLoading);
+    console.log('loading starts');
 
     setTimeout(() => {
-      setIsLoading(!isLoading)
-      console.log('loading ends')
-    }, 5000)
-  }
+      setIsLoading(!isLoading);
+      console.log('loading ends');
+    }, 5000);
+  };
 
   return (
     <>
       <div
         className={`grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base ${
-          isLoading && 'cursor-wait'
+          isLoading ? 'cursor-wait' : ''
         }`}
       >
         <div className='flex flex-col w-full'>
@@ -53,11 +56,15 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2'>
             <div className='flex flex-col mb-2'>
-              <span className='text-sm text-textGrayLight'>Name of the Meson Wallet</span>
+              <span className='text-sm text-textGrayLight'>
+                Name of the Meson Wallet
+              </span>
               <span className='text-lg text-textWhite'>Sample wallet</span>
             </div>
             <div className='flex flex-col mb-2'>
-              <span className='text-sm text-textGrayLight'>Address of the Meson Wallet</span>
+              <span className='text-sm text-textGrayLight'>
+                Address of the Meson Wallet
+              </span>
               <EthAddress
                 ethAddress={'0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'}
                 size={4.5}
@@ -65,11 +72,15 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
               />
             </div>
             <div className='flex flex-col mb-2'>
-              <span className='text-sm text-textGrayLight'>Selected network</span>
+              <span className='text-sm text-textGrayLight'>
+                Selected network
+              </span>
               <span className='text-lg text-textWhite'>Ethereum</span>
             </div>
             <div className='flex flex-col mb-2'>
-              <span className='text-sm text-textGrayLight'>Required confirmation</span>
+              <span className='text-sm text-textGrayLight'>
+                Required confirmation
+              </span>
               <span className='text-lg text-textWhite'>1 out of 2 owners</span>
             </div>
           </div>
@@ -80,17 +91,16 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2 w-full'>
             {/* Owners */}
-            {filteredOwners &&
-              filteredOwners.map((owner: OwnerType) => (
-                <EthAddress
-                  ethAddress={owner.address}
-                  size={4.5}
-                  length={'full'}
-                  icons={true}
-                  walletName={owner.name}
-                  key={owner.address}
-                />
-              ))}
+            {filteredOwners?.map((owner: OwnerType) => (
+              <EthAddress
+                ethAddress={owner.address}
+                size={4.5}
+                length={'full'}
+                icons={true}
+                walletName={owner.name}
+                key={owner.address}
+              />
+            ))}
 
             <Spacer size={8} axis={'vertical'} />
 
@@ -108,7 +118,7 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
             <div className='flex flex-col justify-center p-2 mb-2 bg-[#397F97] rounded-2xl h-[4.5rem] box-border w-full'>
               <span className='font-bold'>New owner</span>
               <EthAddress
-                ethAddress={newOwner && newOwner.newOwnerAddress}
+                ethAddress={newOwner?.newOwnerAddress}
                 size={4.5}
                 length={'full'}
                 icons={true}
@@ -123,7 +133,9 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
         tabIndex={0}
         className='collapse collapse-arrow border border-base-300 bg-base-100 rounded-box'
       >
-        <div className='collapse-title text-base font-bold bg-bgDarkLight'>Advanced parameters</div>
+        <div className='collapse-title text-base font-bold bg-bgDarkLight'>
+          Advanced parameters
+        </div>
         <div className='collapse-content flex flex-col w-full bg-bgDarkLight'>
           <div className='flex flex-row justify-around w-full'>
             <span>Nonce</span>
@@ -144,17 +156,22 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
           btnType={'button'}
           // handleClick={onPageChange}
           handleClick={() => {
-            onClose()
-            onPageChange()
+            onClose();
+            onPageChange();
           }}
         >
           <span className='text-lg'>Back</span>
         </Button>
-        <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'} handleClick={load}>
+        <Button
+          btnVariant={'primary'}
+          btnSize={'lg'}
+          btnType={'submit'}
+          handleClick={load}
+        >
           Submit
         </Button>
       </div>
     </>
-  )
-}
-export default ReplaceOwnerDetails
+  );
+};
+export default ReplaceOwnerDetails;

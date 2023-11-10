@@ -1,37 +1,36 @@
-import { useState } from 'react'
-import RowBodyShort from '../RowBody/RowBodyShort'
-import { TableRowType } from '.'
-import TxModal from '@/components/molecules/Modal/TxModal'
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useState } from 'react';
+import TxModal from '~/components/molecules/Modal/TxModal';
+import RowBodyShort from '../RowBody/RowBodyShort';
+import { HistoricalTxType } from '~/features/historicalTxs';
+import { useConvertTx } from '~/hooks/useConvertTx';
+
+type Props = {
+  tx: HistoricalTxType;
+};
 
 // TODO: TableRowShort and TableLongRow needs to receive props to display info.
-const TableRowShort: React.FC<TableRowType> = ({ tx }) => {
-  const [isOpen, setIsOpen] = useState(false)
+const TableRowShort: React.FC<Props> = ({ tx }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const convertedTx = useConvertTx(tx);
+
   const onClose = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
       <div
-        className='flex items-center rounded-2xl px-4 h-16 bg-bgDarkLight hover:bg-dark whitespace-nowrap mb-2 w-full'
+        className='flex items-center rounded-2xl px-4 h-16  whitespace-nowrap mb-2 bg-bgDarkLight hover:bg-dark"'
         onClick={() => setIsOpen(!isOpen)}
         role='button'
         tabIndex={0}
       >
-        <RowBodyShort
-          timestamp={tx.timestamp}
-          status={tx.status}
-          to={tx.to}
-          from={tx.from}
-          token={tx.token}
-          amount={tx.amount}
-          isSuccess={tx.isSuccess}
-          numOfConfirmation={tx.numOfConfirmation}
-        />
+        <RowBodyShort tx={convertedTx} />
       </div>
-      <TxModal isOpen={isOpen} onClose={onClose} tx={tx} />
+      <TxModal isOpen={isOpen} onClose={onClose} tx={convertedTx} />
     </>
-  )
-}
+  );
+};
 
-export default TableRowShort
+export default TableRowShort;

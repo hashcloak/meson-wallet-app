@@ -1,4 +1,4 @@
-import ConnectedSignerWallet from './ConnectedSignerWallet'
-import ConnectedSignerWalletBtn from './ConnectedSignerWalletBtn'
+import ConnectedSignerWallet from './ConnectedSignerWallet';
+import ConnectedSignerWalletBtn from './ConnectedSignerWalletBtn';
 
-export { ConnectedSignerWalletBtn, ConnectedSignerWallet }
+export { ConnectedSignerWalletBtn, ConnectedSignerWallet };

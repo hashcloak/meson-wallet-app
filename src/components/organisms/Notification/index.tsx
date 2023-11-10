@@ -1,4 +1,4 @@
-import Notification from './Notification'
-import NotificationBtn from './NotificationBtn'
+import Notification from './Notification';
+import NotificationBtn from './NotificationBtn';
 
-export { Notification, NotificationBtn }
+export { Notification, NotificationBtn };

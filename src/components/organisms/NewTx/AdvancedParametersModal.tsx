@@ -1,43 +1,46 @@
-import { Dialog } from '@headlessui/react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-import { Button } from '@/components/atoms/Button'
-import { Icon } from '@/components/atoms/Icon'
-import { InputControl } from '@/components/atoms/Input'
-import Spacer from '@/utils/Spacer'
+import { Button } from '~/components/atoms/Button';
+import { Icon } from '~/components/atoms/Icon';
+import { InputControl } from '~/components/atoms/Input';
+import Spacer from '~/utils/Spacer';
 
 type AdvancedParamsInputPropsType = {
-  onClose: () => void
-}
+  onClose: () => void;
+};
 
-const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({ onClose }) => {
-  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
-  const [nonce, setNonce] = useState(0)
-  const [txGas, setTxGas] = useState(0)
+const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
+  onClose,
+}) => {
+  const [nonce, setNonce] = useState<number>(0);
+  const [txGas, setTxGas] = useState<number>(0);
 
   const schema = z.object({
     newNonce: z.preprocess((value) => {
       if (typeof value !== 'string') {
-        return Number(value)
+        return Number(value);
       }
       if (value.trim() === '') {
-        return NaN
+        return NaN;
       }
-      return Number(value)
+
+      return Number(value);
     }, z.union([z.number().nonnegative(), z.number().gt(0)]).optional()),
     newTxGas: z.preprocess((value) => {
       if (typeof value !== 'string') {
-        return Number(value)
+        return Number(value);
       }
       if (value.trim() === '') {
-        return NaN
+        return NaN;
       }
-      return Number(value)
+
+      return Number(value);
     }, z.union([z.number().nonnegative(), z.number().gt(0)]).optional()),
-  })
+  });
 
   const methods = useForm({
     defaultValues: {
@@ -45,16 +48,15 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({ onClo
       newTxGas: txGas,
     },
     resolver: zodResolver(schema),
-  })
+  });
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-    setNonce(data.newNonce)
-    setTxGas(data.newTxGas)
-    onClose()
-  }
+  const onSubmit = (data: { newNonce: number; newTxGas: number }) => {
+    setNonce(data.newNonce);
+    setTxGas(data.newTxGas);
+    onClose();
+  };
 
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e)
+  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
     <div className='flex flex-col justify-center items-center text-textWhite'>
@@ -114,7 +116,14 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({ onClo
 
           <Spacer size={32} axis={'vertical'} />
           <div className='flex flex-row justify-around'>
-            <Button btnVariant={'text'} btnSize={'lg'} btnType={'button'} handleClick={() => {}}>
+            <Button
+              btnVariant={'text'}
+              btnSize={'lg'}
+              btnType={'button'}
+              handleClick={() => {
+                console.log('clicked');
+              }}
+            >
               <span className='text-lg'>Back</span>
             </Button>
             <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
@@ -124,15 +133,18 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({ onClo
         </form>
       </FormProvider>
     </div>
-  )
-}
+  );
+};
 
 type Props = {
-  isOpen: boolean
-  onClose: () => void
-}
+  isOpen: boolean;
+  onClose: () => void;
+};
 
-export const AdvancedParametersModal: React.FC<Props> = ({ isOpen, onClose }) => {
+export const AdvancedParametersModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+}) => {
   return (
     <>
       {isOpen && (
@@ -148,7 +160,9 @@ export const AdvancedParametersModal: React.FC<Props> = ({ isOpen, onClose }) =>
               aria-hidden='true'
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
-              <span className='text-textWhite text-2xl font-bold'>Advanced parameters</span>
+              <span className='text-textWhite text-2xl font-bold'>
+                Advanced parameters
+              </span>
 
               <Dialog.Description className='py-6'>
                 {/* Description */}
@@ -160,5 +174,5 @@ export const AdvancedParametersModal: React.FC<Props> = ({ isOpen, onClose }) =>
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};

@@ -3,3 +3,8 @@ dist
 dist-ssr
 postcss.config.js
 tailwind.config.js
+vite.config.ts
+smart_contract
+
+#files
+*.config.*

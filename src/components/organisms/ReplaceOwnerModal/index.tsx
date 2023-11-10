@@ -1,18 +1,26 @@
-import { Dialog } from '@headlessui/react'
-import { useState } from 'react'
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
 
-import { EditOwnerModalType as ReplaceOwnerModalType } from '../EditOwnerModal'
+import { EditOwnerModalType as ReplaceOwnerModalType } from '../EditOwnerModal';
 
-import ReplaceOwnerDetails from './ReplaceOwnerDetails'
-import ReplaceOwnerInput from './ReplaceOwnerInput'
+import ReplaceOwnerDetails from './ReplaceOwnerDetails';
+import ReplaceOwnerInput from './ReplaceOwnerInput';
 
-type NewOwnerType = { newOwnerAddress: string; newOwnerName: string }
+type NewOwnerType = { newOwnerAddress: string; newOwnerName: string };
 
-const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({ isOpen, onClose, name, address }) => {
-  const [pageChange, setPageChange] = useState(false)
-  const [newOwner, setNewOwner] = useState<NewOwnerType | null>(null)
+const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
+  isOpen,
+  onClose,
+  name,
+  address,
+}) => {
+  const [pageChange, setPageChange] = useState(false);
+  const [newOwner, setNewOwner] = useState<NewOwnerType>({
+    newOwnerAddress: '',
+    newOwnerName: '',
+  });
 
-  const handlePageChange = () => setPageChange(!pageChange)
+  const handlePageChange = () => setPageChange(!pageChange);
 
   return (
     <>
@@ -52,7 +60,7 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({ isOpen, onClose, n
                 ) : (
                   <ReplaceOwnerDetails
                     onClose={onClose}
-                    newOwner={newOwner!}
+                    newOwner={newOwner}
                     name={name}
                     address={address}
                     onPageChange={handlePageChange}
@@ -65,7 +73,7 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({ isOpen, onClose, n
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ReplaceOwnerModal
+export default ReplaceOwnerModal;

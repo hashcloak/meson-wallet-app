@@ -1,8 +1,8 @@
-import CustomLink from '@/components/atoms/CustomLink'
-import { Icon } from '@/components/atoms/Icon'
-import Spacer from '@/utils/Spacer'
+import CustomLink from '~/components/atoms/CustomLink';
+import { Icon } from '~/components/atoms/Icon';
+import Spacer from '~/utils/Spacer';
 
-const Breadcrumb = () => {
+const Breadcrumb: React.FC = () => {
   return (
     <div className='text-base text-textWhite flex flex-row items-center'>
       <CustomLink url={'https://'} size={'base'}>
@@ -13,7 +13,7 @@ const Breadcrumb = () => {
       <Spacer size={8} axis={'horizontal'} />
       <span>Details</span>
     </div>
-  )
-}
+  );
+};
 
-export default Breadcrumb
+export default Breadcrumb;

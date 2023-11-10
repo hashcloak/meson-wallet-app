@@ -1,14 +1,19 @@
-import { Dialog } from '@headlessui/react'
-import EditOwnerDetails from './EditOwnerDetails'
+import { Dialog } from '@headlessui/react';
+import EditOwnerDetails from './EditOwnerDetails';
 
 export type EditOwnerModalType = {
-  isOpen: boolean
-  onClose: () => void
-  name: string
-  address: string
-}
+  isOpen: boolean;
+  onClose: () => void;
+  name: string;
+  address: string;
+};
 
-const EditOwnerModal: React.FC<EditOwnerModalType> = ({ isOpen, onClose, name, address }) => {
+const EditOwnerModal: React.FC<EditOwnerModalType> = ({
+  isOpen,
+  onClose,
+  name,
+  address,
+}) => {
   return (
     <>
       {isOpen && (
@@ -24,11 +29,17 @@ const EditOwnerModal: React.FC<EditOwnerModalType> = ({ isOpen, onClose, name, a
               aria-hidden='true'
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
-              <span className='text-textWhite text-2xl font-bold'>Edit owner</span>
+              <span className='text-textWhite text-2xl font-bold'>
+                Edit owner
+              </span>
 
               <Dialog.Description className='py-6'>
                 {/* Description */}
-                <EditOwnerDetails onClose={onClose} name={name} address={address} />
+                <EditOwnerDetails
+                  onClose={onClose}
+                  name={name}
+                  address={address}
+                />
                 {/* Description */}
               </Dialog.Description>
             </Dialog.Panel>
@@ -36,7 +47,7 @@ const EditOwnerModal: React.FC<EditOwnerModalType> = ({ isOpen, onClose, name, a
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default EditOwnerModal
+export default EditOwnerModal;

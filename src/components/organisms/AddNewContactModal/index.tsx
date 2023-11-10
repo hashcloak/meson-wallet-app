@@ -1,25 +1,27 @@
-import { Dialog } from '@headlessui/react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { Button } from '@/components/atoms/Button'
-import { InputControl } from '@/components/atoms/Input'
-import Spacer from '@/utils/Spacer'
+import { Dialog } from '@headlessui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '~/components/atoms/Button';
+import { InputControl } from '~/components/atoms/Input';
+import Spacer from '~/utils/Spacer';
 
 type Props = {
-  isOpen: boolean
-  onClose: () => void
-}
+  isOpen: boolean;
+  onClose: () => void;
+};
 
 type AddNewContactDetailsType = {
-  onClose: () => void
-}
+  onClose: () => void;
+};
 
-const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({ onClose }) => {
+const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
+  onClose,
+}) => {
   const schema = z.object({
     newName: z.string().min(1, { message: 'Name is required' }),
     newAddress: z.string().min(1, { message: 'Address is required' }),
-  })
+  });
 
   const methods = useForm({
     defaultValues: {
@@ -27,20 +29,25 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({ onClose }) =
       newAddress: '',
     },
     resolver: zodResolver(schema),
-  })
+  });
 
   const onSubmit = (data: any) => {
-    console.log(data)
-    onClose()
-  }
+    console.log(data);
+    onClose();
+  };
 
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e)
+  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
     <div className='flex flex-col text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-          <InputControl label='Name' placeholder='Name*' type='text' registeredName={'newName'} />
+          <InputControl
+            label='Name'
+            placeholder='Name*'
+            type='text'
+            registeredName={'newName'}
+          />
           <Spacer size={8} axis={'vertical'} />
           <InputControl
             label='Address'
@@ -51,7 +58,12 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({ onClose }) =
 
           <Spacer size={32} axis={'vertical'} />
           <div className='flex flex-row justify-around'>
-            <Button btnVariant={'text'} btnSize={'lg'} btnType={'button'} handleClick={onClose}>
+            <Button
+              btnVariant={'text'}
+              btnSize={'lg'}
+              btnType={'button'}
+              handleClick={onClose}
+            >
               <span className='text-lg'>Cancel</span>
             </Button>
             <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
@@ -61,8 +73,8 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({ onClose }) =
         </form>
       </FormProvider>
     </div>
-  )
-}
+  );
+};
 
 const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
@@ -80,7 +92,9 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
               aria-hidden='true'
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
-              <span className='text-textWhite text-2xl font-bold'>Add new contact</span>
+              <span className='text-textWhite text-2xl font-bold'>
+                Add new contact
+              </span>
 
               <Dialog.Description className='p-6'>
                 {/* Description */}
@@ -92,7 +106,7 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default AddNewContactModal
+export default AddNewContactModal;

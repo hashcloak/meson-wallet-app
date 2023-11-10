@@ -1,4 +1,4 @@
-import ConnectedMesonWallet from './ConnectedMesonWallet'
-import ConnectedMesonWalletBtn from './ConnectedMesonWalletBtn'
+import ConnectedMesonWallet from './ConnectedMesonWallet';
+import ConnectedMesonWalletBtn from './ConnectedMesonWalletBtn';
 
-export { ConnectedMesonWallet, ConnectedMesonWalletBtn }
+export { ConnectedMesonWallet, ConnectedMesonWalletBtn };

@@ -1,8 +1,8 @@
-import Breadcrumb from '.'
+import Breadcrumb from '.';
 
 export default {
   title: 'Components/Molecules/Breadcrumb',
   component: 'Breadcrumb',
-}
+};
 
-export const Default = (): React.ReactElement => <Breadcrumb />
+export const Default: React.FC = (): React.ReactElement => <Breadcrumb />;

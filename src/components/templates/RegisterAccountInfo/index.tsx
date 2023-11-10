@@ -1,76 +1,112 @@
-import { ErrorMessage } from '@hookform/error-message'
-import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useEffect, useState } from 'react'
-import { useFieldArray, useForm } from 'react-hook-form'
-import { object, z } from 'zod'
-import { Button } from '@/components/atoms/Button'
-import { Icon } from '@/components/atoms/Icon'
-import { Options } from '@/components/atoms/Option/OptionControl'
-import { StepContentLayout, StepWrapper } from '@/utils/Layouts'
-import Spacer from '@/utils/Spacer'
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { ErrorMessage } from '@hookform/error-message';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { object, z } from 'zod';
+import { Button } from '~/components/atoms/Button';
+import { Icon } from '~/components/atoms/Icon';
+import { Options } from '~/components/atoms/Option/OptionControl';
+import { validateEthAddress } from '~/utils/Ethereum/AddressValidator';
+import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
+import Spacer from '~/utils/Spacer';
+import { Owner, setOwners } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
 
-const RegisterAccountInfo = () => {
-  const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([])
-  const [currentVal, setCurrentVal] = useState<string>('')
-  const [userInput, setUserInput] = useState<string>('')
+const RegisterAccountInfo: React.FC = () => {
+  const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
+  const [currentVal, setCurrentVal] = useState<number>(0);
+  const [duplicatedAddress, setDuplicatedAddress] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const defaultAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
+  const { signerWalletAddress } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
 
   const schema = object({
-    owner: z
+    owners: z
       .object({
+        // ownerName: z.string().optional(),
         ownerName: z.string().optional(),
-        ownerAddress: z.string().min(1, { message: 'Owner address is required' }),
+        ownerAddress: z
+          .string()
+          .min(1, { message: 'Owner address is required' })
+          .refine((v: unknown) => {
+            return validateEthAddress(String(v));
+          }, 'Please input valid Eth address'),
       })
       .array(),
-  })
+  });
 
   const {
     register,
     control,
     reset,
     formState: { errors },
+    getValues,
     handleSubmit,
   } = useForm({
     defaultValues: {
-      owner: [{ ownerName: '', ownerAddress: defaultAddress }],
+      owners: [{ ownerName: '', ownerAddress: signerWalletAddress }],
       confirmation: 1,
     },
     resolver: zodResolver(schema),
-  })
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'owner',
-  })
+    name: 'owners',
+  });
 
-  const onSubmit = (data: any): void => {
-    console.log('owners', data)
-    reset()
-  }
-  const onError = (errors: any, e: any) => console.log(errors, e)
+  const onSubmit = (data: unknown) => {
+    const { owners } = data as { owners: Owner[] };
+    const confirmation = getValues('confirmation');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(e.target.value)
-    console.log(userInput)
-  }
+    const duplicatedAddress = owners.filter(({ ownerAddress }) => {
+      return String(ownerAddress) === String(signerWalletAddress);
+    });
+
+    if (duplicatedAddress.length > 1) {
+      setDuplicatedAddress(true);
+    } else {
+      dispatch(
+        setOwners({
+          owners,
+          confirmation,
+        })
+      );
+
+      setDuplicatedAddress(false);
+      reset();
+      navigate('/create-new/step3');
+    }
+  };
+
+  const onError = (errors: any, e: any) =>
+    console.log('submit error:', errors, e);
 
   useEffect(() => {
-    setNumOfConfirmation([])
+    setNumOfConfirmation([]);
     const numOfOwners: Options[] = fields.map((confirmation, index) => {
       return {
         value: index + 1,
         label: index + 1,
         bg: 'bg-bgGray text-textBlack',
-      }
-    })
-    setNumOfConfirmation(numOfOwners)
-  }, [fields])
+      };
+    });
+    setNumOfConfirmation(numOfOwners);
+  }, [fields]);
 
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>② Register account info</span>
+        <span className='text-textWhite text-2xl font-bold'>
+          ② Register account info
+        </span>
         <form onSubmit={handleSubmit(onSubmit, onError)}>
           <StepWrapper>
             {/* 1st row */}
@@ -79,49 +115,58 @@ const RegisterAccountInfo = () => {
                 <span className='text-xl underline'>Adding owners</span>
                 <Spacer size={8} axis={'vertical'} />
                 <span>
-                  Your Meson Wallet will have one or more owners. We have filled out the first owner
-                  with your connected wallet details, but you can also assign a different owner.
+                  Your Meson Wallet will have one or more owners. We have filled
+                  out the first owner with your connected wallet details, but
+                  you can also assign a different owner.
                 </span>
               </div>
 
               <div className='flex flex-col'>
-                {fields.map((field: any, index: number) => (
+                {fields.map((field, index: number) => (
                   <div key={field.id} className='mb-2'>
                     <div className='grid grid-cols-8 gap-1 w-full'>
                       <div className='col-span-2'>
                         <input
-                          {...register(`owner.${index}.ownerName`)}
+                          {...register(`owners.${index}.ownerName`)}
                           placeholder='Owner name*'
                           type='text'
                           className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
-                          name={`owner.${index}.ownerName`}
+                          name={`owners.${index}.ownerName`}
                         />
                         <ErrorMessage
                           errors={errors}
-                          name={`owner.${index}.ownerName`}
-                          render={({ message }) => <p className='text-alert text-sm'>{message}</p>}
+                          name={`owners.${index}.ownerName`}
+                          render={({ message }) => (
+                            <p className='text-alert text-sm'>{message}</p>
+                          )}
                         />
                       </div>
 
                       <div className='col-span-5'>
                         <input
-                          {...register(`owner.${index}.ownerAddress`)}
+                          {...register(`owners.${index}.ownerAddress`)}
                           placeholder={index === 0 ? '' : 'Owner address*'}
                           type='text'
                           className='border border-borderGray text-base bg-bgWhite rounded-md px-4 py-2 text-textBlack w-full'
-                          name={`owner.${index}.ownerAddress`}
-                          onChange={(e) => handleChange(e)}
+                          name={`owners.${index}.ownerAddress`}
+                          onChange={() => setDuplicatedAddress(false)}
                         />
                         <ErrorMessage
                           errors={errors}
-                          name={`owner.${index}.ownerAddress`}
-                          render={({ message }) => <p className='text-alert text-sm'>{message}</p>}
+                          name={`owners.${index}.ownerAddress`}
+                          render={({ message }) => (
+                            <p className='text-alert text-sm'>{message}</p>
+                          )}
                         />
                       </div>
                       {index === 0 ? null : (
                         <div className='col-span-1 flex items-center'>
                           <button onClick={() => remove(index)} className=' '>
-                            <Icon type={'FailCircle'} size={'lg'} color={'alert'} />
+                            <Icon
+                              type={'FailCircle'}
+                              size={'lg'}
+                              color={'alert'}
+                            />
                           </button>
                         </div>
                       )}
@@ -136,18 +181,26 @@ const RegisterAccountInfo = () => {
                 >
                   + Add more owner
                 </button>
+                {duplicatedAddress && (
+                  <span className='text-textBlack text-sm rounded-md bg-light px-2 inline-block'>
+                    The address is duplicated. Please correct the value.
+                  </span>
+                )}
               </div>
             </StepContentLayout>
 
             {/* 2nd row */}
             <StepContentLayout>
               <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
-                <span className='text-xl underline'>Set number of confirmation</span>
+                <span className='text-xl underline'>
+                  Set number of confirmation
+                </span>
                 <Spacer size={8} axis={'vertical'} />
                 <span>
-                  Specifying how many of them need to confirm a transaction before it gets executed.{' '}
-                  <br />
-                  Basically, the more confirmations required, the more secure your Meson Wallet is.
+                  Specifying how many of them need to confirm a transaction
+                  before it gets executed. <br />
+                  Basically, the more confirmations required, the more secure
+                  your Meson Wallet is.
                 </span>
               </div>
 
@@ -160,18 +213,20 @@ const RegisterAccountInfo = () => {
                         'text-textBlack form-select appearance-none block w-full h-6 px-6 text-sm text-center border-borderGray rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none bg-bgGray'
                       }
                       {...register('confirmation')}
-                      onChange={(e) => setCurrentVal(e.target.value)}
+                      name={'confirmation'}
+                      onChange={(e) => setCurrentVal(Number(e.target.value))}
                       defaultValue={currentVal}
                     >
-                      {numOfConfirmation &&
-                        numOfConfirmation.map((option, key) => (
-                          <option value={option.value} key={key}>
-                            {option.label}
-                          </option>
-                        ))}
+                      {numOfConfirmation?.map((option, key) => (
+                        <option value={option.value} key={key}>
+                          {option.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
-                  <span className='col-span-3'>out of {numOfConfirmation.length} owner(s)</span>
+                  <span className='col-span-3'>
+                    out of {numOfConfirmation.length} owner(s)
+                  </span>
                 </div>
               </div>
             </StepContentLayout>
@@ -182,9 +237,11 @@ const RegisterAccountInfo = () => {
                 btnVariant={'text'}
                 btnSize={'lg'}
                 btnType={'button'}
-                handleClick={() => console.log('Cancel')}
+                handleClick={() => {
+                  navigate(-1);
+                }}
               >
-                Cancel
+                Back
               </Button>
               {/* TODO:Button validation needs to be updated based on signer wallet connection */}
               <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
@@ -195,7 +252,7 @@ const RegisterAccountInfo = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RegisterAccountInfo
+export default RegisterAccountInfo;

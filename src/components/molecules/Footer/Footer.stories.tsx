@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import { Footer } from '.'
+import { Footer } from '.';
 
 export default {
   title: 'Components/Molecules/Footer',
   component: Footer,
-}
+};
 
-export const Default = (): React.ReactElement => <Footer />
+export const Default: React.FC = (): React.ReactElement => <Footer />;

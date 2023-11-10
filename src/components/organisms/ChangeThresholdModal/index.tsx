@@ -1,30 +1,30 @@
-import { Dialog } from '@headlessui/react'
-import { useState } from 'react'
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
 
-import ChangeThresholdDetails from './ChangeThresholdDetails'
-import ChangeThresholdInput from './ChangeThresholdInput'
+import ChangeThresholdDetails from './ChangeThresholdDetails';
+import ChangeThresholdInput from './ChangeThresholdInput';
 
 const ChangeThresholdModal: React.FC<{
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }> = ({ isOpen, onClose }) => {
-  const [pageChange, setPageChange] = useState(false)
-  const [newConfirmation, onNewConfirmation] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [pageChange, setPageChange] = useState(false);
+  const [newConfirmation, onNewConfirmation] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePageChange = () => {
-    setPageChange(!pageChange)
-  }
+    setPageChange(!pageChange);
+  };
 
   const handleLoading = () => {
-    setIsLoading(!isLoading)
-    console.log('loading starts', isLoading)
+    setIsLoading(!isLoading);
+    console.log('loading starts', isLoading);
 
     setTimeout(() => {
-      setIsLoading(!isLoading)
-      console.log('loading ends', isLoading)
-    }, 5000)
-  }
+      setIsLoading(!isLoading);
+      console.log('loading ends', isLoading);
+    }, 5000);
+  };
 
   return (
     <>
@@ -33,7 +33,7 @@ const ChangeThresholdModal: React.FC<{
           open={isOpen}
           onClose={onClose}
           className='fixed z-10 inset-0 overflow-y-auto'
-          static={isLoading ? true : false}
+          static={!!isLoading}
         >
           <div className='flex items-center justify-center min-h-screen'>
             <Dialog.Overlay
@@ -62,7 +62,7 @@ const ChangeThresholdModal: React.FC<{
                 ) : (
                   <ChangeThresholdDetails
                     onClose={onClose}
-                    confirmation={newConfirmation!}
+                    confirmation={newConfirmation}
                     onPageChange={handlePageChange}
                     onLoad={handleLoading}
                   />
@@ -74,7 +74,7 @@ const ChangeThresholdModal: React.FC<{
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ChangeThresholdModal
+export default ChangeThresholdModal;

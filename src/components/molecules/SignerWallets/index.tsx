@@ -1,28 +1,59 @@
-import React from 'react'
-import { SignerWalletButton } from '@/components/atoms/Button'
-import { LogoTypes } from '@/components/atoms/Icon/Logo'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import {
+  HardhatButton,
+  LedgerButton,
+  TrezorButton,
+} from '~/components/atoms/Button';
+import { LoadingState } from '~/features/loading';
+import { NetworkState } from '~/features/network';
+import { RootState } from '~/features/reducers';
+import { SignerState } from '~/features/signerWallet';
+import { useDisconnectWC } from '~/hooks/wagumi/useDisconnectWC';
 
-const SignerWallets = () => {
-  const signerWallets: { [k in LogoTypes]?: string }[] = [
-    { TrezorLogo: 'Trezor' },
-    { WalletConnectLogo: 'WalletConnect' },
-    { LedgerLogo: 'Ledger' },
-    { MetamaskLogo: 'Metamask' },
-  ]
+const SignerWallets: React.FC = () => {
+  const { message } = useSelector<RootState, LoadingState>(
+    (state) => state.loading
+  );
+  const { signerWalletAddress } = useSelector<RootState, SignerState>(
+    (state) => state.signerWallet
+  );
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+
+  const { disconnectWC } = useDisconnectWC();
+
+  useEffect(() => {
+    void disconnectWC();
+  }, [network]);
 
   return (
     <>
-      {signerWallets.map((wallet) => (
-        <SignerWalletButton
-          btnType={'button'}
-          logoType={Object.keys(wallet)[0] as LogoTypes}
-          logoName={Object.values(wallet)[0]}
-          interact={true}
-          key={Object.keys(wallet)[0]}
-        />
-      ))}
-    </>
-  )
-}
+      <div className='flex flex-wrap gap-4'>
+        <TrezorButton />
+        <LedgerButton />
+        <HardhatButton />
+        {/* <WalletConnectButton /> */}
+      </div>
 
-export default SignerWallets
+      {message != null && (
+        <span
+          className={`text-textBlack text-sm rounded-md bg-light ${
+            message && 'px-2'
+          }`}
+        >
+          {message}
+        </span>
+      )}
+      {signerWalletAddress && (
+        <span className={`text-textBlack text-sm rounded-md bg-light px-2`}>
+          Connected!
+        </span>
+      )}
+    </>
+  );
+};
+
+export default SignerWallets;

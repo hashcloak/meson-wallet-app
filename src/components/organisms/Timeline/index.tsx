@@ -1,33 +1,24 @@
-import { IconTypes, StatusTypes } from '../../molecules/IconText/TxStatus'
-import Card from '@/components/molecules/Card'
+import { useSelector } from 'react-redux';
+import Card from '~/components/molecules/Card';
+import { HistoricalTxsState } from '~/features/historicalTxs';
+import { RootState } from '~/features/reducers';
 
-export type TransactionType = {
-  id: number
-  token: 'ethereum' | string
-  amount: number
-  ethAddress: string
-  status: StatusTypes | IconTypes
-  isSuccess: boolean
-  timestamp: number
-}
+const Timeline: React.FC = () => {
+  const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
+    (state) => state.historicalTxs
+  );
 
-type Props = {
-  txs: TransactionType[]
-}
-
-const Timeline: React.FC<Props> = ({ txs }) => {
-  const sortedTx = txs.sort((a, b) => {
-    return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-  })
+  const recent10Txs = historicalTxs.slice(0, 10);
 
   return (
     <div className='flex flex-col w-full h-full'>
       <span className='text-textWhite text-2xl font-bold'>
-        History - Latest {sortedTx.length} out of {sortedTx.length > 5 ? sortedTx.length : '10'} Txs
+        History - Latest {recent10Txs.length} out of{' '}
+        {historicalTxs.length > 5 ? historicalTxs.length : '10'} Txs
       </span>
-      <div className='flex flex-row rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-[22.5rem] box-border snap-x overflow-x-scroll '>
-        {sortedTx ? (
-          sortedTx.map((tx) => <Card tx={tx} key={tx.id} />)
+      <div className='flex flex-row-reverse justify-end rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-[22.5rem] box-border snap-x overflow-x-scroll '>
+        {recent10Txs.length ? (
+          recent10Txs.map((tx) => <Card tx={tx} key={tx.hash} />)
         ) : (
           <div className='w-full h-full flex justify-center items-center'>
             <span className='text-textGrayLight'>No queued transaction</span>
@@ -35,7 +26,7 @@ const Timeline: React.FC<Props> = ({ txs }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Timeline
+export default Timeline;

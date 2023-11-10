@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { Button } from '@/components/atoms/Button'
-import { Options } from '@/components/atoms/Option/OptionControl'
-import OwnerConfirmation from '@/components/molecules//OwnerConfirmation'
-import EthAddress from '@/utils/Ethereum/EthAddress'
-import Spacer from '@/utils/Spacer'
+import { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Button } from '~/components/atoms/Button';
+import { Options } from '~/components/atoms/Option/OptionControl';
+import OwnerConfirmation from '~/components/molecules//OwnerConfirmation';
+import EthAddress from '~/utils/Ethereum/EthAddress';
+import Spacer from '~/utils/Spacer';
 
 type RemoveOwnerInputType = {
-  name: string
-  address: string
-  onClose: () => void
-  onPageChange: () => void
-  onNewConfirmation: (data: any) => void
-}
+  name: string;
+  address: string;
+  onClose: () => void;
+  onPageChange: () => void;
+  onNewConfirmation: (data: any) => void;
+};
 
 const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   onClose,
@@ -21,39 +21,45 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   onPageChange,
   onNewConfirmation,
 }) => {
-  const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([])
+  const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
 
   const methods = useForm({
     defaultValues: {
       confirmation: '1',
     },
-  })
+  });
 
   const onSubmit = (data: any) => {
-    onNewConfirmation(data.confirmation)
-    onPageChange && onPageChange()
-  }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    onNewConfirmation(data.confirmation);
+    onPageChange();
+  };
 
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e)
+  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   useEffect(() => {
-    const fields = [1, 2]
+    const fields = [1, 2];
     const numOfOwners: Options[] = fields.map((_, index) => {
       return {
         value: String(index + 1),
         label: String(index + 1),
         bg: 'bg-bgGray text-textBlack',
-      }
-    })
-    setNumOfConfirmation(numOfOwners)
-  }, [])
+      };
+    });
+    setNumOfConfirmation(numOfOwners);
+  }, []);
 
   return (
     <div className='flex flex-col text-textWhite'>
       <span className='text-lg'>Removing owner</span>
       <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>
-          <EthAddress ethAddress={address} size={4.5} length={'full'} walletName={name} />
+          <EthAddress
+            ethAddress={address}
+            size={4.5}
+            length={'full'}
+            walletName={name}
+          />
         </div>
       </div>
       <Spacer size={32} axis={'vertical'} />
@@ -67,7 +73,12 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
           <Spacer size={24} axis={'vertical'} />
 
           <div className='flex flex-row justify-around'>
-            <Button btnVariant={'text'} btnSize={'lg'} btnType={'button'} handleClick={onClose}>
+            <Button
+              btnVariant={'text'}
+              btnSize={'lg'}
+              btnType={'button'}
+              handleClick={onClose}
+            >
               <span className='text-lg'>Cancel</span>
             </Button>
             <Button btnVariant={'primary'} btnSize={'lg'} btnType={'submit'}>
@@ -77,7 +88,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
         </form>
       </FormProvider>
     </div>
-  )
-}
+  );
+};
 
-export default RemoveOwnerInput
+export default RemoveOwnerInput;

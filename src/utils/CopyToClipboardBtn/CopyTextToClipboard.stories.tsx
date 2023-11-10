@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import CopyToClipboardBtn from '.'
+import CopyToClipboardBtn from '.';
 
 export default {
   title: 'Utils/CopyToClipboardBtn',
@@ -8,6 +8,8 @@ export default {
   parameters: {
     componentSubtitle: 'Copy text to clipboard.',
   },
-}
+};
 
-export const Default = (): React.ReactElement => <CopyToClipboardBtn textToCopy='some value' />
+export const Default: React.FC = (): React.ReactElement => (
+  <CopyToClipboardBtn textToCopy='some value' />
+);

@@ -1,8 +1,8 @@
-import SignerWallets from '.'
+import SignerWallets from '.';
 
 export default {
   title: 'Components/Molecules/SignerWallets',
   component: 'SignerWallets',
-}
+};
 
-export const Default = (): React.ReactElement => <SignerWallets />
+export const Default: React.FC = (): React.ReactElement => <SignerWallets />;

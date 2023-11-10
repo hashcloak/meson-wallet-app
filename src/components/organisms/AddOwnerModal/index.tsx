@@ -1,22 +1,29 @@
-import { Dialog } from '@headlessui/react'
-import { useState } from 'react'
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
 
-import AddOwnerDetails from './AddOwnerDetails'
-import AddOwnerInput from './AddOwnerInput'
+import AddOwnerDetails from './AddOwnerDetails';
+import AddOwnerInput from './AddOwnerInput';
 
 export type NewOwnerType = {
-  newOwnerAddress: string
-  newOwnerName: string
-  confirmation?: string
-}
+  newOwnerAddress: string;
+  newOwnerName: string;
+  confirmation?: string;
+};
 
-const AddOwnerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-  const [pageChange, setPageChange] = useState(false)
-  const [newOwner, setNewOwner] = useState<NewOwnerType | null>(null)
+const AddOwnerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
+  const [pageChange, setPageChange] = useState(false);
+  const [newOwner, setNewOwner] = useState<NewOwnerType>({
+    newOwnerAddress: '',
+    newOwnerName: '',
+    confirmation: '',
+  });
 
   const handlePageChange = () => {
-    setPageChange(!pageChange)
-  }
+    setPageChange(!pageChange);
+  };
 
   return (
     <>
@@ -52,7 +59,7 @@ const AddOwnerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isO
                     onSetNewOwner={setNewOwner}
                   />
                 ) : (
-                  <AddOwnerDetails onClose={onClose} newOwner={newOwner!} />
+                  <AddOwnerDetails onClose={onClose} newOwner={newOwner} />
                 )}
                 {/* Description */}
               </Dialog.Description>
@@ -61,7 +68,7 @@ const AddOwnerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isO
         </Dialog>
       )}
     </>
-  )
-}
+  );
+};
 
-export default AddOwnerModal
+export default AddOwnerModal;

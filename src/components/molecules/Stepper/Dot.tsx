@@ -1,5 +1,5 @@
-import { StepProps } from '.'
-import Spacer from '@/utils/Spacer'
+import Spacer from '~/utils/Spacer';
+import { StepProps } from '.';
 
 const Dot: React.FC<StepProps> = ({ text, isActive, step }) => {
   return (
@@ -9,12 +9,18 @@ const Dot: React.FC<StepProps> = ({ text, isActive, step }) => {
           isActive ? 'bg-main' : 'bg-bgGray'
         }`}
       >
-        <span className={`mt-1 ${isActive ? 'text-textWhite' : 'text-textBlack'}`}>{step}</span>
+        <span
+          className={`mt-1 ${isActive ? 'text-textWhite' : 'text-textBlack'}`}
+        >
+          {step}
+        </span>
       </div>
       <Spacer size={4} axis={'vertical'} />
-      <span className='text-xs font-medium text-textWhite text-center'>{text}</span>
+      <span className='text-xs font-medium text-textWhite text-center'>
+        {text}
+      </span>
     </div>
-  )
-}
+  );
+};
 
-export default Dot
+export default Dot;

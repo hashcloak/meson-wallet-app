@@ -1,14 +1,14 @@
-import React from 'react'
-import { Logo } from '@/components/atoms/Icon'
+import React from 'react';
+import { Logo } from '~/components/atoms/Icon';
 
-export const tokens = ['EthLogo', 'DaiLogo', 'UsdcLogo', 'BnbLogo'] as const
-export type TokenTypes = (typeof tokens)[number]
+export const tokens = ['EthLogo', 'DaiLogo', 'UsdcLogo', 'BnbLogo'] as const;
+export type TokenTypes = (typeof tokens)[number];
 
 type Props = {
-  type: TokenTypes
-  abbrev: string
-  token: string
-}
+  type: TokenTypes;
+  abbrev: string;
+  token: string;
+};
 
 const Token: React.FC<Props> = ({ type, abbrev, token }) => {
   return (
@@ -19,7 +19,7 @@ const Token: React.FC<Props> = ({ type, abbrev, token }) => {
         <span className='text-xs'>{token}</span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Token
+export default Token;

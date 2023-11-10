@@ -1,3 +1,3 @@
-import EthAddress from './EthAddress'
+import EthAddress from './EthAddress';
 
-export { EthAddress }
+export { EthAddress };

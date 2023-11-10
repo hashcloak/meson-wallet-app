@@ -1,8 +1,8 @@
-import Sidebar from '.'
+import Sidebar from '.';
 
 export default {
   title: 'Components/Templates/Sidebar',
   component: Sidebar,
-}
+};
 
-export const Default = () => <Sidebar />
+export const Default: React.FC = () => <Sidebar />;

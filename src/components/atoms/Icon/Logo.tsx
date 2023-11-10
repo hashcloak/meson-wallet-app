@@ -1,13 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-import BnbLogo from './images/BnbLogo'
-import DaiLogo from './images/DaiLogo'
-import EthLogo from './images/EthLogo'
-import LedgerLogo from './images/LedgerLogo'
-import MetamaskLogo from './images/MetamaskLogo'
-import TrezorLogo from './images/TrezorLogo'
-import UsdcLogo from './images/UsdcLogo'
-import WalletConnectLogo from './images/WalletConnectLogo'
+import BnbLogo from './images/BnbLogo';
+import DaiLogo from './images/DaiLogo';
+import EthLogo from './images/EthLogo';
+import HardhatLogo from './images/HardhatLogo';
+import LedgerLogo from './images/LedgerLogo';
+import MetamaskLogo from './images/MetamaskLogo';
+import TrezorLogo from './images/TrezorLogo';
+import UsdcLogo from './images/UsdcLogo';
+import WalletConnectLogo from './images/WalletConnectLogo';
 
 const icons = {
   EthLogo,
@@ -18,27 +19,50 @@ const icons = {
   WalletConnectLogo,
   LedgerLogo,
   MetamaskLogo,
-}
+  HardhatLogo,
+};
 
-export type LogoType = typeof icons
-export type LogoTypes = keyof LogoType
+export type LogoType = typeof icons;
+export type LogoTypes = keyof LogoType;
 
 export type Props = {
-  type: LogoTypes
-  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | '5xl'
-  interact?: boolean
-}
+  type: LogoTypes;
+  size: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | '5xl';
+  interact?: boolean;
+  isConnected?: boolean;
+};
 
-export const Logo: React.FC<Props> = ({ type, size, interact = false }) => {
+export const Logo: React.FC<Props> = ({
+  type,
+  size,
+  interact = false,
+  isConnected = false,
+}) => {
   const logos = {
     EthLogo: <EthLogo iconSize={size} />,
     DaiLogo: <DaiLogo iconSize={size} />,
     UsdcLogo: <UsdcLogo iconSize={size} />,
     BnbLogo: <BnbLogo iconSize={size} />,
-    TrezorLogo: <TrezorLogo iconSize={size} interact={interact} />,
-    WalletConnectLogo: <WalletConnectLogo iconSize={size} interact={interact} />,
-    LedgerLogo: <LedgerLogo iconSize={size} interact={interact} />,
+    TrezorLogo: (
+      <TrezorLogo
+        iconSize={size}
+        interact={interact}
+        isConnected={isConnected}
+      />
+    ),
+    WalletConnectLogo: (
+      <WalletConnectLogo iconSize={size} interact={interact} />
+    ),
+    HardhatLogo: <HardhatLogo iconSize={size} />,
+    LedgerLogo: (
+      <LedgerLogo
+        iconSize={size}
+        interact={interact}
+        isConnected={isConnected}
+      />
+    ),
     MetamaskLogo: <MetamaskLogo iconSize={size} />,
-  }
-  return logos[type]
-}
+  };
+
+  return logos[type];
+};

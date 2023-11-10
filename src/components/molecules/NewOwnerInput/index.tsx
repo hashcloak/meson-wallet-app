@@ -1,8 +1,8 @@
-import React from 'react'
-import { InputControl } from '@/components/atoms/Input'
-import Spacer from '@/utils/Spacer'
+import React, { FC } from 'react';
+import { InputControl } from '~/components/atoms/Input';
+import Spacer from '~/utils/Spacer';
 
-const NewOwnerInput = () => {
+const NewOwnerInput: FC = () => {
   return (
     <>
       <InputControl
@@ -21,7 +21,7 @@ const NewOwnerInput = () => {
         registeredName={'newOwnerAddress'}
       />
     </>
-  )
-}
+  );
+};
 
-export default NewOwnerInput
+export default NewOwnerInput;

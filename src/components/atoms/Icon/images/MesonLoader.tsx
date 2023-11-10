@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import { theme } from '@/utils/theme'
+import { theme } from '~/utils/theme';
 
-const sizes = theme.icons.sizes
-const colors = theme.icons.colors
+const sizes = theme.icons.sizes;
+const colors = theme.icons.colors;
 
 type Props = {
-  iconSize?: keyof typeof sizes
-  color?: keyof typeof colors
-}
+  iconSize?: keyof typeof sizes;
+  color?: keyof typeof colors;
+};
 
-const MesonLoader: React.FC<Props> = ({ iconSize, color }) => {
+const MesonLoader: React.FC<Props> = () => {
   // const px = sizes[iconSize]
   // const fill = colors[color]
 
@@ -26,7 +26,12 @@ const MesonLoader: React.FC<Props> = ({ iconSize, color }) => {
       <circle cx='80' cy='80' r='80' fill='#F2F2F2' />
       <rect x='20' y='26' width='120' height='107' fill='url(#pattern0)' />
       <defs>
-        <pattern id='pattern0' patternContentUnits='objectBoundingBox' width='1' height='1'>
+        <pattern
+          id='pattern0'
+          patternContentUnits='objectBoundingBox'
+          width='1'
+          height='1'
+        >
           <use
             xlinkHref='#image0_105_21128'
             transform='matrix(0.001 0 0 0.0011215 0 -0.00186916)'
@@ -40,7 +45,7 @@ const MesonLoader: React.FC<Props> = ({ iconSize, color }) => {
         />
       </defs>
     </svg>
-  )
-}
+  );
+};
 
-export default MesonLoader
+export default MesonLoader;

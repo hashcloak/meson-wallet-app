@@ -1,10 +1,10 @@
-import Breadcrumb from '@/components/molecules/Breadcrumbs'
-import { TxContents } from '@/components/molecules/Modal/TxModal'
-import { RowBodyLong } from '@/components/organisms/RowBody'
-import { mockTransactions as tx } from '@/utils/Mock'
-import Spacer from '@/utils/Spacer'
+import Breadcrumb from '~/components/molecules/Breadcrumbs';
+import { TxContents } from '~/components/molecules/Modal/TxModal';
+import { RowBodyLong } from '~/components/organisms/RowBody';
+import { mockTransactions as tx } from '~/utils/Mock';
+import Spacer from '~/utils/Spacer';
 
-const TxDetails = () => {
+const TxDetails: React.FC = () => {
   return (
     <>
       <Breadcrumb />
@@ -12,7 +12,7 @@ const TxDetails = () => {
       <div className='rounded-2xl bg-bgDarkMid py-4 px-8'>
         <div className='rounded-2xl bg-bgDarkLight h-16 flex items-center px-6'>
           <RowBodyLong
-            timestamp={tx[0].timestamp!}
+            timestamp={tx[0].timestamp}
             status={tx[0].status}
             token={tx[0].token}
             amount={tx[0].amount}
@@ -24,7 +24,7 @@ const TxDetails = () => {
         <TxContents />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default TxDetails
+export default TxDetails;

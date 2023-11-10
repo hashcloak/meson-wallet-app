@@ -1,8 +1,8 @@
-import TxConflict from '.'
+import TxConflict from '.';
 
 export default {
   title: 'Components/Templates/TxConflict',
   component: TxConflict,
-}
+};
 
-export const Default = () => <TxConflict />
+export const Default: React.FC = () => <TxConflict />;
