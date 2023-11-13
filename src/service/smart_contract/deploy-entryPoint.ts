@@ -40,15 +40,13 @@ export async function deployEntryPoint(
     //   500000000,
     //   500000000
     // );
+    // const override = { gasPrice: 500000000 };
 
     const contractFactory = new ethers.ContractFactory(
       abi,
       binary,
       signerWallet
     );
-    console.log('contractFactory...', contractFactory);
-
-    // const override = { gasPrice: 500000000 };
 
     const entryPointInstance = await contractFactory.deploy();
     const entryPointReceipt = await entryPointInstance.deployed();
