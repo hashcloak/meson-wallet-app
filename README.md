@@ -66,7 +66,7 @@ $ yarn start
 - [🟢] Trezor
 - [❌] Ledger
 
-[🔺] Add existing meson wallet
+[🔺] Add existing meson wallet  
 [🟢] Receive fund
 [🟢] View historical transactions
 [🔺] Send fund
