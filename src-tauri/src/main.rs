@@ -1,15 +1,8 @@
-// // Prevents additional console window on Windows in release, DO NOT REMOVE!!
-// #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
-// fn main() {
-//   tauri::Builder::default()
-//     .run(tauri::generate_context!())
-//     .expect("error while running tauri application");
-// }
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod ledger_util;
 use ethers_core::types::{Address, U256};
+use ethereum_types::H160;
 use ledger_util::Error;
 #[tauri::command]
 fn get_pk(num: &str) -> Result<String, String> {
@@ -44,11 +37,66 @@ fn sign_data(num: &str, msg: &str, chain_id: &str) -> Result<String, String> {
 }
 
 #[tauri::command]
+// fn sign_tx(
+//     num: &str,
+//     chain_id: &str,
+//     value: &str,
+//     to: &str,
+//     nonce: &str,
+//     priority_fee: &str,
+//     max_fee: &str,
+// ) -> Result<String, String> {
+//     let chain_id: u64 = match chain_id.parse() {
+//         Ok(n) => n,
+//         Err(_) => return Err("Invalid chain ID".into()),
+//     };
+//     let to: Address = match to.parse() {
+//         Ok(n) => n,
+//         Err(_) => return Err("Invalid recipient address".into()),
+//     };
+//     let value: f64 = match value.parse() {
+//         Ok(n) => n,
+//         Err(_) => return Err("Invalid value".into()),
+//     };
+//     let nonce: U256 = match nonce.parse() {
+//         Ok(n) => n,
+//         Err(_) => return Err("Invalid nonce value".into()),
+//     };
+//     let priority_fee: U256 = match priority_fee.parse() {
+//         Ok(n) => n,
+//         Err(_) => return Err("Invalid priority fee value".into()),
+//     };
+//     let max_fee: U256 = match max_fee.parse() {
+//         Ok(n) => n,
+//         Err(_) => return Err("Invalid max_fee value".into()),
+//     };
+//     let path = format!("44'/60'/{}'/0/0", num);
+
+//     let hex_signed_tx = match ledger_util::sign_tx(
+//         to,
+//         &path,
+//         value,
+//         nonce,
+//         priority_fee,
+//         max_fee,
+//         None,
+//         chain_id,
+//         None,
+//     ) {
+//         Ok(r) => r,
+//         Err(e) => match e {
+//             Error::ParsePathError => return Err("Invalid Path".into()),
+//             Error::LedgerError(e) => return Err(parse_ledger_error(e)),
+//         },
+//     };
+//     Ok(format!("Signed tx: {}", hex_signed_tx))
+// }
+
 fn sign_tx(
     num: &str,
     chain_id: &str,
     value: &str,
-    to: &str,
+    to: Option<&str>,
     nonce: &str,
     priority_fee: &str,
     max_fee: &str,
@@ -56,10 +104,6 @@ fn sign_tx(
     let chain_id: u64 = match chain_id.parse() {
         Ok(n) => n,
         Err(_) => return Err("Invalid chain ID".into()),
-    };
-    let to: Address = match to.parse() {
-        Ok(n) => n,
-        Err(_) => return Err("Invalid recipient address".into()),
     };
     let value: f64 = match value.parse() {
         Ok(n) => n,
@@ -79,8 +123,15 @@ fn sign_tx(
     };
     let path = format!("44'/60'/{}'/0/0", num);
 
+    let to_address: H160;
+    if to.unwrap().len() > 1{
+        to_address = to.unwrap().parse().unwrap();
+    } else {
+        to_address = Address::zero()
+    }
+
     let hex_signed_tx = match ledger_util::sign_tx(
-        to,
+        to_address,
         &path,
         value,
         nonce,
@@ -98,6 +149,7 @@ fn sign_tx(
     };
     Ok(format!("Signed tx: {}", hex_signed_tx))
 }
+
 
 fn parse_ledger_error(e: ledger::Error) -> String {
     match e {
