@@ -87,21 +87,20 @@ export const signLedgerTx = async (
   priorityFeePerGas: unknown,
   maxFeePerGas: unknown
 ): Promise<any> => {
-  try {
+  console.log('sign_tx', tx)
+  // try {
     const response: any = await invoke('sign_tx', {
+      num: 0,
+      chainId: tx.chainId,
+      value: tx.value,
       to: tx.to,
-      path,
-      eth_amount: tx.value,
       nonce: tx.nonce,
-      max_priority_fee_per_gas: priorityFeePerGas,
-      max_fee_per_gas: maxFeePerGas,
-      gas: tx.gasPrice,
-      chain_id: tx.chainId,
-      hex_data: tx.data,
+      priorityFee: priorityFeePerGas,
+      maxFee: maxFeePerGas,
     });
 
     console.log(response);
-  } catch (error) {
-    throw new Error('Please connect your Ledger hardware wallet');
-  }
+  // } catch (error) {
+  //   throw new Error('Please connect your Ledger hardware wallet');
+  // }
 };
