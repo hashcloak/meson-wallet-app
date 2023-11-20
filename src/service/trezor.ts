@@ -205,10 +205,10 @@ export const signTxTrezor = async (
     txParams.gasPrice = utils.hexlify(txParams.gasPrice);
     // unsignedTx.gasPrice = txParams.gasPrice;
   }
-  if (txParams.gasLimit) {
-    txParams.gasLimit = utils.hexlify(txParams.gasLimit);
+  // if (txParams.gasLimit) {
+    // txParams.gasLimit = utils.hexlify(txParams.gasLimit);
     // unsignedTx.gasLimit = txParams.gasLimit;
-  }
+  // }
 
   if (txParams.maxFeePerGas) {
     txParams.maxFeePerGas = undefined;

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { utils } from 'ethers';
 import { useDispatch, useSelector } from 'react-redux';
 import { ConversionState, setConversion } from '~/features/conversion';
+import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { getPriceFeed } from '~/service';
 
@@ -13,6 +14,10 @@ export const useGetFiatPrice = () => {
     RootState,
     ConversionState
   >((state) => state.conversion);
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+  const currency = 'ETH/USD';
 
   const prevConversionRateRef = useRef(conversionRate);
   const prevConversionDateRef = useRef(conversionDate);
@@ -26,7 +31,7 @@ export const useGetFiatPrice = () => {
 
     try {
       setIsFetching(true);
-      const roundData = await getPriceFeed();
+      const roundData = await getPriceFeed(network !== 'localhost' ? network : 'homestead',currency );
 
       latestConversionDate = Number(roundData[3].toString()) * 1000;
       latestConversionRate = Number(utils.formatUnits(roundData[1], 8));

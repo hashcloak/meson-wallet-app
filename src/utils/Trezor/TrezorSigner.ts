@@ -256,14 +256,14 @@ export class TrezorSigner extends Signer implements TypedDataSigner {
       tx.nonce !== undefined
         ? parseInt(JSON.stringify(tx.nonce).toString())
         : await this.provider?.getTransactionCount(this._reqAddress);
-    // const gasPrice = await this.provider?.estimateGas({ data: tx.data });
 
     const unsignedTx: UnsignedTransaction = {
       to: tx.to === undefined ? '' : tx.to,
       nonce,
       gasLimit: tx.gasLimit,
       // gasPrice:Number(ethers.utils.formatUnits(gasPrice ?? '0x', 'wei')),
-      gasPrice: Number(500000000),
+      // gasPrice: Number(500000000),
+      gasPrice: Number(999999999),
       data: tx.data,
       value: tx.value === undefined ? ethers.utils.parseEther('0') : tx.value,
       chainId: tx.chainId,

@@ -74,6 +74,7 @@ export async function deploy(
     // Transfer funds to the created wallet
     if (Number(deposit) > 0) {
       const gasPrice = await provider.getGasPrice();
+      const latestBlock = await provider.getBlock('latest')
 
       // tx params
       const txParams = {
@@ -82,8 +83,8 @@ export async function deploy(
         data: '0x',
         nonce: '0x0',
         chainId: selectedNetwork.chainId,
-        gasPrice: Number(ethers.utils.formatUnits(gasPrice, 'wei')),
-        gasLimit: 21000,
+        gasPrice: selectedNetwork.network !== "mainnet" ? Number(999999999): Number(ethers.utils.formatUnits(gasPrice, 'wei')),
+        gasLimit: latestBlock.gasLimit,
         // gasLimit: 8000000,
         // gasPrice: 20000000000,
       };
