@@ -49,9 +49,9 @@ export const useLoadPortfolio = (): ReturnValue => {
       const rawBalance = await provider.getBalance(
         mesonWallet?.mesonWalletAddress
       );
+
       // Format ETH balance and parse it to JS number
       const value = parseFloat(ethers.utils.formatEther(rawBalance)).toString();
-
       // Optimization: check that user balance has actually changed before
       // updating state and triggering the consuming component re-render
       if (value !== prevEthBalanceRef.current) {

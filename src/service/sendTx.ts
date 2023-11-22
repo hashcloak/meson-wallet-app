@@ -48,9 +48,7 @@ export const sendTx = async (
       const sent = await wallet.sendTransaction(txParams);
 
       const transactionReceipt = await sent.wait(1);
-      const balance = await wallet.getBalance();
       console.log('transactionReceipt', transactionReceipt);
-      console.log('balance', balance);
     }
 
     if (signedTx !== undefined && encryptedWallet === undefined) {
@@ -58,12 +56,8 @@ export const sendTx = async (
 
       const sent = await provider.sendTransaction(signedTx);
       const transactionReceipt = await sent.wait(1);
-      const balance = await provider.getBalance(
-        signerWallet.signerWalletAddress
-      );
 
       console.log('transactionReceipt: ', transactionReceipt);
-      console.log('deposited balance: ', ethers.utils.formatUnits(balance));
 
       return sent;
     }

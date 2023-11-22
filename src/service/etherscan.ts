@@ -84,9 +84,10 @@ type ResponseValue = {
 };
 
 export const getHistoricalTxs = async (
-  walletAddress: string
+  walletAddress: string,
+  network:string,
 ): Promise<HistoricalTxType[]> => {
-  const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&sort=desc&apikey=${ETHERSCAN_API_KEY}`;
+  const url = `https://api${network !== 'mainnet' && network !== "localhost" ? '-' + network : ''}.etherscan.io/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&sort=desc&apikey=${ETHERSCAN_API_KEY}`;
 
   const response = await fetch(url);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -65,7 +65,7 @@ export const getPriceFeed = async (
   const ETH_USD_RATE_ADDRESS = rateAddress[network][currency] as string;
 
   let provider;
-  if (network === 'mainnet') {
+  if (network === 'mainnet' || network === 'localhost') {
     provider = getProvider('homestead');
   } else {
     provider = getProvider(network);

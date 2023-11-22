@@ -105,8 +105,6 @@ const formatTxArray = (
   txs: HistoricalTxType[],
   walletAddress: string
 ): SortTxsReturnType => {
-  console.log(txs);
-
   if (txs.length > 0) {
     const txsForAssetChart = txs.map((tx) => {
       const unixTime = Number(tx.timeStamp) * 1000;
@@ -138,13 +136,6 @@ const formatTxArray = (
         Sent: Number(trimEth(String(sent))),
       };
     });
-
-    const newArrayOfObjects = groupBySum(
-      txsForAssetChart,
-      ['Date'],
-      ['Received', 'Sent']
-    );
-    console.log('newArrayOfObjects', newArrayOfObjects);
 
     return txsForAssetChart;
   } else {

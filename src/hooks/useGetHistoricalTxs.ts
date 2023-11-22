@@ -71,10 +71,13 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
   const load = async () => {
     if (mesonWallet?.mesonWalletAddress === undefined) return;
     try {
-      // const historicalTxs = await getHistoricalTxs(mesonWallet?.mesonWalletAddress);
       const historicalTxs = await getHistoricalTxs(
-        '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F'
+        mesonWallet?.mesonWalletAddress,
+        network
       );
+      // const historicalTxs = await getHistoricalTxs(
+      //   '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F'
+      // );
 
       if (historicalTxs.length > 0) {
         prevTxsRef.current = historicalTxs;

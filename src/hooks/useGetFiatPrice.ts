@@ -31,7 +31,7 @@ export const useGetFiatPrice = () => {
 
     try {
       setIsFetching(true);
-      const roundData = await getPriceFeed(network !== 'localhost' ? network : 'homestead',currency );
+      const roundData = await getPriceFeed(network, currency);
 
       latestConversionDate = Number(roundData[3].toString()) * 1000;
       latestConversionRate = Number(utils.formatUnits(roundData[1], 8));

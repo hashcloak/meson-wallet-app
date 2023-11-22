@@ -32,7 +32,9 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
 
   useEffect(() => {
     const load = () => {
-      if (mesonWallet?.mesonWalletAddress !== undefined) {
+      if (
+        mesonWallet?.mesonWalletAddress !== undefined &&
+        historicalTxs.length > 0 ) {
         const txInThisYear = sortByYear(
           historicalTxs,
           mesonWallet.mesonWalletAddress
@@ -87,8 +89,6 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
     if (historicalTxs.length > 0 && network !== 'localhost') void load();
     if (network === 'localhost') void localLoad();
     dispatch(resetLoading({ message: '' }));
-
-    //   if (historicalTxs.length > 0 && network === 'localhost') void load();
   }, [historicalTxs]);
 
   return historicalAssets;
