@@ -60,7 +60,7 @@ fn sign_tx(
     num: &str,
     chain_id: &str,
     value: &str,
-    to: &str,
+    to: Option<&str>,
     nonce: &str,
     gas: Option<&str>,
     priority_fee: &str,
@@ -75,9 +75,12 @@ fn sign_tx(
         Ok(n) => n,
         Err(_) => return Err("Invalid chain ID".into()),
     };
-    let to: Address = match to.parse() {
-        Ok(n) => n,
-        Err(_) => return Err("Invalid recipient address".into()),
+    let to: Address = match to {
+        Some(a) => match a.parse() {
+            Ok(n) => n,
+            Err(_) => return Err("Invalid recipient address".into()),
+        },
+        None => Address::zero(),
     };
     let value: f64 = match value.parse() {
         Ok(n) => n,
