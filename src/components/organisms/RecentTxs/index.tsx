@@ -2,13 +2,12 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BasicTabs } from '~/components/molecules/Tabs';
 import { TableRowShort } from '../TableRow';
-import { HistoricalTxType, HistoricalTxsState } from '~/features/historicalTxs';
-import { NetworkState } from '~/features/network';
+import { ExtendedTransactionResponse, HistoricalTxsState } from '~/features/historicalTxs';
 import { RootState } from '~/features/reducers';
-import { getPendingTxs } from '~/service/getPendingTxs';
+import { useGetHistoricalTxs } from '~/hooks';
 
 type HistoryProps = {
-  txs: HistoricalTxType[];
+  txs: ExtendedTransactionResponse[] | [];
 };
 
 export const RecentQueue: React.FC<HistoryProps> = ({ txs }) => {
@@ -52,15 +51,13 @@ export const RecentHistory: React.FC<HistoryProps> = ({ txs }) => {
 };
 
 const RecentTxs: React.FC = () => {
+  void useGetHistoricalTxs()
   const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
     (state) => state.historicalTxs
   );
-  const { network } = useSelector<RootState, NetworkState>(
-    (state) => state.network
-  );
 
   const recent5Txs = historicalTxs.slice(0, 5);
-  const pendingTxs = getPendingTxs(network);
+  const pendingTxs = [];
 
   const tabList: Array<{ [key: string]: JSX.Element }> = [
     { Queue: <RecentQueue txs={pendingTxs} key='recentQueue' /> },

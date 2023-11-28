@@ -1,25 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { ethers,BigNumber } from 'ethers';
 
-// export type HistoricalTxType = {
-//   accessList?: null;
-//   blockHash?: string;
-//   blockNumber?: number;
-//   chainId?: number;
-//   confirmations?: number;
-//   creates?: null;
-//   data?: string;
-//   from?: string;
-//   gasLimit: BigNumberish;
-//   gasPrice: BigNumberish;
-//   hash?: string;
-//   nonce?: number;
-//   timestamp: number;
-//   to?: string;
-//   transactionIndex?: number;
-//   type?: number;
-//   value: BigNumberish;
-// };
+
+export interface ExtendedTransactionResponse
+  extends Omit<
+    ethers.providers.TransactionResponse,
+    'gasPrice' | 'gasLimit' | 'value'
+  > {
+  gasPrice: BigNumber | string | number;
+  gasLimit: BigNumber | string | number;
+  value: BigNumber | string | number;
+}
+
 export type HistoricalTxType = {
   blockHash: string;
   blockNumber: string;
@@ -44,31 +37,9 @@ export type HistoricalTxType = {
 };
 
 export type HistoricalTxsState = {
-  historicalTxs: HistoricalTxType[] | [];
+  historicalTxs: ExtendedTransactionResponse[] | [];
 };
 
-// const historicalTx: HistoricalTxType = {
-//   blockHash: '',
-//   blockNumber: '',
-//   confirmations: '',
-//   contractAddress: '',
-//   cumulativeGasUsed: '',
-//   from: '',
-//   functionName: '',
-//   gas: '',
-//   gasPrice: '',
-//   gasUsed: '',
-//   hash: '',
-//   input: '',
-//   isError: '',
-//   methodId: '',
-//   nonce: '',
-//   timeStamp: '',
-//   to: '',
-//   transactionIndex: '',
-//   txreceipt_status: '',
-//   value: '',
-// };
 
 const initialState: HistoricalTxsState = {
   historicalTxs: [],

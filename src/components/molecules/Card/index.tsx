@@ -6,7 +6,7 @@ import { EthAddress } from '~/utils/Ethereum';
 import Spacer from '~/utils/Spacer';
 import { TxStatus } from '../IconText';
 import TxModal from '../Modal/TxModal';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import { ExtendedTransactionResponse } from '~/features/historicalTxs';
 import { useConvertTx } from '~/hooks/useConvertTx';
 import { unixTimeConverter } from '~/utils/unixTimeConverter';
 
@@ -19,7 +19,7 @@ const tokens: TokensType = {
 };
 
 type Props = {
-  tx: HistoricalTxType;
+  tx: ExtendedTransactionResponse;
 };
 
 // TODO: The temp props is applied, it needs to be updated.
@@ -27,8 +27,8 @@ const Card: React.FC<Props> = ({ tx }) => {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(!isOpen);
   const convertedTx = useConvertTx(tx);
-  const { status, token, value, timeStamp, to, from, isError } = convertedTx;
-  const { date, time } = unixTimeConverter(Number(timeStamp));
+  const { status, token, value, timestamp, to, from } = convertedTx;
+  const { date, time } = unixTimeConverter(Number(timestamp));
   const tokenLogo = token !== '' ? tokens[token].logo : 'na';
 
   let relatedAddress;
@@ -39,7 +39,7 @@ const Card: React.FC<Props> = ({ tx }) => {
           <span className='text-sm text-textWhite text-left w-full'>To:</span>
           <span className='flex flex-row items-center'>
             <EthAddress
-              ethAddress={to}
+              ethAddress={to ?? ''}
               size={2}
               length={'short'}
               icons={false}
@@ -91,11 +91,7 @@ const Card: React.FC<Props> = ({ tx }) => {
             <br />
             <span className='text-sm text-textWhite'>{time}</span>
             <div className='w-full flex justify-center'>
-              {!isError ? (
                 <Icon type={'CheckCircle'} size={'xl'} color={'main'} />
-              ) : (
-                <Icon type={'FailCircle'} size={'xl'} color={'alert'} />
-              )}
             </div>
             <div
               className="
@@ -145,7 +141,7 @@ const Card: React.FC<Props> = ({ tx }) => {
                     <Spacer size={8} axis={'vertical'} />
                     <span className='text-lg text-textWhite font-bold'>
                       {status === 'Send' || status === 'Sent' ? <>-</> : null}{' '}
-                      {value} {token.toUpperCase()}
+                      {String(value)} {token.toUpperCase()}
                     </span>
                   </>
                 )}

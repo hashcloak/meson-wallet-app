@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { mockHistoricalTxs } from './Mock';
 import { trimEth } from './trimDecimal';
-import { TransactionResponse } from '@ethersproject/abstract-provider';
+import { ExtendedTransactionResponse } from '~/features/historicalTxs';
 
 export type SortTxsReturnType = Array<{
   Date: string;
@@ -27,24 +27,24 @@ export const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sortByYear = (
-  txs: TransactionResponse[],
+  txs: ExtendedTransactionResponse[],
   walletAddress: string
 ): SortTxsReturnType => {
   const txsInThisYear = txs
     .filter((tx) => {
-      const unixTime = Number(tx.timeStamp) * 1000;
+      const unixTime = Number(tx.timestamp) * 1000;
       const today = new Date();
       const thisYear = today.getFullYear();
 
       return thisYear === new Date(unixTime).getFullYear();
     })
-    .sort((x, y) => Number(x.timeStamp) - Number(y.timeStamp));
+    .sort((x, y) => Number(x.timestamp) - Number(y.timestamp));
 
   return formatTxArray(txsInThisYear, walletAddress);
 };
 
 export const sortByLastFewMonths = (
-  txs: TransactionResponse[],
+  txs: ExtendedTransactionResponse[],
   walletAddress: string,
   monthRange: number
 ): SortTxsReturnType => {
@@ -55,7 +55,7 @@ export const sortByLastFewMonths = (
 
   const txsInFewMonths = txs
     .filter((tx) => {
-      const unixTime = Number(tx.timeStamp) * 1000;
+      const unixTime = Number(tx.timestamp) * 1000;
       const txYear = new Date(unixTime).getFullYear();
       const txMonth = new Date(unixTime).getMonth() + 1;
       if (txYear === thisYear && monthRange === 0) {
@@ -68,13 +68,13 @@ export const sortByLastFewMonths = (
         );
       }
     })
-    .sort((x, y) => Number(x.timeStamp) - Number(y.timeStamp));
+    .sort((x, y) => Number(x.timestamp) - Number(y.timestamp));
 
   return formatTxArray(txsInFewMonths, walletAddress);
 };
 
 export const sortByWeek = (
-  txs: TransactionResponse[],
+  txs: ExtendedTransactionResponse[],
   walletAddress: string
 ): SortTxsReturnType => {
   const today = new Date();
@@ -91,29 +91,33 @@ export const sortByWeek = (
 
   const txInThisWeek = txs
     .filter((tx) => {
-      const unixTime = Number(tx.timeStamp) * 1000;
+      const unixTime = Number(tx.timestamp) * 1000;
       const txDate = new Date(unixTime);
 
       return +txDate >= +start && +txDate < +end;
     })
-    .sort((x, y) => Number(x.timeStamp) - Number(y.timeStamp));
+    .sort((x, y) => Number(x.timestamp) - Number(y.timestamp));
 
   return formatTxArray(txInThisWeek, walletAddress);
 };
 
 const formatTxArray = (
-  txs: TransactionResponse[],
+  txs: ExtendedTransactionResponse[],
   walletAddress: string
 ): SortTxsReturnType => {
   if (txs.length > 0) {
     const txsForAssetChart = txs.map((tx) => {
-      const unixTime = Number(tx.timeStamp) * 1000;
+      const unixTime = Number(tx.timestamp) * 1000;
       const month = MONTHS[new Date(unixTime).getMonth()];
       const txDate = `${new Date(unixTime).getDate()} ${month}`;
 
-      const value = Number(ethers.utils.formatUnits(tx.value));
-      const gasUsed = Number(ethers.utils.formatUnits(tx.gasUsed, 'gwei'));
-      const gasPrice = Number(ethers.utils.formatUnits(tx.gasPrice, 'gwei'));
+      // const value = Number(ethers.utils.formatUnits(tx.value));
+      // const gasUsed = Number(ethers.utils.formatUnits(tx.gasLimit, 'gwei'));
+      // const gasPrice = Number(ethers.utils.formatUnits(tx.gasPrice, 'gwei'));
+      console.log(tx)
+      const value = Number(tx.value);
+      const gasUsed = Number(tx.gasLimit);
+      const gasPrice = Number(tx.gasPrice);
 
       let received = 0;
       let sent = 0;
@@ -125,6 +129,7 @@ const formatTxArray = (
         sent = value + gasUsed * gasPrice;
       } else if (
         // index !== 0 &&
+        tx.to !== undefined &&
         tx.to.toLowerCase() === walletAddress.toLowerCase()
       ) {
         received = value;
@@ -179,13 +184,13 @@ export const countByYear = (): void => {
   const inYear = today.setMonth(today.getMonth() - 12);
 
   const txsInYear = mockHistoricalTxs.filter((tx) => {
-    const unixTime = Number(tx.timeStamp) * 1000;
+    const unixTime = Number(tx.timestamp) * 1000;
 
     return inYear <= unixTime;
   });
 
   const txsInMonth = mockHistoricalTxs.filter((tx) => {
-    const unixTime = Number(tx.timeStamp) * 1000;
+    const unixTime = Number(tx.timestamp) * 1000;
     const today = new Date();
     const inMonth = today.setMonth(today.getMonth() - 1);
 
@@ -204,7 +209,7 @@ export const countByYear = (): void => {
   end.setHours(0, 0, 0, 0);
 
   const txsInWeek = mockHistoricalTxs.filter((tx) => {
-    const unixTime = Number(tx.timeStamp) * 1000;
+    const unixTime = Number(tx.timestamp) * 1000;
     const txDate = new Date(unixTime);
 
     return +txDate >= +start && +txDate < +end;

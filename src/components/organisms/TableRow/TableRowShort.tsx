@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import TxModal from '~/components/molecules/Modal/TxModal';
 import RowBodyShort from '../RowBody/RowBodyShort';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import { ExtendedTransactionResponse } from '~/features/historicalTxs';
 import { useConvertTx } from '~/hooks/useConvertTx';
 
 type Props = {
-  tx: HistoricalTxType;
+  tx: ExtendedTransactionResponse;
 };
 
 // TODO: TableRowShort and TableLongRow needs to receive props to display info.

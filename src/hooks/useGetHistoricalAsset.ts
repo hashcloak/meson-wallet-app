@@ -6,7 +6,6 @@ import { resetLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
-import { localSortByWeek } from '~/service';
 import { sortByLastFewMonths, sortByWeek, sortByYear } from '~/utils/sortTxs';
 
 export const useGetHistoricalAssets = (): HistoricalAssetsType => {
@@ -72,7 +71,7 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
 
     const localLoad = () => {
       if (mesonWallet?.smartContract !== undefined) {
-        const txInThisWeek = localSortByWeek(
+        const txInThisWeek = sortByWeek(
           historicalTxs,
           mesonWallet.smartContract
         );

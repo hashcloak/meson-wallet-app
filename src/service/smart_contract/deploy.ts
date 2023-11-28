@@ -68,11 +68,10 @@ export async function deploy(
     const smartContract = await factory.deploy(entryPoint);
     console.log('smart contract is being deployed:', smartContract)
     const smartContractReceipt = await smartContract.deployed();
-    console.log('smart contract got deployed:', smartContractReceipt)
 
     // Transfer funds to the created wallet
     if (Number(deposit) > 0) {
-      console.log('sending deposit...')
+      console.log('sending deposit...',smartContractReceipt)
       const gasPrice = await provider.getGasPrice();
       const latestBlock = await provider.getBlock('latest')
 

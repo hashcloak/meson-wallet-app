@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ExtendedTransactionResponse, HistoricalTxType, HistoricalTxsState, setHistoricalTxs } from '~/features/historicalTxs';
+import { ExtendedTransactionResponse, HistoricalTxsState, setHistoricalTxs } from '~/features/historicalTxs';
 import { setLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
@@ -22,8 +22,8 @@ export type HistoricalAssetsType = {
 
 const UPDATE_INTERVAL_TIMEOUT = 180000; // 3 minutes
 
-const useGetHistoricalTxs = (): ExtendedTransactionResponse[]| HistoricalTxType[] => {
-  const prevTxsRef = useRef<ExtendedTransactionResponse[] | HistoricalTxType[]>(
+const useGetHistoricalTxs = (): ExtendedTransactionResponse[] => {
+  const prevTxsRef = useRef<ExtendedTransactionResponse[] >(
     []
   );
   const updateInterval = useRef<ReturnType<typeof setTimeout>>();
@@ -80,12 +80,9 @@ const useGetHistoricalTxs = (): ExtendedTransactionResponse[]| HistoricalTxType[
         mesonWallet.smartContract,
         network
       );
-      const filteredTxs = localHistoricalTxs.filter(
-        (tx) => tx.contractAddress !== '' || tx.to !== ''
-      );
 
-      if (filteredTxs.length > 0) {
-        prevTxsRef.current = filteredTxs;
+      if (localHistoricalTxs.length > 0) {
+        prevTxsRef.current = localHistoricalTxs;
       }
     }
   }, []);
