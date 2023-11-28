@@ -42,9 +42,9 @@ export const useConvertTx = (tx: ExtendedTransactionResponse): TxType => {
       status = 'Sent';
     }
 
-    const wei = BigNumber.from(clonedTx.value);
-    const convertedValue = ethers.utils.formatUnits(wei);
-    clonedTx.value = convertedValue;
+    // const wei = BigNumber.from(clonedTx.value);
+    // const convertedValue = ethers.utils.formatUnits(wei);
+    // clonedTx.value = clonedTx.value;
 
     const newTx = {
       ...clonedTx,
@@ -53,7 +53,7 @@ export const useConvertTx = (tx: ExtendedTransactionResponse): TxType => {
       numOfConfirmation: 0,
       gasPrice:
         clonedTx.gasPrice !== ''
-          ? ethers.utils.formatUnits(clonedTx.gasPrice, 'wei')
+          ? clonedTx.gasPrice
           : 'n/a',
     };
 

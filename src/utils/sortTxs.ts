@@ -114,7 +114,6 @@ const formatTxArray = (
       // const value = Number(ethers.utils.formatUnits(tx.value));
       // const gasUsed = Number(ethers.utils.formatUnits(tx.gasLimit, 'gwei'));
       // const gasPrice = Number(ethers.utils.formatUnits(tx.gasPrice, 'gwei'));
-      console.log(tx)
       const value = Number(tx.value);
       const gasUsed = Number(tx.gasLimit);
       const gasPrice = Number(tx.gasPrice);
@@ -129,8 +128,7 @@ const formatTxArray = (
         sent = value + gasUsed * gasPrice;
       } else if (
         // index !== 0 &&
-        tx.to !== undefined &&
-        tx.to.toLowerCase() === walletAddress.toLowerCase()
+        tx.to !== undefined && tx.to !== null && tx.to.toLowerCase() === walletAddress.toLowerCase()
       ) {
         received = value;
       }
