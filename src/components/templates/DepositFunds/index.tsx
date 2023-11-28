@@ -95,7 +95,6 @@ const DepositFund: React.FC = () => {
               mesonWalletAddress: string;
               smartContract: string;
               encryptedWallet: string;
-              entryPoint: string;
             }
           | undefined = await deploy(
           signerWallet,

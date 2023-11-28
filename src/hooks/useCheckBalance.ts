@@ -27,10 +27,8 @@ export const useCheckBalance = (
         parseFloat(accountBalance) >=
         parseFloat(ethers.utils.formatEther(inputAmount))
       ) {
-        console.log('Sufficient funds.');
         setIsSufficientFunds(true);
       } else {
-        console.log('Insufficient funds.');
         setIsSufficientFunds(false);
       }
     };

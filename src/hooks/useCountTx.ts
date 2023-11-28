@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import { TransactionResponse } from '@ethersproject/abstract-provider';
 import { getPendingTxs } from '~/service/getPendingTxs';
 import { MONTHS, WEEK, getLast12Months, getLast30Days } from '~/utils/sortTxs';
 
@@ -17,7 +17,7 @@ type ReturnType = {
   totalHistoriedTxs: number;
 };
 
-const useCountTxs = (historicalTxs: HistoricalTxType[]): ReturnType => {
+const useCountTxs = (historicalTxs: TransactionResponse[]): ReturnType => {
   const [countForYear, setCountForYear] = useState<DataOfTransactionsType>([
     {},
   ]);

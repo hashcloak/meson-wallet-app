@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { mockHistoricalTxs } from './Mock';
 import { trimEth } from './trimDecimal';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import { TransactionResponse } from '@ethersproject/abstract-provider';
 
 export type SortTxsReturnType = Array<{
   Date: string;
@@ -27,7 +27,7 @@ export const WEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sortByYear = (
-  txs: HistoricalTxType[],
+  txs: TransactionResponse[],
   walletAddress: string
 ): SortTxsReturnType => {
   const txsInThisYear = txs
@@ -44,7 +44,7 @@ export const sortByYear = (
 };
 
 export const sortByLastFewMonths = (
-  txs: HistoricalTxType[],
+  txs: TransactionResponse[],
   walletAddress: string,
   monthRange: number
 ): SortTxsReturnType => {
@@ -74,7 +74,7 @@ export const sortByLastFewMonths = (
 };
 
 export const sortByWeek = (
-  txs: HistoricalTxType[],
+  txs: TransactionResponse[],
   walletAddress: string
 ): SortTxsReturnType => {
   const today = new Date();
@@ -102,7 +102,7 @@ export const sortByWeek = (
 };
 
 const formatTxArray = (
-  txs: HistoricalTxType[],
+  txs: TransactionResponse[],
   walletAddress: string
 ): SortTxsReturnType => {
   if (txs.length > 0) {

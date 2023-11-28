@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { EthereumAddress } from 'trezor-connect';
 import { getProvider } from './getProvider';
 import { LedgerAccountType } from './ledger';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import { ExtendedTransactionResponse } from '~/features/historicalTxs';
 
 export type FullAccountType = {
   address: string;
@@ -10,8 +10,6 @@ export type FullAccountType = {
   balance: string;
   publicKey?: string;
 };
-
-const ETHERSCAN_API_KEY = import.meta.env.VITE_ETHERSCAN_API_KEY as string;
 
 export const getHardwareWalletBalance = async (
   accounts: EthereumAddress[] | LedgerAccountType[],
@@ -58,15 +56,28 @@ export const getNetwork = async () => {
 export const getTxHistory = async (
   address: string,
   network: string
-): Promise<HistoricalTxType[] | undefined> => {
-  const etherscanProvider = new ethers.providers.EtherscanProvider(
-    network,
-    ETHERSCAN_API_KEY
-  );
+): Promise<ExtendedTransactionResponse[] | undefined> => {
+  const etherscanProvider = new ethers.providers.EtherscanProvider(network);
   try {
-    const transactions: unknown[] = await etherscanProvider.getHistory(address);
+    const transactions: ethers.providers.TransactionResponse[] =
+      await etherscanProvider.getHistory(address);
+    const formatTxs = transactions.map((tx) => {
+      const gasPrice =
+        tx.gasPrice === undefined ? '0' : ethers.utils.formatUnits(tx.gasPrice);
+      const gasLimit = ethers.utils.formatUnits(tx.gasLimit);
+      const value = ethers.utils.formatUnits(tx.value);
+      const timeStamp = tx.timestamp !== undefined ? Number(tx.timestamp) : 0;
 
-    return transactions as HistoricalTxType[];
+      return {
+        ...tx,
+        gasPrice,
+        gasLimit,
+        value,
+        timeStamp,
+      };
+    });
+
+    return formatTxs;
   } catch (error) {
     if (error instanceof Error) {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -75,23 +86,4 @@ export const getTxHistory = async (
       throw new Error(error.message ?? error);
     }
   }
-};
-
-type ResponseValue = {
-  message: string;
-  result: HistoricalTxType[];
-  status: string;
-};
-
-export const getHistoricalTxs = async (
-  walletAddress: string,
-  network:string,
-): Promise<HistoricalTxType[]> => {
-  const url = `https://api${network !== 'mainnet' && network !== "localhost" ? '-' + network : ''}.etherscan.io/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&sort=desc&apikey=${ETHERSCAN_API_KEY}`;
-
-  const response = await fetch(url);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const json: ResponseValue = await response.json();
-
-  return json.result;
 };

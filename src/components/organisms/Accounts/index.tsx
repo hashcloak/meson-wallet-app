@@ -30,7 +30,7 @@ const Accounts: React.FC = () => {
 
             <div className='ml-4'>
               <EthAddress
-                ethAddress={mesonWallet ? mesonWallet.mesonWalletAddress : ''}
+                ethAddress={mesonWallet ? mesonWallet.smartContract : ''}
                 size={4.5}
                 length={'full'}
                 walletName={walletName}
