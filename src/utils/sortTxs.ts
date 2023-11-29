@@ -1,4 +1,3 @@
-import { ethers } from 'ethers';
 import { mockHistoricalTxs } from './Mock';
 import { trimEth } from './trimDecimal';
 import { ExtendedTransactionResponse } from '~/features/historicalTxs';

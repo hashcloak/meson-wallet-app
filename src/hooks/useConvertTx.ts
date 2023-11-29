@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BigNumber, ethers } from 'ethers';
+import { BigNumber } from 'ethers';
 import { useSelector } from 'react-redux';
 import { StatusTypes } from '~/components/molecules/IconText/TxStatus';
 import { ExtendedTransactionResponse } from '~/features/historicalTxs';
@@ -9,13 +9,12 @@ import { RootState } from '~/features/reducers';
 export interface TxType
   extends Omit<
   ExtendedTransactionResponse,
-    'value' | 'gas' | 'gasPrice' | 'gasUsed' | 'isError'
+    'value' | 'gas' |  'gasUsed' | 'isError'
   > {
   status: StatusTypes;
   token: string;
   numOfConfirmation: number;
   value: string | number | BigNumber;
-  gasPrice: string | number;
 }
 
 export const useConvertTx = (tx: ExtendedTransactionResponse): TxType => {
@@ -42,19 +41,11 @@ export const useConvertTx = (tx: ExtendedTransactionResponse): TxType => {
       status = 'Sent';
     }
 
-    // const wei = BigNumber.from(clonedTx.value);
-    // const convertedValue = ethers.utils.formatUnits(wei);
-    // clonedTx.value = clonedTx.value;
-
     const newTx = {
       ...clonedTx,
       status,
       token: status === 'Received' || status === 'Sent' ? 'Eth' : '',
       numOfConfirmation: 0,
-      gasPrice:
-        clonedTx.gasPrice !== ''
-          ? clonedTx.gasPrice
-          : 'n/a',
     };
 
     setConvertedTx(newTx);
