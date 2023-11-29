@@ -1,21 +1,17 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  HistoricalTxType,
-  HistoricalTxsState,
-  setHistoricalTxs,
-} from '~/features/historicalTxs';
+import { ExtendedTransactionResponse, HistoricalTxsState, setHistoricalTxs } from '~/features/historicalTxs';
 import { setLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import {
-  getHistoricalTxs,
   getLocalHistoricalTxs,
-  getProvider,
+  getTxHistory,
 } from '~/service';
 
 type txs = Array<{ Date: string; Received: number; Sent: number }>;
+
 export type HistoricalAssetsType = {
   year: txs;
   sixMonths: txs;
@@ -24,10 +20,13 @@ export type HistoricalAssetsType = {
   week: txs;
 };
 
-const useGetHistoricalTxs = (): HistoricalTxType[] => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const [txs, setTxs] = useState<HistoricalTxType[]>([]);
-  const prevTxsRef = useRef<HistoricalTxType[]>([]);
+const UPDATE_INTERVAL_TIMEOUT = 180000; // 3 minutes
+
+const useGetHistoricalTxs = (): ExtendedTransactionResponse[] => {
+  const prevTxsRef = useRef<ExtendedTransactionResponse[] >(
+    []
+  );
+  const updateInterval = useRef<ReturnType<typeof setTimeout>>();
 
   const dispatch = useDispatch();
   const { mesonWallet } = useSelector<RootState, MesonWalletState>(
@@ -39,44 +38,29 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
   const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
     (state) => state.historicalTxs
   );
-  const provider = getProvider(network);
+  // const provider = getProvider(network);
+
+  // useEffect(() => {
+  //   void fetchTxs();
+  // }, []);
+
+  // useEffect(() => {
+  //   provider.on('block', fetchTxs);
+
+  //   return () => {
+  //     provider.off('block', fetchTxs);
+  //   };
+  // }, [fetchTxs]);
 
   const fetchTxs = useCallback(async () => {
-    dispatch(setLoading());
-
-    if (network !== 'localhost') {
-      await load();
-    } else {
-      await localLoad();
-    }
-
-    if (historicalTxs !== prevTxsRef.current) {
-      dispatch(setHistoricalTxs({ historicalTxs: prevTxsRef.current }));
-      prevTxsRef.current = historicalTxs;
-    }
-  }, []);
-
-  useEffect(() => {
-    void fetchTxs();
-  }, [fetchTxs]);
-
-  useEffect(() => {
-    provider.on('block', fetchTxs);
-
-    return () => {
-      provider.off('block', fetchTxs);
-    };
-  }, [fetchTxs]);
-
-  const load = async () => {
-    if (mesonWallet?.mesonWalletAddress === undefined) return;
+    if (mesonWallet?.smartContract === undefined) return;
     try {
-      // const historicalTxs = await getHistoricalTxs(mesonWallet?.mesonWalletAddress);
-      const historicalTxs = await getHistoricalTxs(
-        '0xd3dDC85bDc627D979A18607e4323eEAF75cDeB5F'
+      const historicalTxs = await getTxHistory(
+        mesonWallet?.smartContract,
+        network
       );
 
-      if (historicalTxs.length > 0) {
+      if (historicalTxs !== undefined && historicalTxs?.length > 0) {
         prevTxsRef.current = historicalTxs;
       }
     } catch (error) {
@@ -87,35 +71,69 @@ const useGetHistoricalTxs = (): HistoricalTxType[] => {
         throw new Error(error.message ?? error);
       }
     }
-  };
+  }, []);
 
-  const localLoad = async () => {
-    if (mesonWallet?.mesonWalletAddress !== undefined) {
+  const localFetchTxs = useCallback(async () => {
+    if (mesonWallet?.smartContract !== undefined) {
       const localHistoricalTxs = await getLocalHistoricalTxs(
-        mesonWallet.mesonWalletAddress,
+        mesonWallet.smartContract,
         mesonWallet.smartContract,
         network
       );
-      const filteredTxs = localHistoricalTxs.filter(
-        (tx) => tx.contractAddress !== '' || tx.to !== ''
-      );
 
-      if (filteredTxs.length > 0) {
-        prevTxsRef.current = filteredTxs;
+      if (localHistoricalTxs.length > 0) {
+        prevTxsRef.current = localHistoricalTxs;
       }
+    }
+  }, []);
+
+  const startUpdate = async () => {
+    stopUpdate();
+
+    dispatch(setLoading());
+
+    if (network !== 'localhost') {
+      await fetchTxs();
+    } else {
+      await localFetchTxs();
+    }
+
+    dispatch(setHistoricalTxs({ historicalTxs: prevTxsRef.current }));
+
+    updateInterval.current = setInterval(async () => {
+      if (historicalTxs !== prevTxsRef.current) {
+        if (network !== 'localhost') {
+          await fetchTxs();
+        } else {
+          await localFetchTxs();
+        }
+      }
+    }, UPDATE_INTERVAL_TIMEOUT);
+  };
+
+  const stopUpdate = () => {
+    if (updateInterval.current) {
+      clearInterval(updateInterval.current);
     }
   };
 
   useEffect(() => {
-    dispatch(setLoading());
+    const load = async () => {
+      try {
+        await startUpdate();
+      } catch (error) {
+        if (error instanceof Error) {
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          console.log(`error: ${error}`);
+          throw new Error(error.message ?? error);
+        }
+      }
+    };
 
-    if (network !== 'localhost') {
-      void load();
-    } else {
-      void localLoad();
-    }
-    dispatch(setHistoricalTxs({ historicalTxs: prevTxsRef.current }));
-  }, [mesonWallet]);
+    void load();
+
+    return stopUpdate;
+  }, []);
 
   return prevTxsRef.current;
 };

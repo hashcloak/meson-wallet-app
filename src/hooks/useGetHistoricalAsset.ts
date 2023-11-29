@@ -6,7 +6,6 @@ import { resetLoading } from '~/features/loading';
 import { MesonWalletState } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
-import { localSortByWeek } from '~/service';
 import { sortByLastFewMonths, sortByWeek, sortByYear } from '~/utils/sortTxs';
 
 export const useGetHistoricalAssets = (): HistoricalAssetsType => {
@@ -32,29 +31,32 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
 
   useEffect(() => {
     const load = () => {
-      if (mesonWallet?.mesonWalletAddress !== undefined) {
+      if (
+        mesonWallet?.smartContract !== undefined &&
+        historicalTxs.length > 0
+      ) {
         const txInThisYear = sortByYear(
           historicalTxs,
-          mesonWallet.mesonWalletAddress
+          mesonWallet.smartContract
         );
         const txIn6Months = sortByLastFewMonths(
           historicalTxs,
-          mesonWallet.mesonWalletAddress,
+          mesonWallet.smartContract,
           6
         );
         const txIn3Months = sortByLastFewMonths(
           historicalTxs,
-          mesonWallet.mesonWalletAddress,
+          mesonWallet.smartContract,
           3
         );
         const txInMonth = sortByLastFewMonths(
           historicalTxs,
-          mesonWallet.mesonWalletAddress,
+          mesonWallet.smartContract,
           0
         );
         const txInThisWeek = sortByWeek(
           historicalTxs,
-          mesonWallet.mesonWalletAddress
+          mesonWallet.smartContract
         );
 
         setHistoricalAssets({
@@ -68,10 +70,10 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
     };
 
     const localLoad = () => {
-      if (mesonWallet?.mesonWalletAddress !== undefined) {
-        const txInThisWeek = localSortByWeek(
+      if (mesonWallet?.smartContract !== undefined) {
+        const txInThisWeek = sortByWeek(
           historicalTxs,
-          mesonWallet.mesonWalletAddress
+          mesonWallet.smartContract
         );
 
         setHistoricalAssets({
@@ -87,8 +89,6 @@ export const useGetHistoricalAssets = (): HistoricalAssetsType => {
     if (historicalTxs.length > 0 && network !== 'localhost') void load();
     if (network === 'localhost') void localLoad();
     dispatch(resetLoading({ message: '' }));
-
-    //   if (historicalTxs.length > 0 && network === 'localhost') void load();
   }, [historicalTxs]);
 
   return historicalAssets;

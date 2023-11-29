@@ -23,7 +23,7 @@ import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { setToast } from '~/features/toast';
-import { useGetFiatPrice } from '~/hooks';
+import { useCheckBalance, useGetFiatPrice } from '~/hooks';
 import { deploy } from '~/service/smart_contract/deploy';
 import { trimCurrency } from '~/utils/trimDecimal';
 
@@ -32,6 +32,8 @@ const DepositFund: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isSuccess, setIsSuccess] = useState(false);
+  const [input, setInput] = useState<number>(0);
+  const [usd, setUsd] = useState<string>('0');
 
   const signerWallet = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
@@ -42,8 +44,8 @@ const DepositFund: React.FC = () => {
   const { isLoading } = useSelector<RootState, LoadingState>(
     (state) => state.loading
   );
-  const [input, setInput] = useState<number>(0);
-  const [usd, setUsd] = useState<string>('0');
+
+  const isSufficientFunds = useCheckBalance(signerWallet.signerWalletAddress, input)
 
   // TODO: Need to add validation method for the input amount
   const schema = z.object({
@@ -93,7 +95,6 @@ const DepositFund: React.FC = () => {
               mesonWalletAddress: string;
               smartContract: string;
               encryptedWallet: string;
-              entryPoint: string;
             }
           | undefined = await deploy(
           signerWallet,
@@ -163,11 +164,16 @@ const DepositFund: React.FC = () => {
                       placeholder={'Optional'}
                       handleChange={handleInput}
                     >
+                      <div className="flex justify-between">
                       {isFetching ? (
                         <TextLoader />
                       ) : (
                         <span className='text-textGrayLight'>≈ {usd} USD</span>
                       )}
+                      {isSufficientFunds? null :
+                        <span className="text-alert font-bold">Insufficient funds in your signing wallet</span>
+                      }
+                      </div>
                     </UnitInput>
                   </div>
                 </div>

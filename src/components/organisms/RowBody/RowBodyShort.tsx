@@ -14,13 +14,12 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
     status,
     token,
     value,
-    timeStamp,
+    timestamp,
     to,
     from,
-    isError,
     numOfConfirmation,
   } = tx;
-  const { date, time } = unixTimeConverter(Number(timeStamp));
+  const { date, time } = unixTimeConverter(Number(timestamp));
 
   return (
     <div className='flex flex-row justify-between items-center w-full'>
@@ -37,7 +36,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
               <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
               <Spacer size={8} axis={'horizontal'} />
               <span className='text-textWhite font-bold text-lg'>
-                {value} {token?.toUpperCase()}
+                {String(value)} {token?.toUpperCase()}
               </span>
             </div>
             {status === 'Sent' ? (
@@ -56,7 +55,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>
-        {numOfConfirmation != null && !(!isError ?? false) ? (
+        {numOfConfirmation != null ? (
           <>
             <span className='text-textWhite text-sm'>Needs confirmation</span>
             <span className='text-textGrayLight text-xs'>
@@ -64,7 +63,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
             </span>
           </>
         ) : (
-          <span className='text-textWhite text-sm'>{!isError}</span>
+          <span className='text-textWhite text-sm'>Error</span>
         )}
       </div>
     </div>

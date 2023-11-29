@@ -1,7 +1,10 @@
 import { BlockWithTransactions } from '@ethersproject/abstract-provider';
 import { ethers } from 'ethers';
 import { getProvider } from './getProvider';
-import { HistoricalTxType } from '~/features/historicalTxs';
+import {
+  ExtendedTransactionResponse,
+  HistoricalTxType,
+} from '~/features/historicalTxs';
 import { MONTHS, SortTxsReturnType, groupBySum } from '~/utils/sortTxs';
 import { trimEth } from '~/utils/trimDecimal';
 
@@ -19,10 +22,10 @@ export const getLocalHistoricalTxs = async (
   address: string,
   contract: string,
   network: string
-): Promise<HistoricalTxType[] | []> => {
+): Promise<ExtendedTransactionResponse[] | []> => {
   if (address === undefined) return [];
   const provider = getProvider(network);
-  const transactionCount = 100;
+  const transactionCount = 20;
 
   const blocks: BlockWithTransactions[] = [];
   const txs: CustomTransactionResponseType = [];
@@ -50,7 +53,7 @@ export const getLocalHistoricalTxs = async (
     }
   });
 
-  const filteredTxs: HistoricalTxType[] = txs
+  const filteredTxs: ExtendedTransactionResponse[] = txs
     .filter((tx) => {
       const { creates, from, to } = tx.transactions;
 
@@ -66,29 +69,27 @@ export const getLocalHistoricalTxs = async (
     .map((tx) => {
       return {
         blockHash: tx.transactions.blockHash ?? '',
-        blockNumber: String(tx.transactions.blockNumber) ?? '',
-        confirmations: String(tx.transactions.confirmations) ?? '',
+        blockNumber: Number(tx.transactions.blockNumber) ?? 0,
+        confirmations: Number(tx.transactions.confirmations) ?? 0,
         contractAddress: tx.transactions.creates ?? '',
-        cumulativeGasUsed: '',
         from: tx.transactions.from || '',
-        functionName: '',
-        gas: '',
         gasPrice: String(tx.transactions.gasPrice),
         gasUsed: tx.gasUsed,
         hash: tx.transactions.hash ?? '',
-        input: '',
-        isError: '',
-        methodId: '',
-        nonce: String(tx.transactions.nonce),
-        timeStamp: String(tx.timeStamp),
+        nonce: Number(tx.transactions.nonce),
+        timestamp: Number(tx.timeStamp),
         to: tx.transactions.to ?? '',
         transactionIndex: '',
         txreceipt_status: '',
         value: String(tx.transactions.value),
+        gasLimit: tx.transactions.gasLimit ?? '',
+        wait: tx.transactions.wait ?? '',
+        data: tx.transactions.data ?? '',
+        chainId: tx.transactions.chainId ?? '',
       };
     });
 
-  return filteredTxs.sort((x, y) => Number(y.timeStamp) - Number(x.timeStamp));
+  return filteredTxs.sort((x, y) => Number(y.timestamp) - Number(x.timestamp));
 };
 
 export const localSortByWeek = (

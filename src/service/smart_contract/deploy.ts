@@ -10,7 +10,6 @@ import { NetworkState } from '~/features/network';
 import { SignerState } from '~/features/signerWallet';
 import { sendTx } from '../sendTx';
 import { getProvider } from '../getProvider';
-import { deployEntryPoint } from './deploy-entryPoint';
 import { TrezorSigner } from '~/utils/Trezor';
 import { LedgerSigner } from '@ethersproject/hardware-wallets';
 
@@ -25,7 +24,6 @@ export async function deploy(
       mesonWalletAddress: string;
       smartContract: string;
       encryptedWallet: string;
-      entryPoint: string;
     }
   | undefined
 > {
@@ -64,26 +62,29 @@ export async function deploy(
       default:
         senderWallet = new ethers.Wallet(signerWallet.publicKey, provider);
     }
-
-    const entryPoint = await deployEntryPoint(senderWallet!);
+    const entryPoint = '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789';
     const factory = new ethers.ContractFactory(abi, binary, senderWallet);
+
     const smartContract = await factory.deploy(entryPoint);
+    console.log('smart contract is being deployed:', smartContract)
     const smartContractReceipt = await smartContract.deployed();
-    console.log('smart contract was deployed:', smartContractReceipt);
 
     // Transfer funds to the created wallet
     if (Number(deposit) > 0) {
+      console.log('sending deposit...',smartContractReceipt)
       const gasPrice = await provider.getGasPrice();
+      const latestBlock = await provider.getBlock('latest')
 
       // tx params
       const txParams = {
-        to: mesonWalletAddress,
+        // to: mesonWalletAddress,
+        to: smartContractReceipt.address,
         value: value,
         data: '0x',
         nonce: '0x0',
         chainId: selectedNetwork.chainId,
-        gasPrice: Number(ethers.utils.formatUnits(gasPrice, 'wei')),
-        gasLimit: 21000,
+        gasPrice: selectedNetwork.network !== "mainnet" ? Number(999999999): Number(ethers.utils.formatUnits(gasPrice, 'wei')),
+        gasLimit: latestBlock.gasLimit,
         // gasLimit: 8000000,
         // gasPrice: 20000000000,
       };
@@ -94,7 +95,6 @@ export async function deploy(
       mesonWalletAddress,
       smartContract: smartContractReceipt.address,
       encryptedWallet,
-      entryPoint: entryPoint ?? '',
     };
   } catch (error) {
     if (error instanceof Error) {

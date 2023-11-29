@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-throw-literal */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Buffer } from 'buffer';
+import { Block } from '@ethersproject/abstract-provider';
 import {
   TypedDataSigner,
   Signer,
@@ -216,8 +217,6 @@ export class TrezorSigner extends Signer implements TypedDataSigner {
   }
 
   public async getAddress(): Promise<string> {
-    console.log('getAddress');
-
     this._address = this._reqAddress?.toLowerCase();
 
     if (this._address == null) {
@@ -249,21 +248,27 @@ export class TrezorSigner extends Signer implements TypedDataSigner {
   public async signTransaction(
     transaction: utils.Deferrable<providers.TransactionRequest>
   ): Promise<string> {
-    console.log('signTransaction', transaction);
-
     const tx = await utils.resolveProperties(transaction);
     const nonce =
       tx.nonce !== undefined
         ? parseInt(JSON.stringify(tx.nonce).toString())
         : await this.provider?.getTransactionCount(this._reqAddress);
-    // const gasPrice = await this.provider?.estimateGas({ data: tx.data });
+    const latestBlock: Block | undefined = await this.provider?.getBlock(
+      'latest'
+    );
 
     const unsignedTx: UnsignedTransaction = {
       to: tx.to === undefined ? '' : tx.to,
       nonce,
-      gasLimit: tx.gasLimit,
-      // gasPrice:Number(ethers.utils.formatUnits(gasPrice ?? '0x', 'wei')),
-      gasPrice: Number(500000000),
+      // gasLimit: tx.gasLimit,
+      // gasPrice:Number(pethers.utils.formatUnits(gasPrice ?? '0x', 'wei')),
+      // gasPrice: Number(500000000),
+      gasLimit:
+        latestBlock !== undefined
+          ? latestBlock.gasLimit
+          : tx.gasLimit,
+          // gasPrice: Number(999999999),
+      gasPrice: Number(9000000000),
       data: tx.data,
       value: tx.value === undefined ? ethers.utils.parseEther('0') : tx.value,
       chainId: tx.chainId,

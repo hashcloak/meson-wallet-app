@@ -14,20 +14,19 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
     status,
     token,
     value,
-    timeStamp,
+    timestamp,
     to,
     from,
-    isError,
     numOfConfirmation,
   } = tx;
 
-  const { date, time } = unixTimeConverter(timeStamp);
+  const { date, time } = unixTimeConverter(timestamp !== undefined ? timestamp : 0);
 
   const address = () => {
     if (status === 'Received') {
       return `From: ${from}`;
     } else {
-      return `To: ${to}`;
+      return `To: ${to !== undefined ? to : ''}`;
     }
   };
 
@@ -48,7 +47,7 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
                 <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
                 <Spacer size={8} axis={'horizontal'} />
                 <span className='text-textWhite font-bold text-lg'>
-                  {value} {token?.toUpperCase()}
+                  {String(value)} {token?.toUpperCase()}
                 </span>
               </div>
               <span className='text-textGrayLight text-xs'>{address()}</span>
@@ -57,7 +56,7 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
         </div>
       </div>
 
-      {numOfConfirmation != null && !(!isError ?? false) ? (
+      {numOfConfirmation != null ? (
         <div className='grid grid-cols-3 items-center'>
           <div className='flex flex-col items-start'>
             <span className='text-textWhite text-sm'>{date}</span>
@@ -72,7 +71,7 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
             {numOfConfirmation != null ? (
               <span className='text-textWhite text-sm'>Needs confirmation</span>
             ) : (
-              <span className='text-textWhite text-sm'>{!isError}</span>
+              <span className='text-textWhite text-sm'>Error</span>
             )}
           </div>
         </div>

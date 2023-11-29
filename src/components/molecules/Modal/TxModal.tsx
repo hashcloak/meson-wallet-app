@@ -21,7 +21,7 @@ type Props = {
 export const TxContents: React.FC<{
   tx: TxType;
 }> = ({ tx }) => {
-  const { date, time } = unixTimeConverter(tx.timeStamp);
+  const { date, time } = unixTimeConverter(tx.timestamp ?? 0);
   const { signerWalletAddress } = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
@@ -44,7 +44,7 @@ export const TxContents: React.FC<{
         <span className='text-textWhite font-bold  mt-4'>Factory:</span>
         <div className='flex flex-row items-center pl-6 mt-2'>
           <EthAddress
-            ethAddress={tx.contractAddress}
+            ethAddress={tx.to ?? ''}
             size={4.5}
             length='full'
           />
@@ -72,13 +72,13 @@ export const TxContents: React.FC<{
           <span className='text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
-              {tx.value} {tx.token?.toUpperCase()}
+              {String(tx.value)} {tx.token?.toUpperCase()}
             </span>{' '}
             {tx.status === 'Sent' ? 'to:' : 'from:'}
           </span>
           <div className='flex flex-row items-center pl-6 mt-2'>
             <EthAddress
-              ethAddress={tx.status === 'Sent' ? tx.to : tx.from}
+              ethAddress={tx.status === 'Sent' ? (tx.to ?? '') : tx.from}
               size={4.5}
               length='full'
             />
@@ -93,8 +93,6 @@ export const TxContents: React.FC<{
               <span>Executed</span>
               <Spacer size={16} axis={'vertical'} />
               <span>Operation</span>
-              <span>Tx Gas</span>
-              <span>BaseGas</span>
               <span>Gas Price</span>
               <span>Gas Token</span>
               <span>Signature 1</span>
@@ -105,8 +103,6 @@ export const TxContents: React.FC<{
               <span>{`${date}, ${time}`}</span>
               <Spacer size={16} axis={'vertical'} />
               <span>0 (call)</span>
-              <span>{tx.gasUsed} wei</span>
-              <span>{tx.gas} wei</span>
               <span>{tx.gasPrice} wei</span>
               <span>0x00000000...00000000</span>
               <span>65 bytes</span>
@@ -122,7 +118,7 @@ export const TxContents: React.FC<{
           <span className='text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
-              {tx.value} {tx.token?.toUpperCase()}
+              {String(tx.value)} {tx.token?.toUpperCase()}
             </span>{' '}
             from:
           </span>

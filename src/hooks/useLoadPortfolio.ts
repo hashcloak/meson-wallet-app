@@ -23,6 +23,8 @@ type ReturnValue = {
   totalAsset: number;
 };
 
+const UPDATE_INTERVAL_TIMEOUT = 180000; // 3 minutes
+
 export const useLoadPortfolio = (): ReturnValue => {
   const {
     state: { conversionRate },
@@ -33,6 +35,7 @@ export const useLoadPortfolio = (): ReturnValue => {
   const [currentEth, setCurrentEth] = useState('0');
   const prevEthBalanceRef = useRef('0');
   const prevTotalAssetRef = useRef(0);
+  const updateInterval = useRef<ReturnType<typeof setTimeout>>();
 
   const dispatch = useDispatch();
 
@@ -44,11 +47,46 @@ export const useLoadPortfolio = (): ReturnValue => {
   );
   const provider: ethers.providers.BaseProvider = getProvider(network);
 
+  const startUpdate = async () => {
+    stopUpdate();
+
+    await fetchCurrentEthBalance();
+
+    updateInterval.current = setInterval(async () => {
+      if (currentEth !== prevEthBalanceRef.current) {
+        await fetchCurrentEthBalance();
+      }
+    }, UPDATE_INTERVAL_TIMEOUT);
+  };
+
+  const stopUpdate = () => {
+    if (updateInterval.current) {
+      clearInterval(updateInterval.current);
+    }
+  };
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        await startUpdate();
+      } catch (error) {
+        if (error instanceof Error) {
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+          console.log(`error: ${error}`);
+          throw new Error(error.message ?? error);
+        }
+      }
+    };
+
+    void load();
+
+    return stopUpdate;
+  }, []);
+
   const fetchCurrentEthBalance = useCallback(async () => {
     if (mesonWallet !== undefined) {
-      const rawBalance = await provider.getBalance(
-        mesonWallet?.mesonWalletAddress
-      );
+      const rawBalance = await provider.getBalance(mesonWallet?.smartContract);
+
       // Format ETH balance and parse it to JS number
       const value = parseFloat(ethers.utils.formatEther(rawBalance)).toString();
 
@@ -63,18 +101,17 @@ export const useLoadPortfolio = (): ReturnValue => {
   }, []);
 
   useEffect(() => {
-    void fetchCurrentEthBalance();
+    // void fetchCurrentEthBalance();
   }, [fetchCurrentEthBalance]);
 
   useEffect(() => {
     // Fetch user balance on each block
-    provider.on('block', fetchCurrentEthBalance);
-
+    // provider.on('block', fetchCurrentEthBalance(blockNumber));
     // Cleanup function is used to unsubscribe from 'block' event and prevent
     // a possible memory leak in your application.
-    return () => {
-      provider.off('block', fetchCurrentEthBalance);
-    };
+    // return () => {
+    // provider.off('block', fetchCurrentEthBalance);
+    // };
   }, [fetchCurrentEthBalance]);
 
   const updateTokens = (eth: string) => {
@@ -98,9 +135,9 @@ export const useLoadPortfolio = (): ReturnValue => {
     const load = async () => {
       try {
         setIsLoading(true);
-        if (mesonWallet?.mesonWalletAddress != null) {
+        if (mesonWallet?.smartContract != null) {
           const currentEthBalance = await provider.getBalance(
-            mesonWallet?.mesonWalletAddress
+            mesonWallet?.smartContract
           );
           const eth = ethers.utils.formatUnits(currentEthBalance);
           setCurrentEth(eth);

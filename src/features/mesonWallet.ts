@@ -15,7 +15,6 @@ export type MesonWalletState = {
     mesonWalletAddress: string;
     smartContract: string;
     encryptedWallet: string;
-    entryPoint: string;
   };
   balance?: {
     eth: string;
@@ -46,7 +45,6 @@ export const MesonWalletSlice = createSlice({
           mesonWalletAddress: string;
           smartContract: string;
           encryptedWallet: string;
-          entryPoint: string;
         };
       }>
     ) => {
