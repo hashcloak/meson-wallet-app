@@ -19,7 +19,7 @@ const ENCRYPT_PASS = import.meta.env.VITE_ENCRYPT_PASS;
 export async function deploy(
   signerWallet: SignerState,
   selectedNetwork: NetworkState,
-  deposit: number
+  deposit: number,
 ): Promise<
   | {
       mesonWalletAddress: string;
@@ -53,26 +53,24 @@ export async function deploy(
           'trezor-signer'
         ) as ethers.Signer;
         break;
+      case 'Ledger':
+
+        break;
+      case 'WalletConnect':
+
         break;
       default:
         senderWallet = new ethers.Wallet(signerWallet.publicKey, provider);
     }
     const entryPoint = '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789';
+    const iFace = new ethers.utils.Interface(abi);
+    const deploymentData = iFace.encodeDeploy([entryPoint]) as BytesLike;
 
-    if(signerWallet.wallet !== 'Ledger'){
-      const factory = new ethers.ContractFactory(abi, binary, senderWallet);
+    const txData = hexlify(concat([binary, deploymentData]));
+    const nonce = await provider.getTransactionCount(signerWallet.signerWalletAddress);
+    const latestBlock = await provider.getBlock('latest');
 
-      const smartContract = await factory.deploy(entryPoint);
-      console.log('smart contract is being deployed:', smartContract)
-      const smartContractReceipt = await smartContract.deployed();
-    } else {
-      const iFace = new ethers.utils.Interface(abi);
-      const deploymentData = iFace.encodeDeploy([entryPoint]) as BytesLike;
-
-      const txData = hexlify(concat([binary, deploymentData]));
-      const nonce = await provider.getTransactionCount(signerWallet.signerWalletAddress);
-      const latestBlock = await provider.getBlock('latest');
-
+    if(signerWallet.wallet === 'Ledger') {
       const deploymentParams = {
         num: "0",
         chainId: '5',
@@ -88,13 +86,18 @@ export async function deploy(
       const txResponse = await provider.sendTransaction(signedTx);
       const smartContractReceipt = await txResponse.wait(2);
       console.log(smartContractReceipt)
+    } else {
+        const factory = new ethers.ContractFactory(abi, binary, senderWallet);
+        const smartContract = await factory.deploy(entryPoint);
+        console.log('smart contract is being deployed:', smartContract)
+        const smartContractReceipt = await smartContract.deployed();
     }
 
     // Transfer funds to the created wallet
     if (Number(deposit) > 0) {
-      console.log('sending deposit...',smartContractReceipt)
+      console.log('sending deposit...', smartContractReceipt);
       const gasPrice = await provider.getGasPrice();
-      const latestBlock = await provider.getBlock('latest')
+      const latestBlock = await provider.getBlock('latest');
 
       // tx params
       const txParams = {
@@ -103,7 +106,10 @@ export async function deploy(
         data: '0x',
         nonce: '0x0',
         chainId: selectedNetwork.chainId,
-        gasPrice: selectedNetwork.network !== "mainnet" ? Number(999999999): Number(ethers.utils.formatUnits(gasPrice, 'wei')),
+        gasPrice:
+          selectedNetwork.network !== 'mainnet'
+            ? Number(999999999)
+            : Number(ethers.utils.formatUnits(gasPrice, 'wei')),
         gasLimit: latestBlock.gasLimit,
       };
       await sendTx(txParams, signerWallet!, selectedNetwork.network);

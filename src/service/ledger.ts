@@ -85,7 +85,6 @@ export const signLedgerTx = async (txParams: {
   maxFee: string;
   data: string;
 }): Promise<string> => {
-  console.log(txParams.data)
   try {
     const response: string = await invoke('sign_tx', {
       num: txParams.num,
@@ -95,9 +94,9 @@ export const signLedgerTx = async (txParams: {
       priorityFee: '0',
       maxFee: '0',
     });
-    console.log('sign_tx', response);
+    const signedTx = (`0x${response.split(':')[1]}`).replace(/(\r\n|\n|\r)/gm, "")
 
-    return response;
+    return signedTx;
   } catch (error) {
     console.log(error);
     throw new Error('Please connect your Ledger hardware wallet');
