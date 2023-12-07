@@ -46,7 +46,7 @@ const DepositFund: React.FC = () => {
     (state) => state.loading
   );
 
-  const {deployWCTx} = useWalletConnectSendTx(
+  const { deployWCTx } = useWalletConnectSendTx(
     selectedNetwork.network,
     signerWallet.signerWalletAddress
   );
@@ -106,13 +106,14 @@ const DepositFund: React.FC = () => {
               encryptedWallet: string;
             }
           | undefined;
-          if(signerWallet.wallet !== "WalletConnect"){
-
-            mesonWallet= await deploy(
-              signerWallet,
-          selectedNetwork,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          data.depositAmount === undefined ? 0 : (data.depositAmount as number)
+        if (signerWallet.wallet !== 'WalletConnect') {
+          mesonWallet = await deploy(
+            signerWallet,
+            selectedNetwork,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            data.depositAmount === undefined
+              ? 0
+              : (data.depositAmount as number)
           );
         } else {
           await deployWCTx();
