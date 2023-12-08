@@ -21,7 +21,6 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
     numOfConfirmation,
   } = tx;
   const { date, time } = unixTimeConverter(Number(timestamp));
-  const ethVal = ethers.utils.formatEther(tx.value)
 
   return (
     <div className='flex flex-row justify-between items-center w-full'>
@@ -38,7 +37,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
               <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
               <Spacer size={8} axis={'horizontal'} />
               <span className='text-textWhite font-bold text-lg'>
-                {String(ethVal)} {token?.toUpperCase()}
+                {String(value)} {token?.toUpperCase()}
               </span>
             </div>
             {status === 'Sent' ? (

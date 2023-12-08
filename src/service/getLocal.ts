@@ -81,9 +81,9 @@ export const getLocalHistoricalTxs = async (
         to: tx.transactions.to ?? '',
         transactionIndex: '',
         txreceipt_status: '',
-        value: String(tx.transactions.value),
-        gasLimit: tx.transactions.gasLimit ?? '',
-        wait: tx.transactions.wait ?? '',
+        value: String(ethers.utils.formatEther(tx.transactions.value)),
+        gasLimit: String(ethers.utils.formatUnits(tx.transactions.gasLimit)) ?? '',
+        // wait: tx.transactions.wait ?? '',
         data: tx.transactions.data ?? '',
         chainId: tx.transactions.chainId ?? '',
       };

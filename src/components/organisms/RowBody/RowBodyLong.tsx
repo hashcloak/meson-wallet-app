@@ -25,8 +25,6 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
     }
   };
 
-  const ethVal = ethers.utils.formatEther(value);
-
   return (
     <div className='flex flex-row gap-32 min-w-[52rem] max-w-[79.875rem]'>
       <div className='grid grid-cols-2 items-center'>
@@ -44,7 +42,7 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
                 <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
                 <Spacer size={8} axis={'horizontal'} />
                 <span className='text-textWhite font-bold text-lg'>
-                  {String(ethVal)} {token?.toUpperCase()}
+                  {String(tx.value)} {token?.toUpperCase()}
                 </span>
               </div>
               <span className='text-textGrayLight text-xs'>{address()}</span>

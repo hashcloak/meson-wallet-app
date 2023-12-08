@@ -34,13 +34,13 @@ const useCountTxs = (historicalTxs: TransactionResponse[]): ReturnType => {
     const txsInYear = historicalTxs
       .filter((tx) => {
         const today = new Date();
-        const unixTime = Number(tx.timeStamp) * 1000;
+        const unixTime = Number(tx.timestamp) * 1000;
         const inYear = today.setMonth(today.getMonth() - 12);
 
         return inYear <= unixTime;
       })
       .map((tx) => {
-        const dateOfTransaction = new Date(Number(tx.timeStamp) * 1000);
+        const dateOfTransaction = new Date(Number(tx.timestamp) * 1000);
         const processedMonth = MONTHS[dateOfTransaction.getMonth()];
         const processedYear = dateOfTransaction
           .getFullYear()
@@ -62,13 +62,13 @@ const useCountTxs = (historicalTxs: TransactionResponse[]): ReturnType => {
     const txsInMonth = historicalTxs
       .filter((tx) => {
         const today = new Date();
-        const unixTime = Number(tx.timeStamp) * 1000;
+        const unixTime = Number(tx.timestamp) * 1000;
         const inMonth = today.setMonth(today.getDay() - 30);
 
         return inMonth <= unixTime;
       })
       .map((tx) => {
-        const unixTime = Number(tx.timeStamp) * 1000;
+        const unixTime = Number(tx.timestamp) * 1000;
         const dateOfTransaction = new Date(unixTime);
         const processedMonth = MONTHS[dateOfTransaction.getMonth()];
         const processedDay = dateOfTransaction.getDate();

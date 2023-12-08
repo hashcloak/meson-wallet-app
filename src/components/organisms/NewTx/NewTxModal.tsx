@@ -32,7 +32,8 @@ const NewTxDetails: React.FC<ModalProps> = ({
         <Spacer size={8} axis={'vertical'} />
 
         <EthAddress
-          ethAddress={mesonWallet ? mesonWallet.smartContract : ''}
+          // ethAddress={mesonWallet ? mesonWallet.smartContract : ''}
+          ethAddress={mesonWallet ? mesonWallet.mesonWalletAddress : ''}
           size={0}
           length={'full'}
           walletName={walletName}

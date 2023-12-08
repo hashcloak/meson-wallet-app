@@ -30,8 +30,6 @@ export const TxContents: React.FC<{
     (state) => state.mesonWallet
   );
 
-  const ethVal = ethers.utils.formatEther(tx.value)
-
   let content;
   if (tx.status === 'AccountCreated') {
     content = (
@@ -75,7 +73,7 @@ export const TxContents: React.FC<{
           <span className='text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
-              {String(ethVal)} {tx.token?.toUpperCase()}
+              {String(tx.value)} {tx.token?.toUpperCase()}
             </span>{' '}
             {tx.status === 'Sent' ? 'to:' : 'from:'}
           </span>
@@ -121,7 +119,7 @@ export const TxContents: React.FC<{
           <span className='text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
-              {String(ethVal)} {tx.token?.toUpperCase()}
+              {String(tx.value)} {tx.token?.toUpperCase()}
             </span>{' '}
             from:
           </span>

@@ -103,7 +103,8 @@ export async function deploy(
 
       // tx params
       const txParams = {
-        to: smartContractReceipt.address,
+        // to: smartContractReceipt.address,
+        to: mesonWalletAddress,
         value: value,
         data: '0x',
         nonce: '0x0',
@@ -116,6 +117,9 @@ export async function deploy(
       };
       await sendTx(txParams, signerWallet!, selectedNetwork.network);
     }
+
+    console.log('deploy mesonWalletAddress',mesonWalletAddress)
+    console.log('deploy smartContractReceipt',smartContractReceipt)
 
     return {
       mesonWalletAddress,

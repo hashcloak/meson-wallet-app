@@ -8,8 +8,8 @@ import { RootState } from '~/features/reducers';
 
 export interface TxType
   extends Omit<
-  ExtendedTransactionResponse,
-    'value' | 'gas' |  'gasUsed' | 'isError'
+    ExtendedTransactionResponse,
+    'value' | 'gas' | 'gasUsed' | 'isError'
   > {
   status: StatusTypes;
   token: string;
@@ -30,10 +30,22 @@ export const useConvertTx = (tx: ExtendedTransactionResponse): TxType => {
   );
 
   useEffect(() => {
-    const clonedTx = JSON.parse(JSON.stringify(tx)) as ExtendedTransactionResponse;
+    const clonedTx = JSON.parse(
+      JSON.stringify(tx)
+    ) as ExtendedTransactionResponse;
+    console.log(
+      'mesonWallet.mesonWalletAddress',
+      mesonWallet?.mesonWalletAddress
+    );
+    console.log('clonedTx.to', clonedTx.to);
+    console.log('clonedTx', clonedTx);
 
     let status: StatusTypes = 'Send';
-    if (clonedTx.to === undefined || clonedTx.to === null ||clonedTx.to === '') {
+    if (
+      clonedTx.to === undefined ||
+      clonedTx.to === null ||
+      clonedTx.to === ''
+    ) {
       status = 'AccountCreated';
     } else if (mesonWallet && mesonWallet.mesonWalletAddress === clonedTx.to) {
       status = 'Received';
