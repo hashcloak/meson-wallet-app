@@ -1,6 +1,6 @@
-// import Image from 'next/image'
 import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Dialog from '~/components/atoms/Dialog';
 import { Icon } from '~/components/atoms/Icon';
 import { SelectNetwork } from '~/components/atoms/Option';
@@ -45,12 +45,14 @@ const Topbar: FC = () => {
             <Icon type={'Lines'} size={'md'} color={'white'} />
           </button>
         </div>
-        <img
-          src='/assets/Meson_topbar_logo.png'
-          alt='Meson Logo'
-          width='176'
-          height='40'
-        />
+        <Link to='/' className='w-full'>
+          <img
+            src='/assets/Meson_topbar_logo.png'
+            alt='Meson Logo'
+            width='176'
+            height='40'
+          />
+        </Link>
       </div>
       <div className='flex flex-row justify-center items-center'>
         <Dialog
