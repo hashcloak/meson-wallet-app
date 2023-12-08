@@ -13,6 +13,7 @@ import { getProvider } from '../getProvider';
 import { TrezorSigner } from '~/utils/Trezor';
 import { signLedgerTx } from '../ledger';
 import { concat, hexlify } from 'ethers/lib/utils.js';
+import { TransactionReceipt } from 'viem';
 
 const ENCRYPT_PASS = import.meta.env.VITE_ENCRYPT_PASS;
 
@@ -69,6 +70,7 @@ export async function deploy(
     const txData = hexlify(concat([binary, deploymentData]));
     const nonce = await provider.getTransactionCount(signerWallet.signerWalletAddress);
     const latestBlock = await provider.getBlock('latest');
+    let smartContractReceipt;
 
     if(signerWallet.wallet === 'Ledger') {
       const deploymentParams = {
@@ -84,13 +86,13 @@ export async function deploy(
       };
       const signedTx =  await signLedgerTx(deploymentParams)
       const txResponse = await provider.sendTransaction(signedTx);
-      const smartContractReceipt = await txResponse.wait(2);
+      smartContractReceipt = await txResponse.wait(2);
       console.log(smartContractReceipt)
     } else {
         const factory = new ethers.ContractFactory(abi, binary, senderWallet);
         const smartContract = await factory.deploy(entryPoint);
         console.log('smart contract is being deployed:', smartContract)
-        const smartContractReceipt = await smartContract.deployed();
+        smartContractReceipt = await smartContract.deployed();
     }
 
     // Transfer funds to the created wallet

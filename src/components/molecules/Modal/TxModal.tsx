@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dialog } from '@headlessui/react';
+import { ethers } from 'ethers';
 import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import { Icon } from '~/components/atoms/Icon';
@@ -28,6 +29,8 @@ export const TxContents: React.FC<{
   const { confirmation, owners } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
+
+  const ethVal = ethers.utils.formatEther(tx.value)
 
   let content;
   if (tx.status === 'AccountCreated') {
@@ -72,7 +75,7 @@ export const TxContents: React.FC<{
           <span className='text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
-              {String(tx.value)} {tx.token?.toUpperCase()}
+              {String(ethVal)} {tx.token?.toUpperCase()}
             </span>{' '}
             {tx.status === 'Sent' ? 'to:' : 'from:'}
           </span>
@@ -103,7 +106,7 @@ export const TxContents: React.FC<{
               <span>{`${date}, ${time}`}</span>
               <Spacer size={16} axis={'vertical'} />
               <span>0 (call)</span>
-              <span>{tx.gasPrice} wei</span>
+              <span>{(tx.gasPrice).toString()} wei</span>
               <span>0x00000000...00000000</span>
               <span>65 bytes</span>
             </div>
@@ -118,7 +121,7 @@ export const TxContents: React.FC<{
           <span className='text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
-              {String(tx.value)} {tx.token?.toUpperCase()}
+              {String(ethVal)} {tx.token?.toUpperCase()}
             </span>{' '}
             from:
           </span>
@@ -173,13 +176,13 @@ export const TxContents: React.FC<{
                     </div>
                     <div className='flex flex-row items-center pl-6 mt-2'>
                       <EthAddress
-                        ethAddress='0xD9Be7c81641BdfC2D82cAC5052455aD5313Ea5DF'
+                        ethAddress={signerWalletAddress}
                         size={4.5}
-                        length='full'
+                        length='short'
                       />
                     </div>
                   </div>
-                  <div className='flex flex-col mb-2'>
+                  {/* <div className='flex flex-col mb-2'>
                     <div className='flex flex-row'>
                       <Icon type={'Circle'} size={'lg'} color={'light'} />
                       <span className='text-light font-bold ml-2'>
@@ -197,7 +200,18 @@ export const TxContents: React.FC<{
                         length='full'
                       />
                     </div>
+                  </div> */}
+                  {(tx.confirmations - tx.confirmations) === 0 ? (
+                  <div className='flex flex-col mb-2'>
+                  <div className='flex flex-row'>
+                    <Icon type={'CheckCircle'} size={'lg'} color={'white'} />
+                    <span className='text-textWhite font-bold ml-2'>
+                      Executed
+                    </span>
                   </div>
+                </div>
+                  ):(
+                  <>
                   <div className='flex flex-col mb-2'>
                     <div className='flex flex-row'>
                       <Icon type={'Circle'} size={'lg'} color={'white'} />
@@ -226,6 +240,8 @@ export const TxContents: React.FC<{
                       Reject
                     </Button>
                   </div>
+                  </>
+                  )}
                 </>
               ))}
         </div>

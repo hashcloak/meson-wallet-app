@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import { Logo } from '~/components/atoms/Icon';
 import { LogoTypes } from '~/components/atoms/Icon/Logo';
 import { TxStatus } from '~/components/molecules/IconText';
@@ -20,6 +21,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
     numOfConfirmation,
   } = tx;
   const { date, time } = unixTimeConverter(Number(timestamp));
+  const ethVal = ethers.utils.formatEther(tx.value)
 
   return (
     <div className='flex flex-row justify-between items-center w-full'>
@@ -36,7 +38,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
               <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
               <Spacer size={8} axis={'horizontal'} />
               <span className='text-textWhite font-bold text-lg'>
-                {String(value)} {token?.toUpperCase()}
+                {String(ethVal)} {token?.toUpperCase()}
               </span>
             </div>
             {status === 'Sent' ? (
@@ -55,7 +57,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>
-        {numOfConfirmation != null ? (
+        {numOfConfirmation > 0 ? (
           <>
             <span className='text-textWhite text-sm'>Needs confirmation</span>
             <span className='text-textGrayLight text-xs'>
@@ -63,7 +65,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
             </span>
           </>
         ) : (
-          <span className='text-textWhite text-sm'>Error</span>
+          <span className='text-textWhite text-sm'>Success</span>
         )}
       </div>
     </div>

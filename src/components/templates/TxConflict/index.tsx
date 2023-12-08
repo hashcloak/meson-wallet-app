@@ -95,7 +95,7 @@ export const TxOnChainRejection: React.FC = () => {
             <span className='text-main font-bold ml-2'>
               Confirmed
               <span className='text-textWhite text-sm font-normal ml-2'>
-                (1 of 2)
+                (1 of 1)
               </span>
             </span>
           </div>

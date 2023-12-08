@@ -67,11 +67,11 @@ const ConnectSignerWallet: React.FC = () => {
                   </span>
                 </div>
                 <div className='flex flex-col'>
-                  <div className='w-1/3'>
+                  <div className='max-w-[11.5rem] flex justify-center mx-[0.5rem]'>
                     <SelectNetwork />
                   </div>
                   <Spacer size={24} axis={'vertical'} />
-                  <div className='flex flex-wrap gap-2 '>
+                  <div className='flex flex-wrap gap-2'>
                     <SignerWallets />
                   </div>
                 </div>
