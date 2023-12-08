@@ -19,6 +19,7 @@ export type MesonWalletState = {
   balance?: {
     eth: string;
   };
+  timestamp:number;
 };
 
 const initialState: MesonWalletState = {
@@ -29,6 +30,7 @@ const initialState: MesonWalletState = {
   balance: {
     eth: '0',
   },
+  timestamp:0,
 };
 
 export const MesonWalletSlice = createSlice({
@@ -63,6 +65,9 @@ export const MesonWalletSlice = createSlice({
     ) => {
       state.owners = action.payload.owners;
     },
+    setTimestamp: (state, action: PayloadAction<MesonWalletState>) => {
+      state.timestamp = Number(action.payload.timestamp);
+    },
   },
 });
 
@@ -71,6 +76,7 @@ export const {
   setMesonWallet,
   setOwners,
   setBalance,
+  setTimestamp,
   resetMesonWallet,
 } = MesonWalletSlice.actions;
 export default MesonWalletSlice.reducer;

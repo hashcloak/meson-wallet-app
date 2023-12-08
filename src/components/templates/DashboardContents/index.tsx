@@ -1,10 +1,19 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Accounts from '~/components/organisms/Accounts';
 import AssetChart from '~/components/organisms/AssetChart';
 import Portfolio from '~/components/organisms/Portfolio';
 import RecentTxs from '~/components/organisms/RecentTxs';
 import Spacer from '~/utils/Spacer';
+import { setTimestamp } from '~/features/mesonWallet';
 
 const DashboardContents: React.FC = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const currDate = new Date().getTime();
+    dispatch(setTimestamp({timestamp:currDate}));
+  }, []);
 
   return (
     <div className='flex flex-col items-center w-full box-border'>
