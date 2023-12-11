@@ -10,13 +10,13 @@ import { RootState } from '~/features/reducers';
 // TODO: This needs to be dynamically change based on the props
 const Accounts: React.FC = () => {
   const { network } = useSelector<RootState, NetworkState>(
-    (state) => state.network
+    (state) => state.wallets.wallet1.network
   );
 
   const { walletName, mesonWallet, owners, confirmation } = useSelector<
     RootState,
     MesonWalletState
-  >((state) => state.mesonWallet);
+  >((state) => state.wallets.wallet1.mesonWallet);
 
   return (
     <div className='flex flex-col h-full '>

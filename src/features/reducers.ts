@@ -11,16 +11,29 @@ import { ToastSlice } from './toast';
 import { TrezorSlice } from './trezorWallet';
 
 const reducers = combineReducers({
-  signerWallet: SignerWalletSlice.reducer,
-  trezorWallet: TrezorSlice.reducer,
-  ledgerWallet: LedgerSlice.reducer,
-  loading: LoadingSlice.reducer,
-  network: NetworkSlice.reducer,
-  mesonWallet: MesonWalletSlice.reducer,
+  wallets: combineReducers({
+    wallet1: combineReducers({
+      signerWallet: SignerWalletSlice.reducer,
+      trezorWallet: TrezorSlice.reducer,
+      ledgerWallet: LedgerSlice.reducer,
+      network: NetworkSlice.reducer,
+      mesonWallet: MesonWalletSlice.reducer,
+      historicalTxs: HistoricalTxsSlice.reducer,
+      conversion: ConversionSlice.reducer,
+    }),
+    wallet2: combineReducers({
+      signerWallet: SignerWalletSlice.reducer,
+      trezorWallet: TrezorSlice.reducer,
+      ledgerWallet: LedgerSlice.reducer,
+      network: NetworkSlice.reducer,
+      mesonWallet: MesonWalletSlice.reducer,
+      historicalTxs: HistoricalTxsSlice.reducer,
+      conversion: ConversionSlice.reducer,
+    }),
+  }),
   error: ErrorSlice.reducer,
   toast: ToastSlice.reducer,
-  historicalTxs: HistoricalTxsSlice.reducer,
-  conversion: ConversionSlice.reducer,
+  loading: LoadingSlice.reducer,
 });
 
 export default reducers;
