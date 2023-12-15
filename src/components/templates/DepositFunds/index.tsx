@@ -18,12 +18,13 @@ import {
   setDisabling,
   setLoading,
 } from '~/features/loading';
-import { setMesonWallet } from '~/features/mesonWallet';
+import { setMesonWallet, setTimestamp } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { setToast } from '~/features/toast';
 import { useCheckBalance, useGetFiatPrice } from '~/hooks';
+import { useControlWallet } from '~/hooks/useControlWallet';
 import { useWalletConnectSendTx } from '~/hooks/wagumi/useWalletConnectSendTx';
 import { deploy } from '~/service/smart_contract/deploy';
 import { trimCurrency } from '~/utils/trimDecimal';
@@ -45,6 +46,8 @@ const DepositFund: React.FC = () => {
   const { isLoading } = useSelector<RootState, LoadingState>(
     (state) => state.loading
   );
+
+  const { addNewWallet } = useControlWallet();
 
   const { deployWCTx } = useWalletConnectSendTx(
     selectedNetwork.network,
@@ -123,6 +126,9 @@ const DepositFund: React.FC = () => {
           setIsSuccess(true);
           dispatch(setToast({ message: 'Successfully deployed' }));
           dispatch(setMesonWallet({ mesonWallet }));
+          dispatch(setTimestamp());
+          addNewWallet(mesonWallet);
+
           setTimeout(() => {
             navigate('/dashboard');
             dispatch(resetLoading({ message: '' }));

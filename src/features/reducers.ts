@@ -9,31 +9,20 @@ import { NetworkSlice } from './network';
 import { SignerWalletSlice } from './signerWallet';
 import { ToastSlice } from './toast';
 import { TrezorSlice } from './trezorWallet';
+import { WalletsSlice } from './wallets';
 
 const reducers = combineReducers({
-  wallets: combineReducers({
-    wallet1: combineReducers({
-      signerWallet: SignerWalletSlice.reducer,
-      trezorWallet: TrezorSlice.reducer,
-      ledgerWallet: LedgerSlice.reducer,
-      network: NetworkSlice.reducer,
-      mesonWallet: MesonWalletSlice.reducer,
-      historicalTxs: HistoricalTxsSlice.reducer,
-      conversion: ConversionSlice.reducer,
-    }),
-    wallet2: combineReducers({
-      signerWallet: SignerWalletSlice.reducer,
-      trezorWallet: TrezorSlice.reducer,
-      ledgerWallet: LedgerSlice.reducer,
-      network: NetworkSlice.reducer,
-      mesonWallet: MesonWalletSlice.reducer,
-      historicalTxs: HistoricalTxsSlice.reducer,
-      conversion: ConversionSlice.reducer,
-    }),
-  }),
+  signerWallet: SignerWalletSlice.reducer,
+  trezorWallet: TrezorSlice.reducer,
+  ledgerWallet: LedgerSlice.reducer,
+  network: NetworkSlice.reducer,
+  mesonWallet: MesonWalletSlice.reducer,
+  historicalTxs: HistoricalTxsSlice.reducer,
+  conversion: ConversionSlice.reducer,
   error: ErrorSlice.reducer,
   toast: ToastSlice.reducer,
   loading: LoadingSlice.reducer,
+  wallets: WalletsSlice.reducer
 });
 
 export default reducers;
