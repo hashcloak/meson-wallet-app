@@ -24,26 +24,28 @@ export const WalletsSlice = createSlice({
       state.wallets = [...state.wallets, action.payload];
     },
     updateMesonWallet: (state, action: PayloadAction<MesonWalletState>) => {
-      const updatedWallets = state.wallets.map((w) => {
-        if (
-          w.mesonWallet.mesonWallet?.mesonWalletAddress ===
-          action.payload.mesonWallet?.mesonWalletAddress
-        ) {
-          return {
-            mesonWallet: {
-              walletName: action.payload.walletName,
-              owners: action.payload.owners,
-              confirmation: action.payload.confirmation,
-              mesonWallet: action.payload.mesonWallet,
-              balance: action.payload.balance,
-              timestamp: action.payload.timestamp,
-            },
-            network: w.network,
-          };
-        }
+      const updatedWallets = state.wallets
+        .map((w) => {
+          if (
+            w.mesonWallet.mesonWallet?.mesonWalletAddress ===
+            action.payload.mesonWallet?.mesonWalletAddress
+          ) {
+            return {
+              mesonWallet: {
+                walletName: action.payload.walletName,
+                owners: action.payload.owners,
+                confirmation: action.payload.confirmation,
+                mesonWallet: action.payload.mesonWallet,
+                balance: action.payload.balance,
+                timestamp: action.payload.timestamp,
+              },
+              network: w.network,
+            };
+          }
 
-        return w;
-      });
+          return w;
+        })
+        .sort((x, y) => y.mesonWallet.timestamp - x.mesonWallet.timestamp);
       state.wallets = updatedWallets;
     },
     removeWallet: (state, action: PayloadAction<string>) => {

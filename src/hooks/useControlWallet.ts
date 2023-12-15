@@ -51,7 +51,6 @@ export const useControlWallet = (): ReturnVal => {
   };
 
   const updateWallet = (updatedMesonWallet: MesonWalletState) => {
-    console.log(updateMesonWallet)
     if(updatedMesonWallet !== undefined){
       dispatch(updateMesonWallet( updatedMesonWallet ));
     }
