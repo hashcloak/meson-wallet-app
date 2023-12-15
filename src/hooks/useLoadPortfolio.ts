@@ -137,7 +137,8 @@ export const useLoadPortfolio = (): ReturnValue => {
         setIsLoading(true);
         if (mesonWallet?.smartContract != null) {
           const currentEthBalance = await provider.getBalance(
-            mesonWallet?.smartContract
+            // mesonWallet?.smartContract
+            mesonWallet?.mesonWalletAddress
           );
           const eth = ethers.utils.formatUnits(currentEthBalance);
           setCurrentEth(eth);

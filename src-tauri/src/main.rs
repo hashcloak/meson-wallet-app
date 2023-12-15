@@ -65,7 +65,8 @@ fn sign_tx(
     gas: Option<&str>,
     priority_fee: &str,
     max_fee: &str,
-    data: Option<Vec<u8>>,
+    // data: Option<Vec<u8>>,
+    data: Option<&str>,
 ) -> Result<String, String> {
     let ledger = match new_ledger() {
         Ok(l) => l,
@@ -106,6 +107,10 @@ fn sign_tx(
         Err(_) => return Err("Invalid max_fee value".into()),
     };
     let path = format!("44'/60'/{}'/0/0", num);
+    let data:Option<Vec<u8>> = match data {
+            None => None,
+            Some(i) => Some(i.as_bytes().to_vec()),
+    };
 
     let hex_signed_tx = match ledger_util::sign_tx(
         to,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { mainnet, connect } from '@wagmi/core';
+import { mainnet, connect, sepolia, goerli } from '@wagmi/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { RootState } from '~/features/reducers';
@@ -29,18 +29,20 @@ export const useConnectWC = (): ReturnValue => {
 
       return { signerAddress, isLoading, errorMessage };
     }
+
     try {
       setIsLoading(true);
       setErrorMessage('');
 
       const result: any = await connect({
         connector: new WalletConnectConnector({
-          chains: [mainnet],
+          chains: [goerli],
           options: {
             projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as string,
           },
         }),
       });
+      console.log(result)
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       setSignerAddress(result.account);

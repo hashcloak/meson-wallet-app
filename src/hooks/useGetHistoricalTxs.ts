@@ -56,7 +56,8 @@ const useGetHistoricalTxs = (): ExtendedTransactionResponse[] => {
     if (mesonWallet?.smartContract === undefined) return;
     try {
       const historicalTxs = await getTxHistory(
-        mesonWallet?.smartContract,
+        // mesonWallet?.smartContract,
+        mesonWallet?.mesonWalletAddress,
         network
       );
 
@@ -76,7 +77,9 @@ const useGetHistoricalTxs = (): ExtendedTransactionResponse[] => {
   const localFetchTxs = useCallback(async () => {
     if (mesonWallet?.smartContract !== undefined) {
       const localHistoricalTxs = await getLocalHistoricalTxs(
-        mesonWallet.smartContract,
+        // mesonWallet.smartContract,
+        // mesonWallet.smartContract,
+        mesonWallet.mesonWalletAddress,
         mesonWallet.smartContract,
         network
       );

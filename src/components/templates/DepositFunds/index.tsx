@@ -18,12 +18,14 @@ import {
   setDisabling,
   setLoading,
 } from '~/features/loading';
-import { setMesonWallet } from '~/features/mesonWallet';
+import { setMesonWallet, setTimestamp } from '~/features/mesonWallet';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { setToast } from '~/features/toast';
 import { useCheckBalance, useGetFiatPrice } from '~/hooks';
+import { useControlWallet } from '~/hooks/useControlWallet';
+import { useWalletConnectSendTx } from '~/hooks/wagumi/useWalletConnectSendTx';
 import { deploy } from '~/service/smart_contract/deploy';
 import { trimCurrency } from '~/utils/trimDecimal';
 
@@ -45,7 +47,17 @@ const DepositFund: React.FC = () => {
     (state) => state.loading
   );
 
-  const isSufficientFunds = useCheckBalance(signerWallet.signerWalletAddress, input)
+  const { addNewWallet } = useControlWallet();
+
+  const { deployWCTx } = useWalletConnectSendTx(
+    selectedNetwork.network,
+    signerWallet.signerWalletAddress
+  );
+
+  const isSufficientFunds = useCheckBalance(
+    signerWallet.signerWalletAddress,
+    input
+  );
 
   // TODO: Need to add validation method for the input amount
   const schema = z.object({
@@ -90,23 +102,33 @@ const DepositFund: React.FC = () => {
     try {
       if (signerWallet != null) {
         dispatch(setLoading());
-        const mesonWallet:
+        let mesonWallet:
           | {
               mesonWalletAddress: string;
               smartContract: string;
               encryptedWallet: string;
             }
-          | undefined = await deploy(
-          signerWallet,
-          selectedNetwork,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          data.depositAmount === undefined ? 0 : (data.depositAmount as number)
-        );
+          | undefined;
+        if (signerWallet.wallet !== 'WalletConnect') {
+          mesonWallet = await deploy(
+            signerWallet,
+            selectedNetwork,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            data.depositAmount === undefined
+              ? 0
+              : (data.depositAmount as number)
+          );
+        } else {
+          await deployWCTx();
+        }
 
         if (mesonWallet !== undefined) {
           setIsSuccess(true);
           dispatch(setToast({ message: 'Successfully deployed' }));
           dispatch(setMesonWallet({ mesonWallet }));
+          dispatch(setTimestamp());
+          addNewWallet(mesonWallet);
+
           setTimeout(() => {
             navigate('/dashboard');
             dispatch(resetLoading({ message: '' }));
@@ -164,15 +186,19 @@ const DepositFund: React.FC = () => {
                       placeholder={'Optional'}
                       handleChange={handleInput}
                     >
-                      <div className="flex justify-between">
-                      {isFetching ? (
-                        <TextLoader />
-                      ) : (
-                        <span className='text-textGrayLight'>≈ {usd} USD</span>
-                      )}
-                      {isSufficientFunds? null :
-                        <span className="text-alert font-bold">Insufficient funds in your signing wallet</span>
-                      }
+                      <div className='flex justify-between'>
+                        {isFetching ? (
+                          <TextLoader />
+                        ) : (
+                          <span className='text-textGrayLight'>
+                            ≈ {usd} USD
+                          </span>
+                        )}
+                        {isSufficientFunds ? null : (
+                          <span className='text-alert font-bold'>
+                            Insufficient funds in your signing wallet
+                          </span>
+                        )}
                       </div>
                     </UnitInput>
                   </div>

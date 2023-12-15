@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import { Logo } from '~/components/atoms/Icon';
 import { LogoTypes } from '~/components/atoms/Icon/Logo';
 import { TxStatus } from '~/components/molecules/IconText';
@@ -55,7 +56,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>
-        {numOfConfirmation != null ? (
+        {numOfConfirmation > 0 ? (
           <>
             <span className='text-textWhite text-sm'>Needs confirmation</span>
             <span className='text-textGrayLight text-xs'>
@@ -63,7 +64,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
             </span>
           </>
         ) : (
-          <span className='text-textWhite text-sm'>Error</span>
+          <span className='text-textWhite text-sm'>Success</span>
         )}
       </div>
     </div>

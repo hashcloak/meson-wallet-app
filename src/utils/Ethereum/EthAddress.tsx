@@ -38,7 +38,7 @@ const EthAddress: React.FC<Props> = ({
       <div className='flex flex-col ml-2 items-start'>
         {walletName != null && walletName ? (
           <span className='text-textWhite text-base font-normal'>
-            My wallet
+            {walletName}
           </span>
         ) : null}
         <div className='flex flex-row items-center'>

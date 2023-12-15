@@ -5,6 +5,7 @@ import {
   HardhatButton,
   LedgerButton,
   TrezorButton,
+  WalletConnectButton,
 } from '~/components/atoms/Button';
 import { LoadingState } from '~/features/loading';
 import { NetworkState } from '~/features/network';
@@ -31,11 +32,11 @@ const SignerWallets: React.FC = () => {
 
   return (
     <>
-      <div className='flex flex-wrap gap-4'>
+      <div className='flex flex-wrap gap-4 justify-start'>
         <TrezorButton />
         <LedgerButton />
         <HardhatButton />
-        {/* <WalletConnectButton /> */}
+        <WalletConnectButton />
       </div>
 
       {message != null && (

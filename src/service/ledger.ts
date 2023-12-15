@@ -74,33 +74,35 @@ export const getCustomLedgerAccount = async (
   }
 };
 
-export const signLedgerTx = async (
-  tx: {
-    to: string;
-    value: number;
-    data: string;
-    nonce: number | undefined;
-    chainId: number;
-    gasPrice: number;
-  },
-  path: string,
-  priorityFeePerGas: unknown,
-  maxFeePerGas: unknown
-): Promise<any> => {
-  console.log('sign_tx', tx)
-  // try {
-    const response: any = await invoke('sign_tx', {
-      num: 0,
-      chainId: tx.chainId,
-      value: tx.value,
-      to: tx.to,
-      nonce: tx.nonce,
-      priorityFee: priorityFeePerGas,
-      maxFee: maxFeePerGas,
-    });
+export const signLedgerTx = async (txParams: {
+  num: string;
+  chainId: string;
+  value: string;
+  to: string;
+  nonce: string;
+  gas: string;
+  priorityFee: string;
+  maxFee: string;
+  data: string;
+}): Promise<string> => {
+  try {
+    console.log('txParams.data: ',txParams.data)
 
-    console.log(response);
-  // } catch (error) {
-  //   throw new Error('Please connect your Ledger hardware wallet');
-  // }
+    const response: string = await invoke('sign_tx', {
+      num: txParams.num,
+      chainId: '5',
+      value: txParams.value,
+      nonce: txParams.nonce,
+      priorityFee: '0',
+      maxFee: '0',
+      data: txParams.data
+    });
+    const signedTx = (`0x${response.split(':')[1]}`).replace(/(\r\n|\n|\r)/gm, "")
+    console.log('ledger tx signed: ',signedTx)
+
+    return signedTx;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Please connect your Ledger hardware wallet');
+  }
 };

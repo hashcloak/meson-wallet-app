@@ -488,7 +488,8 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
       if (mesonWallet !== undefined) {
         const provider = getProvider(network);
         const currentNonce = await provider.getTransactionCount(
-          mesonWallet.smartContract
+          // mesonWallet.smartContract
+          mesonWallet.mesonWalletAddress
         );
         setNonce(currentNonce);
       }
@@ -542,8 +543,11 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   onPageChange={handlePageChange}
                   onSendingData={handleSendingData}
                   address={
-                    mesonWallet?.smartContract !== undefined
-                      ? mesonWallet.smartContract
+                    // mesonWallet?.smartContract !== undefined
+                    //   ? mesonWallet.smartContract
+                    //   : ''
+                    mesonWallet?.mesonWalletAddress !== undefined
+                      ? mesonWallet.mesonWalletAddress
                       : ''
                   }
                   walletName={walletName !== undefined ? walletName : ''}
@@ -556,8 +560,11 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   onPageChange={handlePageChange}
                   sendingData={sendingData}
                   address={
-                    mesonWallet?.smartContract !== undefined
-                      ? mesonWallet.smartContract
+                    // mesonWallet?.smartContract !== undefined
+                    //   ? mesonWallet.smartContract
+                    //   : ''
+                    mesonWallet?.mesonWalletAddress !== undefined
+                      ? mesonWallet.mesonWalletAddress
                       : ''
                   }
                   walletName={walletName !== undefined ? walletName : ''}
