@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Dialog from '~/components/atoms/Dialog';
-import { Icon } from '~/components/atoms/Icon';
 import { SelectNetwork } from '~/components/atoms/Option';
 import {
   ConnectedMesonWallet,
@@ -16,6 +15,7 @@ import {
   Notification,
   NotificationBtn,
 } from '~/components/organisms/Notification';
+import SwitchMesonWallet from '~/components/organisms/SwitchMesonWallet';
 import SwitchSignerModal from '~/components/organisms/SwitchSignerModal';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
@@ -40,12 +40,8 @@ const Topbar: FC = () => {
   return (
     <div className='flex flex-row justify-between items-center w-full h-[3.5rem] bg-bgDarkLight'>
       <div className='flex flex-row justify-center items-center'>
-        <div className='flex justify-center items-center h-10 w-[5.5rem]'>
-          <button type='button'>
-            <Icon type={'Lines'} size={'md'} color={'white'} />
-          </button>
-        </div>
-        <Link to='/' className='w-full'>
+        <SwitchMesonWallet />
+        <Link to='/' className='w-full ml-[8rem]'>
           <img
             src='/assets/Meson_topbar_logo.png'
             alt='Meson Logo'
