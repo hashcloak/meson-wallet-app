@@ -16,7 +16,7 @@ type ReturnVal = {
     smartContract: string;
     encryptedWallet: string;
   }) => void;
-  updateWallet:(updatedMesonWallet: MesonWalletState) => void;
+  updateWallet: (updatedMesonWallet: MesonWalletState) => void;
   removeSpecificWallet: (mesonWalletAddress: string) => void;
   switchWallet: (idx: number) => void;
   wallets: WalletState[] | [];
@@ -51,8 +51,8 @@ export const useControlWallet = (): ReturnVal => {
   };
 
   const updateWallet = (updatedMesonWallet: MesonWalletState) => {
-    if(updatedMesonWallet !== undefined){
-      dispatch(updateMesonWallet( updatedMesonWallet ));
+    if (updatedMesonWallet !== undefined) {
+      dispatch(updateMesonWallet(updatedMesonWallet));
     }
   };
 
@@ -61,13 +61,9 @@ export const useControlWallet = (): ReturnVal => {
   };
 
   const switchWallet = (idx: number) => {
+    console.log(wallets[idx].mesonWallet)
     dispatch(
-      setAll({
-        mesonWallet: wallets[idx].mesonWallet.mesonWallet,
-        walletName: wallets[idx].mesonWallet.walletName,
-        owners: wallets[idx].mesonWallet.owners,
-        balance: wallets[idx].mesonWallet.balance,
-      })
+      setAll(wallets[idx].mesonWallet)
     );
   };
 
@@ -75,5 +71,11 @@ export const useControlWallet = (): ReturnVal => {
   //  addNewWallet()
   // }, []);
 
-  return { addNewWallet, updateWallet, removeSpecificWallet, switchWallet, wallets };
+  return {
+    addNewWallet,
+    updateWallet,
+    removeSpecificWallet,
+    switchWallet,
+    wallets,
+  };
 };

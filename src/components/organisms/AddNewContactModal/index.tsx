@@ -1,10 +1,17 @@
 import { Dialog } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { InputControl } from '~/components/atoms/Input';
 import Spacer from '~/utils/Spacer';
+import {
+  ContactType,
+  MesonWalletState,
+  setContacts,
+} from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 type Props = {
   isOpen: boolean;
@@ -18,21 +25,28 @@ type AddNewContactDetailsType = {
 const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
   onClose,
 }) => {
+  const { contacts } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+  const dispatch = useDispatch();
+
   const schema = z.object({
-    newName: z.string().min(1, { message: 'Name is required' }),
-    newAddress: z.string().min(1, { message: 'Address is required' }),
+    name: z.string().min(1, { message: 'Name is required' }),
+    address: z.string().min(1, { message: 'Address is required' }),
   });
 
   const methods = useForm({
     defaultValues: {
-      newName: '',
-      newAddress: '',
+      name: '',
+      address: '',
     },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: ContactType) => {
     console.log(data);
+    dispatch(setContacts(data));
+
     onClose();
   };
 
@@ -46,14 +60,14 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
             label='Name'
             placeholder='Name*'
             type='text'
-            registeredName={'newName'}
+            registeredName={'name'}
           />
           <Spacer size={8} axis={'vertical'} />
           <InputControl
             label='Address'
-            placeholder='0xfF0000000000000000000000000000000000*'
+            placeholder='0xf00000000000000000*'
             type='text'
-            registeredName={'newAddress'}
+            registeredName={'address'}
           />
 
           <Spacer size={32} axis={'vertical'} />

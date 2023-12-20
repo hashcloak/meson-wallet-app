@@ -81,7 +81,8 @@ const SwitchMesonWallet: React.FC = () => {
             <Icon type={'Close'} size={'md'} color={'white'} />
           </button>
         </div>
-
+        {mesonWallet.mesonWallet !== undefined?(
+          <>
         <span className='text-textWhite text-xl font-bold'>
           Current wallet
         </span>
@@ -104,18 +105,14 @@ const SwitchMesonWallet: React.FC = () => {
             <span>Owner</span>
           </div>
         </div>
+        </>
+        ):null}
 
+        {wallets.length > 0 ? (
         <div className='flex flex-col mb-12'>
           <span className='text-textWhite text-xl font-bold'>
             Recently used
           </span>
-          {newNetworkArray === undefined ? (
-            <div className='flex items-center justify-center w-full mb-4'>
-              <span className='text-textGrayLight text-base text-center'>
-                No wallet recently used
-              </span>
-            </div>
-          ) : (
             <>
               {newNetworkArray.map((network) => (
                 <>
@@ -169,8 +166,13 @@ const SwitchMesonWallet: React.FC = () => {
                 </>
               ))}
             </>
-          )}
         </div>
+        ):(
+        <div className='flex items-center justify-center w-full mb-4'>
+        <span className='text-textGrayLight text-base text-center'>
+          No wallet recently used
+        </span>
+      </div>)}
 
         <div className='flex flex-col justify-between gap-4'>
           <Button btnVariant={'primary'} btnSize={'md'} btnType={'submit'}>
