@@ -17,22 +17,13 @@ type Props = {
 };
 
 const LastOpenedWallet: React.FC<Props> = () => {
-  // const sortedWalelts = wallets
-  //   ? wallets
-  //       .sort((a, b) => {
-  //         return (
-  //           new Date(a.lastOpened).getTime() - new Date(b.lastOpened).getTime()
-  //         );
-  //       })
-  //       .slice(0, 5)
-  //   : [];
   const { wallets, switchWallet } = useControlWallet();
 
   return (
     <div className='w-[51rem] max-h-[27rem] min-h-[6.5ren] bg-bgDarkMid py-4 px-8 rounded-2xl box-border '>
       <span className='text-textWhite text-xl font-bold'>
         Last Opened Wallet
-    </span>
+      </span>
       <Spacer size={16} axis={'vertical'} />
       {wallets.length > 0 &&
       wallets[0].mesonWallet.mesonWallet !== undefined ? (
@@ -41,7 +32,7 @@ const LastOpenedWallet: React.FC<Props> = () => {
             to='/dashboard'
             className='w-full'
             key={wallet.mesonWallet.mesonWallet?.mesonWalletAddress}
-            onClick={()=>switchWallet(idx)}
+            onClick={() => switchWallet(idx)}
           >
             <div
               className='px-6 mb-2 hover:bg-dark w-full rounded-xl'
