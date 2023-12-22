@@ -1,7 +1,9 @@
 import { Dialog } from '@headlessui/react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import Spacer from '~/utils/Spacer';
+import { removeContacts } from '~/features/mesonWallet';
 
 type Props = {
   isOpen: boolean;
@@ -21,17 +23,19 @@ const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({
   name,
   address,
 }) => {
+  const dispatch = useDispatch();
+
   const methods = useForm({
     defaultValues: {
-      newName: name,
-      newAddress: address,
+      removingAddress: address,
     },
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    onClose();
+  const onSubmit = (data: {removingAddress:string}) => {
+      dispatch(removeContacts(data.removingAddress));
+      onClose();
   };
+
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
@@ -42,7 +46,7 @@ const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({
           <span className='text-lg'>
             Are you sure you want to permanently delete the following contact?
           </span>
-          <div className='w-full flex justify-center'>
+          <div className='w-full flex justify-center mt-4'>
             <div className='grid grid-cols-[20%_80%]'>
               <span>Name:</span>
               <span>{name}</span>
@@ -96,15 +100,13 @@ const DeleteContactModal: React.FC<Props> = ({
                 Delete contact
               </span>
 
-              <Dialog.Description className='p-6'>
-                {/* Description */}
+
                 <DeleteContactDetails
                   onClose={onClose}
                   name={name}
                   address={address}
                 />
-                {/* Description */}
-              </Dialog.Description>
+
             </Dialog.Panel>
           </div>
         </Dialog>

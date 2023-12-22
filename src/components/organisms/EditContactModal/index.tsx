@@ -1,11 +1,16 @@
 import { Dialog } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ethers } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 
 import { Button } from '~/components/atoms/Button';
 import { InputControl } from '~/components/atoms/Input';
 import Spacer from '~/utils/Spacer';
+import { setError } from '~/features/error';
+import { MesonWalletState, editContacts } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 type Props = {
   isOpen: boolean;
@@ -25,42 +30,65 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
   name,
   address,
 }) => {
+  const dispatch = useDispatch();
+  const { contacts } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+
   const schema = z.object({
-    newName: z.string().min(1, { message: 'Name is required' }),
-    newAddress: z.string().min(1, { message: 'Address is required' }),
+    name: z.string().min(1, { message: 'Name is required' }),
+    address: z
+      .string()
+      .min(1, { message: 'Please input valid eth address' })
+      .refine(
+        (val) => {
+          return ethers.utils.isAddress(val);
+        },
+        {
+          message: 'Please input valid eth address',
+        }
+      ),
   });
 
   const methods = useForm({
     defaultValues: {
-      newName: name,
-      newAddress: address,
+      name,
+      address,
     },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    onClose();
+  const onSubmit = (data: { name: string; address: string }) => {
+    const validateNewContact = contacts?.filter(
+      (c) => c.address.toLowerCase() === data.address.toLowerCase() && data.address.toLowerCase() !== address.toLowerCase()
+    );
+    console.log(validateNewContact)
+    if (validateNewContact !== undefined && validateNewContact?.length === 0) {
+      dispatch(editContacts({ removingAddress: address, newContact: data }));
+      onClose();
+    } else {
+      dispatch(
+        setError({ error: 'The same address has already been registered.' })
+      );
+    }
   };
-
-  const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
     <div className='flex flex-col text-textWhite'>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
           <InputControl
             label='Name'
             placeholder='Name*'
             type='text'
-            registeredName={'newName'}
+            registeredName={'name'}
           />
           <Spacer size={8} axis={'vertical'} />
           <InputControl
             label='Address'
             placeholder='0xfF0000000000000000000000000000000000*'
             type='text'
-            registeredName={'newAddress'}
+            registeredName={'address'}
           />
 
           <Spacer size={32} axis={'vertical'} />
@@ -108,7 +136,6 @@ const EditContactModal: React.FC<Props> = ({
                 Edit contact
               </span>
 
-              <Dialog.Description className='p-6'>
                 {/* Description */}
                 <EditContactDetails
                   onClose={onClose}
@@ -116,7 +143,6 @@ const EditContactModal: React.FC<Props> = ({
                   address={address}
                 />
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

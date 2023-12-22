@@ -39,6 +39,7 @@ type Props = {
   isOpen: boolean | undefined;
   onClose: () => void;
   onPageChange?: () => void;
+  recipientAddress?: string;
 };
 
 type SendFundsTxInputProps = {
@@ -49,6 +50,7 @@ type SendFundsTxInputProps = {
   address: string;
   walletName: string;
   balance: number | string;
+  recipientAddress?: string;
 };
 
 type SendFundsTxDetailsProps = {
@@ -70,28 +72,45 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   address,
   walletName,
   balance,
+  recipientAddress,
 }) => {
   const [selectToken, setSelectToken] = useState('Eth');
 
   const schema = z.object({
     recipientAddress: z
       .string()
-      .min(1, { message: 'Owner address is required' }),
+      .min(1, { message: 'Owner address is required' })
+      .refine(
+        (val) => {
+          return ethers.utils.isAddress(val);
+        },
+        {
+          message: 'Please input valid eth address',
+        }
+      ),
     sendingAmount: z
       .number({
         required_error: 'Amount is required',
         invalid_type_error: 'Amount must be a number',
       })
       .nonnegative()
-      .gt(0),
+      .gt(0)
+      .refine(
+        (val) => {
+          return Number(balance) >= Number(val);
+        },
+        {
+          message: 'Amount must be more than the current balance',
+        }
+      ),
     selectedToken: z.string(),
   });
 
   const methods = useForm({
     defaultValues: {
-      recipientAddress: '',
+      recipientAddress: recipientAddress !== undefined && recipientAddress?.length > 0 ? recipientAddress : '',
       selectedToken: mockTokens[0].value,
-      sendingAmount: undefined,
+      sendingAmount: 0,
     },
     resolver: zodResolver(schema),
   });
@@ -116,7 +135,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
-  const [inputAddress, setInputAddress] = useState('');
+  const [inputAddress, setInputAddress] = useState(recipientAddress !== undefined && recipientAddress?.length > 0 ? recipientAddress : '');
   const [inputAmount, setInputAmount] = useState(0);
 
   return (
@@ -462,7 +481,11 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   );
 };
 
-const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
+const SendFundsModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  recipientAddress = '',
+}) => {
   const [pageChange, setPageChange] = useState(false);
   const [sendingData, setSendingData] = useState<SubmitDataType | null>(null);
   const [nonce, setNonce] = useState(0);
@@ -542,6 +565,7 @@ const SendFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                   onClose={onClose}
                   onPageChange={handlePageChange}
                   onSendingData={handleSendingData}
+                  recipientAddress={recipientAddress}
                   address={
                     // mesonWallet?.smartContract !== undefined
                     //   ? mesonWallet.smartContract

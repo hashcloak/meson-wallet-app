@@ -49,7 +49,7 @@ export const WalletsSlice = createSlice({
       state.wallets = updatedWallets;
     },
     removeWallet: (state, action: PayloadAction<string>) => {
-      state.wallets.filter(
+      state.wallets = sstate.wallets.filter(
         (w) => w.mesonWallet.mesonWallet?.mesonWalletAddress !== action.payload
       );
     },
