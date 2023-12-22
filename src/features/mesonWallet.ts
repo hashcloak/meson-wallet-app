@@ -63,28 +63,51 @@ export const MesonWalletSlice = createSlice({
       state.owners = action.payload.owners;
       state.confirmation = action.payload.confirmation;
     },
-    setContacts: (state, action: PayloadAction<MesonWalletState>) => {
-      if(state.contacts !== undefined && action.payload !== undefined){
-        state.contacts = [...state.contacts,action.payload];
+    setContacts: (state, action: PayloadAction<ContactType>) => {
+      if (state.contacts !== undefined && action.payload !== undefined) {
+        state.contacts = [...state.contacts, action.payload];
       } else {
-        state.contacts = [action.payload]
+        state.contacts = [action.payload];
       }
     },
     setBalance: (state, action: PayloadAction<MesonWalletState>) => {
       state.balance = action.payload.balance;
     },
     resetMesonWallet: (state) => {
-      state = initialState;
+      state.walletName = initialState.walletName;
+      state.owners = initialState.owners;
+      state.contacts = initialState.contacts;
+      state.confirmation = initialState.confirmation;
+      state.mesonWallet = initialState.mesonWallet;
+      state.balance = initialState.balance;
+      state.timestamp = initialState.timestamp;
     },
     removeContacts: (state, action: PayloadAction<string>) => {
-      state.contacts = state.contacts?.filter((c)=> c.address !== action.payload);
+      state.contacts = state.contacts?.filter(
+        (c) => c.address.toLowerCase() !== action.payload.toLowerCase()
+      );
+    },
+    editContacts: (
+      state,
+      action: PayloadAction<{
+        removingAddress: string;
+        newContact: ContactType;
+      }>
+    ) => {
+      const filteredContacts =
+        state.contacts !== undefined
+          ? state.contacts?.filter(
+              (c) => c.address !== action.payload.removingAddress
+            )
+          : [];
+      state.contacts = [...filteredContacts, action.payload.newContact];
     },
     setTimestamp: (state) => {
       state.timestamp = new Date().getTime();
     },
-    setAll: (state,action: PayloadAction<MesonWalletState>) => {
+    setAll: (state, action: PayloadAction<MesonWalletState>) => {
       state = action.payload;
-    }
+    },
   },
 });
 
@@ -97,6 +120,7 @@ export const {
   setTimestamp,
   resetMesonWallet,
   removeContacts,
-  setAll
+  editContacts,
+  setAll,
 } = MesonWalletSlice.actions;
 export default MesonWalletSlice.reducer;

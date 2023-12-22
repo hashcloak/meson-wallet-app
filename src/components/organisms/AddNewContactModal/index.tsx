@@ -1,11 +1,13 @@
 import { Dialog } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ethers } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { InputControl } from '~/components/atoms/Input';
 import Spacer from '~/utils/Spacer';
+import { setError } from '~/features/error';
 import {
   ContactType,
   MesonWalletState,
@@ -25,14 +27,24 @@ type AddNewContactDetailsType = {
 const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
   onClose,
 }) => {
+  const dispatch = useDispatch();
   const { contacts } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
-  const dispatch = useDispatch();
 
   const schema = z.object({
     name: z.string().min(1, { message: 'Name is required' }),
-    address: z.string().min(1, { message: 'Address is required' }),
+    address: z
+      .string()
+      .min(1,{message: 'Please input valid eth address',})
+      .refine(
+        (val) => {
+          return ethers.utils.isAddress(val);
+        },
+        {
+          message: 'Please input valid eth address',
+        }
+      ),
   });
 
   const methods = useForm({
@@ -44,10 +56,17 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
   });
 
   const onSubmit = (data: ContactType) => {
-    console.log(data);
-    dispatch(setContacts(data));
-
-    onClose();
+    const validateNewContact = contacts?.filter(
+      (c) => c.address.toLowerCase() === data.address.toLowerCase()
+    );
+    if (validateNewContact !== undefined && validateNewContact?.length === 0) {
+      dispatch(setContacts(data));
+      onClose();
+    } else {
+      dispatch(
+        setError({ error: 'The same address has already been registered.' })
+      );
+    }
   };
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
@@ -69,7 +88,6 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
             type='text'
             registeredName={'address'}
           />
-
           <Spacer size={32} axis={'vertical'} />
           <div className='flex flex-row justify-around'>
             <Button
@@ -110,11 +128,7 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 Add new contact
               </span>
 
-              <Dialog.Description className='p-6'>
-                {/* Description */}
                 <AddNewContactDetails onClose={onClose} />
-                {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

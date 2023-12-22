@@ -1,14 +1,21 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Button } from '~/components/atoms/Button';
 import { Icon } from '~/components/atoms/Icon';
 import { Input } from '~/components/atoms/Input';
 import AddNewContactModal from '~/components/organisms/AddNewContactModal';
 import ContactRow from '~/components/organisms/ContactRow';
-import { mockContacts } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 const ContactsContents: React.FC = () => {
+  const { contacts } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+
   const [input, setInput] = useState('');
-  const [contacts, setContacts] = useState(mockContacts);
+  const [newContacts, setNewContacts] = useState(contacts);
   const [openAddNewContactModal, setOpenAddNewContactModal] = useState(false);
 
   const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,8 +26,12 @@ const ContactsContents: React.FC = () => {
     setOpenAddNewContactModal(!openAddNewContactModal);
 
   useEffect(() => {
+    setNewContacts(contacts);
+  }, [contacts]);
+
+  useEffect(() => {
     if (input === '') {
-      setContacts(mockContacts);
+      setNewContacts(contacts);
 
       return;
     }
@@ -31,31 +42,32 @@ const ContactsContents: React.FC = () => {
       .match(/[^\s]+/g);
 
     if (searchKeywords === null) {
-      setContacts(mockContacts);
+      setNewContacts(newContacts);
 
       return;
     }
 
-    const result = mockContacts.filter((contact) =>
+    const result = newContacts?.filter((contact) =>
       searchKeywords.every(
         (kw) =>
           contact.name.toLowerCase().includes(kw) ||
           contact.address.toLowerCase().includes(kw)
       )
     );
-    setContacts(result.length ? result : contacts);
+    setNewContacts(result !== undefined && result?.length > 0 ? result : contacts);
   }, [input]);
 
   return (
     <div className='flex flex-col w-full text-textWhite'>
       <span className='text-textWhite text-2xl font-bold'>Contacts</span>
       <div className='flex flex-row justify-between w-full my-2'>
-        <div className='w-1/4'>
+        <div className='w-1/4 flex flex-row items-center gap-2'>
           <Input
             type={'text'}
             handleChange={handleUserInput}
             placeholder={'Search...'}
           />
+          <Button btnVariant='border' btnSize='sm' btnType='button' handleClick={()=>setInput('')} >Clear</Button>
         </div>
         <button
           className='flex flex-row items-center'
@@ -79,8 +91,8 @@ const ContactsContents: React.FC = () => {
         </div>
         <Spacer size={8} axis={'vertical'} />
         <div className='box-border grid grid-cols-1 gap-2'>
-          {contacts.length > 0 ? (
-            contacts.map((contact) => (
+          {newContacts?.length !== undefined ? (
+            newContacts?.map((contact) => (
               <ContactRow contact={contact} key={contact.address} />
             ))
           ) : (
