@@ -48,11 +48,6 @@ const SignerWallets: React.FC = () => {
           {message}
         </span>
       )}
-      {signerWalletAddress && (
-        <span className={`text-textBlack text-sm rounded-md bg-light px-2`}>
-          Connected!
-        </span>
-      )}
     </>
   );
 };

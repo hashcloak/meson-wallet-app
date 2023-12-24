@@ -3,7 +3,10 @@ import type { WalletConnectModalSignConnectArguments } from '@walletconnect/moda
 import {
   WalletConnectModalSign,
   useConnect,
+  useDisconnect,
+  useSession,
 } from '@walletconnect/modal-sign-react';
+import { getSdkError } from '@walletconnect/utils';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Logo } from '../Icon';
@@ -13,8 +16,6 @@ import { setError } from '~/features/error';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, setSignerWallet } from '~/features/signerWallet';
-
-// import { useConnectWC } from '~/hooks/wagumi/useConnectWC';
 
 const WalletConnectButton: FC = () => {
   const supportedSignerWallets = {
@@ -45,38 +46,48 @@ const WalletConnectButton: FC = () => {
   const params: WalletConnectModalSignConnectArguments = {
     requiredNamespaces: {
       eip155: {
-        methods: ['eth_sendTransaction',
-        'eth_signTransaction',
-        'personal_sign',],
+        methods: [
+          'eth_sendTransaction',
+          'eth_signTransaction',
+          'personal_sign',
+        ],
         chains: ['eip155:5'],
         events: ['chainChanged', 'accountsChanged'],
       },
     },
   };
   const { connect } = useConnect(params);
+  const existingSession = useSession();
+  const { disconnect } = useDisconnect({
+    topic: existingSession?.topic as string,
+    reason: getSdkError('USER_DISCONNECTED'),
+  });
+
 
   const onConnect = async () => {
     try {
       dispatch(setLoading());
+      if(existingSession !== undefined){
+        console.log(existingSession)
+        await disconnect();
+      }
+      const newSession = await connect();
 
-      const _session = await connect();
-      console.log(_session)
-
-      if (_session !== undefined) {
+      if (newSession !== undefined) {
         const _address: string =
-          _session.namespaces.eip155.accounts[0].split(':')[2];
+          newSession.namespaces.eip155.accounts[0].split(':')[2];
 
         dispatch(
           setSignerWallet({
             signerWalletAddress: _address,
-            publicKey: _session.self.publicKey.length
-              ? _session.self.publicKey
+            publicKey: newSession.self.publicKey.length
+              ? newSession.self.publicKey
               : '',
             serializedPath: '',
             balance: 0,
             isConnected: true,
             wallet: 'WalletConnect',
-            session: _session.topic.length ? _session.topic : undefined,
+            session: newSession.topic.length ? newSession.topic : undefined,
           })
         );
       }
@@ -109,9 +120,11 @@ const WalletConnectButton: FC = () => {
             <Spinner size='sm' />
           </div>
         ) : (
-          <span           className={`text-xs ${
-            wallet === 'WalletConnect' ? 'text-textWhite' : 'text-textBlack'
-          } group-hover:text-textWhite mx-4`}>
+          <span
+            className={`text-xs ${
+              wallet === 'WalletConnect' ? 'text-textWhite' : 'text-textBlack'
+            } group-hover:text-textWhite mx-4`}
+          >
             {supportedSignerWallets.WALLETCONNECT.logoName}
           </span>
         )}
