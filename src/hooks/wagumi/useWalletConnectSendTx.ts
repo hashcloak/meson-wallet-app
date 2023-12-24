@@ -3,9 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { useEffect } from 'react';
 import { useRequest } from '@walletconnect/modal-sign-react';
-import { SignClient as Connector } from '@walletconnect/sign-client';
 import { BytesLike, ethers } from 'ethers';
 import { concat, hexlify } from 'ethers/lib/utils.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,12 +20,13 @@ type ReturnedType = {
 
 export const useWalletConnectSendTx = (
   network: string,
-  signerWalletAddress: string
+  signerWalletAddress: string,
 ): ReturnedType => {
   // const { connector } = useAccount();
   const { session } = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
+  // const weiValue = ethers.utils.parseUnits(deposit,"ether")
   const { request } = useRequest({
     topic: session !== undefined ? session : '',
     chainId: 'eip155:5',
@@ -36,13 +35,11 @@ export const useWalletConnectSendTx = (
       params: [
         {
           from: signerWalletAddress,
-          // to: signerWalletAddress,
+          to: "0xd0a04eef4a8026532a64168606eaf4b3a01f6470",
           data: '0x',
-          nonce:'0x00',
           gasPrice: '0xbb5e',
           gas: '0x5208',
-          value: '0x00',
-          amount: '23',
+          value: hexlify(1000000000000000),
         },
       ],
     },
@@ -60,29 +57,9 @@ export const useWalletConnectSendTx = (
     const nonce = await provider.getTransactionCount(signerWalletAddress);
     const latestBlock = await provider.getBlock('latest');
     try {
-      console.log('start');
+      console.log('start',ethers.utils.hexlify(9000000000));
 
-      const response = await request({
-        topic: session !== undefined ? session : '',
-        chainId: 'eip155:5',
-        jsonrpc: '2.0',
-        request: {
-          method: 'eth_sendTransaction',
-          params: [
-            {
-              from: signerWalletAddress,
-              to: signerWalletAddress,
-              data: '0x',
-              nonce,
-              gasPrice: '0xbb5e',
-              gas: '0x5208',
-              value: '0x00',
-              amount: '23',
-              symbol: 'Usdt'
-            },
-          ],
-        },
-      });
+      const response = await request();
       console.log(response);
     } catch (error) {
       if (error instanceof Error) {

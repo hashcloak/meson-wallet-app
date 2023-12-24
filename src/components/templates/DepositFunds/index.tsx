@@ -51,7 +51,8 @@ const DepositFund: React.FC = () => {
 
   const { deployWCTx } = useWalletConnectSendTx(
     selectedNetwork.network,
-    signerWallet.signerWalletAddress
+    signerWallet.signerWalletAddress,
+    selectedNetwork.network,
   );
 
   const isSufficientFunds = useCheckBalance(
@@ -97,8 +98,9 @@ const DepositFund: React.FC = () => {
     dispatch(resetLoading({ message: '' }));
   }, []);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: {depositAmount: number}) => {
     dispatch(setDisabling());
+    console.log(data)
     try {
       if (signerWallet != null) {
         dispatch(setLoading());
@@ -116,10 +118,10 @@ const DepositFund: React.FC = () => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             data.depositAmount === undefined
               ? 0
-              : (data.depositAmount as number)
+              : (data.depositAmount)
           );
         } else {
-          await deployWCTx();
+          await deployWCTx(data.depositAmount);
         }
 
         if (mesonWallet !== undefined) {

@@ -60,7 +60,7 @@ const WalletConnectButton: FC = () => {
       dispatch(setLoading());
 
       const _session = await connect();
-
+      console.log(_session)
 
       if (_session !== undefined) {
         const _address: string =
