@@ -6,7 +6,7 @@ import {
   useDisconnect,
   useSession,
 } from '@walletconnect/modal-sign-react';
-import { getSdkError } from '@walletconnect/utils';
+import { getAddressFromAccount, getSdkError } from '@walletconnect/utils';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Logo } from '../Icon';
@@ -16,6 +16,7 @@ import { setError } from '~/features/error';
 import { LoadingState, resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, setSignerWallet } from '~/features/signerWallet';
+import { setWcWallet, wcWalletState } from '~/features/wcWallet';
 
 const WalletConnectButton: FC = () => {
   const supportedSignerWallets = {
@@ -41,6 +42,9 @@ const WalletConnectButton: FC = () => {
   const { wallet } = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
+  const { session } = useSelector<RootState, wcWalletState>(
+    (state) => state.wcWallet
+  );
 
   // const { connectWC, isLoading } = useConnectWC();
   const params: WalletConnectModalSignConnectArguments = {
@@ -58,24 +62,24 @@ const WalletConnectButton: FC = () => {
   };
   const { connect } = useConnect(params);
   const existingSession = useSession();
+
   const { disconnect } = useDisconnect({
     topic: existingSession?.topic as string,
     reason: getSdkError('USER_DISCONNECTED'),
   });
 
-
   const onConnect = async () => {
     try {
       dispatch(setLoading());
-      if(existingSession !== undefined){
-        console.log(existingSession)
+      if (existingSession !== undefined && session === existingSession.topic) {
         await disconnect();
       }
       const newSession = await connect();
 
       if (newSession !== undefined) {
-        const _address: string =
-          newSession.namespaces.eip155.accounts[0].split(':')[2];
+        const _address: string = getAddressFromAccount(
+          newSession?.namespaces.eip155.accounts[0] ?? ''
+        );
 
         dispatch(
           setSignerWallet({
@@ -87,9 +91,12 @@ const WalletConnectButton: FC = () => {
             balance: 0,
             isConnected: true,
             wallet: 'WalletConnect',
-            session: newSession.topic.length ? newSession.topic : undefined,
           })
         );
+        dispatch(setWcWallet({
+          deposit:undefined,
+          session: newSession.topic.length ? newSession.topic : undefined,
+        }))
       }
       dispatch(resetLoading({ message: '' }));
     } catch (error) {

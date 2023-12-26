@@ -73,15 +73,9 @@ export const MesonWalletSlice = createSlice({
     setBalance: (state, action: PayloadAction<MesonWalletState>) => {
       state.balance = action.payload.balance;
     },
-    resetMesonWallet: (state) => {
-      state.walletName = initialState.walletName;
-      state.owners = initialState.owners;
-      state.contacts = initialState.contacts;
-      state.confirmation = initialState.confirmation;
-      state.mesonWallet = initialState.mesonWallet;
-      state.balance = initialState.balance;
-      state.timestamp = initialState.timestamp;
-    },
+    resetMesonWallet: () => ({
+      ...initialState,
+    }),
     removeContacts: (state, action: PayloadAction<string>) => {
       state.contacts = state.contacts?.filter(
         (c) => c.address.toLowerCase() !== action.payload.toLowerCase()

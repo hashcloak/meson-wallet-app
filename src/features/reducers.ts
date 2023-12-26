@@ -10,11 +10,13 @@ import { SignerWalletSlice } from './signerWallet';
 import { ToastSlice } from './toast';
 import { TrezorSlice } from './trezorWallet';
 import { WalletsSlice } from './wallets';
+import { wcWalletSlice } from './wcWallet';
 
 const reducers = combineReducers({
   signerWallet: SignerWalletSlice.reducer,
   trezorWallet: TrezorSlice.reducer,
   ledgerWallet: LedgerSlice.reducer,
+  wcWallet: wcWalletSlice.reducer,
   network: NetworkSlice.reducer,
   mesonWallet: MesonWalletSlice.reducer,
   historicalTxs: HistoricalTxsSlice.reducer,

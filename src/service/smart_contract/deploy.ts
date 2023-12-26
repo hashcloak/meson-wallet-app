@@ -13,29 +13,22 @@ import { getProvider } from '../getProvider';
 import { TrezorSigner } from '~/utils/Trezor';
 import { signLedgerTx } from '../ledger';
 import { concat, hexlify } from 'ethers/lib/utils.js';
-import { TransactionReceipt } from 'viem';
 
-const ENCRYPT_PASS = import.meta.env.VITE_ENCRYPT_PASS;
 
 export async function deploy(
   signerWallet: SignerState,
   selectedNetwork: NetworkState,
   deposit: number,
+  mesonWalletAddress: string
 ): Promise<
   | {
-      mesonWalletAddress: string;
       smartContract: string;
-      encryptedWallet: string;
     }
   | undefined
 > {
   const abi = json.abi;
   const binary: BytesLike = json.bytecode.object;
   const provider = getProvider(selectedNetwork.network);
-
-  const mesonWallet = ethers.Wallet.createRandom().connect(provider);
-  const encryptedWallet = await mesonWallet.encrypt(ENCRYPT_PASS);
-  const mesonWalletAddress = await mesonWallet.getAddress();
 
   const value =
     deposit > 0
@@ -122,9 +115,7 @@ export async function deploy(
     console.log('deploy smartContractReceipt',smartContractReceipt)
 
     return {
-      mesonWalletAddress,
       smartContract: smartContractReceipt.address,
-      encryptedWallet,
     };
   } catch (error) {
     if (error instanceof Error) {

@@ -18,7 +18,6 @@ export interface SignerState {
   balance?: number | string;
   isConnected: boolean;
   wallet: SupportedSignerWallet | null;
-  session?: string | undefined;
 }
 const initialState: SignerState = {
   signerWalletAddress: '',
@@ -27,7 +26,6 @@ const initialState: SignerState = {
   balance: 0,
   isConnected: false,
   wallet: null,
-  session: undefined
 };
 
 export const SignerWalletSlice = createSlice({
@@ -42,7 +40,6 @@ export const SignerWalletSlice = createSlice({
       balance: action.payload.balance,
       isConnected: action.payload.isConnected,
       wallet: action.payload.wallet,
-      session: action.payload.session !== undefined ? action.payload.session :  undefined,
     }),
     resetSignerWallet: () => ({
       ...initialState,
