@@ -55,7 +55,7 @@ const WalletConnectButton: FC = () => {
           'eth_signTransaction',
           'personal_sign',
         ],
-        chains: ['eip155:5'],
+        chains: ['eip155:1','eip155:5','eip155:11155111'],
         events: ['chainChanged', 'accountsChanged'],
       },
     },
@@ -141,8 +141,8 @@ const WalletConnectButton: FC = () => {
         metadata={{
           name: 'Meson wallet',
           description: 'Meson wallet',
-          url: 'https://my-dapp.com',
-          icons: ['https://my-dapp.com/logo.png'],
+          url: 'https://meson.com',
+          icons: ['/assets/Meson_topbar_logo.png'],
         }}
       />
     </>

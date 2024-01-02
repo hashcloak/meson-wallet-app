@@ -5,7 +5,6 @@ import ViewOn from '~/utils/ViewOn';
 import Button from '../../atoms/Button/Button';
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo';
 import NoSignerWallet from './NoSignerWallet';
-import { useDisconnectWC } from '~/hooks/wagumi/useDisconnectWC';
 import { trimAddress } from '~/utils/trimAddress';
 
 export type ConnectedSignerWalletProps = {
@@ -34,12 +33,6 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
   const selectedSignerWallet = Object.values(signerWallets).filter(
     (wallet) => Object.values(wallet)[0].toString() === signerWallet
   )[0] as unknown as string;
-
-  const { disconnectWC } = useDisconnectWC();
-
-  const handleDisconnect = () => {
-    void disconnectWC();
-  };
 
   return (
     <>
@@ -121,7 +114,7 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                 btnVariant={'alert'}
                 btnSize={'md'}
                 btnType={'button'}
-                handleClick={handleDisconnect}
+                handleClick={()=>console.log('disconnect')}
               >
                 <span className='text-sm'>Disconnect</span>
               </Button>

@@ -11,7 +11,6 @@ import { LoadingState } from '~/features/loading';
 import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
-import { useDisconnectWC } from '~/hooks/wagumi/useDisconnectWC';
 
 const SignerWallets: React.FC = () => {
   const { message } = useSelector<RootState, LoadingState>(
@@ -23,12 +22,6 @@ const SignerWallets: React.FC = () => {
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
-
-  const { disconnectWC } = useDisconnectWC();
-
-  useEffect(() => {
-    void disconnectWC();
-  }, [network]);
 
   return (
     <>
