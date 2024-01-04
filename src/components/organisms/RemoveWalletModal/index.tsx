@@ -3,10 +3,15 @@ import { Dialog } from '@headlessui/react';
 import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { object, z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { EthAddress } from '~/utils/Ethereum';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState, resetMesonWallet } from '~/features/mesonWallet';
+import { removeWallet } from '~/features/wallets';
+import { RootState } from '~/features/reducers';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   isOpen: boolean | undefined;
@@ -23,9 +28,14 @@ type RemoveWalletDetailsProps = {
 const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
   onClose,
 }) => {
-  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7';
   const registerName = 'confirmToRemoveWallet';
   const [isChecked, setIsChecked] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { mesonWallet } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
 
   const schema = object({
     confirmToRemoveWallet: z.literal(true, {
@@ -40,9 +50,12 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
     formState: { errors },
   } = useForm({ mode: 'onChange', resolver: zodResolver(schema) });
 
-  const onSubmit = (data: any): void => {
-    console.log('owners', data);
+  const onSubmit = (): void => {
+    dispatch(removeWallet(mesonWallet?.mesonWalletAddress || ''));
+    dispatch(resetMesonWallet());
+    onClose();
     reset();
+    navigate('/');
   };
   const onError = (errors: any, e: any) => console.log(errors, e);
 
@@ -53,7 +66,7 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
           <div className='rounded-2xl bg-bgDarkLight p-4'>
             <div className='w-full items-center'>
               <EthAddress
-                ethAddress={ethAddress}
+                ethAddress={mesonWallet?.mesonWalletAddress || ''}
                 size={4.5}
                 length={'full'}
                 walletName={'My wallet'}
@@ -99,7 +112,7 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
             btnVariant={'text'}
             btnSize={'lg'}
             btnType={'button'}
-            handleClick={() => console.log('clicked')}
+            handleClick={onClose}
           >
             <span className='text-lg'>Back</span>
           </Button>
