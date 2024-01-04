@@ -180,25 +180,6 @@ export const TxContents: React.FC<{
                       />
                     </div>
                   </div>
-                  {/* <div className='flex flex-col mb-2'>
-                    <div className='flex flex-row'>
-                      <Icon type={'Circle'} size={'lg'} color={'light'} />
-                      <span className='text-light font-bold ml-2'>
-                        Awaiting confirmations
-                        <span className='text-textWhite text-sm font-normal ml-2'>
-                          (1 of 2)
-                        </span>
-                      </span>
-                    </div>
-
-                    <div className='flex flex-row items-center pl-6 mt-2'>
-                      <EthAddress
-                        ethAddress='0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7'
-                        size={4.5}
-                        length='full'
-                      />
-                    </div>
-                  </div> */}
                   {(tx.confirmations - tx.confirmations) === 0 ? (
                   <div className='flex flex-col mb-2'>
                   <div className='flex flex-row'>

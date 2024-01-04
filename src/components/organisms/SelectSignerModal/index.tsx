@@ -20,7 +20,7 @@ const SelectSignerModal: React.FC<{
         <Dialog
           open={isOpen}
           onClose={onClose}
-          className='fixed z-10 inset-0 overflow-y-auto'
+          className='fixed z-[99] inset-0 overflow-y-auto'
           // static
         >
           <div className='flex items-center justify-center min-h-screen'>

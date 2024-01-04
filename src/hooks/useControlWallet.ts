@@ -36,8 +36,8 @@ export const useControlWallet = (): ReturnVal => {
 
   const addNewWallet = (newMesonWallet: {
     mesonWalletAddress: string;
-    smartContract: string;
     encryptedWallet: string;
+    smartContract: string;
   }) => {
     dispatch(
       addWallet({

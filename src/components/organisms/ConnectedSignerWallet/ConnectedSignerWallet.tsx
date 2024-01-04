@@ -1,11 +1,15 @@
+import { useState } from 'react';
+import { Dialog } from '@headlessui/react';
 import Blockies from 'react-blockies';
+import { useDispatch } from 'react-redux';
+import SignerWallets from '~/components/molecules/SignerWallets';
 import CopyToClipboardBtn from '~/utils/CopyToClipboardBtn';
 import Spacer from '~/utils/Spacer';
 import ViewOn from '~/utils/ViewOn';
 import Button from '../../atoms/Button/Button';
 import { Logo, LogoTypes } from '../../atoms/Icon/Logo';
 import NoSignerWallet from './NoSignerWallet';
-import { useDisconnectWC } from '~/hooks/wagumi/useDisconnectWC';
+import { resetSignerWallet } from '~/features/signerWallet';
 import { trimAddress } from '~/utils/trimAddress';
 
 export type ConnectedSignerWalletProps = {
@@ -31,15 +35,12 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
   network,
   handleIsOpen,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const selectedSignerWallet = Object.values(signerWallets).filter(
     (wallet) => Object.values(wallet)[0].toString() === signerWallet
   )[0] as unknown as string;
 
-  const { disconnectWC } = useDisconnectWC();
-
-  const handleDisconnect = () => {
-    void disconnectWC();
-  };
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -113,7 +114,7 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                 btnVariant={'primary'}
                 btnSize={'md'}
                 btnType={'button'}
-                handleClick={() => console.log('Switch wallet')}
+                handleClick={() => setIsOpen(true)}
               >
                 <span className='text-sm'>Switch wallet</span>
               </Button>
@@ -121,12 +122,51 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                 btnVariant={'alert'}
                 btnSize={'md'}
                 btnType={'button'}
-                handleClick={handleDisconnect}
+                handleClick={() => dispatch(resetSignerWallet())}
               >
                 <span className='text-sm'>Disconnect</span>
               </Button>
             </div>
           </div>
+
+          {isOpen && (
+            <Dialog
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+              className='fixed z-[99] inset-0 overflow-y-auto'
+              // static
+            >
+              <div className='flex items-center justify-center min-h-screen'>
+                <Dialog.Overlay
+                  className='fixed inset-0 bg-neutral-900 opacity-30'
+                  aria-hidden='true'
+                />
+                <div className='py-6 relative bg-bgDarkMid rounded-2xl px-8 w-[48rem]'>
+                  {/* Description */}
+                  <span className='text-textWhite text-xl font-bold'>
+                    Connect a signer wallet
+                  </span>
+
+                  <Spacer size={16} axis={'vertical'} />
+
+                  <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgDarkLight'>
+                    <div className='flex flex-col items-center w-full'>
+                      <div className='w-full'>
+                        <span className='text-textWhite text-base font-bold'>
+                          Available Wallets
+                        </span>
+                        <Spacer size={8} axis={'vertical'} />
+                        <div className='grid grid-cols-1 gap-2 mx-8'>
+                          <SignerWallets />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Description */}
+                </div>
+              </div>
+            </Dialog>
+          )}
         </>
       ) : (
         <NoSignerWallet />

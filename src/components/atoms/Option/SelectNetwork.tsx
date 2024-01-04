@@ -21,7 +21,7 @@ const SelectNetwork: React.FC = () => {
 
   return (
     <div className='flex justify-center w-full'>
-      <div className='max-w-96 w-full'>
+      <div className='max-w-48 w-full'>
         <select
           className={`form-select
           block
@@ -51,7 +51,7 @@ const SelectNetwork: React.FC = () => {
           value={network.network}
         >
           {Object.keys(networks).map((networkName) => (
-            <option value={networkName} key={networkName}>
+            <option value={networkName} key={networkName} className="mx-auto">
               {networkName.charAt(0).toUpperCase() + networkName.slice(1)}
             </option>
           ))}

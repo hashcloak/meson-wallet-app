@@ -23,9 +23,11 @@ import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
 import { SignerState } from '~/features/signerWallet';
 import { setToast } from '~/features/toast';
+import { setWcWalletDeposit } from '~/features/wcWallet';
 import { useCheckBalance, useGetFiatPrice } from '~/hooks';
 import { useControlWallet } from '~/hooks/useControlWallet';
-import { useWalletConnectSendTx } from '~/hooks/wagumi/useWalletConnectSendTx';
+import { useWalletConnectDeploy } from '~/hooks/wagumi/useWalletConnectDeploy';
+import { createMesonWallet } from '~/service/smart_contract/createMesonWallet';
 import { deploy } from '~/service/smart_contract/deploy';
 import { trimCurrency } from '~/utils/trimDecimal';
 
@@ -49,14 +51,13 @@ const DepositFund: React.FC = () => {
 
   const { addNewWallet } = useControlWallet();
 
-  const { deployWCTx } = useWalletConnectSendTx(
-    selectedNetwork.network,
-    signerWallet.signerWalletAddress
-  );
-
   const isSufficientFunds = useCheckBalance(
     signerWallet.signerWalletAddress,
     input
+  );
+
+  const { txReceipt } = useWalletConnectDeploy(
+    signerWallet.signerWalletAddress,
   );
 
   // TODO: Need to add validation method for the input amount
@@ -97,42 +98,81 @@ const DepositFund: React.FC = () => {
     dispatch(resetLoading({ message: '' }));
   }, []);
 
-  const onSubmit = async (data: any) => {
+  useEffect(() => {
+    dispatch(resetLoading({ message: '' }));
+  }, []);
+
+  const onSubmit = async (data: { depositAmount: number }) => {
     dispatch(setDisabling());
+
     try {
       if (signerWallet != null) {
         dispatch(setLoading());
-        let mesonWallet:
-          | {
-              mesonWalletAddress: string;
-              smartContract: string;
-              encryptedWallet: string;
-            }
-          | undefined;
-        if (signerWallet.wallet !== 'WalletConnect') {
-          mesonWallet = await deploy(
-            signerWallet,
-            selectedNetwork,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            data.depositAmount === undefined
-              ? 0
-              : (data.depositAmount as number)
+        if (
+          data.depositAmount !== undefined &&
+          signerWallet.wallet === 'WalletConnect'
+        ) {
+          dispatch(
+            setWcWalletDeposit({
+              deposit: String(data.depositAmount),
+            })
           );
-        } else {
-          await deployWCTx();
         }
 
-        if (mesonWallet !== undefined) {
-          setIsSuccess(true);
-          dispatch(setToast({ message: 'Successfully deployed' }));
-          dispatch(setMesonWallet({ mesonWallet }));
-          dispatch(setTimestamp());
-          addNewWallet(mesonWallet);
+        const newMesonWallet = await createMesonWallet(selectedNetwork);
+        dispatch(
+          setMesonWallet({
+            mesonWallet: {
+              mesonWalletAddress:
+                newMesonWallet === undefined
+                  ? ''
+                  : newMesonWallet.mesonWalletAddress,
+              encryptedWallet:
+                newMesonWallet === undefined
+                  ? ''
+                  : newMesonWallet.encryptedWallet,
+              smartContract: '',
+            },
+          })
+        );
 
-          setTimeout(() => {
-            navigate('/dashboard');
-            dispatch(resetLoading({ message: '' }));
-          }, 5000);
+        let smartContract;
+
+        if (
+          newMesonWallet !== undefined &&
+          signerWallet.wallet !== 'WalletConnect'
+        ) {
+          smartContract = await deploy(
+            signerWallet,
+            selectedNetwork,
+            data.depositAmount === undefined ? 0 : data.depositAmount,
+            newMesonWallet?.mesonWalletAddress
+          );
+
+          if (newMesonWallet !== undefined && smartContract !== undefined) {
+            setIsSuccess(true);
+            dispatch(setToast({ message: 'Successfully deployed' }));
+            dispatch(
+              setMesonWallet({
+                mesonWallet: {
+                  mesonWalletAddress: newMesonWallet?.mesonWalletAddress,
+                  encryptedWallet: newMesonWallet?.encryptedWallet,
+                  smartContract
+                },
+              })
+            );
+            dispatch(setTimestamp());
+            addNewWallet({
+              mesonWalletAddress: newMesonWallet?.mesonWalletAddress,
+              encryptedWallet: newMesonWallet?.encryptedWallet,
+              smartContract,
+            });
+
+            setTimeout(() => {
+              navigate('/dashboard');
+              dispatch(resetLoading({ message: '' }));
+            }, 5000);
+          }
         }
       }
     } catch (error) {
@@ -143,8 +183,6 @@ const DepositFund: React.FC = () => {
     } finally {
       dispatch(resetDisabling());
     }
-
-    // Fail
   };
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
