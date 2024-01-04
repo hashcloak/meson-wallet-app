@@ -11,9 +11,8 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Logo } from '../Icon';
 import { LogoTypes } from '../Icon/Logo';
-import Spinner from '../Spinner';
 import { setError } from '~/features/error';
-import { LoadingState, resetLoading, setLoading } from '~/features/loading';
+import { resetLoading, setLoading } from '~/features/loading';
 import { RootState } from '~/features/reducers';
 import { SignerState, setSignerWallet } from '~/features/signerWallet';
 import { setWcWallet, wcWalletState } from '~/features/wcWallet';
@@ -36,9 +35,7 @@ const WalletConnectButton: FC = () => {
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { isLoading } = useSelector<RootState, LoadingState>(
-    (state) => state.loading
-  );
+
   const { wallet } = useSelector<RootState, SignerState>(
     (state) => state.signerWallet
   );
@@ -46,7 +43,6 @@ const WalletConnectButton: FC = () => {
     (state) => state.wcWallet
   );
 
-  // const { connectWC, isLoading } = useConnectWC();
   const params: WalletConnectModalSignConnectArguments = {
     requiredNamespaces: {
       eip155: {
@@ -55,7 +51,7 @@ const WalletConnectButton: FC = () => {
           'eth_signTransaction',
           'personal_sign',
         ],
-        chains: ['eip155:1','eip155:5','eip155:11155111'],
+        chains: ['eip155:1','eip155:5'],
         events: ['chainChanged', 'accountsChanged'],
       },
     },
@@ -114,7 +110,6 @@ const WalletConnectButton: FC = () => {
         className={`flex flex-row items-center w-[11.5rem] h-12 px-6 py-2 rounded-xl ${
           wallet === 'WalletConnect' ? 'bg-dark' : 'bg-bgGrayMid'
         } hover:bg-dark group`}
-        // onClick={connectWC}
         onClick={onConnect}
       >
         <Logo
@@ -122,11 +117,6 @@ const WalletConnectButton: FC = () => {
           size={'xl'}
           interact={true}
         />
-        {isLoading ? (
-          <div className='w-full text-center'>
-            <Spinner size='sm' />
-          </div>
-        ) : (
           <span
             className={`text-xs ${
               wallet === 'WalletConnect' ? 'text-textWhite' : 'text-textBlack'
@@ -134,7 +124,6 @@ const WalletConnectButton: FC = () => {
           >
             {supportedSignerWallets.WALLETCONNECT.logoName}
           </span>
-        )}
       </button>
       <WalletConnectModalSign
         projectId={import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as string}

@@ -36,7 +36,7 @@ const NoSignerWallet: React.FC = () => {
               Available Wallets
             </span>
             <Spacer size={8} axis={'vertical'} />
-            <div className='grid grid-cols-1 gap-2'>
+            <div className='grid grid-cols-1 gap-2 mx-8'>
               <SignerWallets />
             </div>
           </div>

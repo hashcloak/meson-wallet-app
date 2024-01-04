@@ -29,7 +29,7 @@ const SelectNetwork: React.FC = () => {
           h-6
           px-6
           text-sm
-          text-justify
+          text-center
           border-borderGray
           rounded
           transition

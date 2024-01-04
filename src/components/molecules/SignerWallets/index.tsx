@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   HardhatButton,
@@ -8,24 +8,16 @@ import {
   WalletConnectButton,
 } from '~/components/atoms/Button';
 import { LoadingState } from '~/features/loading';
-import { NetworkState } from '~/features/network';
 import { RootState } from '~/features/reducers';
-import { SignerState } from '~/features/signerWallet';
 
 const SignerWallets: React.FC = () => {
   const { message } = useSelector<RootState, LoadingState>(
     (state) => state.loading
   );
-  const { signerWalletAddress } = useSelector<RootState, SignerState>(
-    (state) => state.signerWallet
-  );
-  const { network } = useSelector<RootState, NetworkState>(
-    (state) => state.network
-  );
 
   return (
     <>
-      <div className='flex flex-wrap gap-4 justify-start'>
+      <div className='flex flex-wrap gap-4'>
         <TrezorButton />
         <LedgerButton />
         <HardhatButton />
