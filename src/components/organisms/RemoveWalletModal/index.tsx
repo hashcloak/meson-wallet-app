@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Dialog } from '@headlessui/react';
 import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,9 +10,8 @@ import { Button } from '~/components/atoms/Button';
 import { EthAddress } from '~/utils/Ethereum';
 import Spacer from '~/utils/Spacer';
 import { MesonWalletState, resetMesonWallet } from '~/features/mesonWallet';
-import { removeWallet } from '~/features/wallets';
 import { RootState } from '~/features/reducers';
-import { useNavigate } from 'react-router-dom';
+import { removeWallet } from '~/features/wallets';
 
 type Props = {
   isOpen: boolean | undefined;
@@ -51,7 +51,7 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
   } = useForm({ mode: 'onChange', resolver: zodResolver(schema) });
 
   const onSubmit = (): void => {
-    dispatch(removeWallet(mesonWallet?.mesonWalletAddress || ''));
+    dispatch(removeWallet((mesonWallet?.mesonWalletAddress) ?? ""));
     dispatch(resetMesonWallet());
     onClose();
     reset();
@@ -66,7 +66,7 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
           <div className='rounded-2xl bg-bgDarkLight p-4'>
             <div className='w-full items-center'>
               <EthAddress
-                ethAddress={mesonWallet?.mesonWalletAddress || ''}
+                ethAddress={((mesonWallet?.mesonWalletAddress) ?? "")}
                 size={4.5}
                 length={'full'}
                 walletName={'My wallet'}
@@ -121,7 +121,6 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
             btnSize={'lg'}
             btnType={'submit'}
             disabled={!isChecked}
-            handleClick={onClose}
           >
             Remove
           </Button>

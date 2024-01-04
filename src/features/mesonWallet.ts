@@ -100,7 +100,14 @@ export const MesonWalletSlice = createSlice({
       state.timestamp = new Date().getTime();
     },
     setAll: (state, action: PayloadAction<MesonWalletState>) => {
-      state = action.payload;
+      console.log(action.payload)
+      state.walletName = action.payload.walletName;
+      state.owners = action.payload.owners;
+      state.contacts = action.payload.contacts;
+      state.confirmation = action.payload.confirmation;
+      state.mesonWallet = action.payload.mesonWallet;
+      state.balance = action.payload.balance;
+      state.timestamp = action.payload.timestamp;
     },
   },
 });
