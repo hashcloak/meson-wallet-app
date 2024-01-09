@@ -9,6 +9,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod ledger_util;
+mod meson_wallet_util;
 use ethers_core::types::{Address, U256};
 use ledger_transport_hid::LedgerHIDError;
 use ledger_util::{new_ledger, Error};
@@ -107,9 +108,9 @@ fn sign_tx(
         Err(_) => return Err("Invalid max_fee value".into()),
     };
     let path = format!("44'/60'/{}'/0/0", num);
-    let data:Option<Vec<u8>> = match data {
-            None => None,
-            Some(i) => Some(i.as_bytes().to_vec()),
+    let data: Option<Vec<u8>> = match data {
+        None => None,
+        Some(i) => Some(i.as_bytes().to_vec()),
     };
 
     let hex_signed_tx = match ledger_util::sign_tx(

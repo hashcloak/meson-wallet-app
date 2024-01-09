@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "go build -o ./src-tauri/libclient_bindings.so -buildmode=c-shared ./src-tauri/lib/bindings.go; npm run build",
+    "beforeDevCommand": "go build -o ./src-tauri/libclient_bindings.so -buildmode=c-shared ./src-tauri/lib/bindings.go; npm run dev",
     "devPath": "http://localhost:5173",
     "distDir": "../dist"
   },
@@ -15,9 +15,10 @@
       "http": {
         "all": true,
         "request": true,
-        "scope": ["https://api.etherscan.io/*"]
-
-     }
+        "scope": [
+          "https://api.etherscan.io/*"
+        ]
+      }
     },
     "bundle": {
       "active": true,
