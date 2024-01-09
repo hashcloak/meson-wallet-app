@@ -23,12 +23,12 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
   };
 
   return (
-    <div className='flex flex-row mb-2' key={owner.address}>
+    <div className='flex flex-row mb-2' key={owner.ownerAddress}>
       <EthAddress
-        ethAddress={owner.address}
+        ethAddress={owner.ownerAddress}
         size={4.5}
         length={'full'}
-        walletName={owner.name}
+        walletName={owner.ownerName}
       />
       <Spacer size={40} axis={'horizontal'} />
       <div className='flex flex-row items-center'>
@@ -52,20 +52,20 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
       <EditOwnerModal
         isOpen={isOpenEditOwnerModal}
         onClose={handleEditOwnerModal}
-        name={owner.name}
-        address={owner.address}
+        name={owner.ownerName}
+        address={owner.ownerAddress}
       />
       <ReplaceOwnerModal
         isOpen={isOpenReplaceOwnerModal}
         onClose={handleReplaceOwnerModal}
-        name={owner.name}
-        address={owner.address}
+        name={owner.ownerName}
+        address={owner.ownerAddress}
       />
       <RemoveOwnerModal
         isOpen={isOpenRemoveOwnerModal}
         onClose={handleRemoveOwnerModal}
-        name={owner.name}
-        address={owner.address}
+        name={owner.ownerName}
+        address={owner.ownerAddress}
       />
     </div>
   );

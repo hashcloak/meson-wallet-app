@@ -28,7 +28,7 @@ const EditOwnersDetails: React.FC<{
           <span className='text-left'>Owners</span>
           <div className='rounded-2xl bg-bgDarkLight p-4'>
             {owners.map((owner: OwnerType) => (
-              <OwnerRow owner={owner} key={owner.address} />
+              <OwnerRow owner={owner} key={owner.ownerAddress} />
             ))}
           </div>
           <Spacer size={32} axis={'vertical'} />

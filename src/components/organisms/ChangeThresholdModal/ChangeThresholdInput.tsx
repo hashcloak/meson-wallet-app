@@ -29,7 +29,7 @@ const ChangeThresholdInput: React.FC<ChangeThresholdInputType> = ({
   const onSubmit = (data: { confirmation: string }) => {
     onNewConfirmation(data.confirmation);
     onPageChange();
-    console.log(data);
+    console.log();
   };
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);

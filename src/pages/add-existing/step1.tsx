@@ -4,7 +4,7 @@ import Sidebar from '~/components/templates/Sidebar';
 import Topbar from '~/components/templates/Topbar';
 import { BaseLayout } from '~/utils/Layouts';
 
-const Step1: React.FC = () => {
+const AddExistingStep1: React.FC = () => {
   return (
     <BaseLayout
       topbar={<Topbar />}
@@ -14,4 +14,4 @@ const Step1: React.FC = () => {
   );
 };
 
-export default Step1;
+export default AddExistingStep1;

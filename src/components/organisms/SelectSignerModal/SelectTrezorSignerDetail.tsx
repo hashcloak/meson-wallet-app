@@ -112,7 +112,6 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   };
 
   const handleSelect = () => {
-    console.log('Select signer to: ', primarySigner);
     dispatch(setSignerWallet(primarySigner));
     onClose();
   };

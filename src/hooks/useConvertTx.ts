@@ -33,12 +33,6 @@ export const useConvertTx = (tx: ExtendedTransactionResponse): TxType => {
     const clonedTx = JSON.parse(
       JSON.stringify(tx)
     ) as ExtendedTransactionResponse;
-    console.log(
-      'mesonWallet.mesonWalletAddress',
-      mesonWallet?.mesonWalletAddress
-    );
-    console.log('clonedTx.to', clonedTx.to);
-    console.log('clonedTx', clonedTx);
 
     let status: StatusTypes = 'Send';
     if (

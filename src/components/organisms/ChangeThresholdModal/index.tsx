@@ -18,11 +18,9 @@ const ChangeThresholdModal: React.FC<{
 
   const handleLoading = () => {
     setIsLoading(!isLoading);
-    console.log('loading starts', isLoading);
 
     setTimeout(() => {
       setIsLoading(!isLoading);
-      console.log('loading ends', isLoading);
     }, 5000);
   };
 

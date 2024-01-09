@@ -96,7 +96,6 @@ const SwitchSignerDetail: React.FC<SwitchSignerDetailType> = ({ onClose }) => {
   };
 
   const handleSwitch = () => {
-    console.log('Switch signer to: ', primarySigner);
     dispatch(setSignerWallet(primarySigner));
     onClose();
   };

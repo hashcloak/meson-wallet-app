@@ -27,7 +27,6 @@ const OwnerSetting: React.FC = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: any): void => {
-    console.log('owners', data);
     reset();
   };
   const onError = (errors: any, e: any) => console.log(errors, e);

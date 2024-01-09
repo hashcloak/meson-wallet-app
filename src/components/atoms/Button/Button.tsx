@@ -14,7 +14,7 @@ const Button: React.FC<Props> = ({
   btnSize = 'lg',
   btnType = 'button',
   disabled = false,
-  handleClick = () => console.log('clicked'),
+  handleClick = () => console.log(''),
   children,
 }) => {
   const { variants, sizes } = theme.buttons;

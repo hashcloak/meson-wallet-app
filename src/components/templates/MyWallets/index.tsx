@@ -54,7 +54,7 @@ const MyWallets: React.FC = () => {
             </div>
             <div
               className='rounded-2xl flex justify-between p-2 flex-row items-center hover:bg-dark'
-              onClick={() => console.log('clicked')}
+              onClick={() => console.log('')}
               role='button'
               tabIndex={0}
             >
@@ -72,7 +72,7 @@ const MyWallets: React.FC = () => {
             </div>
             <div
               className='rounded-2xl flex justify-between p-2 flex-row items-center hover:bg-dark'
-              onClick={() => console.log('clicked')}
+              onClick={() => console.log('')}
               role='button'
               tabIndex={0}
             >
