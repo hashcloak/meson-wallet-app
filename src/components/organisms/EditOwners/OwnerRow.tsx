@@ -5,9 +5,9 @@ import Spacer from '~/utils/Spacer';
 import EditOwnerModal from '../EditOwnerModal';
 import RemoveOwnerModal from '../RemoveOwnerModal';
 import ReplaceOwnerModal from '../ReplaceOwnerModal';
-import { OwnerType } from '.';
+import { Owner } from '~/features/mesonWallet';
 
-const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
+const OwnerRow: React.FC<{ owner: Owner }> = ({ owner }) => {
   const [isOpenEditOwnerModal, setIsOpenEditOwnerModal] = useState(false);
   const [isOpenReplaceOwnerModal, setIsOpenReplaceOwnerModal] = useState(false);
   const [isOpenRemoveOwnerModal, setIsOpenRemoveOwnerModal] = useState(false);
@@ -28,7 +28,7 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
         ethAddress={owner.ownerAddress}
         size={4.5}
         length={'full'}
-        walletName={owner.ownerName}
+        walletName={owner.name}
       />
       <Spacer size={40} axis={'horizontal'} />
       <div className='flex flex-row items-center'>
@@ -52,19 +52,19 @@ const OwnerRow: React.FC<{ owner: OwnerType }> = ({ owner }) => {
       <EditOwnerModal
         isOpen={isOpenEditOwnerModal}
         onClose={handleEditOwnerModal}
-        name={owner.ownerName}
+        name={owner.name ?? ''}
         address={owner.ownerAddress}
       />
       <ReplaceOwnerModal
         isOpen={isOpenReplaceOwnerModal}
         onClose={handleReplaceOwnerModal}
-        name={owner.ownerName}
+        name={owner.name ?? ''}
         address={owner.ownerAddress}
       />
       <RemoveOwnerModal
         isOpen={isOpenRemoveOwnerModal}
         onClose={handleRemoveOwnerModal}
-        name={owner.ownerName}
+        name={owner.name ?? ''}
         address={owner.ownerAddress}
       />
     </div>

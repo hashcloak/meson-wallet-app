@@ -1,14 +1,10 @@
 import { Dialog } from '@headlessui/react';
 import EditOwnersDetails from './EditOwnersDetails';
-
-export type OwnerType = {
-  address: string;
-  name: string;
-};
+import { Owner } from '~/features/mesonWallet';
 
 type Props = {
   isOpen: boolean | undefined;
-  owners: OwnerType[];
+  owners: Owner[];
   onClose: () => void;
 };
 

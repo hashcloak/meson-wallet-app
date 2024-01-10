@@ -4,8 +4,8 @@ import { Button } from '~/components/atoms/Button';
 import { EthAddress } from '~/utils/Ethereum';
 import { mockOwners } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
-import { OwnerType } from '../EditOwners';
 import { NewOwnerType } from '.';
+import { Owner } from '~/features/mesonWallet';
 
 type AddOwnerDetailsProps = {
   newOwner: NewOwnerType;
@@ -61,9 +61,9 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2 w-full'>
             {/* Owners */}
-            {mockOwners?.map((owner: OwnerType) => (
+            {mockOwners?.map((owner: Owner) => (
               <EthAddress
-                ethAddress={owner.address}
+                ethAddress={owner.ownerAddress}
                 size={4.5}
                 length={'full'}
                 icons={true}

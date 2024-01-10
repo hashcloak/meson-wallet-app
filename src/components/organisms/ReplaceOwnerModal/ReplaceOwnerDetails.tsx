@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import EthAddress from '~/utils/Ethereum/EthAddress';
-import { mockOwners } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
 import Button from '../../atoms/Button/Button';
-import { NewOwnerType } from '../AddOwnerModal';
-import { OwnerType } from '../EditOwners';
+import { MesonWalletState, Owner } from '~/features/mesonWallet';
+import { NetworkState } from '~/features/network';
+import { RootState } from '~/features/reducers';
 
 type ReplaceOwnerDetailsProps = {
-  newOwner: NewOwnerType;
+  newOwner: Owner;
   name: string;
   address: string;
   onClose: () => void;
@@ -22,16 +23,24 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
   address,
   onPageChange,
 }) => {
-  const [filteredOwners, setFilteredOwners] = useState<OwnerType[]>([]);
+  const [filteredOwners, setFilteredOwners] = useState<Owner[]>([]);
+  const { walletName, owners, confirmation, mesonWallet } = useSelector<
+    RootState,
+    MesonWalletState
+  >((state) => state.mesonWallet);
+
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
 
   useEffect(() => {
-    const filterOwners = mockOwners.filter((owner) => {
+    const filterOwners = owners?.filter((owner) => {
       return (
-        owner.address !== address && owner.address !== newOwner.newOwnerAddress
+        owner.ownerAddress !== address &&
+        owner.ownerAddress !== newOwner?.newOwnerAddress
       );
     });
-    setFilteredOwners(filterOwners);
-    console.log(filteredOwners, newOwner, name, address);
+    setFilteredOwners(filterOwners ?? []);
   }, []);
 
   return (
@@ -45,14 +54,14 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
               <span className='text-sm text-textGrayLight'>
                 Name of the Meson Wallet
               </span>
-              <span className='text-lg text-textWhite'>Sample wallet</span>
+              <span className='text-lg text-textWhite'>{walletName}</span>
             </div>
             <div className='flex flex-col mb-2'>
               <span className='text-sm text-textGrayLight'>
                 Address of the Meson Wallet
               </span>
               <EthAddress
-                ethAddress={'0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'}
+                ethAddress={mesonWallet?.mesonWalletAddress ?? ''}
                 size={4.5}
                 length={'short'}
               />
@@ -61,13 +70,15 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
               <span className='text-sm text-textGrayLight'>
                 Selected network
               </span>
-              <span className='text-lg text-textWhite'>Ethereum</span>
+              <span className='text-lg text-textWhite'>{network}</span>
             </div>
             <div className='flex flex-col mb-2'>
               <span className='text-sm text-textGrayLight'>
                 Required confirmation
               </span>
-              <span className='text-lg text-textWhite'>1 out of 2 owners</span>
+              <span className='text-lg text-textWhite'>
+                1 out of {confirmation} owners
+              </span>
             </div>
           </div>
         </div>
@@ -76,14 +87,14 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2 w-full'>
             {/* Owners */}
-            {filteredOwners?.map((owner: OwnerType) => (
+            {filteredOwners?.map((owner: Owner) => (
               <EthAddress
-                ethAddress={owner.address}
+                ethAddress={owner.ownerAddress}
                 size={4.5}
                 length={'full'}
                 icons={true}
                 walletName={owner.name}
-                key={owner.address}
+                key={owner.ownerAddress}
               />
             ))}
 
@@ -103,7 +114,7 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
             <div className='flex flex-col justify-center p-2 mb-2 bg-[#397F97] rounded-2xl h-[4.5rem] box-border w-full'>
               <span className='font-bold'>New owner</span>
               <EthAddress
-                ethAddress={newOwner?.newOwnerAddress}
+                ethAddress={newOwner?.newOwnerAddress ?? ""}
                 size={4.5}
                 length={'full'}
                 icons={true}

@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import { Options } from '~/components/atoms/Option/OptionControl';
 import OwnerConfirmation from '~/components/molecules//OwnerConfirmation';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 type RemoveOwnerInputType = {
   name: string;
@@ -22,6 +25,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   onNewConfirmation,
 }) => {
   const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
+  const { confirmation } = useSelector<RootState, MesonWalletState>((state) => state.mesonWallet);
 
   const methods = useForm({
     defaultValues: {
@@ -38,7 +42,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   useEffect(() => {
-    const fields = [1, 2];
+    const fields = [...Array(confirmation).keys()];
     const numOfOwners: Options[] = fields.map((_, index) => {
       return {
         value: String(index + 1),

@@ -5,8 +5,7 @@ import { EditOwnerModalType as ReplaceOwnerModalType } from '../EditOwnerModal';
 
 import ReplaceOwnerDetails from './ReplaceOwnerDetails';
 import ReplaceOwnerInput from './ReplaceOwnerInput';
-
-type NewOwnerType = { newOwnerAddress: string; newOwnerName: string };
+import { Owner } from '~/features/mesonWallet';
 
 const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
   isOpen,
@@ -15,9 +14,9 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
   address,
 }) => {
   const [pageChange, setPageChange] = useState(false);
-  const [newOwner, setNewOwner] = useState<NewOwnerType>({
-    newOwnerAddress: '',
-    newOwnerName: '',
+  const [newOwner, setNewOwner] = useState<Owner>({
+    ownerAddress: '',
+    name: '',
   });
 
   const handlePageChange = () => setPageChange(!pageChange);
