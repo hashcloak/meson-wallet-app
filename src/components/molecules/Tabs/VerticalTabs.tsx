@@ -23,7 +23,7 @@ const VerticalTabs: React.FC<Props> = ({ tabList }) => {
       >
         <div className='grid grid-cols-[20%_1fr] gap-6 h-full'>
           <Tab.List className='flex flex-col items-center space-x-1 box-border rounded-2xl bg-bgDarkLight p-4 h-full'>
-            {tabList.map((item, idx) => (
+            {tabList.map((item) => (
               <Tab
                 className={({ selected }) =>
                   classNames(
@@ -32,10 +32,10 @@ const VerticalTabs: React.FC<Props> = ({ tabList }) => {
                     selected ? 'bg-dark' : 'hover:bg-dark'
                   )
                 }
-                key={idx}
+                key={Object.keys(item)[0]}
               >
                 <div className='flex flex-row justify-between w-full px-4'>
-                  {Object.keys(item)}
+                  {Object.keys(item)[0]}
                   <Icon type={'ChevronRight'} size={'lg'} color={'white'} />
                 </div>
               </Tab>

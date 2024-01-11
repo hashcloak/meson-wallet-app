@@ -31,7 +31,7 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
   address,
 }) => {
   const dispatch = useDispatch();
-  const { contacts } = useSelector<RootState, MesonWalletState>(
+  const { contacts,owners } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
 
@@ -42,7 +42,11 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
       .min(1, { message: 'Please input valid eth address' })
       .refine(
         (val) => {
-          return ethers.utils.isAddress(val);
+          if(ethers.utils.isAddress(val)){
+            const checkOwners = owners?.filter((o) => o.ownerAddress.toLowerCase() === val.toLowerCase()) ?? []
+
+            return !(checkOwners.length > 0);
+          };
         },
         {
           message: 'Please input valid eth address',

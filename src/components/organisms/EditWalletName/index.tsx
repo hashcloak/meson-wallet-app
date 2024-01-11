@@ -1,14 +1,13 @@
 import { Dialog } from '@headlessui/react';
-import EditOwnersDetails from './EditOwnersDetails';
-import { Owner } from '~/features/mesonWallet';
+import EditWalletNameDetails from './EditWalletNameDetails';
 
 type Props = {
   isOpen: boolean | undefined;
-  owners: Owner[];
+  walletName: string;
   onClose: () => void;
 };
 
-const EditOwners: React.FC<Props> = ({ isOpen, onClose, owners }) => {
+const EditWalletName: React.FC<Props> = ({ isOpen, onClose, walletName }) => {
   return (
     <>
       {(isOpen ?? false) && (
@@ -25,11 +24,14 @@ const EditOwners: React.FC<Props> = ({ isOpen, onClose, owners }) => {
             />
             <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 '>
               <span className='text-textWhite text-2xl font-bold'>
-                Edit owners
+                Edit Wallet name
               </span>
+
+              <Dialog.Description className='py-6'>
                 {/* Description */}
-                <EditOwnersDetails owners={owners} onClose={onClose} />
+                <EditWalletNameDetails walletName={walletName} onClose={onClose} />
                 {/* Description */}
+              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>
@@ -38,4 +40,4 @@ const EditOwners: React.FC<Props> = ({ isOpen, onClose, owners }) => {
   );
 };
 
-export default EditOwners;
+export default EditWalletName;

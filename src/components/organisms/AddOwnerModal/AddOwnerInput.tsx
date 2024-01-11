@@ -1,28 +1,35 @@
 import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ethers } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import OptionControl, {
   Options,
 } from '~/components/atoms/Option/OptionControl';
 import NewOwnerInput from '~/components/molecules/NewOwnerInput';
-import { mockOwners } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
-import { NewOwnerType } from '.';
+import { MesonWalletState, Owner } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 type AddOwnerInputType = {
   onClose: () => void;
   onPageChange: () => void;
-  onSetNewOwner: (data: NewOwnerType) => void;
+  onSetNewOwner: (data: Owner) => void;
+  onSetNewConfirmation: (data: number) => void;
 };
 
 const AddOwnerInput: React.FC<AddOwnerInputType> = ({
   onClose,
   onPageChange,
   onSetNewOwner,
+  onSetNewConfirmation,
 }) => {
   const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
+  const { owners, confirmation } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
 
   const schema = z.object({
     newOwnerName: z.preprocess((value) => {
@@ -36,30 +43,58 @@ const AddOwnerInput: React.FC<AddOwnerInputType> = ({
       return String(value);
     }, z.string().optional()),
     newOwnerAddress: z
-      .string()
-      .min(1, { message: 'Owner Address is required' }),
-    confirmation: z.string(),
+    .string()
+    .min(1,{message: 'Please input valid eth address',})
+    .refine((val) => {
+        if(ethers.utils.isAddress(val)){
+          const checkOwners = owners?.filter((o) => o.ownerAddress.toLowerCase() === val.toLowerCase()) ?? []
+
+          return !(checkOwners.length > 0);
+        };
+      },
+      {
+        message: 'Please input valid eth address',
+      }
+    ),
+    confirmation: z.preprocess((value) => {
+      if (typeof value !== 'string') {
+        return Number(value);
+      }
+      if (value.trim() === '') {
+        return '';
+      }
+
+      return Number(value);
+    }, z.number()),
   });
 
   const methods = useForm({
     defaultValues: {
       newOwnerName: '',
       newOwnerAddress: '',
-      confirmation: '1',
+      confirmation: confirmation ?? 1,
     },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: NewOwnerType) => {
-    onSetNewOwner(data);
+  const onSubmit = (data: {
+    newOwnerName: string;
+    newOwnerAddress: string;
+    confirmation: number;
+  }) => {
+    onSetNewOwner({
+      ownerAddress: data.newOwnerAddress,
+      name: data.newOwnerName,
+    });
+    onSetNewConfirmation(data.confirmation);
     onPageChange?.();
   };
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   useEffect(() => {
-    const fields = [...mockOwners];
-    fields.push({ address: '', name: '' });
+    const fields = [...(owners ?? [])];
+    fields.push({ ownerAddress: '', name: '' });
 
     const numOfOwners: Options[] = fields.map((_, index) => {
       return {

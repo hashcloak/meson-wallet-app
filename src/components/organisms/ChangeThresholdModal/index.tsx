@@ -9,7 +9,7 @@ const ChangeThresholdModal: React.FC<{
   onClose: () => void;
 }> = ({ isOpen, onClose }) => {
   const [pageChange, setPageChange] = useState(false);
-  const [newConfirmation, onNewConfirmation] = useState<string>('');
+  const [newConfirmation, onNewConfirmation] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePageChange = () => {
@@ -48,7 +48,6 @@ const ChangeThresholdModal: React.FC<{
                 )}
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (
@@ -60,13 +59,12 @@ const ChangeThresholdModal: React.FC<{
                 ) : (
                   <ChangeThresholdDetails
                     onClose={onClose}
-                    confirmation={newConfirmation}
+                    newConfirmation={newConfirmation}
                     onPageChange={handlePageChange}
                     onLoad={handleLoading}
                   />
                 )}
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SidebarIcon } from '~/components/atoms/Icon';
 import EditOwners from '~/components/organisms/EditOwners';
+import EditWalletName from '~/components/organisms/EditWalletName';
 import { EthAddress } from '~/utils/Ethereum';
 import Spacer from '~/utils/Spacer';
 import { MesonWalletState } from '~/features/mesonWallet';
@@ -10,13 +11,18 @@ import { RootState } from '~/features/reducers';
 
 const WalletSettings: React.FC = () => {
   const [isOpenEditOwner, setIsOpenEditOwner] = useState(false);
+  const [isOpenEditWalletName, setIsOpenEditWalletName] = useState(false);
+
   const handleEditOwner = () => setIsOpenEditOwner(!isOpenEditOwner);
+  const handleEditWalletName = () =>setIsOpenEditWalletName(!isOpenEditWalletName);
+
   const { walletName, owners, confirmation } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
+
 
   return (
     <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
@@ -28,7 +34,7 @@ const WalletSettings: React.FC = () => {
             <span className='mr-2'>Wallet name: </span>
             <span>{walletName}</span>
           </div>
-          <button type='button'>
+          <button type='button' onClick={() => handleEditWalletName()}>
             <SidebarIcon type={'Settings'} size={'md'} color={'main'} />
           </button>
         </div>
@@ -71,6 +77,11 @@ const WalletSettings: React.FC = () => {
           <span>{confirmation}</span>
         </div>
       </div>
+      <EditWalletName
+        isOpen={isOpenEditWalletName}
+        walletName={walletName ?? ''}
+        onClose={handleEditWalletName}
+      />
       <EditOwners
         isOpen={isOpenEditOwner}
         owners={owners ?? []}

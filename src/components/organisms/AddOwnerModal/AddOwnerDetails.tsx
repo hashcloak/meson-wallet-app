@@ -1,21 +1,31 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 
+import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import { EthAddress } from '~/utils/Ethereum';
-import { mockOwners } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
-import { NewOwnerType } from '.';
-import { Owner } from '~/features/mesonWallet';
+import { MesonWalletState, Owner } from '~/features/mesonWallet';
+import { NetworkState } from '~/features/network';
+import { RootState } from '~/features/reducers';
 
 type AddOwnerDetailsProps = {
-  newOwner: NewOwnerType;
-  onClose: () => void;
+  newOwner: Owner;
+  newConfirmation: number;
+  onPageChange: () => void;
 };
 
 const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
-  onClose,
+  onPageChange,
   newOwner,
+  newConfirmation,
 }) => {
+  const { walletName, owners, mesonWallet } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
+  const { network } = useSelector<RootState, NetworkState>(
+    (state) => state.network
+  );
+
   return (
     <>
       <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base '>
@@ -27,14 +37,14 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
               <span className='text-sm text-textGrayLight'>
                 Name of the Meson Wallet
               </span>
-              <span className='text-lg text-textWhite'>Sample wallet</span>
+              <span className='text-lg text-textWhite'>{walletName}</span>
             </div>
             <div className='flex flex-col mb-2'>
               <span className='text-sm text-textGrayLight'>
                 Address of the Meson Wallet
               </span>
               <EthAddress
-                ethAddress={'0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'}
+                ethAddress={mesonWallet?.mesonWalletAddress ??''}
                 size={4.5}
                 length={'short'}
               />
@@ -43,14 +53,14 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
               <span className='text-sm text-textGrayLight'>
                 Selected network
               </span>
-              <span className='text-lg text-textWhite'>Ethereum</span>
+              <span className='text-lg text-textWhite'>{network}</span>
             </div>
             <div className='flex flex-col mb-2'>
               <span className='text-sm text-textGrayLight'>
                 Required confirmation
               </span>
               <span className='text-lg text-textWhite'>
-                {newOwner.confirmation} out of {mockOwners.length + 1} owners
+                {newConfirmation} out of {(owners?.length ?? 0) + 1} owners
               </span>
             </div>
           </div>
@@ -61,14 +71,14 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2 w-full'>
             {/* Owners */}
-            {mockOwners?.map((owner: Owner) => (
+            {owners?.map((owner: Owner) => (
               <EthAddress
                 ethAddress={owner.ownerAddress}
                 size={4.5}
                 length={'full'}
                 icons={true}
                 walletName={owner.name}
-                key={owner.address}
+                key={owner.ownerAddress}
               />
             ))}
 
@@ -77,11 +87,11 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
             <div className='flex flex-col justify-center p-2 mb-2 bg-[#397F97] rounded-2xl h-[4.5rem] box-border w-full'>
               <span className='font-bold'>New owner</span>
               <EthAddress
-                ethAddress={newOwner?.newOwnerAddress}
+                ethAddress={newOwner?.ownerAddress ?? ''}
                 size={4.5}
                 length={'full'}
                 icons={true}
-                walletName={newOwner?.newOwnerName}
+                walletName={newOwner?.name}
               />
             </div>
           </div>
@@ -113,7 +123,7 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
           btnVariant={'text'}
           btnSize={'lg'}
           btnType={'button'}
-          handleClick={onClose}
+          handleClick={onPageChange}
         >
           <span className='text-lg'>Back</span>
         </Button>
