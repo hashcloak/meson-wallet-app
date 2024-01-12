@@ -12,7 +12,20 @@ const GeneralSettings: React.FC = () => {
   const [currency, setCurrency] = useState('USD');
   const [openRemoveWalletModal, setOpenRemoveWalletModal] = useState(false);
 
-  const handleDarkMode = () => setIsDarkMode(isDarkMode);
+  const handleDarkMode = () => {
+    setIsDarkMode(isDarkMode)
+    if (localStorage.theme === "dark" || !("theme" in localStorage)) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    if (localStorage.theme === "dark") {
+      localStorage.theme = "light";
+    } else {
+      localStorage.theme = "dark";
+    }
+  };
   const handleCurrency = (value: string) => setCurrency(value);
   const handleRemoveWalletModal = () =>
     setOpenRemoveWalletModal(!openRemoveWalletModal);
