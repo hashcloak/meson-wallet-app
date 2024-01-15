@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SidebarIcon } from '~/components/atoms/Icon';
 import EditOwners from '~/components/organisms/EditOwners';
-import EditWalletName from '~/components/organisms/EditWalletName';
+import EditWalletName from '~/components/organisms/EditOwners copy';
 import { EthAddress } from '~/utils/Ethereum';
 import Spacer from '~/utils/Spacer';
 import { MesonWalletState } from '~/features/mesonWallet';

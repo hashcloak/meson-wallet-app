@@ -6,26 +6,13 @@ import Switch from '~/components/atoms/Switch';
 import RemoveWalletModal from '~/components/organisms/RemoveWalletModal';
 import { currencies } from '~/utils/Currencies';
 import Spacer from '~/utils/Spacer';
+import { useSaveTheme } from '~/hooks';
 
 const GeneralSettings: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [currency, setCurrency] = useState('USD');
   const [openRemoveWalletModal, setOpenRemoveWalletModal] = useState(false);
+  const { isDarkMode,handleDarkMode } = useSaveTheme();
 
-  const handleDarkMode = () => {
-    setIsDarkMode(isDarkMode)
-    if (localStorage.theme === "dark" || !("theme" in localStorage)) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-
-    if (localStorage.theme === "dark") {
-      localStorage.theme = "light";
-    } else {
-      localStorage.theme = "dark";
-    }
-  };
   const handleCurrency = (value: string) => setCurrency(value);
   const handleRemoveWalletModal = () =>
     setOpenRemoveWalletModal(!openRemoveWalletModal);
@@ -64,7 +51,8 @@ const GeneralSettings: React.FC = () => {
                 on: 'On',
                 off: 'Off',
               }}
-              handleClick={handleDarkMode}
+              handleClick={() => handleDarkMode(!isDarkMode)}
+              defaultStatus={isDarkMode}
             />
           </div>
           <div className='flex flex-row'>

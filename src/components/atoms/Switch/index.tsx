@@ -14,7 +14,7 @@ type Props = {
 const Switch: React.FC<Props> = ({
   label,
   handleClick,
-  defaultStatus = true,
+  defaultStatus=true,
 }) => {
   const [enabled, setEnabled] = useState(defaultStatus);
 
