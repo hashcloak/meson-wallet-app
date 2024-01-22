@@ -146,7 +146,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
   const [inputAmount, setInputAmount] = useState(0);
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <div>
         <span className='text-left text-xl'>Sending from</span>
         <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>
@@ -159,7 +159,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
-              <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
+              <span className='text-textWhite rounded-lg bg-light px-2 mr-2'>Balance</span>
               <span>{balance}</span>
               <span className='ml-2'>ETH</span>
             </div>
@@ -367,7 +367,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   };
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <div>
         <span className='text-left text-xl'>Sending from</span>
         <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>

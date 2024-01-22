@@ -60,7 +60,7 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
   const onError = (errors: any, e: any) => console.log(errors, e);
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div>
           <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>
@@ -150,11 +150,9 @@ const RemoveWalletModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 Remove wallet
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
                 <RemoveWalletDetails isOpen={isOpen} onClose={onClose} />
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

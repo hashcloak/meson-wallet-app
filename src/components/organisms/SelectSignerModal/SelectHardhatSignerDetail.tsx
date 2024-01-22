@@ -162,9 +162,9 @@ const SelectHardhatSignerDetail: React.FC<SelectHardhatSignerDetailType> = ({
   };
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Available signers</span>
-      <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col w-[928px]'>
+      <div className='bg-bgGrayLight dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col w-[928px]'>
         {isLoading ? (
           <div className='w-full h-full self-center'>
             <Spinner />
@@ -184,19 +184,19 @@ const SelectHardhatSignerDetail: React.FC<SelectHardhatSignerDetailType> = ({
               <>
                 {hardhatAccounts.map((account) => (
                   <div
-                    className={`transition ease-in-out grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark w-full p-2 ${
+                    className={`transition ease-in-out grid grid-cols-2 gap-x-8 box-border rounded-xl hover:bg-dark group w-full p-2 ${
                       account.address === primarySigner.signerWalletAddress
-                        ? 'bg-dark'
+                        ? 'bg-dark text-textWhite'
                         : ''
                     }`}
                     key={account.address}
                     onClick={() => handleSetNewPrimarySigner(account)}
                     role='button'
                   >
-                    <div className='grid grid-cols-1'>
+                    <div className='grid grid-cols-1 group-hover:text-textWhite'>
                       <span className='col-span-1'>{account.address}</span>
                     </div>
-                    <div className='grid grid-cols-3 gap-x-8'>
+                    <div className='grid grid-cols-3 gap-x-8 group-hover:text-textWhite'>
                       <span className='col-span-1'>{account.account}</span>
                       <span className='col-span-2'>{account.balance} ETH</span>
                     </div>

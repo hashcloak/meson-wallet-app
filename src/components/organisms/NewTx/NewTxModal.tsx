@@ -27,7 +27,7 @@ const NewTxDetails: React.FC<ModalProps> = ({
   );
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <div className='py-4 px-8 rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight'>
         <Spacer size={8} axis={'vertical'} />
 

@@ -29,7 +29,7 @@ const EthAddress: React.FC<Props> = ({
   }, []);
 
   return (
-    <div className='flex flex-row items-center'>
+    <div className='flex flex-row items-center text-textGray dark:text-textWhite group-hover:text-textWhite'>
       <Blockies
         seed={ethAddress}
         scale={size}

@@ -43,7 +43,7 @@ const Topbar: FC = () => {
         <SwitchMesonWallet />
         <Link to='/' className='w-full ml-[8rem]'>
           <img
-            src='/assets/Meson_topbar_logo.png'
+            src={localStorage.getItem('theme') === "dark" ? '/assets/Meson_topbar_logo.png' : '/assets/Meson_topbar_logo_light.png'}
             alt='Meson Logo'
             width='176'
             height='40'

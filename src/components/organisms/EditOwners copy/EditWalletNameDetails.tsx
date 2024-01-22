@@ -38,7 +38,7 @@ const EditWalletNameDetails: React.FC<{
   };
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New wallet name</span>

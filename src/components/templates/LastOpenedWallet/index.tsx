@@ -35,7 +35,7 @@ const LastOpenedWallet: React.FC<Props> = () => {
             onClick={() => switchWallet(idx)}
           >
             <div
-              className='px-6 mb-2 hover:bg-dark text-textGray dark:text-textWhite hover:text-textWhite w-full rounded-xl'
+              className='px-6 mb-2 hover:bg-dark text-textGray dark:text-textWhite w-full rounded-xl group'
               role='button'
               tabIndex={0}
             >

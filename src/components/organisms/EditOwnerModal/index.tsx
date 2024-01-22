@@ -33,7 +33,6 @@ const EditOwnerModal: React.FC<EditOwnerModalType> = ({
                 Edit owner
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
                 <EditOwnerDetails
                   onClose={onClose}
@@ -41,7 +40,6 @@ const EditOwnerModal: React.FC<EditOwnerModalType> = ({
                   address={address}
                 />
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

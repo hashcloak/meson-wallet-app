@@ -103,7 +103,7 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
         tabIndex={0}
         className='collapse collapse-arrow border border-base-300 bg-base-100 rounded-box'
       >
-        <div className='collapse-title text-base font-bold bg-bgGrayLight  dark:bg-bgDarkLight'>
+        <div className='collapse-title text-base font-bold bg-bgGrayLight dark:bg-bgDarkLight'>
           Advanced parameters
         </div>
         <div className='collapse-content flex flex-col w-full bg-bgGrayLight  dark:bg-bgDarkLight'>

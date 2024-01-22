@@ -55,7 +55,7 @@ const OwnerSetting: React.FC = () => {
           <StepWrapper>
             {/* 1st row */}
             <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid  box-border py-4 px-8'>
-              <div className='flex flex-col text-textWhite text-base '>
+              <div className='flex flex-col text-textGray dark:text-textWhite text-base '>
                 <span>
                   This Meson wallet on Ethereum has {existingOwners.length}{' '}
                   owners. Optional: Provide a name for each owner.

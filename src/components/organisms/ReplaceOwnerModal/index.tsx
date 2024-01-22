@@ -45,7 +45,6 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
                 )}
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (
@@ -66,7 +65,6 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
                   />
                 )}
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

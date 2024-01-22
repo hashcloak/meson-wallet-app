@@ -24,7 +24,7 @@ const SidebarIconText: React.FC<Props> = ({ type, text }) => {
           tabIndex={0}
         >
           <SidebarIcon type={type} size={'lg'} color={'white'} />
-          <span className='text-xs text-textGray dark:text-textWhite mt-2'>{text}</span>
+          <span className='text-xs text-textGray dark:text-textWhite group-hover:text-textWhite group-active:text-textWhite mt-2'>{text}</span>
         </div>
       )}
     </>

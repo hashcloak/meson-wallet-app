@@ -60,8 +60,8 @@ const ContactsContents: React.FC = () => {
   }, [input]);
 
   return (
-    <div className='flex flex-col w-full text-textWhite'>
-      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
+    <div className='flex flex-col w-full text-textGray dark:text-textWhite'>
+      <span className='text-2xl font-bold'>
         Contacts
       </span>
       <div className='flex flex-row justify-between w-full my-2'>

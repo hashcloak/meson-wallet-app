@@ -72,7 +72,7 @@ const ChangeThresholdInput: React.FC<ChangeThresholdInputType> = ({
   }, []);
 
   return (
-    <div className='flex flex-col text-textWhite w-full'>
+    <div className='flex flex-col text-textGray dark:text-textWhite w-full'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New required owner confirmation</span>

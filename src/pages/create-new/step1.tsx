@@ -23,7 +23,7 @@ const Step1: React.FC = () => {
         <div className='w-[5.5rem] h-full box-border py-4 bg-bgGrayMid dark:bg-bgDarkMid'>
           <Sidebar isStepper={true} isCreateNew={true} currentStep={0} />
         </div>
-        <div className='w-[calc(100%-5.5rem)] h-full box-border py-8 px-[4.5rem] bg-bgDark'>
+        <div className='w-[calc(100%-5.5rem)] h-full box-border py-8 px-[4.5rem] bg-bgGray dark:bg-bgDark'>
           <ConnectSignerWallet />
         </div>
       </div>

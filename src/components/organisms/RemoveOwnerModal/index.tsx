@@ -41,7 +41,6 @@ const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
                 )}
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (
@@ -62,7 +61,6 @@ const RemoveOwnerModal: React.FC<RemoveOwnerModalType> = ({
                   />
                 )}
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

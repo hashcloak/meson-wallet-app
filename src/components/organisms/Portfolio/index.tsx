@@ -23,7 +23,7 @@ const Portfolio: React.FC<Props> = ({
       </span>
 
       <div
-        className={`rounded-2xl text-textWhite px-8 py-6 w-full h-full box-border ${background}`}
+        className={`rounded-2xl text-textGray dark:text-textWhite px-8 py-6 w-full h-full box-border ${background}`}
       >
         <div className='flex flex-col items-center w-full'>
           {isLoading ? (

@@ -59,7 +59,7 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <div className='flex flex-row justify-center'>
@@ -164,11 +164,9 @@ export const AdvancedParametersModal: React.FC<Props> = ({
                 Advanced parameters
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
                 <AdvancedParametersInput onClose={onClose} />
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

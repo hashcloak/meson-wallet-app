@@ -69,7 +69,7 @@ const SelectMesonWallet: React.FC = () => {
             <StepWrapper>
               {/* 1st row */}
               <StepContentLayout>
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                   <span>
                     Select network on which the Meson wallet was created
                   </span>
@@ -81,7 +81,7 @@ const SelectMesonWallet: React.FC = () => {
 
               {/* 2nd row */}
               <StepContentLayout>
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                   <span className='text-xl underline'>Name of your wallet</span>
                   <Spacer size={8} axis={'vertical'} />
                   <span>
@@ -114,7 +114,7 @@ const SelectMesonWallet: React.FC = () => {
 
               {/* 3rd row */}
               <StepContentLayout>
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                   <span className='text-xl underline'>Wallet address</span>
                   <Spacer size={8} axis={'vertical'} />
                   <span>

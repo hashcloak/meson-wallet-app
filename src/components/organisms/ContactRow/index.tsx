@@ -34,7 +34,7 @@ const ContactRow: React.FC<Props> = ({ contact }) => {
   };
 
   return (
-    <div className='grid grid-cols-[15%_70%_15%] items-center w-full text-textWhite'>
+    <div className='grid grid-cols-[15%_70%_15%] items-center w-full text-textGray dark:text-textWhite'>
       <span className=''>{contact.name}</span>
       <div className=''>
         <EthAddress ethAddress={contact.address} size={4.5} length={'full'} />

@@ -25,11 +25,11 @@ const LoaderWaiting: React.FC<Props> = ({ isLoading }) => {
               <Icon type={'MesonCircle'} size={'w-40'} color={'none'} />
               <Spacer size={16} axis={'vertical'} />
               <div className='flex flex-col items-center'>
-                <span className='text-2xl	text-textWhite font-bold'>
+                <span className='text-2xl	text-textGray dark:text-textWhite font-bold'>
                   Deploying
                 </span>
                 <Spacer size={8} axis={'vertical'} />
-                <span className='text-base text-textWhite'>
+                <span className='text-base text-textGray dark:text-textWhite'>
                   Please wait while we get everything ready for you!
                 </span>
               </div>

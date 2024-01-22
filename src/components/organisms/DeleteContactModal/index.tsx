@@ -39,7 +39,7 @@ const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>

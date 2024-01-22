@@ -16,7 +16,7 @@ const Timeline: React.FC = () => {
         History - Latest {recent10Txs.length} out of{' '}
         {historicalTxs.length > 5 ? historicalTxs.length : '10'} Txs
       </span>
-      <div className='flex flex-row-reverse justify-end rounded-2xl text-textWhite bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6 w-full h-[22.5rem] box-border snap-x overflow-x-scroll '>
+      <div className='flex flex-row-reverse justify-end rounded-2xl text-textGray dark:text-textWhite bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6 w-full h-[22.5rem] box-border snap-x overflow-x-scroll '>
         {recent10Txs.length ? (
           recent10Txs.map((tx) => <Card tx={tx} key={tx.hash} />)
         ) : (

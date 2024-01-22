@@ -31,13 +31,11 @@ const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
                 <Icon type={'Close'} size={'lg'} color={'white'} />
               </button>
             </div>
-            <Dialog.Description className='mt-6'>
               <div className='rounded-2xl p-4 bg-bgGrayLight  dark:bg-bgDarkLight'>
                 {/* Description */}
                 {body}
                 {/* Description */}
               </div>
-            </Dialog.Description>
             <div className='flex flex-row justify-around items-center mt-6'>
               {/* Button */}
               {buttons}

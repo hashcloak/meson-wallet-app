@@ -145,7 +145,7 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   };
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Select Base Path (Option)</span>
       <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl'>
         <FormProvider {...methods}>

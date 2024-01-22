@@ -38,7 +38,6 @@ const SwitchSignerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
                 Switch signer
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
                 {wallet === 'Trezor' && (
                   <SelectTrezorSignerDetail onClose={onClose} />
@@ -47,7 +46,6 @@ const SwitchSignerModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
                   <SelectLedgerSignerDetail onClose={onClose} />
                 )}
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

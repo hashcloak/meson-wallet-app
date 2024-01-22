@@ -83,7 +83,7 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
   };
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <InputControl

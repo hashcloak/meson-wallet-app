@@ -72,7 +72,7 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <InputControl

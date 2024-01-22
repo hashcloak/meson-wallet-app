@@ -56,7 +56,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   }, []);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Removing owner</span>
       <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>

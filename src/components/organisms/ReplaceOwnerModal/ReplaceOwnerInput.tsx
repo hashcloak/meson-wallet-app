@@ -63,7 +63,7 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Current owner</span>
       <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>
