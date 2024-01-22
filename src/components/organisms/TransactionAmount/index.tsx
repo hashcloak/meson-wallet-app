@@ -20,10 +20,10 @@ const TransactionAmount: React.FC = () => {
 
   return (
     <div className='flex flex-col w-full'>
-      <span className='text-textWhite text-2xl font-bold'>
+      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
         Transaction amount
       </span>
-      <div className='flex flex-col justify-center rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6  h-full box-border'>
+      <div className='flex flex-col justify-center rounded-2xl text-textWhite bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6  h-full box-border'>
         <BasicTabs tabList={tabList} />
         <div className='flex flex-row w-full justify-around'>
           <Stat title={'queue'} data={0} />

@@ -20,7 +20,7 @@ const LoaderWaiting: React.FC<Props> = ({ isLoading }) => {
             className='fixed inset-0 bg-neutral-900 opacity-30'
             aria-hidden='true'
           />
-          <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl w-[30rem] h-[20rem] mx-auto py-6 px-8'>
+          <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl w-[30rem] h-[20rem] mx-auto py-6 px-8'>
             <div className='rounded-2xl p-4 flex flex-col items-center'>
               <Icon type={'MesonCircle'} size={'w-40'} color={'none'} />
               <Spacer size={16} axis={'vertical'} />

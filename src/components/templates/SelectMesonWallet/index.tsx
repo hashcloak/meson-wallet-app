@@ -15,7 +15,7 @@ import { setError } from '~/features/error';
 const SelectMesonWallet: React.FC = () => {
   const [walletNameInput, setWalletNameInput] = useState('');
   const [walletAddressInput, setWalletAddressInput] = useState('');
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const schema = z.object({
     walletName: z.string().min(1, { message: 'Owner name is required' }),
     walletAddress: z.string().min(1, { message: 'Owner address is required' }),
@@ -28,21 +28,26 @@ const SelectMesonWallet: React.FC = () => {
     },
     resolver: zodResolver(schema),
   });
-  const onSubmit = ({walletName, walletAddress}: {
-    walletName:string,
-    walletAddress: string,
+  const onSubmit = ({
+    walletName,
+    walletAddress,
+  }: {
+    walletName: string;
+    walletAddress: string;
   }) => {
-    if(ethers.utils.isAddress(walletAddress)){
-      try{
-      // fetch meson wallet info(owner, chain etc)
-      }catch(error){
+    if (ethers.utils.isAddress(walletAddress)) {
+      try {
+        // fetch meson wallet info(owner, chain etc)
+      } catch (error) {
         if (error instanceof Error) {
-          dispatch(setError({ error: "Please input valid Meson Wallet address" }));
+          dispatch(
+            setError({ error: 'Please input valid Meson Wallet address' })
+          );
         }
       }
-    }else{
+    } else {
       // return error
-      dispatch(setError({ error: "Please input valid Meson Wallet address" }));
+      dispatch(setError({ error: 'Please input valid Meson Wallet address' }));
     }
   };
 
@@ -56,7 +61,7 @@ const SelectMesonWallet: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ① Select Meson Wallet
         </span>
         <FormProvider {...methods}>
@@ -92,7 +97,7 @@ const SelectMesonWallet: React.FC = () => {
                     registeredName={'walletName'}
                     handleChange={(e) => handleWalletName(e)}
                   >
-                    <span className='text-textWhite text-sm'>
+                    <span className='text-textGray dark:text-textWhite text-sm'>
                       By continuing you consent to{' '}
                       <CustomLink url={''} size={'sm'}>
                         the terms of use

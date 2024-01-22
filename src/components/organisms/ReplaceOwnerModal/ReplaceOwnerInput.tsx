@@ -65,7 +65,7 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
   return (
     <div className='flex flex-col text-textWhite'>
       <span className='text-lg'>Current owner</span>
-      <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+      <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>
           <EthAddress
             ethAddress={address}
@@ -81,7 +81,7 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New owner</span>
-          <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+          <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
             <NewOwnerInput />
           </div>
 

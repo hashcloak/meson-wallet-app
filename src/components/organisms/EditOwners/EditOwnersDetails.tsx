@@ -23,10 +23,10 @@ const EditOwnersDetails: React.FC<{
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center text-textWhite'>
+      <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
         <div>
           <span className='text-left'>Owners</span>
-          <div className='rounded-2xl bg-bgDarkLight p-4'>
+          <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>
             {owners?.map((owner) => (
               <OwnerRow owner={owner} key={owner.ownerAddress} />
             ))}

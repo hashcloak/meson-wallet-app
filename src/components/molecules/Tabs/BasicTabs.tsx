@@ -25,9 +25,9 @@ const BasicTabs: React.FC<Props> = ({ tabList }) => {
             <Tab
               className={({ selected }) =>
                 classNames(
-                  'rounded-xl	px-2.5 text-center text-base font-medium text-textWhite',
+                  'rounded-xl	px-2.5 text-center text-base font-medium text-textDark dark:text-textWhite',
                   'focus:outline-none focus:ring-2',
-                  selected ? 'bg-dark' : 'hover:bg-dark'
+                  selected ? 'bg-dark text-textWhite' : 'hover:bg-dark hover:text-textWhite'
                 )
               }
               key={`${Object.keys(item)[idx]}-${idx}`}

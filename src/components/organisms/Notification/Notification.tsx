@@ -3,8 +3,10 @@ import Spacer from '~/utils/Spacer';
 // TODO: This needs to be dynamically change based on the props
 const Notification: React.FC = () => {
   return (
-    <div className='w-[30rem] h-[11rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
-      <span className='text-textWhite text-xl font-bold'>Notifications</span>
+    <div className='w-[30rem] h-[11rem] rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6'>
+      <span className='text-textGray dark:text-textWhite text-xl font-bold'>
+        Notifications
+      </span>
       <Spacer size={24} axis={'vertical'} />
       <div className='flex flex-col justify-center items-center w-full'>
         <svg

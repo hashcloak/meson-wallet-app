@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BasicTabs } from '~/components/molecules/Tabs';
 import { TableRowShort } from '../TableRow';
-import { ExtendedTransactionResponse, HistoricalTxsState } from '~/features/historicalTxs';
+import {
+  ExtendedTransactionResponse,
+  HistoricalTxsState,
+} from '~/features/historicalTxs';
 import { RootState } from '~/features/reducers';
 import { useGetHistoricalTxs } from '~/hooks';
 
@@ -12,7 +15,7 @@ type HistoryProps = {
 
 export const RecentQueue: React.FC<HistoryProps> = ({ txs }) => {
   return (
-    <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
+    <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
       <div
         className={`box-border grid grid-cols-1 gap-2 ${
           txs.length ? '' : 'h-full'
@@ -32,7 +35,7 @@ export const RecentQueue: React.FC<HistoryProps> = ({ txs }) => {
 
 export const RecentHistory: React.FC<HistoryProps> = ({ txs }) => {
   return (
-    <div className='rounded-2xl bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
+    <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid py-4 w-full h-full overflow-scroll box-border'>
       <div
         className={`box-border grid grid-cols-1 gap-2 ${
           txs.length ? '' : 'h-full'
@@ -51,7 +54,7 @@ export const RecentHistory: React.FC<HistoryProps> = ({ txs }) => {
 };
 
 const RecentTxs: React.FC = () => {
-  void useGetHistoricalTxs()
+  void useGetHistoricalTxs();
   const { historicalTxs } = useSelector<RootState, HistoricalTxsState>(
     (state) => state.historicalTxs
   );
@@ -67,7 +70,7 @@ const RecentTxs: React.FC = () => {
   return (
     <div className='flex flex-col w-full min-w-[46rem]'>
       <div className='flex flex-row justify-between'>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           Recent Transactions
         </span>
         <Link to={'/transactions'} className='text-textLink text-sm'>
@@ -75,7 +78,7 @@ const RecentTxs: React.FC = () => {
         </Link>
       </div>
 
-      <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
+      <div className='rounded-2xl text-textGray dark:text-textWhite bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6 w-full h-full'>
         <BasicTabs tabList={tabList} />
       </div>
     </div>

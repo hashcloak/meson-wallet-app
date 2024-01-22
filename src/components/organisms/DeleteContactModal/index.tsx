@@ -31,11 +31,10 @@ const DeleteContactDetails: React.FC<DeleteContactDetailsType> = ({
     },
   });
 
-  const onSubmit = (data: {removingAddress:string}) => {
-      dispatch(removeContacts(data.removingAddress));
-      onClose();
+  const onSubmit = (data: { removingAddress: string }) => {
+    dispatch(removeContacts(data.removingAddress));
+    onClose();
   };
-
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
@@ -95,18 +94,16 @@ const DeleteContactModal: React.FC<Props> = ({
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Delete contact
               </span>
 
-
-                <DeleteContactDetails
-                  onClose={onClose}
-                  name={name}
-                  address={address}
-                />
-
+              <DeleteContactDetails
+                onClose={onClose}
+                name={name}
+                address={address}
+              />
             </Dialog.Panel>
           </div>
         </Dialog>

@@ -45,7 +45,7 @@ const ConnectSignerWallet: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ① Connect your signer wallet
         </span>
         <FormProvider {...methods}>
@@ -95,7 +95,7 @@ const ConnectSignerWallet: React.FC = () => {
                     registeredName={'walletName'}
                     handleChange={handleWalletName}
                   >
-                    <span className='text-textWhite text-sm'>
+                    <span className='text-textGray dark:text-textWhite text-sm'>
                       By continuing you consent to{' '}
                       <CustomLink url={''} size={'sm'}>
                         the terms of use

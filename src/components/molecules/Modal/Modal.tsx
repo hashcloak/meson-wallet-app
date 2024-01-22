@@ -22,7 +22,7 @@ const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
             className='fixed inset-0 bg-neutral-900 opacity-30'
             aria-hidden='true'
           />
-          <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl max-w-4xl mx-auto py-6 px-8 '>
+          <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl max-w-4xl mx-auto py-6 px-8 '>
             <div className='flex flex-row justify-between w-full'>
               <Dialog.Title className='Description-lg font-medium leading-6 text-textWhite text-2xl'>
                 Remove wallet
@@ -32,7 +32,7 @@ const Modal: React.FC<Props> = ({ isOpen, body, buttons, onClose }) => {
               </button>
             </div>
             <Dialog.Description className='mt-6'>
-              <div className='rounded-2xl p-4 bg-bgDarkLight'>
+              <div className='rounded-2xl p-4 bg-bgGrayLight  dark:bg-bgDarkLight'>
                 {/* Description */}
                 {body}
                 {/* Description */}

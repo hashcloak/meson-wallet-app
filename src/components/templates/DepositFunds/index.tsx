@@ -57,7 +57,7 @@ const DepositFund: React.FC = () => {
   );
 
   const { txReceipt } = useWalletConnectDeploy(
-    signerWallet.signerWalletAddress,
+    signerWallet.signerWalletAddress
   );
 
   // TODO: Need to add validation method for the input amount
@@ -157,7 +157,7 @@ const DepositFund: React.FC = () => {
                 mesonWallet: {
                   mesonWalletAddress: newMesonWallet?.mesonWalletAddress,
                   encryptedWallet: newMesonWallet?.encryptedWallet,
-                  smartContract
+                  smartContract,
                 },
               })
             );
@@ -190,7 +190,7 @@ const DepositFund: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ④ Create wallet
         </span>
         <FormProvider {...methods}>

@@ -37,13 +37,15 @@ const EthAddress: React.FC<Props> = ({
       />
       <div className='flex flex-col ml-2 items-start'>
         {walletName != null && walletName ? (
-          <span className='text-textWhite text-base font-normal'>
+          <span className='text-base font-normal'>
             {walletName}
           </span>
         ) : null}
         <div className='flex flex-row items-center'>
-          <span className='text-textWhite text-sm font-bold'>eth:&nbsp;</span>
-          <span className='text-textWhite text-base font-normal'>
+          <span className=' text-sm font-bold'>
+            eth:&nbsp;
+          </span>
+          <span className=' text-base font-normal'>
             {address}
           </span>
           {icons ? (

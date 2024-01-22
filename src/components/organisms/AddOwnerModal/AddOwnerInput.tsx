@@ -43,19 +43,23 @@ const AddOwnerInput: React.FC<AddOwnerInputType> = ({
       return String(value);
     }, z.string().optional()),
     newOwnerAddress: z
-    .string()
-    .min(1,{message: 'Please input valid eth address',})
-    .refine((val) => {
-        if(ethers.utils.isAddress(val)){
-          const checkOwners = owners?.filter((o) => o.ownerAddress.toLowerCase() === val.toLowerCase()) ?? []
+      .string()
+      .min(1, { message: 'Please input valid eth address' })
+      .refine(
+        (val) => {
+          if (ethers.utils.isAddress(val)) {
+            const checkOwners =
+              owners?.filter(
+                (o) => o.ownerAddress.toLowerCase() === val.toLowerCase()
+              ) ?? [];
 
-          return !(checkOwners.length > 0);
-        };
-      },
-      {
-        message: 'Please input valid eth address',
-      }
-    ),
+            return !(checkOwners.length > 0);
+          }
+        },
+        {
+          message: 'Please input valid eth address',
+        }
+      ),
     confirmation: z.preprocess((value) => {
       if (typeof value !== 'string') {
         return Number(value);
@@ -107,18 +111,18 @@ const AddOwnerInput: React.FC<AddOwnerInputType> = ({
   }, []);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New owner</span>
-          <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+          <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
             <NewOwnerInput />
           </div>
 
           <Spacer size={32} axis={'vertical'} />
 
           <span className='text-lg'>New required owner confirmation</span>
-          <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
+          <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
             <span>Any transaction requires the confirmation of:</span>
             <div className='grid grid-cols-4'>
               <div className='col-span-1 mr-2'>

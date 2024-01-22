@@ -104,7 +104,7 @@ const RegisterAccountInfo: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ② Register account info
         </span>
         <form onSubmit={handleSubmit(onSubmit, onError)}>

@@ -98,7 +98,8 @@ const Card: React.FC<Props> = ({ tx }) => {
   w-[12.5rem]
   h-[13rem]
   rounded-2xl
-  bg-bgDarkLight
+  dark:bg-bgDarkLight
+  bg-bgGrayLight
   p-4
   text-white
   absolute

@@ -19,16 +19,17 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
   newOwner,
   newConfirmation,
 }) => {
-  const { walletName, owners, mesonWallet } = useSelector<RootState, MesonWalletState>(
-    (state) => state.mesonWallet
-  );
+  const { walletName, owners, mesonWallet } = useSelector<
+    RootState,
+    MesonWalletState
+  >((state) => state.mesonWallet);
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
 
   return (
     <>
-      <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base '>
+      <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-full  text-textWhite text-base '>
         <div className='flex flex-col w-full'>
           <span className='text-xl underline'>Details</span>
           <Spacer size={8} axis={'vertical'} />
@@ -44,7 +45,7 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
                 Address of the Meson Wallet
               </span>
               <EthAddress
-                ethAddress={mesonWallet?.mesonWalletAddress ??''}
+                ethAddress={mesonWallet?.mesonWalletAddress ?? ''}
                 size={4.5}
                 length={'short'}
               />
@@ -102,10 +103,10 @@ const AddOwnerDetails: React.FC<AddOwnerDetailsProps> = ({
         tabIndex={0}
         className='collapse collapse-arrow border border-base-300 bg-base-100 rounded-box'
       >
-        <div className='collapse-title text-base font-bold bg-bgDarkLight'>
+        <div className='collapse-title text-base font-bold bg-bgGrayLight  dark:bg-bgDarkLight'>
           Advanced parameters
         </div>
-        <div className='collapse-content flex flex-col w-full bg-bgDarkLight'>
+        <div className='collapse-content flex flex-col w-full bg-bgGrayLight  dark:bg-bgDarkLight'>
           <div className='flex flex-row justify-around w-full'>
             <span>Nonce</span>
             <span>33</span>

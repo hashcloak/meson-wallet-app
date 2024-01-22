@@ -20,10 +20,12 @@ const Accounts: React.FC = () => {
 
   return (
     <div className='flex flex-col h-full '>
-      <span className='text-textWhite text-2xl font-bold'>Accounts</span>
+      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
+        Accounts
+      </span>
 
-      <div className='xl:max-w-[44rem] rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
-        <div className='flex flex-col rounded-2xl p-4 bg-bgDarkLight'>
+      <div className='xl:max-w-[44rem] rounded-2xl text-textGray dark:text-textWhite bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6 w-full h-full'>
+        <div className='flex flex-col rounded-2xl p-4 bg-bgGrayLight dark:bg-bgDarkLight'>
           <div>
             <span className='text-xl font-bold'>Your Meson wallet</span>
             <Spacer size={8} axis={'vertical'} />
@@ -46,7 +48,7 @@ const Accounts: React.FC = () => {
           </div>
         </div>
         <Spacer size={16} axis={'vertical'} />
-        <div className='flex flex-col rounded-2xl p-4 bg-bgDarkLight'>
+        <div className='flex flex-col rounded-2xl p-4 bg-bgGrayLight  dark:bg-bgDarkLight'>
           <div>
             <span className='text-xl font-bold'>Owners</span>
             <Spacer size={8} axis={'vertical'} />

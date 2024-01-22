@@ -34,7 +34,9 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>③ Review</span>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
+          ③ Review
+        </span>
         <form onSubmit={handleSubmit} className='w-[60rem]'>
           <StepWrapper>
             {/* 1st row */}
@@ -90,7 +92,7 @@ const WalletReview: React.FC<Props> = ({ isCreateNew = true }) => {
                 </div>
               </div>
               {isCreateNew ? (
-                <div className='bg-bgDarkLight w-[56rem] py-4 mt-6 rounded-2xl flex flex-col items-center text-textWhite'>
+                <div className='bg-bgGrayLight  dark:bg-bgDarkLight w-[56rem] py-4 mt-6 rounded-2xl flex flex-col items-center text-textWhite'>
                   <div className='flex flex-col'>
                     <span>
                       ※ You&apos;re almost creating a new Meson Wallet on{' '}

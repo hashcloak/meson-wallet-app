@@ -25,7 +25,9 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   onNewConfirmation,
 }) => {
   const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
-  const { confirmation } = useSelector<RootState, MesonWalletState>((state) => state.mesonWallet);
+  const { confirmation } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
 
   const methods = useForm({
     defaultValues: {
@@ -56,7 +58,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   return (
     <div className='flex flex-col text-textWhite'>
       <span className='text-lg'>Removing owner</span>
-      <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+      <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>
           <EthAddress
             ethAddress={address}
@@ -71,7 +73,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New required owner confirmation</span>
-          <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
+          <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
             <OwnerConfirmation numOfConfirmation={numOfConfirmation} />
           </div>
           <Spacer size={24} axis={'vertical'} />

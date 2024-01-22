@@ -22,7 +22,7 @@ const Button: React.FC<Props> = ({
   return (
     <button
       type={btnType}
-      className={`flex justify-center items-center rounded-xl text-center font-bold	text-sm	 ${variants[btnVariant]} ${sizes[btnSize]}`}
+      className={`flex justify-center items-center rounded-xl text-center font-bold	text-sm	${variants[btnVariant]} ${sizes[btnSize]}`}
       disabled={disabled}
       onClick={handleClick}
     >

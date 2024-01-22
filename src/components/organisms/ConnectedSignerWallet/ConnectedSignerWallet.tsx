@@ -46,13 +46,15 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
     <>
       {isConnected && ethAddress.length ? (
         <>
-          <div className='w-80 rounded-2xl bg-bgDarkMid px-8 py-6'>
-            <span className='text-textWhite text-xl font-bold'>
+          <div className='w-80 rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6'>
+            <span className='text-textGray dark:text-textWhite text-xl font-bold'>
               Connected signer wallet
             </span>
             <Spacer size={16} axis={'vertical'} />
-            <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgDarkLight'>
-              <span className='text-textWhite'>Selected wallet</span>
+            <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight'>
+              <span className='text-textGray dark:text-textWhite'>
+                Selected wallet
+              </span>
 
               <Spacer size={16} axis={'vertical'} />
 
@@ -64,10 +66,10 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                 />
                 <span className='text-sm'>My wallet</span>
                 <div className='flex flex-row items-center'>
-                  <span className='text-textWhite text-sm font-bold'>
+                  <span className='text-textGray dark:text-textWhite text-sm font-bold'>
                     eth:&nbsp;
                   </span>
-                  <span className='text-textWhite text-base font-normal'>
+                  <span className='text-textGray dark:text-textWhite text-base font-normal'>
                     {trimAddress(ethAddress)}
                   </span>
                 </div>
@@ -79,7 +81,9 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                 <Spacer size={8} axis={'vertical'} />
                 <div className='w-full box-border'>
                   <div className='flex flex-row justify-between items-center w-full'>
-                    <span className='text-textWhite text-base'>Wallet</span>
+                    <span className='text-textGray dark:text-textWhite text-base'>
+                      Wallet
+                    </span>
                     <div className='flex flex-row justify-center'>
                       <Logo
                         type={Object.keys(selectedSignerWallet)[0] as LogoTypes}
@@ -92,8 +96,12 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                     </div>
                   </div>
                   <div className='flex flex-row justify-between items-center w-full'>
-                    <span className='text-textWhite text-base'>Network</span>
-                    <span className='text-textWhite text-base'>{network}</span>
+                    <span className='text-textGray dark:text-textWhite text-base'>
+                      Network
+                    </span>
+                    <span className='text-textGray dark:text-textWhite text-base'>
+                      {network}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -141,18 +149,18 @@ const ConnectedSignerWallet: React.FC<ConnectedSignerWalletProps> = ({
                   className='fixed inset-0 bg-neutral-900 opacity-30'
                   aria-hidden='true'
                 />
-                <div className='py-6 relative bg-bgDarkMid rounded-2xl px-8 w-[48rem]'>
+                <div className='py-6 relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl px-8 w-[48rem]'>
                   {/* Description */}
-                  <span className='text-textWhite text-xl font-bold'>
+                  <span className='text-textGray dark:text-textWhite text-xl font-bold'>
                     Connect a signer wallet
                   </span>
 
                   <Spacer size={16} axis={'vertical'} />
 
-                  <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgDarkLight'>
+                  <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight'>
                     <div className='flex flex-col items-center w-full'>
                       <div className='w-full'>
-                        <span className='text-textWhite text-base font-bold'>
+                        <span className='text-textGray dark:text-textWhite text-base font-bold'>
                           Available Wallets
                         </span>
                         <Spacer size={8} axis={'vertical'} />

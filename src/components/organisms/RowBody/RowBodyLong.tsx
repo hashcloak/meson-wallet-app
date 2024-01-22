@@ -30,7 +30,9 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
       <div className='grid grid-cols-2 items-center'>
         <div className='flex flex-row items-center'>
           <TxStatus type={status} size={'xl'} color={'white'} />
-          <span className='text-textWhite font-bold text-base'>{status}</span>
+          <span className='text-textGray dark:text-textWhite font-bold text-base'>
+            {status}
+          </span>
         </div>
 
         <div className='flex flex-col justify-items-start w-[21rem]'>
@@ -41,7 +43,7 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
               <div className='flex flex-row items-center'>
                 <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
                 <Spacer size={8} axis={'horizontal'} />
-                <span className='text-textWhite font-bold text-lg'>
+                <span className='text-textGray dark:text-textWhite font-bold text-lg'>
                   {String(tx.value)} {token?.toUpperCase()}
                 </span>
               </div>
@@ -54,7 +56,9 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
       {numOfConfirmation != null ? (
         <div className='grid grid-cols-3 items-center'>
           <div className='flex flex-col items-start'>
-            <span className='text-textWhite text-sm'>{date}</span>
+            <span className='text-textGray dark:text-textWhite text-sm'>
+              {date}
+            </span>
             <span className='text-textGrayLight text-xs'>{time}</span>
           </div>
           <div className='flex flex-col items-start'>
@@ -66,15 +70,21 @@ const RowBodyLong: React.FC<Props> = ({ tx }) => {
           </div>
           <div className='flex flex-col items-start '>
             {numOfConfirmation - numOfConfirmation !== 0 ? (
-              <span className='text-textWhite text-sm'>Needs confirmation</span>
+              <span className='text-textGray dark:text-textWhite text-sm'>
+                Needs confirmation
+              </span>
             ) : (
-              <span className='text-textWhite text-sm'>Success</span>
+              <span className='text-textGray dark:text-textWhite text-sm'>
+                Success
+              </span>
             )}
           </div>
         </div>
       ) : (
         <div className='flex flex-col items-start justify-center'>
-          <span className='text-textWhite text-sm'>{date}</span>
+          <span className='text-textGray dark:text-textWhite text-sm'>
+            {date}
+          </span>
           <span className='text-textGrayLight text-xs'>{time}</span>
         </div>
       )}

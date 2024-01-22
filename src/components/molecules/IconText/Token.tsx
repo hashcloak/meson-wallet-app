@@ -14,7 +14,7 @@ const Token: React.FC<Props> = ({ type, abbrev, token }) => {
   return (
     <div className='flex flex-row items-center'>
       <Logo type={type} size={'xl'} />
-      <div className='flex flex-col ml-2'>
+      <div className='flex flex-col ml-2 text-textGray dark:text-textWhite'>
         <span className='text-base font-bold'>{abbrev}</span>
         <span className='text-xs'>{token}</span>
       </div>

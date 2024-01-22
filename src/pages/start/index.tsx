@@ -10,7 +10,7 @@ const Start: React.FC = () => {
     <div className='w-screen h-screen flex flex-col'>
       <Topbar />
 
-      <div className='flex flex-col justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgDark'>
+      <div className='flex flex-col justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgGray dark:bg-bgDark'>
         {/* <Image
           src='/Meson_start_logo.png'
           alt='mesonTopbarLogo'

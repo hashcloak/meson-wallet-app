@@ -23,7 +23,9 @@ export const Footer: React.FC = () => {
         </CustomLink>
       </div>
       <Spacer size={8} axis={'vertical'} />
-      <span className='text-textWhite text-xs'>© HashCloak</span>
+      <span className='text-textGray dark:text-textWhite text-xs'>
+        © HashCloak
+      </span>
     </div>
   );
 };

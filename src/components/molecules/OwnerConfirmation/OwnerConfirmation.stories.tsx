@@ -33,7 +33,7 @@ export const Default: React.FC = (): React.ReactElement => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
         <span className='text-lg'>New required owner confirmation</span>
-        <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
+        <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
           <OwnerConfirmation numOfConfirmation={confirmation} />
         </div>
         <Spacer size={24} axis={'vertical'} />

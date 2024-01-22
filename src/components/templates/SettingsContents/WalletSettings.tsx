@@ -14,24 +14,25 @@ const WalletSettings: React.FC = () => {
   const [isOpenEditWalletName, setIsOpenEditWalletName] = useState(false);
 
   const handleEditOwner = () => setIsOpenEditOwner(!isOpenEditOwner);
-  const handleEditWalletName = () =>setIsOpenEditWalletName(!isOpenEditWalletName);
+  const handleEditWalletName = () =>
+    setIsOpenEditWalletName(!isOpenEditWalletName);
 
-  const { walletName, owners, confirmation } = useSelector<RootState, MesonWalletState>(
-    (state) => state.mesonWallet
-  );
+  const { walletName, owners, confirmation } = useSelector<
+    RootState,
+    MesonWalletState
+  >((state) => state.mesonWallet);
   const { network } = useSelector<RootState, NetworkState>(
     (state) => state.network
   );
 
-
   return (
-    <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
+    <div className='flex flex-col w-full rounded-2xl bg-bgGrayLight dark:bg-bgDarkLight  text-textGray dark:text-textWhite text-lg px-8 py-4 h-full'>
       <span className='text-3xl font-bold'>Wallet settings</span>
       <Spacer size={24} axis={'vertical'} />
       <div className='flex flex-col'>
-        <div className='flex flex-row justify-between items-center px-4 hover:bg-dark rounded-2xl'>
+        <div className='flex flex-row justify-between items-center px-4 hover:bg-dark rounded-2xl group'>
           <div className='flex flex-row'>
-            <span className='mr-2'>Wallet name: </span>
+            <span className='mr-2 group-hover:text-textWhite'>Wallet name: </span>
             <span>{walletName}</span>
           </div>
           <button type='button' onClick={() => handleEditWalletName()}>
@@ -47,9 +48,9 @@ const WalletSettings: React.FC = () => {
         <Spacer size={8} axis={'vertical'} />
 
         <div className='flex flex-col'>
-          <div className='flex flex-row justify-between items-center px-4 hover:bg-dark rounded-2xl'>
+          <div className='flex flex-row justify-between items-center px-4 hover:bg-dark rounded-2xl group'>
             <div className='flex flex-row'>
-              <span className='mr-2'>Owners: </span>
+              <span className='mr-2 group-hover:text-textWhite'>Owners: </span>
             </div>
             <button type='button' onClick={() => handleEditOwner()}>
               <SidebarIcon type={'Settings'} size={'md'} color={'main'} />

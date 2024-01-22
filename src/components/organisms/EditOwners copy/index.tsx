@@ -22,16 +22,17 @@ const EditWalletName: React.FC<Props> = ({ isOpen, onClose, walletName }) => {
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 '>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Edit Wallet name
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
-                <EditWalletNameDetails walletName={walletName} onClose={onClose} />
+                <EditWalletNameDetails
+                  walletName={walletName}
+                  onClose={onClose}
+                />
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

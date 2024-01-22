@@ -9,8 +9,8 @@ const TxDetails: React.FC = () => {
     <>
       <Breadcrumb />
 
-      <div className='rounded-2xl bg-bgDarkMid py-4 px-8'>
-        <div className='rounded-2xl bg-bgDarkLight h-16 flex items-center px-6'>
+      <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid py-4 px-8'>
+        <div className='rounded-2xl bg-bgDarkLight h-16 bg-bgGrayLight dark:bg-bgDarkLightter px-6'>
           <RowBodyLong
             timestamp={tx[0].timestamp}
             status={tx[0].status}

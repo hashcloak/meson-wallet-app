@@ -29,7 +29,7 @@ const ConnectedSignerWalletBtn: React.FC<ConnectedSignerWalletProps> = ({
           />
           <Spacer size={8} axis={'horizontal'} />
           <div className='flex flex-col items-start'>
-            <span className='text-textWhite text-sm font-bold'>
+            <span className='text-textGray dark:text-textWhite text-sm font-bold'>
               {Object.values(selectedSignerWallet[0])} @ {network}
             </span>
             <div className='flex flex-row items-center'>

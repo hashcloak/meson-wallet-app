@@ -48,7 +48,7 @@ const EditOwnerDetails: React.FC<EditOwnerDetailsType> = ({
     <div className='flex flex-col text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-          <div className=' bg-bgDarkLight rounded-2xl p-4'>
+          <div className=' bg-bgGrayLight  dark:bg-bgDarkLight rounded-2xl p-4'>
             <InputControl
               label='Name'
               placeholder='Name*'

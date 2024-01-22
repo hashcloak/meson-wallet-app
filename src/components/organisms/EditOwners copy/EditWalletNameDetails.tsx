@@ -12,7 +12,7 @@ const EditWalletNameDetails: React.FC<{
   walletName: string;
   onClose: () => void;
 }> = ({ walletName, onClose }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [userInput, setUserInput] = useState('');
 
   const schema = z.object({
@@ -29,7 +29,7 @@ const EditWalletNameDetails: React.FC<{
   const onSubmit = (data: { walletName: string }) => {
     dispatch(setMesonWalletName(data));
     methods.reset();
-    onClose()
+    onClose();
   };
 
   const onError = (errors: any, e: any) => console.log(errors, e);
@@ -42,15 +42,14 @@ const EditWalletNameDetails: React.FC<{
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New wallet name</span>
-          <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+          <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
             <InputControl
               label='Name of the new Meson Wallet'
               placeholder={walletName}
               type='text'
               registeredName={'walletName'}
               handleChange={handleWalletName}
-            >
-            </InputControl>
+            ></InputControl>
           </div>
 
           <Spacer size={32} axis={'vertical'} />

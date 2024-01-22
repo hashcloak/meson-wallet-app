@@ -164,7 +164,7 @@ const SelectHardhatSignerDetail: React.FC<SelectHardhatSignerDetailType> = ({
   return (
     <div className='flex flex-col text-textWhite'>
       <span className='text-lg'>Available signers</span>
-      <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col w-[928px]'>
+      <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col w-[928px]'>
         {isLoading ? (
           <div className='w-full h-full self-center'>
             <Spinner />

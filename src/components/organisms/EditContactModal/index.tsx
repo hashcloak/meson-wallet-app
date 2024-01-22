@@ -31,7 +31,7 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
   address,
 }) => {
   const dispatch = useDispatch();
-  const { contacts,owners } = useSelector<RootState, MesonWalletState>(
+  const { contacts, owners } = useSelector<RootState, MesonWalletState>(
     (state) => state.mesonWallet
   );
 
@@ -42,11 +42,14 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
       .min(1, { message: 'Please input valid eth address' })
       .refine(
         (val) => {
-          if(ethers.utils.isAddress(val)){
-            const checkOwners = owners?.filter((o) => o.ownerAddress.toLowerCase() === val.toLowerCase()) ?? []
+          if (ethers.utils.isAddress(val)) {
+            const checkOwners =
+              owners?.filter(
+                (o) => o.ownerAddress.toLowerCase() === val.toLowerCase()
+              ) ?? [];
 
             return !(checkOwners.length > 0);
-          };
+          }
         },
         {
           message: 'Please input valid eth address',
@@ -64,9 +67,11 @@ const EditContactDetails: React.FC<EditContactDetailsType> = ({
 
   const onSubmit = (data: { name: string; address: string }) => {
     const validateNewContact = contacts?.filter(
-      (c) => c.address.toLowerCase() === data.address.toLowerCase() && data.address.toLowerCase() !== address.toLowerCase()
+      (c) =>
+        c.address.toLowerCase() === data.address.toLowerCase() &&
+        data.address.toLowerCase() !== address.toLowerCase()
     );
-    console.log(validateNewContact)
+    console.log(validateNewContact);
     if (validateNewContact !== undefined && validateNewContact?.length === 0) {
       dispatch(editContacts({ removingAddress: address, newContact: data }));
       onClose();
@@ -135,18 +140,18 @@ const EditContactModal: React.FC<Props> = ({
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Edit contact
               </span>
 
-                {/* Description */}
-                <EditContactDetails
-                  onClose={onClose}
-                  name={name}
-                  address={address}
-                />
-                {/* Description */}
+              {/* Description */}
+              <EditContactDetails
+                onClose={onClose}
+                name={name}
+                address={address}
+              />
+              {/* Description */}
             </Dialog.Panel>
           </div>
         </Dialog>

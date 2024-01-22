@@ -180,7 +180,7 @@ export const StatusIcons = (): React.ReactElement => {
     <div className='flex flex-row justify-evenly flex-wrap'>
       {statusIcons.map((type) => (
         <div
-          className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32 bg-bgDarkMid'
+          className='flex flex-col items-center justify-center border border-solid border-borderGray rounded-sm p-4 w-32 h-32 bg-bgGrayMid dark:bg-bgDarkMid'
           key={type}
         >
           <StatusIcon type={type} size={'lg'} color={'white'} />

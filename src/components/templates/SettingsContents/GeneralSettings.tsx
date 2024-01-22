@@ -11,14 +11,14 @@ import { useSaveTheme } from '~/hooks';
 const GeneralSettings: React.FC = () => {
   const [currency, setCurrency] = useState('USD');
   const [openRemoveWalletModal, setOpenRemoveWalletModal] = useState(false);
-  const { isDarkMode,handleDarkMode } = useSaveTheme();
+  const { isDarkMode, handleDarkMode } = useSaveTheme();
 
   const handleCurrency = (value: string) => setCurrency(value);
   const handleRemoveWalletModal = () =>
     setOpenRemoveWalletModal(!openRemoveWalletModal);
 
   return (
-    <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
+    <div className='flex flex-col w-full rounded-2xl bg-bgGrayLight dark:bg-bgDarkLight text-textDark dark:text-textWhite text-lg px-8 py-4 h-full'>
       <span className='text-3xl font-bold'>General</span>
       <Spacer size={24} axis={'vertical'} />
       <div className='flex flex-col'>

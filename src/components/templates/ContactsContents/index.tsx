@@ -54,12 +54,16 @@ const ContactsContents: React.FC = () => {
           contact.address.toLowerCase().includes(kw)
       )
     );
-    setNewContacts(result !== undefined && result?.length > 0 ? result : contacts);
+    setNewContacts(
+      result !== undefined && result?.length > 0 ? result : contacts
+    );
   }, [input]);
 
   return (
     <div className='flex flex-col w-full text-textWhite'>
-      <span className='text-textWhite text-2xl font-bold'>Contacts</span>
+      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
+        Contacts
+      </span>
       <div className='flex flex-row justify-between w-full my-2'>
         <div className='w-1/4 flex flex-row items-center gap-2'>
           <Input
@@ -67,7 +71,14 @@ const ContactsContents: React.FC = () => {
             handleChange={handleUserInput}
             placeholder={'Search...'}
           />
-          <Button btnVariant='border' btnSize='sm' btnType='button' handleClick={()=>setInput('')} >Clear</Button>
+          <Button
+            btnVariant='border'
+            btnSize='sm'
+            btnType='button'
+            handleClick={() => setInput('')}
+          >
+            Clear
+          </Button>
         </div>
         <button
           className='flex flex-row items-center'
@@ -82,7 +93,7 @@ const ContactsContents: React.FC = () => {
           onClose={handleAddNewContactModal}
         />
       </div>
-      <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
+      <div className='rounded-2xl text-textWhite bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6 w-full h-full box-border'>
         <div className='grid grid-cols-[15%_70%_15%] box-border text-textGrayLight max-w-full justify-between'>
           <span className='col-span-1'>Name</span>
           <span className='col-span-1'>Address</span>

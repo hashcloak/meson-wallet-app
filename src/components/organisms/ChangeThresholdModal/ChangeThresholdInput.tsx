@@ -56,7 +56,8 @@ const ChangeThresholdInput: React.FC<ChangeThresholdInputType> = ({
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-  const onError = (errors:any) => setErrorMessage(errors.confirmation.message ?? '');
+  const onError = (errors: any) =>
+    setErrorMessage(errors.confirmation.message ?? '');
 
   useEffect(() => {
     const fields = [...Array(confirmation).keys()];
@@ -75,7 +76,7 @@ const ChangeThresholdInput: React.FC<ChangeThresholdInputType> = ({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New required owner confirmation</span>
-          <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
+          <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
             <OwnerConfirmation numOfConfirmation={numOfConfirmation} />
           </div>
           {errorMessage.length ? (
