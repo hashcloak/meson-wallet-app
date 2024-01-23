@@ -96,15 +96,14 @@ const SwitchSignerDetail: React.FC<SwitchSignerDetailType> = ({ onClose }) => {
   };
 
   const handleSwitch = () => {
-    console.log('Switch signer to: ', primarySigner);
     dispatch(setSignerWallet(primarySigner));
     onClose();
   };
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Current signer</span>
-      <div className=' bg-bgDarkLight p-4 rounded-2xl'>
+      <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl'>
         <div className='grid grid-cols-2 gap-x-8 box-border w-full p-2'>
           <div className='grid grid-cols-1 text-textGrayLight'>
             <span className='col-span-1'>Address</span>
@@ -127,7 +126,7 @@ const SwitchSignerDetail: React.FC<SwitchSignerDetailType> = ({ onClose }) => {
       <Spacer size={32} axis={'vertical'} />
 
       <span className='text-lg'>Available signers</span>
-      <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
+      <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
         {isLoading ? (
           <div className='w-full h-full self-center'>
             <Spinner />

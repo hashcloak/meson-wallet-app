@@ -1,47 +1,67 @@
 import React, { ChangeEvent, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ethers } from 'ethers';
 import { useForm, FormProvider } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import * as z from 'zod';
 import { Button } from '~/components/atoms/Button';
 import CustomLink from '~/components/atoms/CustomLink';
 import { InputControl } from '~/components/atoms/Input';
-import { OptionControl } from '~/components/atoms/Option';
+import { SelectNetwork } from '~/components/atoms/Option';
 import { StepContentLayout, StepWrapper } from '~/utils/Layouts';
-import { mockNetworks } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
+import { setError } from '~/features/error';
 
 const SelectMesonWallet: React.FC = () => {
   const [walletNameInput, setWalletNameInput] = useState('');
   const [walletAddressInput, setWalletAddressInput] = useState('');
-
+  const dispatch = useDispatch();
   const schema = z.object({
     walletName: z.string().min(1, { message: 'Owner name is required' }),
     walletAddress: z.string().min(1, { message: 'Owner address is required' }),
-    selectedNetwork: z.string(),
   });
 
   const methods = useForm({
     defaultValues: {
       walletName: '',
       walletAddress: '',
-      selectedNetwork: mockNetworks[0],
     },
     resolver: zodResolver(schema),
   });
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = ({
+    walletName,
+    walletAddress,
+  }: {
+    walletName: string;
+    walletAddress: string;
+  }) => {
+    if (ethers.utils.isAddress(walletAddress)) {
+      try {
+        // fetch meson wallet info(owner, chain etc)
+      } catch (error) {
+        if (error instanceof Error) {
+          dispatch(
+            setError({ error: 'Please input valid Meson Wallet address' })
+          );
+        }
+      }
+    } else {
+      // return error
+      dispatch(setError({ error: 'Please input valid Meson Wallet address' }));
+    }
+  };
+
   const handleWalletName = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setWalletNameInput(e.target.value);
   };
   const handleWalletAddress = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     setWalletAddressInput(e.target.value);
   };
 
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ① Select Meson Wallet
         </span>
         <FormProvider {...methods}>
@@ -49,22 +69,19 @@ const SelectMesonWallet: React.FC = () => {
             <StepWrapper>
               {/* 1st row */}
               <StepContentLayout>
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                   <span>
                     Select network on which the Meson wallet was created
                   </span>
                 </div>
-                <div className='w-1/3'>
-                  <OptionControl
-                    options={mockNetworks}
-                    registeredName={'selectedNetwork'}
-                  />
+                <div className='max-w-[11.5rem] flex justify-center mx-[0.5rem]'>
+                  <SelectNetwork />
                 </div>
               </StepContentLayout>
 
               {/* 2nd row */}
               <StepContentLayout>
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                   <span className='text-xl underline'>Name of your wallet</span>
                   <Spacer size={8} axis={'vertical'} />
                   <span>
@@ -80,7 +97,7 @@ const SelectMesonWallet: React.FC = () => {
                     registeredName={'walletName'}
                     handleChange={(e) => handleWalletName(e)}
                   >
-                    <span className='text-textWhite text-sm'>
+                    <span className='text-textGray dark:text-textWhite text-sm'>
                       By continuing you consent to{' '}
                       <CustomLink url={''} size={'sm'}>
                         the terms of use
@@ -97,7 +114,7 @@ const SelectMesonWallet: React.FC = () => {
 
               {/* 3rd row */}
               <StepContentLayout>
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                   <span className='text-xl underline'>Wallet address</span>
                   <Spacer size={8} axis={'vertical'} />
                   <span>

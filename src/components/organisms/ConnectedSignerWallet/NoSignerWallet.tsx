@@ -5,21 +5,21 @@ import Spacer from '~/utils/Spacer';
 
 const NoSignerWallet: React.FC = () => {
   return (
-    <div className='w-[22rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
-      <span className='text-textWhite text-xl font-bold'>
+    <div className='w-[22rem] rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6'>
+      <span className='text-textGray dark:text-textWhite text-xl font-bold'>
         Connect a signer wallet
       </span>
 
       <Spacer size={16} axis={'vertical'} />
 
-      <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgDarkLight'>
+      <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight'>
         <div className='flex flex-col items-center w-full'>
           <Icon type={'AccountCircle'} size={'xxl'} color={'white'} />
 
           <Spacer size={8} axis={'vertical'} />
 
           <div>
-            <span className='text-base text-textWhite'>
+            <span className='text-base text-textGray dark:text-textWhite'>
               In order to select the network to create your Meson Wallet, your
               wallet needs to be connected.
             </span>
@@ -32,7 +32,7 @@ const NoSignerWallet: React.FC = () => {
           <Spacer size={16} axis={'vertical'} />
 
           <div className='w-full'>
-            <span className='text-textWhite text-base font-bold'>
+            <span className='text-textGray dark:text-textWhite text-base font-bold'>
               Available Wallets
             </span>
             <Spacer size={8} axis={'vertical'} />

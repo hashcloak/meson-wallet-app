@@ -83,7 +83,7 @@ const SwitchMesonWallet: React.FC = () => {
         </div>
         {mesonWallet.mesonWallet !== undefined ? (
           <>
-            <span className='text-textWhite text-xl font-bold'>
+            <span className='text-textGray dark:text-textWhite text-xl font-bold'>
               Current wallet
             </span>
             <div className='flex flex-col mb-12'>
@@ -110,12 +110,12 @@ const SwitchMesonWallet: React.FC = () => {
 
         {wallets.length > 0 ? (
           <div className='flex flex-col mb-12'>
-            <span className='text-textWhite text-xl font-bold'>
+            <span className='text-textGray dark:text-textWhite text-xl font-bold'>
               Recently used
             </span>
             <>
               {newNetworkArray.map((network) => (
-                <React.Fragment                     key={network}                >
+                <React.Fragment key={network}>
                   <div
                     className='w-full h-6 px-6 text-sm text-center border-borderGray rounded m-0 bg-gradient-to-r from-[#CFC3FA] to-[#A5FCF4]
     text-textBlack'
@@ -123,7 +123,9 @@ const SwitchMesonWallet: React.FC = () => {
                     {network}
                   </div>
                   {wallets.map((w, idx) => (
-                    <React.Fragment key={w.mesonWallet.mesonWallet?.mesonWalletAddress}>
+                    <React.Fragment
+                      key={w.mesonWallet.mesonWallet?.mesonWalletAddress}
+                    >
                       {w.mesonWallet.mesonWallet?.mesonWalletAddress ===
                       mesonWallet.mesonWallet?.mesonWalletAddress ? null : (
                         <>

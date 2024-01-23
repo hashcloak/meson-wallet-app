@@ -21,7 +21,7 @@ const MesonCircle: React.FC<Props> = ({ iconSize, color }) => {
       fill={fill}
       width={px}
       height={px}
-      className='object-contain'
+      className='object-contain dark:fill-none fill-textGray'
     >
       <circle cx='18.1299' cy='16' r='15.5' stroke='#E5E5E5' />
       <rect

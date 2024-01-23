@@ -6,19 +6,19 @@ import Switch from '~/components/atoms/Switch';
 import RemoveWalletModal from '~/components/organisms/RemoveWalletModal';
 import { currencies } from '~/utils/Currencies';
 import Spacer from '~/utils/Spacer';
+import { useSaveTheme } from '~/hooks';
 
 const GeneralSettings: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [currency, setCurrency] = useState('USD');
   const [openRemoveWalletModal, setOpenRemoveWalletModal] = useState(false);
+  const { isDarkMode, handleDarkMode } = useSaveTheme();
 
-  const handleDarkMode = () => setIsDarkMode(isDarkMode);
   const handleCurrency = (value: string) => setCurrency(value);
   const handleRemoveWalletModal = () =>
     setOpenRemoveWalletModal(!openRemoveWalletModal);
 
   return (
-    <div className='flex flex-col w-full rounded-2xl bg-bgDarkLight text-textWhite text-lg px-8 py-4 h-full'>
+    <div className='flex flex-col w-full rounded-2xl bg-bgGrayLight dark:bg-bgDarkLight text-textDark dark:text-textWhite text-lg px-8 py-4 h-full'>
       <span className='text-3xl font-bold'>General</span>
       <Spacer size={24} axis={'vertical'} />
       <div className='flex flex-col'>
@@ -51,7 +51,8 @@ const GeneralSettings: React.FC = () => {
                 on: 'On',
                 off: 'Off',
               }}
-              handleClick={handleDarkMode}
+              handleClick={() => handleDarkMode(!isDarkMode)}
+              defaultStatus={isDarkMode}
             />
           </div>
           <div className='flex flex-row'>

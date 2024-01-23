@@ -36,7 +36,7 @@ const Card: React.FC<Props> = ({ tx }) => {
     case 'Send' || 'Sent':
       relatedAddress = (
         <>
-          <span className='text-sm text-textWhite text-left w-full'>To:</span>
+          <span className='text-sm text-left w-full'>To:</span>
           <span className='flex flex-row items-center'>
             <EthAddress
               ethAddress={to ?? ''}
@@ -51,7 +51,7 @@ const Card: React.FC<Props> = ({ tx }) => {
     case 'Received':
       relatedAddress = (
         <>
-          <span className='text-sm text-textWhite text-left w-full'>From:</span>
+          <span className='text-sm text-left w-full'>From:</span>
           <span className='flex flex-row items-center'>
             <EthAddress
               ethAddress={from}
@@ -66,7 +66,7 @@ const Card: React.FC<Props> = ({ tx }) => {
     case 'AccountCreated':
       relatedAddress = (
         <>
-          <span className='text-sm text-textWhite text-left w-full'>
+          <span className='text-sm text-left w-full'>
             Creator:
           </span>
           <span className='flex flex-row items-center'>
@@ -87,9 +87,9 @@ const Card: React.FC<Props> = ({ tx }) => {
       <div className="flex justify-center items-center h-[18rem] after:w-[4rem] after:border-t-2 after:border-borderGray after:content-['']">
         <div className='w-full h-full flex justify-center items-start'>
           <span className='relative w-[12.5rem] text-center'>
-            <span className='text-sm font-bold text-textWhite'>{date}</span>
+            <span className='text-sm font-bold'>{date}</span>
             <br />
-            <span className='text-sm text-textWhite'>{time}</span>
+            <span className='text-sm'>{time}</span>
             <div className='w-full flex justify-center'>
                 <Icon type={'CheckCircle'} size={'xl'} color={'main'} />
             </div>
@@ -98,7 +98,8 @@ const Card: React.FC<Props> = ({ tx }) => {
   w-[12.5rem]
   h-[13rem]
   rounded-2xl
-  bg-bgDarkLight
+  dark:bg-bgDarkLight
+  bg-bgGrayLight
   p-4
   text-white
   absolute
@@ -115,6 +116,8 @@ const Card: React.FC<Props> = ({ tx }) => {
   after:border-transparent
   after:border-t-bgDarkLight
   hover:bg-dark
+  hover:text-textWhite
+  group
   "
               onClick={onClose}
               role='button'
@@ -139,7 +142,7 @@ const Card: React.FC<Props> = ({ tx }) => {
                       'N/A'
                     )}
                     <Spacer size={8} axis={'vertical'} />
-                    <span className='text-lg text-textWhite font-bold'>
+                    <span className='text-lg font-bold'>
                       {status === 'Send' || status === 'Sent' ? <>-</> : null}{' '}
                       {String(value)} {token.toUpperCase()}
                     </span>
@@ -147,7 +150,7 @@ const Card: React.FC<Props> = ({ tx }) => {
                 )}
               </span>
               <Spacer size={8} axis={'vertical'} />
-              <span className='flex flex-col justify-center items-center border-t-2 border-solid border-borderGray pt-2 h-1/3'>
+              <span className='flex flex-col justify-center items-center border-t-2 border-solid border-borderGray pt-2 h-1/3 group-hover:text-textWhite'>
                 {relatedAddress}
               </span>
             </div>

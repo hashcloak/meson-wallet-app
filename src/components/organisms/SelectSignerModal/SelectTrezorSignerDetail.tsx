@@ -112,7 +112,6 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   };
 
   const handleSelect = () => {
-    console.log('Select signer to: ', primarySigner);
     dispatch(setSignerWallet(primarySigner));
     onClose();
   };
@@ -146,9 +145,9 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
   };
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Select Base Path (Option)</span>
-      <div className=' bg-bgDarkLight p-4 rounded-2xl'>
+      <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl'>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
             <div className='flex gap-8 items-end justify-center'>
@@ -172,7 +171,7 @@ const SelectTrezorSignerDetail: React.FC<SelectTrezorSignerDetailType> = ({
       <Spacer size={32} axis={'vertical'} />
 
       <span className='text-lg'>Available signers</span>
-      <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col w-[928px]'>
+      <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col w-[928px]'>
         {isLoading ? (
           <div className='w-full h-full self-center'>
             <Spinner />

@@ -108,7 +108,10 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
 
   const methods = useForm({
     defaultValues: {
-      recipientAddress: recipientAddress !== undefined && recipientAddress?.length > 0 ? recipientAddress : '',
+      recipientAddress:
+        recipientAddress !== undefined && recipientAddress?.length > 0
+          ? recipientAddress
+          : '',
       selectedToken: mockTokens[0].value,
       sendingAmount: 0,
     },
@@ -135,14 +138,18 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const handleIsOpen = () => setIsOpen(!isOpen);
-  const [inputAddress, setInputAddress] = useState(recipientAddress !== undefined && recipientAddress?.length > 0 ? recipientAddress : '');
+  const [inputAddress, setInputAddress] = useState(
+    recipientAddress !== undefined && recipientAddress?.length > 0
+      ? recipientAddress
+      : ''
+  );
   const [inputAmount, setInputAmount] = useState(0);
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <div>
         <span className='text-left text-xl'>Sending from</span>
-        <div className='rounded-2xl bg-bgDarkLight p-4'>
+        <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>
           <EthAddress
             ethAddress={address}
             size={4.5}
@@ -152,7 +159,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
-              <span className='rounded-lg bg-light px-2 mr-2'>Balance</span>
+              <span className='text-textWhite rounded-lg bg-light px-2 mr-2'>Balance</span>
               <span>{balance}</span>
               <span className='ml-2'>ETH</span>
             </div>
@@ -175,7 +182,7 @@ export const SendFundsTxInput: React.FC<SendFundsTxInputProps> = ({
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
             <span className='text-xl'>Recipient</span>
-            <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
+            <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-full'>
               <InputControl
                 label='Recipient address'
                 placeholder='0xfF0000000000000000000000000000000000*'
@@ -360,10 +367,10 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
   };
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <div>
         <span className='text-left text-xl'>Sending from</span>
-        <div className='rounded-2xl bg-bgDarkLight p-4'>
+        <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>
           <EthAddress
             ethAddress={address}
             size={4.5}
@@ -414,7 +421,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
       <Spacer size={16} axis={'vertical'} />
       <div className='w-full'>
         <span className='text-xl'>Recipient</span>
-        <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
+        <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-full'>
           <EthAddress
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             ethAddress={sendingData!.recipientAddress}
@@ -440,7 +447,7 @@ const SendFundsTxDetails: React.FC<SendFundsTxDetailsProps> = ({
           />
         </div>
 
-        <div className='rounded-2xl bg-bgDarkLight p-4 w-full'>
+        <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-full'>
           <div className='flex flex-col w-full'>
             <div className='flex flex-row justify-between w-full'>
               <span>Nonce</span>
@@ -549,8 +556,8 @@ const SendFundsModal: React.FC<Props> = ({
               className={`fixed inset-0 bg-neutral-900 opacity-30 ${handleCursor}`}
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Send Funds{' '}
                 {!pageChange ? (
                   <span className='text-sm text-textGrayLight'>(1/2)</span>

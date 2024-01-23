@@ -57,7 +57,7 @@ const TxStatus: React.FC<Props> = ({ type, size, color, status }) => {
       {icons[type]}
       <Spacer size={8} axis={'horizontal'} />
       <span
-        className={`text-textWhite font-bold whitespace-nowrap ${
+        className={`text-textGray dark:text-textWhite group-hover:text-textWhite font-bold whitespace-nowrap ${
           status === 'OnChainRejection' ? 'text-sm' : 'text-base'
         }`}
       >

@@ -4,18 +4,26 @@ import { TokenTypes } from '~/components/molecules/IconText/Token';
 import Spacer from '~/utils/Spacer';
 import { useLoadPortfolio } from '~/hooks/useLoadPortfolio';
 
-type Props = { background?: 'bg-bgDarkMid' | 'bg-bgDarkLight' };
+type Props = {
+  background?:
+    | 'bg-bgGrayMid dark:bg-bgDarkMid'
+    | 'bg-bgGrayLight  dark:bg-bgDarkLight';
+};
 
 // TODO: This needs to be dynamically change based on the props
-const Portfolio: React.FC<Props> = ({ background = 'bg-bgDarkMid' }) => {
+const Portfolio: React.FC<Props> = ({
+  background = 'bg-bgGrayMid dark:bg-bgDarkMid',
+}) => {
   const { isLoading, tokens, totalAsset } = useLoadPortfolio();
 
   return (
     <div className='flex flex-col w-full min-w-[32.5rem]'>
-      <span className='text-textWhite text-2xl font-bold'>Portfolio</span>
+      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
+        Portfolio
+      </span>
 
       <div
-        className={`rounded-2xl text-textWhite px-8 py-6 w-full h-full box-border ${background}`}
+        className={`rounded-2xl text-textGray dark:text-textWhite px-8 py-6 w-full h-full box-border ${background}`}
       >
         <div className='flex flex-col items-center w-full'>
           {isLoading ? (
@@ -41,7 +49,7 @@ const Portfolio: React.FC<Props> = ({ background = 'bg-bgDarkMid' }) => {
                 </div>
                 <div className='col-span-1' />
                 <div className='flex flex-col items-start col-span-1'>
-                  <div className='flex flex-row text-base font-bold'>
+                  <div className='flex flex-row text-base font-bold text-textGray dark:text-textWhite'>
                     <span>{token.amount}</span>
                     <Spacer size={8} axis={'horizontal'} />
                     <span>{token.abbrev}</span>

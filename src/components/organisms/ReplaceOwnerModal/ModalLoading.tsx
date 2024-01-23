@@ -47,7 +47,7 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
   return (
     <>
       <div
-        className={`grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 w-full  text-textWhite text-base ${
+        className={`grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-full  text-textWhite text-base ${
           isLoading ? 'cursor-wait' : ''
         }`}
       >
@@ -133,10 +133,10 @@ const ReplaceOwnerDetails: React.FC<ReplaceOwnerDetailsProps> = ({
         tabIndex={0}
         className='collapse collapse-arrow border border-base-300 bg-base-100 rounded-box'
       >
-        <div className='collapse-title text-base font-bold bg-bgDarkLight'>
+        <div className='collapse-title text-base font-bold bg-bgGrayLight  dark:bg-bgDarkLight'>
           Advanced parameters
         </div>
-        <div className='collapse-content flex flex-col w-full bg-bgDarkLight'>
+        <div className='collapse-content flex flex-col w-full bg-bgGrayLight  dark:bg-bgDarkLight'>
           <div className='flex flex-row justify-around w-full'>
             <span>Nonce</span>
             <span>33</span>

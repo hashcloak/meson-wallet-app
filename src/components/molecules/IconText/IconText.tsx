@@ -11,7 +11,9 @@ type Props = {
 const IconText: React.FC<Props> = ({ iconType, iconColor, children }) => {
   return (
     <div className='flex flex-row justify-center items-center'>
-      <span className='text-textWhite text-2xl font-bold'>{children}</span>
+      <span className='text-2xl font-bold text-textGray dark:text-textWhite group-hover:text-textWhite'>
+        {children}
+      </span>
       <Spacer size={16} axis={'horizontal'} />
       <Icon type={iconType} size={'xl'} color={iconColor} />
     </div>

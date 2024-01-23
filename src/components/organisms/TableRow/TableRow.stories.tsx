@@ -7,10 +7,10 @@ export default {
 };
 
 export const Default: React.FC = (): React.ReactElement => (
-  <div className='overflow-x-auto w-full bg-bgDarkMid rounded-2xl py-4 px-8'>
+  <div className='overflow-x-auto w-full bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-4 px-8'>
     {/* <TableHeader /> */}
     <div className='flex flex-row justify-between'>
-      <span className='text-textWhite text-lg'>Queue</span>
+      <span className='text-textGray dark:text-textWhite text-lg'>Queue</span>
       <a href='https://google.com' className='text-textLink text-sm'>
         more
       </a>

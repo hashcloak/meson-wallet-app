@@ -7,9 +7,9 @@ export const theme = {
         'transition bg-alert text-textWhite hover:opacity-70 hover:border-none  focus:outline-none hover:outline-none active:outline-none',
       text: 'transition text-textLink hover:text-dark hover:border-none focus:outline-none hover:outline-none active:outline-none',
       border:
-        'transition border border-bgWhite text-textWhite hover:border-none hover:bg-bgWhite hover:text-textBlack focus:outline-none hover:outline-none active:outline-none',
+        'transition border border-bgDark dark:border-bgWhite text-textGray dark:text-textWhite hover:border-none hover:bg-bgWhite hover:text-textBlack focus:outline-none hover:outline-none active:outline-none',
       special:
-        'max-w-[25rem] w-full py-4 text-center bg-bgDarkMid hover:bg-dark',
+        'max-w-[25rem] w-full py-4 text-center bg-bgGrayMid dark:bg-bgDarkMid hover:bg-dark hover:text-textWhite group',
       disable:
         'bg-bgGray text-textGray focus:outline-none hover:outline-none active:outline-none',
     },

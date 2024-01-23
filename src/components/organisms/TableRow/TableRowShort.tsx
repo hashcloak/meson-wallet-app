@@ -21,7 +21,7 @@ const TableRowShort: React.FC<Props> = ({ tx }) => {
   return (
     <>
       <div
-        className='flex items-center rounded-2xl px-4 h-16  whitespace-nowrap mb-2 bg-bgDarkLight hover:bg-dark"'
+        className='flex items-center rounded-2xl px-4 h-16  whitespace-nowrap mb-2 bg-bgGrayLight  dark:bg-bgDarkLight hover:bg-dark"'
         onClick={() => setIsOpen(!isOpen)}
         role='button'
         tabIndex={0}

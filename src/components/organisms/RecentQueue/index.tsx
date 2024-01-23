@@ -19,12 +19,12 @@ const RecentQueues: React.FC = () => {
 
   return (
     <div className='flex flex-col w-full'>
-      <span className='text-textWhite text-2xl font-bold'>
+      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
         Queue - Latest {mockTransactions.length} out of{' '}
         {mockTransactions.length > 5 ? mockTransactions.length : '5'} Txs
       </span>
 
-      <div className='rounded-2xl text-textWhite bg-bgDarkMid px-8 py-6 w-full h-full'>
+      <div className='rounded-2xl text-textWhite bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6 w-full h-full'>
         {queuedTxs.length ? (
           queuedTxs.map((tx, index) => <TableRowShort tx={tx} key={index} />)
         ) : (

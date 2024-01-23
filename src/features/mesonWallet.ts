@@ -2,9 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type Owner = {
+  [x: string]: string | undefined;
   ownerAddress: string;
   name: string;
-  address: string;
+  address?: string;
 };
 
 export type ContactType = {
@@ -44,7 +45,10 @@ export const MesonWalletSlice = createSlice({
   name: 'mesonWallet',
   initialState,
   reducers: {
-    setMesonWalletName: (state, action: PayloadAction<MesonWalletState>) => {
+    setMesonWalletName: (
+      state,
+      action: PayloadAction<{ walletName: string }>
+    ) => {
       state.walletName = action.payload.walletName;
     },
     setMesonWallet: (
@@ -99,8 +103,35 @@ export const MesonWalletSlice = createSlice({
     setTimestamp: (state) => {
       state.timestamp = new Date().getTime();
     },
+    editOwner: (state, action: PayloadAction<Owner>) => {
+      state.owners = state.owners?.map((owner) => {
+        if (owner.ownerAddress === action.payload.ownerAddress) {
+          return {
+            ...owner,
+            name: action.payload.name,
+          };
+        }
+
+        return owner;
+      });
+    },
+    replaceOwner: (
+      state,
+      action: PayloadAction<{ newOwner: Owner; currentOwnerAddress: string }>
+    ) => {
+      state.owners = state.owners?.map((owner) => {
+        if (owner.ownerAddress === action.payload.currentOwnerAddress) {
+          return {
+            ...owner,
+            ownerAddress: action.payload.newOwner.ownerAddress,
+            name: action.payload. newOwner.name,
+          };
+        }
+
+        return owner;
+      });
+    },
     setAll: (state, action: PayloadAction<MesonWalletState>) => {
-      console.log(action.payload)
       state.walletName = action.payload.walletName;
       state.owners = action.payload.owners;
       state.contacts = action.payload.contacts;
@@ -122,6 +153,7 @@ export const {
   resetMesonWallet,
   removeContacts,
   editContacts,
+  editOwner,
   setAll,
 } = MesonWalletSlice.actions;
 export default MesonWalletSlice.reducer;

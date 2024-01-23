@@ -10,8 +10,10 @@ const HistoryTable: React.FC = () => {
 
   return (
     <div className='flex flex-col w-full h-full'>
-      <span className='text-textWhite text-2xl font-bold'>History</span>
-      <div className='rounded-2xl bg-bgDarkMid p-8 w-full h-full overflow-scroll  box-border'>
+      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
+        History
+      </span>
+      <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid p-8 w-full h-full overflow-scroll  box-border'>
         <div className='box-border grid grid-cols-1 gap-2'>
           {historicalTxs.length ? (
             historicalTxs.map((tx) => <TableRowLong tx={tx} key={tx.hash} />)

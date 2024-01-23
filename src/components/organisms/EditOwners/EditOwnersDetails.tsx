@@ -4,10 +4,10 @@ import Spacer from '~/utils/Spacer';
 import AddOwnerModal from '../AddOwnerModal';
 import ChangeThresholdModal from '../ChangeThresholdModal';
 import OwnerRow from './OwnerRow';
-import { OwnerType } from '.';
+import { Owner } from '~/features/mesonWallet';
 
 const EditOwnersDetails: React.FC<{
-  owners: OwnerType[];
+  owners: Owner[];
   onClose: () => void;
 }> = ({ owners, onClose }) => {
   const [isOpenChangeThresholdModal, setIsOpenChangeThresholdModal] =
@@ -23,12 +23,12 @@ const EditOwnersDetails: React.FC<{
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center text-textWhite'>
+      <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
         <div>
           <span className='text-left'>Owners</span>
-          <div className='rounded-2xl bg-bgDarkLight p-4'>
-            {owners.map((owner: OwnerType) => (
-              <OwnerRow owner={owner} key={owner.address} />
+          <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>
+            {owners?.map((owner) => (
+              <OwnerRow owner={owner} key={owner.ownerAddress} />
             ))}
           </div>
           <Spacer size={32} axis={'vertical'} />

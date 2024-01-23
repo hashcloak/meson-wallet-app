@@ -36,7 +36,7 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
     name: z.string().min(1, { message: 'Name is required' }),
     address: z
       .string()
-      .min(1,{message: 'Please input valid eth address',})
+      .min(1, { message: 'Please input valid eth address' })
       .refine(
         (val) => {
           return ethers.utils.isAddress(val);
@@ -72,7 +72,7 @@ const AddNewContactDetails: React.FC<AddNewContactDetailsType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <InputControl
@@ -123,12 +123,12 @@ const AddNewContactModal: React.FC<Props> = ({ isOpen, onClose }) => {
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Add new contact
               </span>
 
-                <AddNewContactDetails onClose={onClose} />
+              <AddNewContactDetails onClose={onClose} />
             </Dialog.Panel>
           </div>
         </Dialog>

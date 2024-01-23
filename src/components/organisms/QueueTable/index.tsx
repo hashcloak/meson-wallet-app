@@ -4,8 +4,10 @@ import { TableRowLong } from '../TableRow';
 const QueueTable: React.FC = () => {
   return (
     <div className='flex flex-col w-full h-full'>
-      <span className='text-textWhite text-2xl font-bold'>Queue</span>
-      <div className='rounded-2xl bg-bgDarkMid px-8 py-4 w-full h-full overflow-scroll  box-border'>
+      <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
+        Queue
+      </span>
+      <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid px-8 py-4 w-full h-full overflow-scroll  box-border'>
         <div className='grid grid-cols-2 gap-32 box-border text-textGrayLight w-full px-4 mb-2'>
           <div className='grid grid-cols-2 '>
             <span className='col-span-1'>Action</span>

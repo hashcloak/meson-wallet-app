@@ -19,13 +19,15 @@ const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
   return (
     <>
       {isConnected && ethAddress.length ? (
-        <div className='w-[22rem] rounded-2xl bg-bgDarkMid px-8 py-6'>
-          <span className='text-textWhite text-xl font-bold'>
+        <div className='w-[22rem] rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid px-8 py-6'>
+          <span className='text-textGray dark:text-textWhite text-xl font-bold'>
             Your Meson Wallet
           </span>
           <Spacer size={16} axis={'vertical'} />
-          <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgDarkLight'>
-            <span className='text-textWhite'>Selected wallet</span>
+          <div className='flex flex-col w-full p-4 box-border rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight'>
+            <span className='text-textGray dark:text-textWhite'>
+              Selected wallet
+            </span>
 
             <Spacer size={16} axis={'vertical'} />
 
@@ -37,10 +39,10 @@ const ConnectedMesonWallet: React.FC<ConnectedMesonWalletProps> = ({
               />
               <span className='text-sm'>My wallet</span>
               <div className='flex flex-row items-center'>
-                <span className='text-textWhite text-sm font-bold'>
+                <span className='text-textGray dark:text-textWhite text-sm font-bold'>
                   eth:&nbsp;
                 </span>
-                <span className='text-textWhite text-base font-normal'>
+                <span className='text-textGray dark:text-textWhite text-base font-normal'>
                   {trimAddress(ethAddress)}
                 </span>
               </div>

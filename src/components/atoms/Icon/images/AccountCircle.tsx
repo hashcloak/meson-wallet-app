@@ -22,7 +22,7 @@ const AccountCircle: React.FC<Props> = ({ iconSize, color }) => {
       fill={fill}
       width={px}
       height={px}
-      className='object-contain'
+      className='object-contain dark:fill-bgWhite fill-bgDark'
     >
       <g>
         <rect fill='none' height='24' width='24' />

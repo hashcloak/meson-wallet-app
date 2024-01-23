@@ -34,7 +34,9 @@ export const TxContents: React.FC<{
   if (tx.status === 'AccountCreated') {
     content = (
       <>
-        <span className='text-textWhite font-bold'>Creator:</span>
+        <span className='text-textGray dark:text-textWhite font-bold'>
+          Creator:
+        </span>
         <div className='flex flex-row items-center pl-6 mt-2'>
           <EthAddress
             ethAddress={signerWalletAddress}
@@ -42,16 +44,14 @@ export const TxContents: React.FC<{
             length='full'
           />
         </div>
-        <span className='text-textWhite font-bold  mt-4'>Factory:</span>
+        <span className='text-textGray dark:text-textWhite font-bold  mt-4'>
+          Factory:
+        </span>
         <div className='flex flex-row items-center pl-6 mt-2'>
-          <EthAddress
-            ethAddress={tx.to ?? ''}
-            size={4.5}
-            length='full'
-          />
+          <EthAddress ethAddress={tx.to ?? ''} size={4.5} length='full' />
         </div>
         <Spacer size={32} axis={'vertical'} />
-        <div className='text-textWhite'>
+        <div className='text-textGray dark:text-textWhite'>
           <div className='grid grid-cols-[20%_1fr]'>
             <div className='font-bold text-sm flex flex-col'>
               <span>Tx Hash</span>
@@ -70,7 +70,7 @@ export const TxContents: React.FC<{
       <>
         {' '}
         <div>
-          <span className='text-textWhite'>
+          <span className='text-textGray dark:text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
               {String(tx.value)} {tx.token?.toUpperCase()}
@@ -79,14 +79,14 @@ export const TxContents: React.FC<{
           </span>
           <div className='flex flex-row items-center pl-6 mt-2'>
             <EthAddress
-              ethAddress={tx.status === 'Sent' ? (tx.to ?? '') : tx.from}
+              ethAddress={tx.status === 'Sent' ? tx.to ?? '' : tx.from}
               size={4.5}
               length='full'
             />
           </div>
         </div>
         <Spacer size={32} axis={'vertical'} />
-        <div className='text-textWhite'>
+        <div className='text-textGray dark:text-textWhite'>
           <div className='grid grid-cols-[20%_1fr]'>
             <div className='font-bold text-sm flex flex-col'>
               <span>Tx Hash</span>
@@ -104,7 +104,7 @@ export const TxContents: React.FC<{
               <span>{`${date}, ${time}`}</span>
               <Spacer size={16} axis={'vertical'} />
               <span>0 (call)</span>
-              <span>{(tx.gasPrice).toString()} wei</span>
+              <span>{tx.gasPrice.toString()} wei</span>
               <span>0x00000000...00000000</span>
               <span>65 bytes</span>
             </div>
@@ -116,7 +116,7 @@ export const TxContents: React.FC<{
     content = (
       <>
         <div>
-          <span className='text-textWhite'>
+          <span className='text-textGray dark:text-textWhite'>
             {tx.status}{' '}
             <span className='font-bold'>
               {String(tx.value)} {tx.token?.toUpperCase()}
@@ -128,7 +128,7 @@ export const TxContents: React.FC<{
           </div>
         </div>
         <Spacer size={32} axis={'vertical'} />
-        <div className='text-textWhite'>
+        <div className='text-textGray dark:text-textWhite'>
           <div className='grid grid-cols-[20%_1fr]'>
             <div className='font-bold text-sm flex flex-col'>
               <span>Tx Hash</span>
@@ -167,7 +167,7 @@ export const TxContents: React.FC<{
 
                       <span className='text-main font-bold ml-2'>
                         Confirmed
-                        <span className='text-textWhite text-sm font-normal ml-2'>
+                        <span className='text-textGray dark:text-textWhite text-sm font-normal ml-2'>
                           ({tx.confirmations} of {confirmation})
                         </span>
                       </span>
@@ -180,46 +180,50 @@ export const TxContents: React.FC<{
                       />
                     </div>
                   </div>
-                  {(tx.confirmations - tx.confirmations) === 0 ? (
-                  <div className='flex flex-col mb-2'>
-                  <div className='flex flex-row'>
-                    <Icon type={'CheckCircle'} size={'lg'} color={'white'} />
-                    <span className='text-textWhite font-bold ml-2'>
-                      Executed
-                    </span>
-                  </div>
-                </div>
-                  ):(
-                  <>
-                  <div className='flex flex-col mb-2'>
-                    <div className='flex flex-row'>
-                      <Icon type={'Circle'} size={'lg'} color={'white'} />
-                      <span className='text-textWhite font-bold ml-2'>
-                        Execution
-                      </span>
+                  {tx.confirmations - tx.confirmations === 0 ? (
+                    <div className='flex flex-col mb-2'>
+                      <div className='flex flex-row'>
+                        <Icon
+                          type={'CheckCircle'}
+                          size={'lg'}
+                          color={'white'}
+                        />
+                        <span className='text-textGray dark:text-textWhite font-bold ml-2'>
+                          Executed
+                        </span>
+                      </div>
                     </div>
+                  ) : (
+                    <>
+                      <div className='flex flex-col mb-2'>
+                        <div className='flex flex-row'>
+                          <Icon type={'Circle'} size={'lg'} color={'white'} />
+                          <span className='text-textGray dark:text-textWhite font-bold ml-2'>
+                            Execution
+                          </span>
+                        </div>
 
-                    <span className='text-textWhite text-sm font-normal pl-6'>
-                      Can be executed once the threshold is reached
-                    </span>
-                  </div>
-                  <div className='flex flex-row justify-around mt-6'>
-                    <Button
-                      btnVariant={'primary'}
-                      btnSize={'md'}
-                      btnType={'button'}
-                    >
-                      Confirm
-                    </Button>
-                    <Button
-                      btnVariant={'alert'}
-                      btnSize={'md'}
-                      btnType={'button'}
-                    >
-                      Reject
-                    </Button>
-                  </div>
-                  </>
+                        <span className='text-textGray dark:text-textWhite text-sm font-normal pl-6'>
+                          Can be executed once the threshold is reached
+                        </span>
+                      </div>
+                      <div className='flex flex-row justify-around mt-6'>
+                        <Button
+                          btnVariant={'primary'}
+                          btnSize={'md'}
+                          btnType={'button'}
+                        >
+                          Confirm
+                        </Button>
+                        <Button
+                          btnVariant={'alert'}
+                          btnSize={'md'}
+                          btnType={'button'}
+                        >
+                          Reject
+                        </Button>
+                      </div>
+                    </>
                   )}
                 </>
               ))}
@@ -243,8 +247,8 @@ const TxModal: React.FC<Props> = ({ isOpen, onClose, tx }) => {
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl mx-auto'>
-              <div className='flex items-center justify-between rounded-t-2xl px-4 h-16 bg-bgDarkLight whitespace-nowrap'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl mx-auto'>
+              <div className='flex items-center justify-between rounded-t-2xl px-4 h-16 bg-bgGrayLight  dark:bg-bgDarkLight whitespace-nowrap'>
                 <RowBodyLong tx={tx} />
               </div>
 

@@ -22,10 +22,10 @@ const ConnectedMesonWalletBtn: React.FC<ConnectedMesonWalletProps> = ({
           <div className='flex flex-col items-start'>
             <span className='text-sm'>My wallet</span>
             <div className='flex flex-row items-center'>
-              <span className='text-textWhite text-sm font-bold'>
+              <span className='text-textGray dark:text-textWhite text-sm font-bold'>
                 eth:&nbsp;
               </span>
-              <span className='text-textWhite text-base font-normal'>
+              <span className='text-textGray dark:text-textWhite text-base font-normal'>
                 {trimAddress(ethAddress)}
               </span>
             </div>

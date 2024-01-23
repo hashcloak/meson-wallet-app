@@ -49,13 +49,6 @@ export const useGetEstimatedTxCost = (): ReturnType => {
           Number(trimEth(ethers.utils.formatEther(estimatedGas)))
         );
 
-        // const gasPrice = await provider.getGasPrice()
-        // const gasEs = await provider.estimateGas({});
-        // const estimated = Number(ethers.utils.formatEther(gasPrice)) * Number(ethers.utils.formatEther(gasEs))
-        // console.log(ethers.utils.formatEther(gasEs));
-
-        // 0.000023661447495
-        // 0.000000000001406704
       } catch (error) {
         if (error instanceof Error) {
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

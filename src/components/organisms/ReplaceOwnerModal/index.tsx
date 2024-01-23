@@ -5,8 +5,7 @@ import { EditOwnerModalType as ReplaceOwnerModalType } from '../EditOwnerModal';
 
 import ReplaceOwnerDetails from './ReplaceOwnerDetails';
 import ReplaceOwnerInput from './ReplaceOwnerInput';
-
-type NewOwnerType = { newOwnerAddress: string; newOwnerName: string };
+import { Owner } from '~/features/mesonWallet';
 
 const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
   isOpen,
@@ -15,9 +14,9 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
   address,
 }) => {
   const [pageChange, setPageChange] = useState(false);
-  const [newOwner, setNewOwner] = useState<NewOwnerType>({
-    newOwnerAddress: '',
-    newOwnerName: '',
+  const [newOwner, setNewOwner] = useState<Owner>({
+    ownerAddress: '',
+    name: '',
   });
 
   const handlePageChange = () => setPageChange(!pageChange);
@@ -36,8 +35,8 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8'>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Replace owner{' '}
                 {!pageChange ? (
                   <span className='text-sm text-textGrayLight'>(1/2)</span>
@@ -46,7 +45,6 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
                 )}
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
 
                 {!pageChange ? (
@@ -67,7 +65,6 @@ const ReplaceOwnerModal: React.FC<ReplaceOwnerModalType> = ({
                   />
                 )}
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

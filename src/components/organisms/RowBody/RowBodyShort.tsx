@@ -11,15 +11,7 @@ type Props = {
 };
 
 const RowBodyShort: React.FC<Props> = ({ tx }) => {
-  const {
-    status,
-    token,
-    value,
-    timestamp,
-    to,
-    from,
-    numOfConfirmation,
-  } = tx;
+  const { status, token, value, timestamp, to, from, numOfConfirmation } = tx;
   const { date, time } = unixTimeConverter(Number(timestamp));
 
   return (
@@ -36,7 +28,7 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
             <div className='flex flex-row items-center'>
               <Logo type={`${token}Logo` as LogoTypes} size={'lg'} />
               <Spacer size={8} axis={'horizontal'} />
-              <span className='text-textWhite font-bold text-lg'>
+              <span className='text-textGray dark:text-textWhite font-bold text-lg'>
                 {String(value)} {token?.toUpperCase()}
               </span>
             </div>
@@ -51,20 +43,26 @@ const RowBodyShort: React.FC<Props> = ({ tx }) => {
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>
-        <span className='text-textWhite text-sm'>{date}</span>
+        <span className='text-textGray dark:text-textWhite text-sm'>
+          {date}
+        </span>
         <span className='text-textGrayLight text-xs'>{time}</span>
       </div>
       <Spacer size={16} axis={'horizontal'} />
       <div className='flex flex-col items-start w-full h-full'>
         {numOfConfirmation > 0 ? (
           <>
-            <span className='text-textWhite text-sm'>Needs confirmation</span>
+            <span className='text-textGray dark:text-textWhite text-sm'>
+              Needs confirmation
+            </span>
             <span className='text-textGrayLight text-xs'>
               {numOfConfirmation} out of 2
             </span>
           </>
         ) : (
-          <span className='text-textWhite text-sm'>Success</span>
+          <span className='text-textGray dark:text-textWhite text-sm'>
+            Success
+          </span>
         )}
       </div>
     </div>

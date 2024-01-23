@@ -47,7 +47,6 @@ export const getNetwork = async () => {
   });
   try {
     const chainId = await provider.getNetwork();
-    console.log('Chain ID: ', chainId);
   } catch (error) {
     throw new Error('API connection failed');
   }

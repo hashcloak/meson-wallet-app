@@ -51,7 +51,7 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
   } = useForm({ mode: 'onChange', resolver: zodResolver(schema) });
 
   const onSubmit = (): void => {
-    dispatch(removeWallet((mesonWallet?.mesonWalletAddress) ?? ""));
+    dispatch(removeWallet(mesonWallet?.mesonWalletAddress ?? ''));
     dispatch(resetMesonWallet());
     onClose();
     reset();
@@ -60,13 +60,13 @@ const RemoveWalletDetails: React.FC<RemoveWalletDetailsProps> = ({
   const onError = (errors: any, e: any) => console.log(errors, e);
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div>
-          <div className='rounded-2xl bg-bgDarkLight p-4'>
+          <div className='rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4'>
             <div className='w-full items-center'>
               <EthAddress
-                ethAddress={((mesonWallet?.mesonWalletAddress) ?? "")}
+                ethAddress={mesonWallet?.mesonWalletAddress ?? ''}
                 size={4.5}
                 length={'full'}
                 walletName={'My wallet'}
@@ -145,16 +145,14 @@ const RemoveWalletModal: React.FC<Props> = ({ isOpen, onClose }) => {
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Remove wallet
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
                 <RemoveWalletDetails isOpen={isOpen} onClose={onClose} />
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

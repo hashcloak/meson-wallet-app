@@ -6,11 +6,13 @@ type Props = {
 
 const StartLayout: React.FC<Props> = ({ topbar, body }) => {
   return (
-    <div className='w-screen h-screen flex flex-col'>
+    <div className='w-screen h-screen flex flex-col text-textGray dark:text-textWhite'>
       {topbar ? (
         <div className='w-full h-[3.5rem]'>{topbar}</div>
       ) : (
-        <div className='w-full h-[3.5rem] bg-bgDarkLight'>topbar</div>
+        <div className='w-full h-[3.5rem] bg-bgGrayLight  dark:bg-bgDarkLight'>
+          topbar
+        </div>
       )}
       {body ? (
         <div className='flex justify-center items-center w-full h-full box-border py-8 px-[4.5rem]'>

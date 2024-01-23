@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import EthAddress from '~/utils/Ethereum/EthAddress';
-import { mockOwners } from '~/utils/Mock';
 import Spacer from '~/utils/Spacer';
-import { OwnerType } from '../EditOwners';
+import { MesonWalletState, Owner } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 type ChangeThresholdDetailsProps = {
-  confirmation: string;
+  newConfirmation: number;
   onClose: () => void;
   onPageChange: () => void;
   onLoad: () => void;
@@ -14,13 +15,18 @@ type ChangeThresholdDetailsProps = {
 
 const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
   onClose,
-  confirmation,
+  newConfirmation,
   onPageChange,
   onLoad,
 }) => {
+  const { walletName, mesonWallet, owners } = useSelector<
+    RootState,
+    MesonWalletState
+  >((state) => state.mesonWallet);
+
   return (
     <>
-      <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgDarkLight p-4 text-textWhite text-base'>
+      <div className='grid grid-cols-[30%_1fr] gap-5 rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 text-textWhite text-base'>
         <div className='flex flex-col w-full'>
           <span className='text-xl underline'>Details</span>
           <Spacer size={8} axis={'vertical'} />
@@ -29,14 +35,14 @@ const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
               <span className='text-sm text-textGrayLight'>
                 Name of the Meson Wallet
               </span>
-              <span className='text-lg text-textWhite'>Sample wallet</span>
+              <span className='text-lg text-textWhite'>{walletName}</span>
             </div>
             <div className='flex flex-col mb-2'>
               <span className='text-sm text-textGrayLight'>
                 Address of the Meson Wallet
               </span>
               <EthAddress
-                ethAddress={'0xf86B25473cC08F04DA275B2847F2448cf041Fbd5'}
+                ethAddress={mesonWallet?.mesonWalletAddress ?? ''}
                 size={4.5}
                 length={'short'}
               />
@@ -52,7 +58,7 @@ const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
                 Required confirmation
               </span>
               <span className='text-lg text-textWhite'>
-                {confirmation} out of {mockOwners.length} owners
+                {newConfirmation} out of {owners?.length ?? 1} owners
               </span>
             </div>
           </div>
@@ -63,14 +69,14 @@ const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
           <Spacer size={8} axis={'vertical'} />
           <div className='pl-2 w-full'>
             {/* Owners */}
-            {mockOwners?.map((owner: OwnerType) => (
+            {owners?.map((owner: Owner) => (
               <EthAddress
-                ethAddress={owner.address}
+                ethAddress={owner.ownerAddress}
                 size={4.5}
                 length={'full'}
                 icons={true}
                 walletName={owner.name}
-                key={owner.address}
+                key={owner.ownerAddress}
               />
             ))}
           </div>
@@ -81,10 +87,10 @@ const ChangeThresholdDetails: React.FC<ChangeThresholdDetailsProps> = ({
         tabIndex={0}
         className='collapse collapse-arrow border border-base-300 bg-base-100 rounded-box'
       >
-        <div className='collapse-title text-base font-bold bg-bgDarkLight'>
+        <div className='collapse-title text-base font-bold bg-bgGrayLight  dark:bg-bgDarkLight'>
           Advanced parameters
         </div>
-        <div className='collapse-content flex flex-col w-full bg-bgDarkLight'>
+        <div className='collapse-content flex flex-col w-full bg-bgGrayLight  dark:bg-bgDarkLight'>
           <div className='flex flex-row justify-around w-full'>
             <span>Nonce</span>
             <span>33</span>

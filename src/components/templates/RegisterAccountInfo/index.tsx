@@ -104,14 +104,14 @@ const RegisterAccountInfo: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ② Register account info
         </span>
         <form onSubmit={handleSubmit(onSubmit, onError)}>
           <StepWrapper>
             {/* 1st row */}
             <StepContentLayout>
-              <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+              <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                 <span className='text-xl underline'>Adding owners</span>
                 <Spacer size={8} axis={'vertical'} />
                 <span>
@@ -191,7 +191,7 @@ const RegisterAccountInfo: React.FC = () => {
 
             {/* 2nd row */}
             <StepContentLayout>
-              <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+              <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                 <span className='text-xl underline'>
                   Set number of confirmation
                 </span>
@@ -204,7 +204,7 @@ const RegisterAccountInfo: React.FC = () => {
                 </span>
               </div>
 
-              <div className='flex flex-col text-textWhite'>
+              <div className='flex flex-col text-textGray dark:text-textWhite'>
                 <span>Any transaction requires the confirmation of:</span>
                 <div className='grid grid-cols-4'>
                   <div className='col-span-1 mr-2'>

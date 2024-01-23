@@ -11,7 +11,7 @@ const UnitInput: React.FC<InputProps> = ({
   unit,
   children,
   handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    console.log();
   },
 }) => {
   const {

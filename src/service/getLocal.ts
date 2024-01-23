@@ -20,7 +20,7 @@ export type CustomTransactionResponseType = Array<{
 
 export const getLocalHistoricalTxs = async (
   address: string,
-  contract: string,
+  contract: {smartContract:string},
   network: string
 ): Promise<ExtendedTransactionResponse[] | []> => {
   if (address === undefined) return [];
@@ -58,7 +58,7 @@ export const getLocalHistoricalTxs = async (
       const { creates, from, to } = tx.transactions;
 
       if (creates !== null && creates !== undefined) {
-        return creates.toLowerCase() === contract.toLowerCase();
+        return creates.toLowerCase() === contract.smartContract.toLowerCase();
       } else {
         return (
           from.toLowerCase() === address.toLowerCase() ||

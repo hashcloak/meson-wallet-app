@@ -17,7 +17,7 @@ const Stat: React.FC<Props> = ({ title, data }) => {
         <div className='stat-title text-textGrayLight font-bold'>
           {statTitle[title]}
         </div>
-        <div className='stat-value text-textWhite'>{data}</div>
+        <div className='stat-value text-textGray dark:text-textWhite'>{data}</div>
       </div>
     </div>
   );

@@ -1,18 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ethers } from 'ethers';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import NewOwnerInput from '~/components/molecules/NewOwnerInput';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
-import { NewOwnerType } from '../AddOwnerModal';
+import { Owner } from '~/features/mesonWallet';
 
 type ReplaceOwnerInputType = {
   name: string;
   address: string;
   onClose: () => void;
   onPageChange: () => void;
-  onSetNewOwner: (data: NewOwnerType) => void;
+  onSetNewOwner: (data: Owner) => void;
 };
 
 const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
@@ -35,18 +36,26 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
     }, z.string().optional()),
     newOwnerAddress: z
       .string()
-      .min(1, { message: 'Owner Address is required' }),
+      .min(1, { message: 'Owner Address is required' })
+      .refine(
+        (val) => {
+          return ethers.utils.isAddress(val);
+        },
+        {
+          message: 'Please input valid eth address',
+        }
+      ),
   });
 
   const methods = useForm({
     defaultValues: {
-      newOwnerName: '',
-      newOwnerAddress: '',
+      name: '',
+      ownerAddress: '',
     },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: NewOwnerType) => {
+  const onSubmit = (data: Owner) => {
     onSetNewOwner(data);
     onPageChange?.();
   };
@@ -54,9 +63,9 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Current owner</span>
-      <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+      <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>
           <EthAddress
             ethAddress={address}
@@ -72,7 +81,7 @@ const ReplaceOwnerInput: React.FC<ReplaceOwnerInputType> = ({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New owner</span>
-          <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+          <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
             <NewOwnerInput />
           </div>
 

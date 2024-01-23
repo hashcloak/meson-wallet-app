@@ -20,8 +20,8 @@ const LastOpenedWallet: React.FC<Props> = () => {
   const { wallets, switchWallet } = useControlWallet();
 
   return (
-    <div className='w-[51rem] max-h-[27rem] min-h-[6.5ren] bg-bgDarkMid py-4 px-8 rounded-2xl box-border '>
-      <span className='text-textWhite text-xl font-bold'>
+    <div className='w-[51rem] max-h-[27rem] min-h-[6.5ren] bg-bgGrayMid dark:bg-bgDarkMid py-4 px-8 rounded-2xl box-border '>
+      <span className='text-textGray dark:text-textWhite text-xl font-bold'>
         Last Opened Wallet
       </span>
       <Spacer size={16} axis={'vertical'} />
@@ -35,7 +35,7 @@ const LastOpenedWallet: React.FC<Props> = () => {
             onClick={() => switchWallet(idx)}
           >
             <div
-              className='px-6 mb-2 hover:bg-dark w-full rounded-xl'
+              className='px-6 mb-2 hover:bg-dark text-textGray dark:text-textWhite w-full rounded-xl group'
               role='button'
               tabIndex={0}
             >

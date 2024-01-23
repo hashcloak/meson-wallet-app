@@ -16,7 +16,7 @@ const Dot: React.FC<StepProps> = ({ text, isActive, step }) => {
         </span>
       </div>
       <Spacer size={4} axis={'vertical'} />
-      <span className='text-xs font-medium text-textWhite text-center'>
+      <span className='text-xs font-medium text-textGray dark:text-textWhite text-center'>
         {text}
       </span>
     </div>

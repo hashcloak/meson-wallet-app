@@ -59,13 +59,13 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col justify-center items-center text-textWhite'>
+    <div className='flex flex-col justify-center items-center text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <div className='flex flex-row justify-center'>
             <div>
               <span className='text-left'>Current Nonce</span>
-              <div className='flex justify-center items-center rounded-2xl bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
+              <div className='flex justify-center items-center rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
                 <span>{nonce}</span>
               </div>
             </div>{' '}
@@ -76,7 +76,7 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
             <Spacer size={8} axis={'horizontal'} />
             <div>
               <span className='text-left'>New Nonce</span>
-              <div className='flex flex-col justify-center items-center rounded-2xl bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
+              <div className='flex flex-col justify-center items-center rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
                 <InputControl
                   label=''
                   placeholder='Nonce'
@@ -92,7 +92,7 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
           <div className='flex flex-row justify-center'>
             <div>
               <span className='text-left'>Current TxGas</span>
-              <div className='flex justify-center items-center rounded-2xl bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
+              <div className='flex justify-center items-center rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
                 <span>{txGas}</span>
               </div>
             </div>{' '}
@@ -103,7 +103,7 @@ const AdvancedParametersInput: React.FC<AdvancedParamsInputPropsType> = ({
             <Spacer size={8} axis={'horizontal'} />
             <div>
               <span className='text-left'>New TxGas</span>
-              <div className='flex flex-col justify-center items-center rounded-2xl bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
+              <div className='flex flex-col justify-center items-center rounded-2xl bg-bgGrayLight  dark:bg-bgDarkLight p-4 w-[8rem] h-[4.5rem]'>
                 <InputControl
                   label=''
                   placeholder='TxGas'
@@ -159,16 +159,14 @@ export const AdvancedParametersModal: React.FC<Props> = ({
               className='fixed inset-0 bg-neutral-900 opacity-30'
               aria-hidden='true'
             />
-            <Dialog.Panel className='relative bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
-              <span className='text-textWhite text-2xl font-bold'>
+            <Dialog.Panel className='relative bg-bgGrayMid dark:bg-bgDarkMid rounded-2xl py-6 px-8 w-[40rem]'>
+              <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
                 Advanced parameters
               </span>
 
-              <Dialog.Description className='py-6'>
                 {/* Description */}
                 <AdvancedParametersInput onClose={onClose} />
                 {/* Description */}
-              </Dialog.Description>
             </Dialog.Panel>
           </div>
         </Dialog>

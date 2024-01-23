@@ -42,7 +42,6 @@ export const useConnectWC = (): ReturnValue => {
           },
         }),
       });
-      console.log(result)
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       setSignerAddress(result.account);

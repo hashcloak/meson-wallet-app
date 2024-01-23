@@ -14,7 +14,7 @@ const Button: React.FC<Props> = ({
   btnSize = 'lg',
   btnType = 'button',
   disabled = false,
-  handleClick = () => console.log('clicked'),
+  handleClick = () => console.log(''),
   children,
 }) => {
   const { variants, sizes } = theme.buttons;
@@ -22,7 +22,7 @@ const Button: React.FC<Props> = ({
   return (
     <button
       type={btnType}
-      className={`flex justify-center items-center rounded-xl text-center font-bold	text-sm	 ${variants[btnVariant]} ${sizes[btnSize]}`}
+      className={`flex justify-center items-center rounded-xl text-center font-bold	text-sm	${variants[btnVariant]} ${sizes[btnSize]}`}
       disabled={disabled}
       onClick={handleClick}
     >

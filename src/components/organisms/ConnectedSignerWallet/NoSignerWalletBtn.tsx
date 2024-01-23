@@ -7,7 +7,7 @@ const NoSignerWalletBtn: React.FC = () => {
       <Icon type={'AccountCircle'} size={'xxl'} color={'white'} />
       <Spacer size={8} axis={'horizontal'} />
       <div className='flex flex-col items-start'>
-        <span className='text-textWhite text-base font-bold'>
+        <span className='text-textGray dark:text-textWhite text-base font-bold'>
           Not Connected
         </span>
         <span className='text-alert text-xs font-normal'>

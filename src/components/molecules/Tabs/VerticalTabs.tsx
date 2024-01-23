@@ -22,20 +22,22 @@ const VerticalTabs: React.FC<Props> = ({ tabList }) => {
         }}
       >
         <div className='grid grid-cols-[20%_1fr] gap-6 h-full'>
-          <Tab.List className='flex flex-col items-center space-x-1 box-border rounded-2xl bg-bgDarkLight p-4 h-full'>
-            {tabList.map((item, idx) => (
+          <Tab.List className='flex flex-col items-center space-x-1 box-border rounded-2xl bg-bgGrayLight dark:bg-bgDarkLight p-4 h-full'>
+            {tabList.map((item) => (
               <Tab
                 className={({ selected }) =>
                   classNames(
-                    'rounded-3xl h-12 w-full text-center text-xl font-medium text-textWhite',
+                    'rounded-3xl h-12 w-full text-center text-xl font-medium dark:text-textWhite',
                     'focus:outline-none focus:ring-2 mb-2',
-                    selected ? 'bg-dark' : 'hover:bg-dark'
+                    selected
+                      ? 'bg-dark text-textWhite group'
+                      : 'hover:bg-dark hover:text-textWhite '
                   )
                 }
-                key={idx}
+                key={Object.keys(item)[0]}
               >
                 <div className='flex flex-row justify-between w-full px-4'>
-                  {Object.keys(item)}
+                  {Object.keys(item)[0]}
                   <Icon type={'ChevronRight'} size={'lg'} color={'white'} />
                 </div>
               </Tab>

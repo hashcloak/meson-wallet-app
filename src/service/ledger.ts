@@ -86,8 +86,6 @@ export const signLedgerTx = async (txParams: {
   data: string;
 }): Promise<string> => {
   try {
-    console.log('txParams.data: ',txParams.data)
-
     const response: string = await invoke('sign_tx', {
       num: txParams.num,
       chainId: '5',
@@ -98,7 +96,6 @@ export const signLedgerTx = async (txParams: {
       data: txParams.data
     });
     const signedTx = (`0x${response.split(':')[1]}`).replace(/(\r\n|\n|\r)/gm, "")
-    console.log('ledger tx signed: ',signedTx)
 
     return signedTx;
   } catch (error) {

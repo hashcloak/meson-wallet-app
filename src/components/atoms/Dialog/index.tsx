@@ -9,21 +9,26 @@ type Props = {
 };
 
 const Dialog: React.FC<Props> = ({ popupBtn, popupContent }) => {
-const [isOpenDialog, setIsOpenDialog] = useState(false)
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
 
-useEffect(() => {
-  setIsOpenDialog(false)
-}, [popupContent])
+  useEffect(() => {
+    setIsOpenDialog(false);
+  }, [popupContent]);
 
   return (
-    <div className='flex flex-row justify-center bg-bgDarkLight h-[3.5rem] border-l-2 border-borderGray'>
+    <div className='flex flex-row justify-center bg-bgGrayLight  dark:bg-bgDarkLight h-[3.5rem] border-l-2 border-borderGray'>
       <Popover className='px-4 box-border relative flex items-center'>
-        <Popover.Button onClick={()=>setIsOpenDialog(!isOpenDialog)}>{popupBtn}</Popover.Button>
+        <Popover.Button onClick={() => setIsOpenDialog(!isOpenDialog)}>
+          {popupBtn}
+        </Popover.Button>
         {isOpenDialog && (
           <>
-            <div className="fixed inset-0 opacity-0" onClick={()=>setIsOpenDialog(false)} />
+            <div
+              className='fixed inset-0 opacity-0'
+              onClick={() => setIsOpenDialog(false)}
+            />
             <div className='absolute top-full left-[-46px] right-0 z-10'>
-            {popupContent}
+              {popupContent}
             </div>
           </>
         )}

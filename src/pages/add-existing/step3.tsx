@@ -4,7 +4,7 @@ import Topbar from '~/components/templates/Topbar';
 import WalletReview from '~/components/templates/WalletReview';
 import { BaseLayout } from '~/utils/Layouts';
 
-const Step3: React.FC = () => {
+const AddExistingStep3: React.FC = () => {
   return (
     <BaseLayout
       topbar={<Topbar />}
@@ -14,4 +14,4 @@ const Step3: React.FC = () => {
   );
 };
 
-export default Step3;
+export default AddExistingStep3;

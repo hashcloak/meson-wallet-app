@@ -211,10 +211,6 @@ export const countByYear = (): void => {
 
     return +txDate >= +start && +txDate < +end;
   });
-
-  console.log('y', txsInYear.length);
-  console.log('m', txsInMonth.length);
-  console.log('w', txsInWeek.length);
 };
 
 export const getLast12Months = (): Array<{ [key: string]: number }> => {

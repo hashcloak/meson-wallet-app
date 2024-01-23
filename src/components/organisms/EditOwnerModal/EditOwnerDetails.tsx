@@ -1,10 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { z } from 'zod';
 import { Button } from '~/components/atoms/Button';
 import { InputControl } from '~/components/atoms/Input';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
+import { editOwner } from '~/features/mesonWallet';
 
 export type EditOwnerDetailsType = {
   onClose: () => void;
@@ -18,9 +20,9 @@ const EditOwnerDetails: React.FC<EditOwnerDetailsType> = ({
   address,
 }) => {
   const schema = z.object({
-    newName: z.string().min(1, { message: 'Name is required' }),
-    newAddress: z.string().min(1, { message: 'Address is required' }),
+    newName: z.string(),
   });
+  const dispatch = useDispatch();
 
   const methods = useForm({
     defaultValues: {
@@ -29,18 +31,24 @@ const EditOwnerDetails: React.FC<EditOwnerDetailsType> = ({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = (data: { newName: string }) => {
+    dispatch(
+      editOwner({
+        ownerAddress: address,
+        name: data.newName,
+      })
+    );
+
     onClose();
   };
 
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
-          <div className=' bg-bgDarkLight rounded-2xl p-4'>
+          <div className=' bg-bgGrayLight  dark:bg-bgDarkLight rounded-2xl p-4'>
             <InputControl
               label='Name'
               placeholder='Name*'

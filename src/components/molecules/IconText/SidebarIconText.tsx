@@ -19,12 +19,12 @@ const SidebarIconText: React.FC<Props> = ({ type, text }) => {
         </span>
       ) : (
         <div
-          className={`flex flex-col items-center justify-center w-20 h-16 max-w-[5rem] max-h-16 rounded-2xl hover:bg-dark active:bg-dark ${newTxStyle}`}
+          className={`flex flex-col items-center justify-center w-20 h-16 max-w-[5rem] max-h-16 rounded-2xl hover:bg-dark active:bg-dark group ${newTxStyle}`}
           role='button'
           tabIndex={0}
         >
           <SidebarIcon type={type} size={'lg'} color={'white'} />
-          <span className='text-xs text-textWhite mt-2'>{text}</span>
+          <span className='text-xs text-textGray dark:text-textWhite group-hover:text-textWhite group-active:text-textWhite mt-2'>{text}</span>
         </div>
       )}
     </>

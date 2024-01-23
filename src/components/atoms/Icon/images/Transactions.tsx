@@ -22,6 +22,7 @@ const Transactions: React.FC<Props> = ({ iconSize, color }) => {
       fill={fill}
       width={px}
       height={px}
+      className="fill-textGray dark:fill-bgWhite group-hover:fill-bgWhite group-active:fill-bgWhite"
     >
       <g>
         <rect fill='none' height='24' width='24' x='0' />

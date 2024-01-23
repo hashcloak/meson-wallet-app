@@ -12,7 +12,7 @@ export const Home: FC = () => {
     <div className='w-screen h-screen flex flex-col'>
       <Topbar />
 
-      <div className='flex flex-col justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgDark'>
+      <div className='flex flex-col justify-center items-center w-full h-full box-border py-8 px-[4.5rem] bg-bgGray dark:bg-bgDark'>
         <img
           src='/assets/Meson_start_logo.png'
           alt='Meson Logo'
@@ -26,14 +26,24 @@ export const Home: FC = () => {
         <div className='flex flex-row justify-between items-center w-[51rem] '>
           <Link to='/create-new/step1' className='w-full'>
             <Button btnVariant={'special'} btnSize={'sp'} btnType={'button'}>
-              <IconText iconType={'CreateNew'} iconColor={'white'}>
+              <IconText
+                iconType={'CreateNew'}
+                iconColor={
+                  localStorage.getItem('theme') === 'dark' ? 'white' : 'gray'
+                }
+              >
                 Create new wallet
               </IconText>
             </Button>
           </Link>
           <Link to='/add-existing/step1' className='w-full'>
             <Button btnVariant={'special'} btnSize={'sp'} btnType={'button'}>
-              <IconText iconType={'AddExist'} iconColor={'white'}>
+              <IconText
+                iconType={'AddExist'}
+                iconColor={
+                  localStorage.getItem('theme') === 'dark' ? 'white' : 'gray'
+                }
+              >
                 Add existing wallet
               </IconText>
             </Button>

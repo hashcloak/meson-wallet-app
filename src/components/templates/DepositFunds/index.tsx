@@ -57,7 +57,7 @@ const DepositFund: React.FC = () => {
   );
 
   const { txReceipt } = useWalletConnectDeploy(
-    signerWallet.signerWalletAddress,
+    signerWallet.signerWalletAddress
   );
 
   // TODO: Need to add validation method for the input amount
@@ -157,7 +157,7 @@ const DepositFund: React.FC = () => {
                 mesonWallet: {
                   mesonWalletAddress: newMesonWallet?.mesonWalletAddress,
                   encryptedWallet: newMesonWallet?.encryptedWallet,
-                  smartContract
+                  smartContract,
                 },
               })
             );
@@ -190,7 +190,7 @@ const DepositFund: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ④ Create wallet
         </span>
         <FormProvider {...methods}>
@@ -198,7 +198,7 @@ const DepositFund: React.FC = () => {
             <StepWrapper>
               {/* 1st row */}
               <StepContentLayout>
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem]'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem]'>
                   <div>
                     <span className='text-xl underline'>Deposit funds</span>
                     <span className='text-sm'> (Optional)</span>
@@ -206,7 +206,7 @@ const DepositFund: React.FC = () => {
                   <Spacer size={8} axis={'vertical'} />
                   <div className='pl-4'>
                     <div className='flex flex-col mb-2'>
-                      <span className='text-lg text-textWhite'>
+                      <span className='text-lg text-textGray dark:text-textWhite'>
                         You can transfer funds from your signer wallet, but make
                         sure you have enough funds in it.
                       </span>
@@ -214,7 +214,7 @@ const DepositFund: React.FC = () => {
                   </div>
                 </div>
 
-                <div className='flex flex-col text-textWhite text-base max-w-[35rem] justify-center'>
+                <div className='flex flex-col text-textGray dark:text-textWhite text-base max-w-[35rem] justify-center'>
                   <div className='pl-4'>
                     <UnitInput
                       registeredName={register}

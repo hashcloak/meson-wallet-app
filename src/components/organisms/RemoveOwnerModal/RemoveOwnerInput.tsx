@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import { Options } from '~/components/atoms/Option/OptionControl';
 import OwnerConfirmation from '~/components/molecules//OwnerConfirmation';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 type RemoveOwnerInputType = {
   name: string;
@@ -22,6 +25,9 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   onNewConfirmation,
 }) => {
   const [numOfConfirmation, setNumOfConfirmation] = useState<Options[]>([]);
+  const { confirmation } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
 
   const methods = useForm({
     defaultValues: {
@@ -38,7 +44,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   const onError = (errors: any, e: any) => console.log('Error:', errors, e);
 
   useEffect(() => {
-    const fields = [1, 2];
+    const fields = [...Array(confirmation).keys()];
     const numOfOwners: Options[] = fields.map((_, index) => {
       return {
         value: String(index + 1),
@@ -50,9 +56,9 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
   }, []);
 
   return (
-    <div className='flex flex-col text-textWhite'>
+    <div className='flex flex-col text-textGray dark:text-textWhite'>
       <span className='text-lg'>Removing owner</span>
-      <div className=' bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
+      <div className=' bg-bgGrayLight  dark:bg-bgDarkLight p-4 flex flex-col rounded-2xl'>
         <div className='pl-4'>
           <EthAddress
             ethAddress={address}
@@ -67,7 +73,7 @@ const RemoveOwnerInput: React.FC<RemoveOwnerInputType> = ({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
           <span className='text-lg'>New required owner confirmation</span>
-          <div className='bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
+          <div className='bg-bgGrayLight  dark:bg-bgDarkLight p-4 rounded-2xl flex flex-col'>
             <OwnerConfirmation numOfConfirmation={numOfConfirmation} />
           </div>
           <Spacer size={24} axis={'vertical'} />

@@ -27,7 +27,6 @@ const OwnerSetting: React.FC = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: any): void => {
-    console.log('owners', data);
     reset();
   };
   const onError = (errors: any, e: any) => console.log(errors, e);
@@ -49,14 +48,14 @@ const OwnerSetting: React.FC = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full h-full box-border'>
       <div>
-        <span className='text-textWhite text-2xl font-bold'>
+        <span className='text-textGray dark:text-textWhite text-2xl font-bold'>
           ② Owner setting
         </span>
         <form onSubmit={handleSubmit(onSubmit, onError)}>
           <StepWrapper>
             {/* 1st row */}
-            <div className='rounded-2xl bg-bgDarkMid  box-border py-4 px-8'>
-              <div className='flex flex-col text-textWhite text-base '>
+            <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid  box-border py-4 px-8'>
+              <div className='flex flex-col text-textGray dark:text-textWhite text-base '>
                 <span>
                   This Meson wallet on Ethereum has {existingOwners.length}{' '}
                   owners. Optional: Provide a name for each owner.

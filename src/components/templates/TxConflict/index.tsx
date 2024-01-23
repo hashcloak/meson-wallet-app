@@ -20,7 +20,7 @@ export const TxOnChainRejection: React.FC = () => {
         </div>
 
         <Spacer size={32} axis={'vertical'} />
-        <div className='text-textWhite'>
+        <div className='text-textGray dark:text-textWhite'>
           <table className='table-auto border-separate border-spacing-x-2	text-left text-sm'>
             <tr>
               <th>Created</th>
@@ -94,7 +94,7 @@ export const TxOnChainRejection: React.FC = () => {
 
             <span className='text-main font-bold ml-2'>
               Confirmed
-              <span className='text-textWhite text-sm font-normal ml-2'>
+              <span className='text-textGray dark:text-textWhite text-sm font-normal ml-2'>
                 (1 of 1)
               </span>
             </span>
@@ -113,7 +113,7 @@ export const TxOnChainRejection: React.FC = () => {
             <Icon type={'Circle'} size={'lg'} color={'light'} />
             <span className='text-light font-bold ml-2'>
               Awaiting confirmations
-              <span className='text-textWhite text-sm font-normal ml-2'>
+              <span className='text-textGray dark:text-textWhite text-sm font-normal ml-2'>
                 (1 of 2)
               </span>
             </span>
@@ -131,10 +131,12 @@ export const TxOnChainRejection: React.FC = () => {
         <div className='flex flex-col mb-2'>
           <div className='flex flex-row'>
             <Icon type={'Circle'} size={'lg'} color={'white'} />
-            <span className='text-textWhite font-bold ml-2'>Execution</span>
+            <span className='text-textGray dark:text-textWhite font-bold ml-2'>
+              Execution
+            </span>
           </div>
 
-          <span className='text-textWhite text-sm font-normal pl-6'>
+          <span className='text-textGray dark:text-textWhite text-sm font-normal pl-6'>
             Can be executed once the threshold is reached
           </span>
         </div>
@@ -151,8 +153,8 @@ export const TxOnChainRejection: React.FC = () => {
 
 const TxConflict: React.FC = () => {
   return (
-    <div className='rounded-2xl bg-bgDarkMid'>
-      <div className='rounded-t-2xl bg-bgDarkLight h-16 flex items-center px-6'>
+    <div className='rounded-2xl bg-bgGrayMid dark:bg-bgDarkMid'>
+      <div className='rounded-t-2xl bg-bgGrayLight  dark:bg-bgDarkLight h-16 flex items-center px-6'>
         <RowBodyLong
           timestamp={tx[0].timestamp}
           status={tx[0].status}
@@ -174,7 +176,7 @@ const TxConflict: React.FC = () => {
 
       <div className='px-4 pb-4'>
         <div className='rounded-2xl'>
-          <div className='rounded-t-2xl bg-bgDarkLight h-16 flex items-center px-6 border border-borderGray'>
+          <div className='rounded-t-2xl bg-bgGrayLight  dark:bg-bgDarkLight h-16 flex items-center px-6 border border-borderGray'>
             <RowBodyLong
               timestamp={tx[0].timestamp}
               status={tx[0].status}
@@ -188,7 +190,7 @@ const TxConflict: React.FC = () => {
         </div>
         <Spacer size={16} axis={'vertical'} />
         <div className='rounded-2xl'>
-          <div className='rounded-t-2xl bg-bgDarkLight h-16 flex items-center px-6 border border-borderGray'>
+          <div className='rounded-t-2xl bg-bgGrayLight  dark:bg-bgDarkLight h-16 flex items-center px-6 border border-borderGray'>
             <RowBodyLong
               timestamp={tx[0].timestamp}
               status={tx[0].status}
