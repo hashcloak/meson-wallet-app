@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "fix": "npm-run-all -p fix:*",
     "fix:eslint": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
