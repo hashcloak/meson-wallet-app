@@ -1,0 +1,7 @@
+{
+  "walletConnect": {
+    "success": "Connected",
+    "error": "Please make sure your wallet is connected",
+    "networkError": "Something went wrong. Please retry."
+  }
+}

@@ -1,14 +1,29 @@
-import { resolve } from 'path'
+/// <reference types="vitest" />
+import { resolve } from 'path';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import type { InlineConfig } from 'vitest';
+import type { UserConfig } from 'vite';
 
-// https://vitejs.dev/config/
+interface VitestConfigExport extends UserConfig {
+  test: InlineConfig;
+}
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
       '~': resolve(__dirname, 'src'),
     },
   },
-})
+  define: {
+    'process.env': {},
+    global: {},
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+  },
+} as VitestConfigExport);
