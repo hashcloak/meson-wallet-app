@@ -7,8 +7,18 @@
     <title>Meson Wallet</title>
   </head>
   <body>
+    <script>window.global = window;</script>
+    <script type="module">
+        import { Buffer } from "buffer/";
+        import process from "process";
+
+        window.Buffer = Buffer;
+        window.process = process;
+    </script>
+    <script>window.require = () => {}</script>
+    <script type="module" src="src/components/organisms/NewTx/ReceiveFundsModal.tsx"></script>
     <script>
-      if (!('theme' in localStorage) || localStorage.theme === 'system') {
+      if (('theme' in localStorage) || localStorage.theme === 'system') {
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           document.documentElement.classList.add('dark')
         }
@@ -19,6 +29,7 @@
         document.documentElement.classList.remove('dark')
       }
     </script>
+    <!-- node // buffer-->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
