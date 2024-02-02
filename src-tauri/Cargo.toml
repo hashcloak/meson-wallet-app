@@ -17,7 +17,7 @@ tauri-build = { version = "1.3.0", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.3.0", features = ["http-all"] }
+tauri = { version = "1", default-features = false, features = ["compression", "devtools", "http-all", "wry"] }
 ethers-core = "2.0.4"
 ledger-transport-hid = "0.10.0"
 ledger-transport = "0.10.0"
@@ -35,3 +35,11 @@ rustflags = [
   "-Lnative=/home/username/.xwin/sdk/lib/um/x86_64",
   "-Lnative=/home/username/.xwin/sdk/lib/ucrt/x86_64"
 ]
+
+[target.armv7-unknown-linux-gnueabihf]
+linker = "arm-linux-gnueabihf-gcc"
+
+[target.aarch64-unknown-linux-gnu]
+linker = "aarch64-linux-gnu-gcc"
+
+

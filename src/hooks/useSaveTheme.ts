@@ -14,7 +14,7 @@ type ReturnType = () => {
 
 export const useSaveTheme: ReturnType = () => {
   const [value, setValue] = useLocalStorage<typeof Theme['Dark' | 'Light']>('theme')
-  const { isDarkMode, handleDarkMode } = useDarkMode(value === Theme.Dark)
+  const { isDarkMode, handleDarkMode } = useDarkMode((value === undefined) ? true : !!(value === Theme.Dark))
 
   const persistToggle = (isDark: boolean) => {
     handleDarkMode(isDark)
@@ -23,14 +23,14 @@ export const useSaveTheme: ReturnType = () => {
 
   useEffect(() => {
     if (
-      value === Theme.Dark ||
+      value === Theme.Light ||
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-      handleDarkMode(true)
-      setValue(Theme.Dark)
-    } else {
       handleDarkMode(false)
       setValue(Theme.Light)
+    } else {
+      handleDarkMode(true)
+      setValue(Theme.Dark)
     }
   }, [value, setValue, handleDarkMode])
 
