@@ -2,32 +2,51 @@ import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { useQRCode } from 'next-qrcode';
 
+import { useSelector } from 'react-redux';
 import { Button } from '~/components/atoms/Button';
 import Switch from '~/components/atoms/Switch';
 import EthAddress from '~/utils/Ethereum/EthAddress';
 import Spacer from '~/utils/Spacer';
+import { MesonWalletState } from '~/features/mesonWallet';
+import { RootState } from '~/features/reducers';
 
 const ReceiveTxDetails: React.FC<Props> = ({ onClose }) => {
   const [withPrefix, setWithPrefix] = useState(false);
   const { SVG } = useQRCode();
-  const ethAddress = '0xfF501B324DC6d78dC9F983f140B9211c3EdB4dc7';
+  const { mesonWallet } = useSelector<RootState, MesonWalletState>(
+    (state) => state.mesonWallet
+  );
   const selectedNetwork = 'eth';
 
   return (
     <div className='flex flex-col items-center text-textWhite rounded-2xl'>
       <div>
-        <span>
+        {/* <span>
           This is the address of your Meson wallet. Deposit funds by scanning
           the QR code or copying the address below. Only send ETH and assets to
           this address (e.g. ETH, ERC20, ERC721)!
+        </span> */}
+        <span>
+          This is the address of your Meson wallet. Deposit funds by copying the address below. Only send ETH and assets to
+          this address (e.g. ETH, ERC20, ERC721)!
         </span>
       </div>
-      <Spacer size={16} axis={'vertical'} />
-      <div className='flex flex-col justify-center items-center text-textWhite'>
-        <span>Meson Wallet</span>
+      {/* <Spacer size={16} axis={'vertical'} /> */}
+      {/* <div className='flex flex-col justify-center items-center text-textWhite'> */}
         {/* TODO:Check if the destination needs to be wallet url or not */}
-        <SVG
-          text={withPrefix ? `${selectedNetwork}:${ethAddress}` : ethAddress}
+        {/* <span>Meson Wallet</span> */}
+        {/* <SVG
+          text={
+            withPrefix
+              ? `${selectedNetwork}:${
+                  mesonWallet !== undefined
+                    ? mesonWallet.mesonWalletAddress
+                    : ''
+                }`
+              : mesonWallet !== undefined
+              ? mesonWallet.mesonWalletAddress
+              : ''
+          }
           options={{
             level: 'M',
             margin: 3,
@@ -38,20 +57,22 @@ const ReceiveTxDetails: React.FC<Props> = ({ onClose }) => {
               light: '#FFFFFF',
             },
           }}
-        />
-        <Spacer size={8} axis={'vertical'} />
-        <Switch
+        /> */}
+        {/* <Spacer size={8} axis={'vertical'} /> */}
+        {/* <Switch
           label={{
             on: `QR code with chain prefix (${selectedNetwork}:)`,
             off: `QR code without chain prefix (${selectedNetwork}:)`,
           }}
           handleClick={() => setWithPrefix(!withPrefix)}
           defaultStatus={false}
-        />
-      </div>
+        /> */}
+      {/* </div> */}
       <Spacer size={32} axis={'vertical'} />
       <EthAddress
-        ethAddress={ethAddress}
+        ethAddress={
+          mesonWallet !== undefined ? mesonWallet.mesonWalletAddress : ''
+        }
         size={4.5}
         length={'full'}
         walletName={'Myy wallet'}
@@ -96,9 +117,9 @@ const ReceiveFundsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                 Receive Funds
               </span>
 
-                {/* Description */}
-                <ReceiveTxDetails isOpen={isOpen} onClose={onClose} />
-                {/* Description */}
+              {/* Description */}
+              <ReceiveTxDetails isOpen={isOpen} onClose={onClose} />
+              {/* Description */}
             </Dialog.Panel>
           </div>
         </Dialog>
